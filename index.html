@@ -226,7 +226,6 @@ button{
 
 <body>
 
-
 <!-- =====================
 LOGIN
 ===================== -->
@@ -244,7 +243,6 @@ LOGIN
 <p class="subtitle">
 মোবাইল নম্বর দিয়ে প্রবেশ করো
 </p>
-
 
 <div id="loginBox">
 
@@ -271,7 +269,6 @@ maxlength="6"
 </div>
 
 </div>
-
 
 <div id="registerBox" class="hidden">
 
@@ -332,7 +329,6 @@ HOME
 
 </div>
 
-
 <div class="features">
 
 <div class="feature" onclick="openChat()">
@@ -356,7 +352,6 @@ HOME
 </div>
 
 </div>
-
 
 <div class="section">
 
@@ -382,7 +377,6 @@ placeholder="Room Code লিখো"
 </div>
 
 </div>
-
 
 <button
 class="logout"
@@ -567,6 +561,159 @@ onclick="showHome()"
 <script>
 
 /* =====================
+DUJON SERVER
+===================== */
+
+const WS_URL = "wss://dujon-app1.onrender.com";
+
+let socket = null;
+let currentRoom = null;
+
+
+/* =====================
+SERVER CONNECTION
+===================== */
+
+function connectRoom(code){
+
+currentRoom = code;
+
+if(socket){
+
+try{
+socket.close();
+}catch(e){}
+
+}
+
+socket = new WebSocket(WS_URL);
+
+
+socket.onopen = function(){
+
+console.log("Dujon server connected");
+
+socket.send(JSON.stringify({
+
+type:"join",
+room:currentRoom
+
+}));
+
+};
+
+
+socket.onmessage = function(event){
+
+let data;
+
+try{
+
+data = JSON.parse(event.data);
+
+}catch(e){
+
+return;
+
+}
+
+
+if(data.type === "joined"){
+
+console.log(
+"Room joined:",
+data.room
+);
+
+}
+
+
+if(data.type === "peer-joined"){
+
+alert(
+"❤️ অন্যজন Room-এ প্রবেশ করেছে!"
+);
+
+}
+
+
+if(data.type === "peer-left"){
+
+alert(
+"অন্যজন Room থেকে বের হয়ে গেছে।"
+);
+
+}
+
+
+if(data.type === "chat"){
+
+addMessage(
+data.text,
+false
+);
+
+}
+
+
+if(data.type === "error"){
+
+alert(
+data.message
+);
+
+}
+
+};
+
+
+socket.onerror = function(){
+
+console.log(
+"Server connection error"
+);
+
+};
+
+
+socket.onclose = function(){
+
+console.log(
+"Dujon server disconnected"
+);
+
+};
+
+}
+
+
+/* =====================
+CHAT MESSAGE DISPLAY
+===================== */
+
+function addMessage(text,mine){
+
+const box =
+document.getElementById("chatBox");
+
+const div =
+document.createElement("div");
+
+div.className =
+"message "+
+(mine ? "my-message" : "");
+
+div.innerText = text;
+
+box.appendChild(div);
+
+box.scrollTop =
+box.scrollHeight;
+
+}
+
+
+/* =====================
 ACCOUNT
 ===================== */
 
@@ -586,54 +733,78 @@ document.getElementById("confirmPin").value;
 
 if(phone.length<10){
 
-alert("সঠিক মোবাইল নম্বর লিখো 📱");
+alert(
+"সঠিক মোবাইল নম্বর লিখো 📱"
+);
+
 return;
 
 }
+
 
 if(pin.length<4 || pin.length>6){
 
-alert("PIN ৪-৬ সংখ্যার হতে হবে।");
+alert(
+"PIN ৪-৬ সংখ্যার হতে হবে।"
+);
+
 return;
 
 }
+
 
 if(!/^\d+$/.test(pin)){
 
-alert("PIN শুধু সংখ্যা হবে।");
+alert(
+"PIN শুধু সংখ্যা হবে।"
+);
+
 return;
 
 }
 
+
 if(pin!==confirm){
 
-alert("দুইটি PIN একই নয়।");
+alert(
+"দুইটি PIN একই নয়।"
+);
+
 return;
 
 }
 
 
 const user={
+
 phone:phone,
 pin:pin
+
 };
+
 
 localStorage.setItem(
 "dujon_user",
 JSON.stringify(user)
 );
 
+
 localStorage.setItem(
 "dujon_logged_in",
 "true"
 );
+
 
 localStorage.setItem(
 "dujon_current_phone",
 phone
 );
 
-alert("অ্যাকাউন্ট তৈরি হয়েছে ❤️");
+
+alert(
+"অ্যাকাউন্ট তৈরি হয়েছে ❤️"
+);
+
 
 showHome();
 
@@ -655,15 +826,21 @@ const pin=
 document.getElementById("loginPin").value;
 
 const saved=
-localStorage.getItem("dujon_user");
+localStorage.getItem(
+"dujon_user"
+);
 
 
 if(!saved){
 
-alert("আগে অ্যাকাউন্ট তৈরি করো।");
+alert(
+"আগে অ্যাকাউন্ট তৈরি করো।"
+);
+
 return;
 
 }
+
 
 const user=
 JSON.parse(saved);
@@ -679,16 +856,20 @@ localStorage.setItem(
 "true"
 );
 
+
 localStorage.setItem(
 "dujon_current_phone",
 phone
 );
 
+
 showHome();
 
 }else{
 
-alert("মোবাইল নম্বর অথবা PIN ভুল।");
+alert(
+"মোবাইল নম্বর অথবা PIN ভুল।"
+);
 
 }
 
@@ -703,15 +884,18 @@ function showHome(){
 
 hideAll();
 
+
 document
 .getElementById("homePage")
 .classList
 .remove("hidden");
 
+
 const phone=
 localStorage.getItem(
 "dujon_current_phone"
 );
+
 
 document
 .getElementById("userPhone")
@@ -728,13 +912,16 @@ HIDE ALL
 function hideAll(){
 
 const pages=[
+
 "authPage",
 "homePage",
 "roomPage",
 "chatPage",
 "videoPage",
 "audioPage"
+
 ];
+
 
 pages.forEach(id=>{
 
@@ -760,16 +947,26 @@ Math.floor(
 Math.random()*900000
 ).toString();
 
+
 localStorage.setItem(
 "dujon_room",
 code
 );
 
+
+/* SERVER CONNECT */
+
+connectRoom(code);
+
+
 document
 .getElementById("roomCode")
-.innerText=code;
+.innerText=
+code;
+
 
 hideAll();
+
 
 document
 .getElementById("roomPage")
@@ -779,17 +976,33 @@ document
 }
 
 
+/* =====================
+OPEN ROOM
+===================== */
+
 function openRoom(){
 
 const code=
-localStorage.getItem("dujon_room");
+localStorage.getItem(
+"dujon_room"
+);
+
 
 document
 .getElementById("roomCode")
 .innerText=
 code || "------";
 
+
+if(code){
+
+connectRoom(code);
+
+}
+
+
 hideAll();
+
 
 document
 .getElementById("roomPage")
@@ -798,6 +1011,10 @@ document
 
 }
 
+
+/* =====================
+JOIN ROOM
+===================== */
 
 function joinRoom(){
 
@@ -806,24 +1023,42 @@ document
 .getElementById("joinCode")
 .value.trim();
 
+
 if(code.length!==6){
 
-alert("৬ সংখ্যার Room Code লিখো।");
+alert(
+"৬ সংখ্যার Room Code লিখো।"
+);
+
 return;
 
 }
+
 
 localStorage.setItem(
 "dujon_room",
 code
 );
 
-alert("Room Code গ্রহণ করা হয়েছে ❤️");
+
+/* SERVER CONNECT */
+
+connectRoom(code);
+
+
+alert(
+"Room Code গ্রহণ করা হয়েছে ❤️"
+);
+
 
 openRoom();
 
 }
 
+
+/* =====================
+COPY ROOM CODE
+===================== */
 
 function copyRoomCode(){
 
@@ -832,16 +1067,23 @@ document
 .getElementById("roomCode")
 .innerText;
 
+
 if(code==="------"){
 
-alert("আগে একটি Room তৈরি করো।");
+alert(
+"আগে একটি Room তৈরি করো।"
+);
+
 return;
 
 }
 
+
 navigator.clipboard.writeText(code);
 
-alert("Room Code Copy হয়েছে 📋");
+alert(
+"Room Code Copy হয়েছে 📋"
+);
 
 }
 
@@ -854,31 +1096,96 @@ function openChat(){
 
 hideAll();
 
+
 document
 .getElementById("chatPage")
 .classList
 .remove("hidden");
+
+
+const room =
+localStorage.getItem(
+"dujon_room"
+);
+
+
+if(room){
+
+connectRoom(room);
+
+}
+
 
 loadMessages();
 
 }
 
 
+/* =====================
+SEND MESSAGE
+===================== */
+
 function sendMessage(){
 
 const input=
-document.getElementById("messageInput");
+document.getElementById(
+"messageInput"
+);
+
 
 const text=
 input.value.trim();
 
+
 if(!text)return;
 
 
+const room =
+localStorage.getItem(
+"dujon_room"
+);
+
+
+if(!room){
+
+alert(
+"আগে একটি Room তৈরি বা Join করো ❤️"
+);
+
+return;
+
+}
+
+
+/* SERVER CHAT */
+
+if(
+socket &&
+socket.readyState === WebSocket.OPEN
+){
+
+socket.send(
+JSON.stringify({
+
+type:"chat",
+room:room,
+text:text
+
+})
+);
+
+}
+
+
+/* LOCAL COPY */
+
 const messages=
 JSON.parse(
-localStorage.getItem("dujon_messages")||"[]"
+localStorage.getItem(
+"dujon_messages"
+)||"[]"
 );
+
 
 messages.push({
 
@@ -887,45 +1194,67 @@ mine:true
 
 });
 
+
 localStorage.setItem(
 "dujon_messages",
 JSON.stringify(messages)
 );
 
+
 input.value="";
+
 
 loadMessages();
 
 }
 
 
+/* =====================
+LOAD LOCAL MESSAGES
+===================== */
+
 function loadMessages(){
 
 const box=
-document.getElementById("chatBox");
+document.getElementById(
+"chatBox"
+);
+
 
 const messages=
 JSON.parse(
-localStorage.getItem("dujon_messages")||"[]"
+localStorage.getItem(
+"dujon_messages"
+)||"[]"
 );
+
 
 box.innerHTML="";
 
-messages.forEach(message=>{
+
+messages.forEach(
+message=>{
 
 const div=
-document.createElement("div");
+document.createElement(
+"div"
+);
+
 
 div.className=
 "message "+
-(message.mine?"my-message":"");
+(message.mine ?
+"my-message":"");
+
 
 div.innerText=
 message.text;
 
+
 box.appendChild(div);
 
 });
+
 
 box.scrollTop=
 box.scrollHeight;
@@ -941,6 +1270,7 @@ function openVideo(){
 
 hideAll();
 
+
 document
 .getElementById("videoPage")
 .classList
@@ -952,6 +1282,7 @@ document
 function openAudio(){
 
 hideAll();
+
 
 document
 .getElementById("audioPage")
@@ -972,10 +1303,12 @@ document
 .classList
 .add("hidden");
 
+
 document
 .getElementById("registerBox")
 .classList
 .remove("hidden");
+
 
 document
 .getElementById("authTitle")
@@ -992,10 +1325,12 @@ document
 .classList
 .add("hidden");
 
+
 document
 .getElementById("loginBox")
 .classList
 .remove("hidden");
+
 
 document
 .getElementById("authTitle")
@@ -1011,20 +1346,37 @@ LOGOUT
 
 function logout(){
 
+if(socket){
+
+try{
+
+socket.close();
+
+}catch(e){}
+
+socket=null;
+
+}
+
+
 localStorage.removeItem(
 "dujon_logged_in"
 );
+
 
 localStorage.removeItem(
 "dujon_current_phone"
 );
 
+
 hideAll();
+
 
 document
 .getElementById("authPage")
 .classList
 .remove("hidden");
+
 
 showLogin();
 
@@ -1042,6 +1394,7 @@ localStorage.getItem(
 "dujon_logged_in"
 );
 
+
 if(logged==="true"){
 
 showHome();
@@ -1049,6 +1402,7 @@ showHome();
 }else{
 
 hideAll();
+
 
 document
 .getElementById("authPage")
