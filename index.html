@@ -2,8 +2,10 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ছায়াছবি</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#0b0b12">
+
+<title>দুজন ❤️</title>
 
 <style>
 *{
@@ -14,108 +16,1048 @@
 
 body{
   font-family:Arial,sans-serif;
-  background:#0b0b0f;
   color:white;
+  background:linear-gradient(135deg,#08080d,#26101e);
   min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
 }
 
-.box{
-  width:90%;
-  max-width:420px;
-  background:#15151c;
-  padding:30px 20px;
-  border-radius:22px;
-  text-align:center;
-  box-shadow:0 10px 40px #000;
+button,input{
+  font:inherit;
 }
 
-h1{
-  margin-bottom:10px;
+.hidden{
+  display:none!important;
 }
 
-p{
-  color:#aaa;
-  margin-bottom:25px;
+.page{
+  min-height:100vh;
 }
 
-button{
+.container{
   width:100%;
-  padding:15px;
-  margin-top:12px;
-  border:0;
-  border-radius:12px;
-  background:#ff3b6b;
-  color:white;
-  font-size:16px;
-  font-weight:bold;
+  max-width:440px;
+  margin:auto;
+  padding:20px;
+}
+
+.card{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:25px;
+  padding:24px;
+  box-shadow:0 20px 50px rgba(0,0,0,.4);
+}
+
+.logo{
+  text-align:center;
+  font-size:45px;
+  margin-bottom:8px;
+}
+
+h1,h2{
+  text-align:center;
+}
+
+.subtitle{
+  text-align:center;
+  color:#bbb;
+  margin:8px 0 25px;
 }
 
 input{
   width:100%;
   padding:15px;
-  margin-top:15px;
-  border:none;
-  border-radius:12px;
-  background:#252530;
+  margin:7px 0;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:14px;
+  outline:none;
   color:white;
+  background:rgba(255,255,255,.08);
+}
+
+input::placeholder{
+  color:#999;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  margin-top:10px;
+  border:0;
+  border-radius:14px;
+  color:white;
+  background:linear-gradient(135deg,#ff416c,#ff4b2b);
+  font-weight:bold;
+}
+
+.link{
   text-align:center;
+  color:#ff7190;
+  margin-top:18px;
+}
+
+.home{
+  padding-top:35px;
+}
+
+.welcome{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.user{
+  color:#aaa;
+  margin-top:7px;
+  font-size:14px;
+}
+
+.features{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.feature{
+  padding:25px 10px;
+  border-radius:20px;
+  text-align:center;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.1);
+}
+
+.icon{
+  font-size:35px;
+  margin-bottom:8px;
+}
+
+.feature p{
+  font-size:14px;
+}
+
+.section{
+  margin-top:20px;
+}
+
+.title{
   font-size:18px;
+  margin-bottom:10px;
+}
+
+.room-code{
+  text-align:center;
+  font-size:28px;
+  letter-spacing:5px;
+  padding:18px;
+  background:rgba(255,255,255,.08);
+  border-radius:15px;
+  margin:10px 0;
+}
+
+.chat-box{
+  height:350px;
+  overflow-y:auto;
+  padding:15px;
+  border-radius:18px;
+  background:rgba(0,0,0,.25);
+}
+
+.message{
+  max-width:80%;
+  padding:10px 14px;
+  border-radius:15px;
+  margin:8px 0;
+  background:#333;
+}
+
+.my-message{
+  margin-left:auto;
+  background:#e83e62;
+}
+
+.chat-input{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+}
+
+.chat-input input{
+  margin:0;
+}
+
+.chat-input button{
+  width:70px;
+  margin:0;
+}
+
+.back{
+  background:#333;
+  margin-bottom:15px;
+}
+
+.logout{
+  background:#333;
+  margin-top:25px;
+}
+
+.call-screen{
+  text-align:center;
+  padding-top:60px;
+}
+
+.call-avatar{
+  font-size:90px;
+  margin:30px;
+}
+
+.call-buttons{
+  display:flex;
+  gap:10px;
+}
+
+.call-buttons button{
+  flex:1;
+}
+
+.end{
+  background:#d71945;
 }
 </style>
 </head>
 
 <body>
 
-<div class="box">
 
-  <h1>❤️ ছায়াছবি</h1>
-  <p>দুজনের জন্য একটি ব্যক্তিগত Room তৈরি করুন</p>
+<!-- =====================
+LOGIN
+===================== -->
 
-  <button onclick="createRoom()">
-    নতুন Room তৈরি করুন
-  </button>
+<div id="authPage" class="page">
 
-  <input
-    id="roomCode"
-    placeholder="Room Code লিখুন"
-    maxlength="10"
-  >
+<div class="container">
 
-  <button onclick="joinRoom()">
-    Room-এ প্রবেশ করুন
-  </button>
+<div class="card">
+
+<div class="logo">❤️</div>
+
+<h1 id="authTitle">দুজন</h1>
+
+<p class="subtitle">
+মোবাইল নম্বর দিয়ে প্রবেশ করো
+</p>
+
+
+<div id="loginBox">
+
+<input
+id="loginPhone"
+type="tel"
+placeholder="মোবাইল নম্বর"
+>
+
+<input
+id="loginPin"
+type="password"
+placeholder="PIN"
+inputmode="numeric"
+maxlength="6"
+>
+
+<button onclick="login()">
+লগইন ❤️
+</button>
+
+<div class="link" onclick="showRegister()">
+নতুন অ্যাকাউন্ট তৈরি করো
+</div>
 
 </div>
 
+
+<div id="registerBox" class="hidden">
+
+<input
+id="registerPhone"
+type="tel"
+placeholder="মোবাইল নম্বর"
+>
+
+<input
+id="registerPin"
+type="password"
+placeholder="৪-৬ সংখ্যার PIN"
+inputmode="numeric"
+maxlength="6"
+>
+
+<input
+id="confirmPin"
+type="password"
+placeholder="PIN আবার লিখো"
+inputmode="numeric"
+maxlength="6"
+>
+
+<button onclick="register()">
+অ্যাকাউন্ট তৈরি ❤️
+</button>
+
+<div class="link" onclick="showLogin()">
+আগে থেকেই অ্যাকাউন্ট আছে? লগইন করো
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================
+HOME
+===================== -->
+
+<div id="homePage" class="page hidden">
+
+<div class="container home">
+
+<div class="welcome">
+
+<div class="logo">💞</div>
+
+<h2>স্বাগতম দুজনে</h2>
+
+<p id="userPhone" class="user"></p>
+
+</div>
+
+
+<div class="features">
+
+<div class="feature" onclick="openChat()">
+<div class="icon">💬</div>
+<p>চ্যাট</p>
+</div>
+
+<div class="feature" onclick="openRoom()">
+<div class="icon">🔐</div>
+<p>প্রাইভেট রুম</p>
+</div>
+
+<div class="feature" onclick="openVideo()">
+<div class="icon">📹</div>
+<p>ভিডিও কল</p>
+</div>
+
+<div class="feature" onclick="openAudio()">
+<div class="icon">📞</div>
+<p>অডিও কল</p>
+</div>
+
+</div>
+
+
+<div class="section">
+
+<div class="title">
+🔐 আমাদের প্রাইভেট রুম
+</div>
+
+<div class="card">
+
+<input
+id="joinCode"
+placeholder="Room Code লিখো"
+>
+
+<button onclick="joinRoom()">
+রুমে প্রবেশ ❤️
+</button>
+
+<button onclick="createRoom()">
+নতুন রুম তৈরি
+</button>
+
+</div>
+
+</div>
+
+
+<button
+class="logout"
+onclick="logout()"
+>
+লগআউট
+</button>
+
+</div>
+
+</div>
+
+
+<!-- =====================
+ROOM
+===================== -->
+
+<div id="roomPage" class="page hidden">
+
+<div class="container">
+
+<button class="back" onclick="showHome()">
+← ফিরে যাও
+</button>
+
+<div class="card">
+
+<div class="logo">🔐</div>
+
+<h2>প্রাইভেট রুম</h2>
+
+<p class="subtitle">
+শুধু দুজনের জন্য ❤️
+</p>
+
+<div
+id="roomCode"
+class="room-code"
+>
+------
+</div>
+
+<button onclick="copyRoomCode()">
+📋 Room Code Copy
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================
+CHAT
+===================== -->
+
+<div id="chatPage" class="page hidden">
+
+<div class="container">
+
+<button class="back" onclick="showHome()">
+← ফিরে যাও
+</button>
+
+<div class="card">
+
+<h2>💬 আমাদের চ্যাট</h2>
+
+<br>
+
+<div
+id="chatBox"
+class="chat-box"
+>
+</div>
+
+<div class="chat-input">
+
+<input
+id="messageInput"
+placeholder="মেসেজ লিখো..."
+>
+
+<button onclick="sendMessage()">
+➤
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================
+VIDEO CALL
+===================== -->
+
+<div id="videoPage" class="page hidden">
+
+<div class="container">
+
+<button class="back" onclick="showHome()">
+← ফিরে যাও
+</button>
+
+<div class="card call-screen">
+
+<h2>📹 ভিডিও কল</h2>
+
+<div class="call-avatar">
+❤️
+</div>
+
+<p>
+ভিডিও কল প্রস্তুত
+</p>
+
+<div class="call-buttons">
+
+<button onclick="alert('ক্যামেরা চালু করার অংশ পরের ধাপে যোগ হবে ❤️')">
+📹 ক্যামেরা
+</button>
+
+<button
+class="end"
+onclick="showHome()"
+>
+☎ শেষ
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================
+AUDIO CALL
+===================== -->
+
+<div id="audioPage" class="page hidden">
+
+<div class="container">
+
+<button class="back" onclick="showHome()">
+← ফিরে যাও
+</button>
+
+<div class="card call-screen">
+
+<h2>📞 অডিও কল</h2>
+
+<div class="call-avatar">
+❤️
+</div>
+
+<p>
+অডিও কল প্রস্তুত
+</p>
+
+<button
+class="end"
+onclick="showHome()"
+>
+☎ কল শেষ
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
 <script>
+
+/* =====================
+ACCOUNT
+===================== */
+
+function register(){
+
+const phone=
+document.getElementById("registerPhone")
+.value.trim()
+.replace(/\D/g,"");
+
+const pin=
+document.getElementById("registerPin").value;
+
+const confirm=
+document.getElementById("confirmPin").value;
+
+
+if(phone.length<10){
+
+alert("সঠিক মোবাইল নম্বর লিখো 📱");
+return;
+
+}
+
+if(pin.length<4 || pin.length>6){
+
+alert("PIN ৪-৬ সংখ্যার হতে হবে।");
+return;
+
+}
+
+if(!/^\d+$/.test(pin)){
+
+alert("PIN শুধু সংখ্যা হবে।");
+return;
+
+}
+
+if(pin!==confirm){
+
+alert("দুইটি PIN একই নয়।");
+return;
+
+}
+
+
+const user={
+phone:phone,
+pin:pin
+};
+
+localStorage.setItem(
+"dujon_user",
+JSON.stringify(user)
+);
+
+localStorage.setItem(
+"dujon_logged_in",
+"true"
+);
+
+localStorage.setItem(
+"dujon_current_phone",
+phone
+);
+
+alert("অ্যাকাউন্ট তৈরি হয়েছে ❤️");
+
+showHome();
+
+}
+
+
+/* =====================
+LOGIN
+===================== */
+
+function login(){
+
+const phone=
+document.getElementById("loginPhone")
+.value.trim()
+.replace(/\D/g,"");
+
+const pin=
+document.getElementById("loginPin").value;
+
+const saved=
+localStorage.getItem("dujon_user");
+
+
+if(!saved){
+
+alert("আগে অ্যাকাউন্ট তৈরি করো।");
+return;
+
+}
+
+const user=
+JSON.parse(saved);
+
+
+if(
+user.phone===phone &&
+user.pin===pin
+){
+
+localStorage.setItem(
+"dujon_logged_in",
+"true"
+);
+
+localStorage.setItem(
+"dujon_current_phone",
+phone
+);
+
+showHome();
+
+}else{
+
+alert("মোবাইল নম্বর অথবা PIN ভুল।");
+
+}
+
+}
+
+
+/* =====================
+HOME
+===================== */
+
+function showHome(){
+
+hideAll();
+
+document
+.getElementById("homePage")
+.classList
+.remove("hidden");
+
+const phone=
+localStorage.getItem(
+"dujon_current_phone"
+);
+
+document
+.getElementById("userPhone")
+.innerText=
+"📱 "+phone;
+
+}
+
+
+/* =====================
+HIDE ALL
+===================== */
+
+function hideAll(){
+
+const pages=[
+"authPage",
+"homePage",
+"roomPage",
+"chatPage",
+"videoPage",
+"audioPage"
+];
+
+pages.forEach(id=>{
+
+document
+.getElementById(id)
+.classList
+.add("hidden");
+
+});
+
+}
+
+
+/* =====================
+ROOM
+===================== */
 
 function createRoom(){
 
-  const code =
-    Math.random().toString(36)
-    .substring(2,8)
-    .toUpperCase();
+const code=
+Math.floor(
+100000+
+Math.random()*900000
+).toString();
 
-  document.getElementById("roomCode").value = code;
+localStorage.setItem(
+"dujon_room",
+code
+);
 
-  alert("আপনার Room Code: " + code);
+document
+.getElementById("roomCode")
+.innerText=code;
+
+hideAll();
+
+document
+.getElementById("roomPage")
+.classList
+.remove("hidden");
+
 }
+
+
+function openRoom(){
+
+const code=
+localStorage.getItem("dujon_room");
+
+document
+.getElementById("roomCode")
+.innerText=
+code || "------";
+
+hideAll();
+
+document
+.getElementById("roomPage")
+.classList
+.remove("hidden");
+
+}
+
 
 function joinRoom(){
 
-  const code =
-    document.getElementById("roomCode").value.trim();
+const code=
+document
+.getElementById("joinCode")
+.value.trim();
 
-  if(!code){
-    alert("আগে Room Code লিখুন");
-    return;
-  }
+if(code.length!==6){
 
-  alert("Room " + code + " এ প্রবেশের প্রস্তুতি সম্পন্ন!");
+alert("৬ সংখ্যার Room Code লিখো।");
+return;
+
 }
+
+localStorage.setItem(
+"dujon_room",
+code
+);
+
+alert("Room Code গ্রহণ করা হয়েছে ❤️");
+
+openRoom();
+
+}
+
+
+function copyRoomCode(){
+
+const code=
+document
+.getElementById("roomCode")
+.innerText;
+
+if(code==="------"){
+
+alert("আগে একটি Room তৈরি করো।");
+return;
+
+}
+
+navigator.clipboard.writeText(code);
+
+alert("Room Code Copy হয়েছে 📋");
+
+}
+
+
+/* =====================
+CHAT
+===================== */
+
+function openChat(){
+
+hideAll();
+
+document
+.getElementById("chatPage")
+.classList
+.remove("hidden");
+
+loadMessages();
+
+}
+
+
+function sendMessage(){
+
+const input=
+document.getElementById("messageInput");
+
+const text=
+input.value.trim();
+
+if(!text)return;
+
+
+const messages=
+JSON.parse(
+localStorage.getItem("dujon_messages")||"[]"
+);
+
+messages.push({
+
+text:text,
+mine:true
+
+});
+
+localStorage.setItem(
+"dujon_messages",
+JSON.stringify(messages)
+);
+
+input.value="";
+
+loadMessages();
+
+}
+
+
+function loadMessages(){
+
+const box=
+document.getElementById("chatBox");
+
+const messages=
+JSON.parse(
+localStorage.getItem("dujon_messages")||"[]"
+);
+
+box.innerHTML="";
+
+messages.forEach(message=>{
+
+const div=
+document.createElement("div");
+
+div.className=
+"message "+
+(message.mine?"my-message":"");
+
+div.innerText=
+message.text;
+
+box.appendChild(div);
+
+});
+
+box.scrollTop=
+box.scrollHeight;
+
+}
+
+
+/* =====================
+CALL
+===================== */
+
+function openVideo(){
+
+hideAll();
+
+document
+.getElementById("videoPage")
+.classList
+.remove("hidden");
+
+}
+
+
+function openAudio(){
+
+hideAll();
+
+document
+.getElementById("audioPage")
+.classList
+.remove("hidden");
+
+}
+
+
+/* =====================
+LOGIN PAGE
+===================== */
+
+function showRegister(){
+
+document
+.getElementById("loginBox")
+.classList
+.add("hidden");
+
+document
+.getElementById("registerBox")
+.classList
+.remove("hidden");
+
+document
+.getElementById("authTitle")
+.innerText=
+"নতুন অ্যাকাউন্ট ❤️";
+
+}
+
+
+function showLogin(){
+
+document
+.getElementById("registerBox")
+.classList
+.add("hidden");
+
+document
+.getElementById("loginBox")
+.classList
+.remove("hidden");
+
+document
+.getElementById("authTitle")
+.innerText=
+"দুজন";
+
+}
+
+
+/* =====================
+LOGOUT
+===================== */
+
+function logout(){
+
+localStorage.removeItem(
+"dujon_logged_in"
+);
+
+localStorage.removeItem(
+"dujon_current_phone"
+);
+
+hideAll();
+
+document
+.getElementById("authPage")
+.classList
+.remove("hidden");
+
+showLogin();
+
+}
+
+
+/* =====================
+AUTO LOGIN
+===================== */
+
+window.onload=function(){
+
+const logged=
+localStorage.getItem(
+"dujon_logged_in"
+);
+
+if(logged==="true"){
+
+showHome();
+
+}else{
+
+hideAll();
+
+document
+.getElementById("authPage")
+.classList
+.remove("hidden");
+
+}
+
+};
 
 </script>
 
