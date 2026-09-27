@@ -88,12 +88,14 @@ button{
   color:white;
   background:linear-gradient(135deg,#ff416c,#ff4b2b);
   font-weight:bold;
+  cursor:pointer;
 }
 
 .link{
   text-align:center;
   color:#ff7190;
   margin-top:18px;
+  cursor:pointer;
 }
 
 .home{
@@ -123,6 +125,7 @@ button{
   text-align:center;
   background:rgba(255,255,255,.08);
   border:1px solid rgba(255,255,255,.1);
+  cursor:pointer;
 }
 
 .icon{
@@ -227,14 +230,9 @@ button{
 
 <body>
 
-<!-- =====================
-LOGIN
-===================== -->
-
+<!-- LOGIN -->
 <div id="authPage" class="page">
-
 <div class="container">
-
 <div class="card">
 
 <div class="logo">❤️</div>
@@ -271,6 +269,7 @@ maxlength="6"
 
 </div>
 
+
 <div id="registerBox" class="hidden">
 
 <input
@@ -306,16 +305,11 @@ maxlength="6"
 </div>
 
 </div>
-
+</div>
 </div>
 
-</div>
 
-
-<!-- =====================
-HOME
-===================== -->
-
+<!-- HOME -->
 <div id="homePage" class="page hidden">
 
 <div class="container home">
@@ -329,6 +323,7 @@ HOME
 <p id="userPhone" class="user"></p>
 
 </div>
+
 
 <div class="features">
 
@@ -354,6 +349,7 @@ HOME
 
 </div>
 
+
 <div class="section">
 
 <div class="title">
@@ -365,6 +361,8 @@ HOME
 <input
 id="joinCode"
 placeholder="Room Code লিখো"
+inputmode="numeric"
+maxlength="6"
 >
 
 <button onclick="joinRoom()">
@@ -379,22 +377,16 @@ placeholder="Room Code লিখো"
 
 </div>
 
-<button
-class="logout"
-onclick="logout()"
->
+
+<button class="logout" onclick="logout()">
 লগআউট
 </button>
 
 </div>
-
 </div>
 
 
-<!-- =====================
-ROOM
-===================== -->
-
+<!-- ROOM -->
 <div id="roomPage" class="page hidden">
 
 <div class="container">
@@ -405,36 +397,40 @@ ROOM
 
 <div class="card">
 
-<div class="logo">🔐</div>
+<div class="logo">
+🔐
+</div>
 
-<h2>প্রাইভেট রুম</h2>
+<h2>
+প্রাইভেট রুম
+</h2>
 
 <p class="subtitle">
 শুধু দুজনের জন্য ❤️
 </p>
 
-<div
-id="roomCode"
-class="room-code"
->
+<div id="roomCode" class="room-code">
 ------
 </div>
+
 
 <button onclick="copyRoomCode()">
 📋 Room Code Copy
 </button>
 
-</div>
+
+<!-- নতুন মেসেজ বাটন -->
+<button onclick="openChat()">
+💬 মেসেজ করুন
+</button>
 
 </div>
 
 </div>
+</div>
 
 
-<!-- =====================
-CHAT
-===================== -->
-
+<!-- CHAT -->
 <div id="chatPage" class="page hidden">
 
 <div class="container">
@@ -445,14 +441,13 @@ CHAT
 
 <div class="card">
 
-<h2>💬 আমাদের চ্যাট</h2>
+<h2>
+💬 আমাদের চ্যাট
+</h2>
 
 <br>
 
-<div
-id="chatBox"
-class="chat-box"
->
+<div id="chatBox" class="chat-box">
 </div>
 
 <div class="chat-input">
@@ -472,14 +467,10 @@ onkeydown="handleMessageKey(event)"
 </div>
 
 </div>
-
 </div>
 
 
-<!-- =====================
-VIDEO CALL
-===================== -->
-
+<!-- VIDEO CALL -->
 <div id="videoPage" class="page hidden">
 
 <div class="container">
@@ -490,7 +481,9 @@ VIDEO CALL
 
 <div class="card call-screen">
 
-<h2>📹 ভিডিও কল</h2>
+<h2>
+📹 ভিডিও কল
+</h2>
 
 <div class="call-avatar">
 ❤️
@@ -506,10 +499,7 @@ VIDEO CALL
 📹 ক্যামেরা
 </button>
 
-<button
-class="end"
-onclick="showHome()"
->
+<button class="end" onclick="showHome()">
 ☎ শেষ
 </button>
 
@@ -518,14 +508,10 @@ onclick="showHome()"
 </div>
 
 </div>
-
 </div>
 
 
-<!-- =====================
-AUDIO CALL
-===================== -->
-
+<!-- AUDIO CALL -->
 <div id="audioPage" class="page hidden">
 
 <div class="container">
@@ -536,7 +522,9 @@ AUDIO CALL
 
 <div class="card call-screen">
 
-<h2>📞 অডিও কল</h2>
+<h2>
+📞 অডিও কল
+</h2>
 
 <div class="call-avatar">
 ❤️
@@ -546,25 +534,21 @@ AUDIO CALL
 অডিও কল প্রস্তুত
 </p>
 
-<button
-class="end"
-onclick="showHome()"
->
+<button class="end" onclick="showHome()">
 ☎ কল শেষ
 </button>
 
 </div>
 
 </div>
-
 </div>
 
 
 <script>
 
-/* =====================
-DUJON SERVER
-===================== */
+/* =========================
+   DUJON SERVER
+========================= */
 
 const WS_URL =
 "wss://dujon-app1.onrender.com";
@@ -573,9 +557,9 @@ let socket = null;
 let currentRoom = null;
 
 
-/* =====================
-CONNECT ROOM
-===================== */
+/* =========================
+   CONNECT ROOM
+========================= */
 
 function connectRoom(code){
 
@@ -585,6 +569,8 @@ return;
 
 currentRoom = code;
 
+
+/* পুরোনো connection বন্ধ */
 if(socket){
 
 try{
@@ -594,6 +580,9 @@ socket.close();
 socket = null;
 
 }
+
+
+/* নতুন connection */
 
 socket = new WebSocket(WS_URL);
 
@@ -608,6 +597,7 @@ socket.send(
 JSON.stringify({
 
 type:"join",
+
 room:currentRoom
 
 })
@@ -636,7 +626,7 @@ return;
 }
 
 
-/* ROOM JOINED */
+/* JOINED */
 
 if(data.type==="joined"){
 
@@ -648,7 +638,7 @@ data.room
 }
 
 
-/* OTHER PERSON JOINED */
+/* অন্যজন এসেছে */
 
 if(data.type==="peer-joined"){
 
@@ -659,7 +649,7 @@ alert(
 }
 
 
-/* OTHER PERSON LEFT */
+/* অন্যজন বের হয়েছে */
 
 if(data.type==="peer-left"){
 
@@ -670,7 +660,7 @@ alert(
 }
 
 
-/* CHAT MESSAGE */
+/* CHAT */
 
 if(data.type==="chat"){
 
@@ -683,12 +673,17 @@ data.text,
 false
 );
 
-}
+saveLocalMessage(
+data.text,
+false
+);
 
 }
 
+}
 
-/* SERVER ERROR */
+
+/* ERROR */
 
 if(data.type==="error"){
 
@@ -722,11 +717,14 @@ console.log(
 }
 
 
-/* =====================
-ADD MESSAGE
-===================== */
+/* =========================
+   ADD MESSAGE
+========================= */
 
-function addMessage(text,mine){
+function addMessage(
+text,
+mine
+){
 
 const box =
 document.getElementById(
@@ -737,21 +735,24 @@ if(!box){
 return;
 }
 
+
 const div =
 document.createElement(
 "div"
 );
 
+
 div.className =
-"message "+
-(mine ?
-"my-message" :
-"");
+"message " +
+(mine ? "my-message" : "");
+
 
 div.innerText =
 text;
 
+
 box.appendChild(div);
+
 
 box.scrollTop =
 box.scrollHeight;
@@ -759,9 +760,9 @@ box.scrollHeight;
 }
 
 
-/* =====================
-ACCOUNT
-===================== */
+/* =========================
+   ACCOUNT REGISTER
+========================= */
 
 function register(){
 
@@ -772,10 +773,12 @@ document
 .trim()
 .replace(/\D/g,"");
 
+
 const pin =
 document
 .getElementById("registerPin")
 .value;
+
 
 const confirm =
 document
@@ -783,7 +786,7 @@ document
 .value;
 
 
-if(phone.length<10){
+if(phone.length < 10){
 
 alert(
 "সঠিক মোবাইল নম্বর লিখো 📱"
@@ -795,8 +798,8 @@ return;
 
 
 if(
-pin.length<4 ||
-pin.length>6
+pin.length < 4 ||
+pin.length > 6
 ){
 
 alert(
@@ -819,7 +822,7 @@ return;
 }
 
 
-if(pin!==confirm){
+if(pin !== confirm){
 
 alert(
 "দুইটি PIN একই নয়।"
@@ -833,6 +836,7 @@ return;
 const user = {
 
 phone:phone,
+
 pin:pin
 
 };
@@ -843,28 +847,32 @@ localStorage.setItem(
 JSON.stringify(user)
 );
 
+
 localStorage.setItem(
 "dujon_logged_in",
 "true"
 );
+
 
 localStorage.setItem(
 "dujon_current_phone",
 phone
 );
 
+
 alert(
 "অ্যাকাউন্ট তৈরি হয়েছে ❤️"
 );
+
 
 showHome();
 
 }
 
 
-/* =====================
-LOGIN
-===================== */
+/* =========================
+   LOGIN
+========================= */
 
 function login(){
 
@@ -875,10 +883,12 @@ document
 .trim()
 .replace(/\D/g,"");
 
+
 const pin =
 document
 .getElementById("loginPin")
 .value;
+
 
 const saved =
 localStorage.getItem(
@@ -902,8 +912,8 @@ JSON.parse(saved);
 
 
 if(
-user.phone===phone &&
-user.pin===pin
+user.phone === phone &&
+user.pin === pin
 ){
 
 localStorage.setItem(
@@ -911,10 +921,12 @@ localStorage.setItem(
 "true"
 );
 
+
 localStorage.setItem(
 "dujon_current_phone",
 phone
 );
+
 
 showHome();
 
@@ -929,35 +941,39 @@ alert(
 }
 
 
-/* =====================
-HOME
-===================== */
+/* =========================
+   HOME
+========================= */
 
 function showHome(){
 
 hideAll();
+
 
 document
 .getElementById("homePage")
 .classList
 .remove("hidden");
 
+
 const phone =
 localStorage.getItem(
 "dujon_current_phone"
 );
 
+
 document
 .getElementById("userPhone")
 .innerText =
-"📱 "+(phone || "");
+"📱 " +
+(phone || "");
 
 }
 
 
-/* =====================
-HIDE ALL
-===================== */
+/* =========================
+   HIDE ALL
+========================= */
 
 function hideAll(){
 
@@ -972,6 +988,7 @@ const pages = [
 
 ];
 
+
 pages.forEach(
 function(id){
 
@@ -980,22 +997,25 @@ document
 .classList
 .add("hidden");
 
-});
+}
+);
 
 }
 
 
-/* =====================
-CREATE ROOM
-===================== */
+/* =========================
+   CREATE ROOM
+========================= */
 
 function createRoom(){
 
 const code =
-Math.floor(
+Math
+.floor(
 100000 +
 Math.random()*900000
-).toString();
+)
+.toString();
 
 
 localStorage.setItem(
@@ -1003,14 +1023,18 @@ localStorage.setItem(
 code
 );
 
+
 connectRoom(code);
+
 
 document
 .getElementById("roomCode")
 .innerText =
 code;
 
+
 hideAll();
+
 
 document
 .getElementById("roomPage")
@@ -1020,9 +1044,9 @@ document
 }
 
 
-/* =====================
-OPEN ROOM
-===================== */
+/* =========================
+   OPEN ROOM
+========================= */
 
 function openRoom(){
 
@@ -1030,6 +1054,7 @@ const code =
 localStorage.getItem(
 "dujon_room"
 );
+
 
 document
 .getElementById("roomCode")
@@ -1043,7 +1068,9 @@ connectRoom(code);
 
 }
 
+
 hideAll();
+
 
 document
 .getElementById("roomPage")
@@ -1053,9 +1080,9 @@ document
 }
 
 
-/* =====================
-JOIN ROOM
-===================== */
+/* =========================
+   JOIN ROOM
+========================= */
 
 function joinRoom(){
 
@@ -1082,20 +1109,23 @@ localStorage.setItem(
 code
 );
 
+
 connectRoom(code);
+
 
 alert(
 "Room Code গ্রহণ করা হয়েছে ❤️"
 );
+
 
 openRoom();
 
 }
 
 
-/* =====================
-COPY ROOM CODE
-===================== */
+/* =========================
+   COPY ROOM CODE
+========================= */
 
 function copyRoomCode(){
 
@@ -1106,7 +1136,7 @@ document
 
 
 if(
-code==="------" ||
+code === "------" ||
 !code
 ){
 
@@ -1119,35 +1149,29 @@ return;
 }
 
 
-if(
-navigator.clipboard
-){
+if(navigator.clipboard){
 
 navigator.clipboard
 .writeText(code)
-.then(
-function(){
+.then(function(){
 
 alert(
 "Room Code Copy হয়েছে 📋"
 );
 
-}
-)
-.catch(
-function(){
+})
+.catch(function(){
 
 alert(
-"Code: "+code
+"Code: " + code
 );
 
-}
-);
+});
 
 }else{
 
 alert(
-"Code: "+code
+"Code: " + code
 );
 
 }
@@ -1155,19 +1179,11 @@ alert(
 }
 
 
-/* =====================
-OPEN CHAT
-===================== */
+/* =========================
+   OPEN CHAT
+========================= */
 
 function openChat(){
-
-hideAll();
-
-document
-.getElementById("chatPage")
-.classList
-.remove("hidden");
-
 
 const room =
 localStorage.getItem(
@@ -1188,23 +1204,62 @@ return;
 }
 
 
+/* Chat page আগে দেখানো */
+
+hideAll();
+
+
+document
+.getElementById("chatPage")
+.classList
+.remove("hidden");
+
+
+/* Room connect */
+
 connectRoom(room);
+
+
+/* Local messages */
 
 loadMessages();
 
-}
 
+/* Input focus */
 
-/* =====================
-SEND CHAT MESSAGE
-===================== */
-
-function sendMessage(){
+setTimeout(
+function(){
 
 const input =
 document.getElementById(
 "messageInput"
 );
+
+if(input){
+
+input.focus();
+
+}
+
+},
+100
+);
+
+}
+
+
+/* =========================
+   SEND MESSAGE
+========================= */
+
+function sendMessage(){
+
+const input =
+document
+.getElementById(
+"messageInput"
+);
+
 
 const text =
 input.value.trim();
@@ -1232,10 +1287,7 @@ return;
 }
 
 
-/*
-SERVER CONNECTED হলে
-message server-এ পাঠানো হবে
-*/
+/* Server connected */
 
 if(
 socket &&
@@ -1247,16 +1299,16 @@ socket.send(
 JSON.stringify({
 
 type:"chat",
+
 room:room,
+
 text:text
 
 })
 );
 
 
-/*
-নিজের ফোনে সঙ্গে সঙ্গে দেখানো
-*/
+/* নিজের ফোনে দেখাও */
 
 addMessage(
 text,
@@ -1264,16 +1316,16 @@ true
 );
 
 
-/*
-লোকাল হিস্টোরিতে রাখা
-*/
+/* নিজের local history */
 
 saveLocalMessage(
 text,
 true
 );
 
+
 input.value = "";
+
 
 }else{
 
@@ -1286,13 +1338,15 @@ alert(
 }
 
 
-/* =====================
-ENTER KEY SEND
-===================== */
+/* =========================
+   ENTER TO SEND
+========================= */
 
 function handleMessageKey(event){
 
-if(event.key==="Enter"){
+if(event.key === "Enter"){
+
+event.preventDefault();
 
 sendMessage();
 
@@ -1301,9 +1355,9 @@ sendMessage();
 }
 
 
-/* =====================
-SAVE LOCAL MESSAGE
-===================== */
+/* =========================
+   SAVE MESSAGE
+========================= */
 
 function saveLocalMessage(
 text,
@@ -1314,24 +1368,20 @@ const messages =
 JSON.parse(
 localStorage.getItem(
 "dujon_messages"
-)||"[]"
+) || "[]"
 );
 
 
 messages.push({
 
 text:text,
+
 mine:mine
 
 });
 
 
-/*
-অতিরিক্ত পুরোনো message
-সীমিত রাখা
-*/
-
-if(messages.length>100){
+if(messages.length > 100){
 
 messages.shift();
 
@@ -1346,9 +1396,9 @@ JSON.stringify(messages)
 }
 
 
-/* =====================
-LOAD LOCAL MESSAGES
-===================== */
+/* =========================
+   LOAD MESSAGES
+========================= */
 
 function loadMessages(){
 
@@ -1356,6 +1406,7 @@ const box =
 document.getElementById(
 "chatBox"
 );
+
 
 if(!box){
 return;
@@ -1366,7 +1417,7 @@ const messages =
 JSON.parse(
 localStorage.getItem(
 "dujon_messages"
-)||"[]"
+) || "[]"
 );
 
 
@@ -1381,18 +1432,20 @@ message.text,
 message.mine
 );
 
-});
+}
+);
 
 }
 
 
-/* =====================
-VIDEO CALL
-===================== */
+/* =========================
+   VIDEO
+========================= */
 
 function openVideo(){
 
 hideAll();
+
 
 document
 .getElementById("videoPage")
@@ -1402,13 +1455,14 @@ document
 }
 
 
-/* =====================
-AUDIO CALL
-===================== */
+/* =========================
+   AUDIO
+========================= */
 
 function openAudio(){
 
 hideAll();
+
 
 document
 .getElementById("audioPage")
@@ -1418,9 +1472,9 @@ document
 }
 
 
-/* =====================
-LOGIN PAGE
-===================== */
+/* =========================
+   REGISTER PAGE
+========================= */
 
 function showRegister(){
 
@@ -1429,10 +1483,12 @@ document
 .classList
 .add("hidden");
 
+
 document
 .getElementById("registerBox")
 .classList
 .remove("hidden");
+
 
 document
 .getElementById("authTitle")
@@ -1442,6 +1498,10 @@ document
 }
 
 
+/* =========================
+   LOGIN PAGE
+========================= */
+
 function showLogin(){
 
 document
@@ -1449,10 +1509,12 @@ document
 .classList
 .add("hidden");
 
+
 document
 .getElementById("loginBox")
 .classList
 .remove("hidden");
+
 
 document
 .getElementById("authTitle")
@@ -1462,9 +1524,9 @@ document
 }
 
 
-/* =====================
-LOGOUT
-===================== */
+/* =========================
+   LOGOUT
+========================= */
 
 function logout(){
 
@@ -1480,29 +1542,34 @@ socket = null;
 
 }
 
+
 localStorage.removeItem(
 "dujon_logged_in"
 );
+
 
 localStorage.removeItem(
 "dujon_current_phone"
 );
 
+
 hideAll();
+
 
 document
 .getElementById("authPage")
 .classList
 .remove("hidden");
 
+
 showLogin();
 
 }
 
 
-/* =====================
-AUTO LOGIN
-===================== */
+/* =========================
+   AUTO LOGIN
+========================= */
 
 window.onload =
 function(){
@@ -1513,13 +1580,14 @@ localStorage.getItem(
 );
 
 
-if(logged==="true"){
+if(logged === "true"){
 
 showHome();
 
 }else{
 
 hideAll();
+
 
 document
 .getElementById("authPage")
