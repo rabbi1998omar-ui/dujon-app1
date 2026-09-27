@@ -11,386 +11,51 @@ const rooms = new Map();
 console.log("Dujon server started on port " + PORT);
 
 
-/* =========================
-   CONNECTION
-========================= */
+/* ===============================
+   REMOVE CLIENT FROM ROOM
+================================ */
 
-server.on("connection", (socket) => {
+function removeFromRoom(socket) {
 
-  let currentRoom = null;
+  const room = socket.room;
 
-  console.log("New phone connected");
+  if (!room) return;
 
+  const clients = rooms.get(room);
 
-  /* =========================
-     MESSAGE
-  ========================= */
-
-  socket.on("message", (data) => {
-
-    let message;
-
-    try {
-
-      message = JSON.parse(
-        data.toString()
-      );
-
-    } catch (error) {
-
-      console.log("Invalid JSON");
-
-      return;
-
-    }
-
-
-    /* =========================
-       JOIN ROOM
-    ========================= */
-
-    if (message.type === "join") {
-
-      const room =
-        String(
-          message.room || ""
-        ).trim();
-
-
-      /* Room code check */
-
-      if (!/^\d{6}$/.test(room)) {
-
-        socket.send(
-          JSON.stringify({
-            type: "error",
-            message: "ভুল Room Code"
-          })
-        );
-
-        return;
-      }
-
-
-      /* আগের Room থাকলে বের করে দাও */
-
-      if (currentRoom) {
-
-        removeFromRoom(
-          socket,
-          currentRoom
-        );
-
-      }
-
-
-      /* Room তৈরি */
-
-      if (!rooms.has(room)) {
-
-        rooms.set(
-          room,
-          new Set()
-        );
-
-      }
-
-
-      const clients =
-        rooms.get(room);
-
-
-      /* Room full */
-
-      if (clients.size >= 2) {
-
-        socket.send(
-          JSON.stringify({
-            type: "error",
-            message:
-              "এই Room ইতিমধ্যে পূর্ণ।"
-          })
-        );
-
-        return;
-
-      }
-
-
-      /* Room set */
-
-      currentRoom = room;
-
-      clients.add(socket);
-
-
-      /* Join confirmation */
-
-      socket.send(
-        JSON.stringify({
-
-          type: "joined",
-
-          room: room
-
-        })
-      );
-
-
-      console.log(
-        "Phone joined room:",
-        room,
-        "Users:",
-        clients.size
-      );
-
-
-      /* অন্য ফোনকে জানানো */
-
-      clients.forEach(
-        (client) => {
-
-          if (
-            client !== socket &&
-            client.readyState ===
-              WebSocket.OPEN
-          ) {
-
-            client.send(
-              JSON.stringify({
-
-                type:
-                  "peer-joined"
-
-              })
-            );
-
-          }
-
-        }
-      );
-
-
-      return;
-
-    }
-
-
-    /* =========================
-       CHAT MESSAGE
-    ========================= */
-
-    if (message.type === "chat") {
-
-      if (!currentRoom) {
-
-        socket.send(
-          JSON.stringify({
-
-            type: "error",
-
-            message:
-              "আগে একটি Room-এ প্রবেশ করো।"
-
-          })
-        );
-
-        return;
-
-      }
-
-
-      if (
-        !rooms.has(currentRoom)
-      ) {
-
-        return;
-
-      }
-
-
-      const clients =
-        rooms.get(currentRoom);
-
-
-      const text =
-        String(
-          message.text || ""
-        ).trim();
-
-
-      if (!text) {
-
-        return;
-
-      }
-
-
-      console.log(
-        "Chat:",
-        currentRoom,
-        text
-      );
-
-
-      /* শুধুমাত্র অন্য ফোনে পাঠাবে */
-
-      clients.forEach(
-        (client) => {
-
-          if (
-            client !== socket &&
-            client.readyState ===
-              WebSocket.OPEN
-          ) {
-
-            client.send(
-              JSON.stringify({
-
-                type: "chat",
-
-                text: text
-
-              })
-            );
-
-          }
-
-        }
-      );
-
-
-      return;
-
-    }
-
-
-    /* =========================
-       অন্য WebSocket message
-    ========================= */
-
-    if (
-      currentRoom &&
-      rooms.has(currentRoom)
-    ) {
-
-      const clients =
-        rooms.get(currentRoom);
-
-
-      clients.forEach(
-        (client) => {
-
-          if (
-            client !== socket &&
-            client.readyState ===
-              WebSocket.OPEN
-          ) {
-
-            client.send(
-              JSON.stringify(message)
-            );
-
-          }
-
-        }
-      );
-
-    }
-
-  });
-
-
-  /* =========================
-     DISCONNECT
-  ========================= */
-
-  socket.on("close", () => {
-
-    console.log(
-      "Phone disconnected"
-    );
-
-
-    if (currentRoom) {
-
-      removeFromRoom(
-        socket,
-        currentRoom
-      );
-
-      currentRoom = null;
-
-    }
-
-  });
-
-
-  /* =========================
-     ERROR
-  ========================= */
-
-  socket.on("error", (error) => {
-
-    console.log(
-      "WebSocket error:",
-      error.message
-    );
-
-  });
-
-});
-
-
-/* =========================
-   REMOVE FROM ROOM
-========================= */
-
-function removeFromRoom(
-  socket,
-  room
-) {
-
-  if (!rooms.has(room)) {
-
+  if (!clients) {
+    socket.room = null;
     return;
-
   }
 
-
-  const clients =
-    rooms.get(room);
-
-
   clients.delete(socket);
+
+  console.log(
+    "Phone left room:",
+    room,
+    "Users:",
+    clients.size
+  );
 
 
   /* অন্য ফোনকে জানানো */
 
-  clients.forEach(
-    (client) => {
+  clients.forEach(client => {
 
-      if (
-        client.readyState ===
-        WebSocket.OPEN
-      ) {
+    if (
+      client.readyState === WebSocket.OPEN
+    ) {
 
-        client.send(
-          JSON.stringify({
-
-            type:
-              "peer-left"
-
-          })
-        );
-
-      }
+      client.send(
+        JSON.stringify({
+          type: "peer-left"
+        })
+      );
 
     }
-  );
 
+  });
 
-  /* Room খালি হলে delete */
 
   if (clients.size === 0) {
 
@@ -403,4 +68,289 @@ function removeFromRoom(
 
   }
 
+  socket.room = null;
 }
+
+
+/* ===============================
+   NEW CONNECTION
+================================ */
+
+server.on("connection", socket => {
+
+  console.log(
+    "New phone connected"
+  );
+
+  socket.room = null;
+
+
+  socket.on("message", rawData => {
+
+    let message;
+
+    try {
+
+      message =
+        JSON.parse(
+          rawData.toString()
+        );
+
+    } catch {
+
+      return;
+
+    }
+
+
+    /* ===========================
+       JOIN ROOM
+    ============================ */
+
+    if (message.type === "join") {
+
+      const room =
+        String(
+          message.room || ""
+        ).trim();
+
+
+      if (!/^\d{6}$/.test(room)) {
+
+        socket.send(
+          JSON.stringify({
+            type: "error",
+            message: "ভুল Room Code"
+          })
+        );
+
+        return;
+
+      }
+
+
+      /*
+        যদি এই socket আগে থেকেই
+        অন্য Room-এ থাকে,
+        আগে সেটি remove করা হবে।
+      */
+
+      if (socket.room) {
+
+        removeFromRoom(socket);
+
+      }
+
+
+      let clients =
+        rooms.get(room);
+
+
+      if (!clients) {
+
+        clients = new Set();
+
+        rooms.set(
+          room,
+          clients
+        );
+
+      }
+
+
+      /*
+        একই socket যেন
+        একই Room-এ দ্বিতীয়বার
+        যোগ না হয়।
+      */
+
+      if (clients.has(socket)) {
+
+        socket.send(
+          JSON.stringify({
+            type: "joined",
+            room: room
+          })
+        );
+
+        return;
+
+      }
+
+
+      /*
+        Room already full
+      */
+
+      if (clients.size >= 2) {
+
+        socket.send(
+          JSON.stringify({
+
+            type: "error",
+
+            message:
+              "এই Room ইতিমধ্যে পূর্ণ।"
+
+          })
+        );
+
+        return;
+
+      }
+
+
+      /* Room-এ যোগ */
+
+      clients.add(socket);
+
+      socket.room = room;
+
+
+      console.log(
+        "Phone joined room:",
+        room,
+        "Users:",
+        clients.size
+      );
+
+
+      socket.send(
+        JSON.stringify({
+
+          type: "joined",
+
+          room: room
+
+        })
+      );
+
+
+      /*
+        অন্য ফোনকে জানানো
+      */
+
+      clients.forEach(client => {
+
+        if (
+          client !== socket &&
+          client.readyState ===
+          WebSocket.OPEN
+        ) {
+
+          client.send(
+            JSON.stringify({
+              type: "peer-joined"
+            })
+          );
+
+        }
+
+      });
+
+
+      return;
+
+    }
+
+
+    /* ===========================
+       ROOM MESSAGE
+    ============================ */
+
+    const room =
+      socket.room;
+
+
+    if (
+      !room ||
+      !rooms.has(room)
+    ) {
+
+      return;
+
+    }
+
+
+    const clients =
+      rooms.get(room);
+
+
+    /*
+      Chat + Video signaling
+      সব message অন্য ফোনে যাবে।
+    */
+
+    clients.forEach(client => {
+
+      if (
+        client !== socket &&
+        client.readyState ===
+        WebSocket.OPEN
+      ) {
+
+        client.send(
+          JSON.stringify(message)
+        );
+
+      }
+
+    });
+
+
+    /* Server log */
+
+    if (message.type === "chat") {
+
+      console.log(
+        "Chat:",
+        room,
+        message.message
+      );
+
+    }
+
+    if (message.type === "video-call") {
+
+      console.log(
+        "Video call:",
+        room
+      );
+
+    }
+
+  });
+
+
+  /* ===============================
+     DISCONNECT
+  ================================ */
+
+  socket.on("close", () => {
+
+    console.log(
+      "Phone disconnected"
+    );
+
+    removeFromRoom(socket);
+
+  });
+
+
+  socket.on("error", error => {
+
+    console.log(
+      "Socket error:",
+      error.message
+    );
+
+    removeFromRoom(socket);
+
+  });
+
+});
+
+
+console.log(
+  "Server listening on port " + PORT
+);
