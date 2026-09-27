@@ -3,15 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Dujon ❤️</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
   min-height:100vh;
@@ -29,32 +24,19 @@ body{
   padding:20px;
 }
 
-.hidden{
-  display:none;
-}
-
-/* LOGIN */
-
 .box{
-  margin-top:80px;
+  margin-top:60px;
   padding:35px 25px;
   text-align:center;
   border-radius:28px;
   background:rgba(255,255,255,.10);
   border:1px solid rgba(255,255,255,.15);
   backdrop-filter:blur(15px);
-  box-shadow:0 15px 50px rgba(0,0,0,.5);
 }
 
-.heart{
-  font-size:65px;
-  margin-bottom:10px;
-}
+.heart{font-size:60px;margin-bottom:10px}
 
-h1{
-  font-size:40px;
-  margin-bottom:8px;
-}
+h1{font-size:40px;margin-bottom:8px}
 
 .subtitle{
   color:#ffd5e7;
@@ -74,52 +56,42 @@ input{
   font-size:16px;
 }
 
-input::placeholder{
-  color:#e9bfd2;
-}
+input::placeholder{color:#e9bfd2}
 
 button{
+  width:100%;
+  padding:15px;
   border:0;
-  cursor:pointer;
+  border-radius:30px;
+  background:linear-gradient(90deg,#ff2f78,#ff5b9a);
   color:white;
+  font-size:17px;
   font-weight:bold;
 }
 
-/* HOME */
-
-.home{
-  padding-top:25px;
+.link{
+  margin-top:18px;
+  color:#ffb8d4;
+  cursor:pointer;
 }
 
-.top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:25px;
+.hidden{display:none}
+
+.home{
+  padding-top:30px;
+  text-align:center;
 }
 
 .logo{
-  font-size:28px;
+  font-size:30px;
   font-weight:bold;
-}
-
-.profile{
-  width:45px;
-  height:45px;
-  border-radius:50%;
-  background:#ff3f81;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:21px;
+  margin-bottom:30px;
 }
 
 .couple{
-  text-align:center;
   padding:30px 20px;
   border-radius:28px;
   background:rgba(255,255,255,.09);
-  border:1px solid rgba(255,255,255,.12);
 }
 
 .avatars{
@@ -135,23 +107,10 @@ button{
   height:75px;
   border-radius:50%;
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   font-size:35px;
   background:rgba(255,255,255,.13);
-}
-
-.love{
-  font-size:25px;
-}
-
-.couple h2{
-  margin-bottom:8px;
-}
-
-.status{
-  color:#ffb8d4;
-  font-size:14px;
 }
 
 .actions{
@@ -165,33 +124,21 @@ button{
   padding:22px 10px;
   border-radius:22px;
   background:rgba(255,255,255,.10);
-  text-align:center;
-  transition:.2s;
 }
 
-.action:active{
-  transform:scale(.96);
-}
-
-.icon{
-  font-size:35px;
-  margin-bottom:8px;
-}
+.icon{font-size:32px;margin-bottom:8px}
 
 .action p{
-  font-size:14px;
+  margin-top:6px;
   color:#ffd9e8;
+  font-size:13px;
 }
 
 .logout{
-  width:100%;
   margin-top:20px;
-  padding:15px;
-  border-radius:30px;
   background:rgba(255,255,255,.10);
   color:#ffbfd7;
 }
-
 </style>
 </head>
 
@@ -199,8 +146,7 @@ button{
 
 <div class="page">
 
-<!-- LOGIN PAGE -->
-
+<!-- LOGIN -->
 <div class="box" id="loginPage">
 
   <div class="heart">❤️</div>
@@ -212,122 +158,91 @@ button{
     একটুখানি ভালোবাসার জায়গা।
   </p>
 
-  <input
-    type="text"
-    id="name"
-    placeholder="তোমার নাম"
-  >
+  <input id="loginEmail" type="email" placeholder="ই-মেইল">
 
-  <input
-    type="email"
-    id="email"
-    placeholder="ই-মেইল"
-  >
+  <input id="loginPassword" type="password" placeholder="পাসওয়ার্ড">
 
-  <input
-    type="password"
-    id="password"
-    placeholder="পাসওয়ার্ড"
-  >
-
-  <button
-    onclick="login()"
-    style="
-      width:100%;
-      padding:15px;
-      border-radius:30px;
-      background:linear-gradient(90deg,#ff2f78,#ff5b9a);
-      font-size:17px;
-    "
-  >
+  <button onclick="login()">
     প্রবেশ করুন ❤️
   </button>
+
+  <div class="link" onclick="showRegister()">
+    নতুন অ্যাকাউন্ট তৈরি করুন
+  </div>
 
 </div>
 
 
-<!-- HOME PAGE -->
+<!-- REGISTER -->
+<div class="box hidden" id="registerPage">
 
-<div class="home hidden" id="homePage">
+  <div class="heart">💞</div>
 
-  <div class="top">
+  <h1>নতুন অ্যাকাউন্ট</h1>
 
-    <div class="logo">
-      Dujon ❤️
-    </div>
+  <p class="subtitle">
+    Dujon-এ তোমাদের যাত্রা শুরু করো
+  </p>
 
-    <div class="profile">
-      👤
-    </div>
+  <input id="registerName" type="text" placeholder="তোমার নাম">
 
+  <input id="registerEmail" type="email" placeholder="ই-মেইল">
+
+  <input id="registerPassword" type="password" placeholder="পাসওয়ার্ড">
+
+  <button onclick="register()">
+    অ্যাকাউন্ট তৈরি করুন ❤️
+  </button>
+
+  <div class="link" onclick="showLogin()">
+    আগে থেকেই অ্যাকাউন্ট আছে
   </div>
 
+</div>
+
+
+<!-- HOME -->
+<div class="home hidden" id="homePage">
+
+  <div class="logo">Dujon ❤️</div>
 
   <div class="couple">
 
     <div class="avatars">
-
-      <div class="avatar">
-        👨
-      </div>
-
-      <div class="love">
-        ❤️
-      </div>
-
-      <div class="avatar">
-        👩
-      </div>
-
+      <div class="avatar">👨</div>
+      <div>❤️</div>
+      <div class="avatar">👩</div>
     </div>
 
-    <h2 id="welcomeName">
-      দুজন
-    </h2>
+    <h2 id="userName">স্বাগতম ❤️</h2>
 
-    <p class="status">
-      তোমাদের ব্যক্তিগত জায়গা 💕
+    <p class="subtitle">
+      তোমাদের ব্যক্তিগত জায়গা
     </p>
 
   </div>
 
-
   <div class="actions">
 
-    <div
-      class="action"
-      onclick="chat()"
-    >
+    <div class="action" onclick="comingSoon('Chat')">
       <div class="icon">💬</div>
       <strong>Chat</strong>
       <p>মেসেজ পাঠাও</p>
     </div>
 
-
-    <div
-      class="action"
-      onclick="videoCall()"
-    >
+    <div class="action" onclick="comingSoon('Video Call')">
       <div class="icon">📹</div>
       <strong>Video Call</strong>
       <p>ভিডিও কলে কথা বলো</p>
     </div>
 
-
-    <div
-      class="action"
-      onclick="audioCall()"
-    >
+    <div class="action" onclick="comingSoon('Audio Call')">
       <div class="icon">📞</div>
       <strong>Audio Call</strong>
       <p>অডিও কলে কথা বলো</p>
     </div>
 
-
-    <div
-      class="action"
-      onclick="privateRoom()"
-    >
+    <div class="action" onclick="comingSoon('Private Room')">
       <div class="icon">🔒</div>
       <strong>Private Room</strong>
       <p>শুধু তোমাদের জন্য</p>
@@ -335,11 +250,7 @@ button{
 
   </div>
 
-
-  <button
-    class="logout"
-    onclick="logout()"
-  >
+  <button class="logout" onclick="logout()">
     লগআউট
   </button>
 
@@ -348,61 +259,157 @@ button{
 </div>
 
 
-<script>
+<!-- Firebase -->
+<script type="module">
 
-function login(){
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDit5Hug1T_AjiBqAU31QSZyc_rn8xf2mA",
+  authDomain: "dujon-91f07.firebaseapp.com",
+  projectId: "dujon-91f07",
+  storageBucket: "dujon-91f07.firebasestorage.app",
+  messagingSenderId: "214183518155",
+  appId: "1:214183518155:web:80ea07b1b16196a44f204e"
+};
+
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+
+window.showRegister = function(){
+  document.getElementById("loginPage").classList.add("hidden");
+  document.getElementById("registerPage").classList.remove("hidden");
+};
+
+
+window.showLogin = function(){
+  document.getElementById("registerPage").classList.add("hidden");
+  document.getElementById("loginPage").classList.remove("hidden");
+};
+
+
+window.register = async function(){
 
   const name =
-    document.getElementById("name").value.trim();
+    document.getElementById("registerName").value.trim();
 
-  if(name === ""){
-    alert("দয়া করে তোমার নাম লিখো ❤️");
+  const email =
+    document.getElementById("registerEmail").value.trim();
+
+  const password =
+    document.getElementById("registerPassword").value;
+
+  if(!name || !email || !password){
+    alert("সব তথ্য পূরণ করো ❤️");
     return;
   }
 
-  document.getElementById("loginPage")
-    .classList.add("hidden");
+  if(password.length < 6){
+    alert("পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।");
+    return;
+  }
 
-  document.getElementById("homePage")
-    .classList.remove("hidden");
+  try{
 
-  document.getElementById("welcomeName")
-    .innerText = name + " ❤️";
-}
+    await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
+    alert("অ্যাকাউন্ট তৈরি হয়েছে ❤️");
 
-function logout(){
+  }catch(error){
 
-  document.getElementById("homePage")
-    .classList.add("hidden");
+    alert(error.message);
 
-  document.getElementById("loginPage")
-    .classList.remove("hidden");
-}
-
-
-function chat(){
-
-  alert("Chat feature আমরা পরের ধাপে তৈরি করবো 💬");
-}
+  }
+};
 
 
-function videoCall(){
+window.login = async function(){
 
-  alert("Video Call feature আমরা পরের ধাপে তৈরি করবো 📹");
-}
+  const email =
+    document.getElementById("loginEmail").value.trim();
+
+  const password =
+    document.getElementById("loginPassword").value;
+
+  if(!email || !password){
+    alert("ই-মেইল ও পাসওয়ার্ড লিখো ❤️");
+    return;
+  }
+
+  try{
+
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+  }catch(error){
+
+    alert("লগইন করা যায়নি। ই-মেইল বা পাসওয়ার্ড পরীক্ষা করো।");
+
+  }
+};
 
 
-function audioCall(){
+window.logout = async function(){
 
-  alert("Audio Call feature আমরা পরের ধাপে তৈরি করবো 📞");
-}
+  await signOut(auth);
+
+};
 
 
-function privateRoom(){
+window.comingSoon = function(feature){
 
-  alert("Private Room আমরা পরের ধাপে তৈরি করবো 🔒");
-}
+  alert(feature + " আমরা পরের ধাপে তৈরি করবো ❤️");
+
+};
+
+
+onAuthStateChanged(auth, (user) => {
+
+  if(user){
+
+    document.getElementById("loginPage")
+      .classList.add("hidden");
+
+    document.getElementById("registerPage")
+      .classList.add("hidden");
+
+    document.getElementById("homePage")
+      .classList.remove("hidden");
+
+    document.getElementById("userName").innerText =
+      user.email + " ❤️";
+
+  }else{
+
+    document.getElementById("homePage")
+      .classList.add("hidden");
+
+    document.getElementById("loginPage")
+      .classList.remove("hidden");
+
+  }
+
+});
 
 </script>
 
