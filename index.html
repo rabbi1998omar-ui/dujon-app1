@@ -1,75 +1,90 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ছায়াছবি ❤️</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dujon ❤️</title>
 
-<style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Arial,sans-serif;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-body{
-  min-height:100vh;
-  background:linear-gradient(135deg,#12000b,#2b0018,#080008);
-  color:white;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #16001f, #5b073b, #120014);
+      color: white;
+    }
 
-.container{
-  width:90%;
-  max-width:400px;
-  padding:30px 22px;
-  text-align:center;
-  border-radius:25px;
-  background:rgba(255,255,255,.08);
-  backdrop-filter:blur(15px);
-  box-shadow:0 0 35px rgba(255,0,100,.25);
-}
+    .box {
+      width: 90%;
+      max-width: 400px;
+      padding: 35px 25px;
+      text-align: center;
+      border-radius: 25px;
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    }
 
-.heart{
-  font-size:65px;
-  animation:pulse 1.5s infinite;
-}
+    .heart {
+      font-size: 65px;
+      margin-bottom: 15px;
+    }
 
-h1{
-  margin:10px 0;
-  font-size:32px;
-}
+    h1 {
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
 
-p{
-  color:#ddd;
-  margin-bottom:25px;
-}
+    p {
+      color: #ffd9ed;
+      margin-bottom: 25px;
+    }
 
-input{
-  width:100%;
-  padding:15px;
-  border:none;
-  outline:none;
-  border-radius:12px;
-  margin-bottom:15px;
-  background:rgba(255,255,255,.12);
-  color:white;
-  font-size:16px;
-}
+    button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 30px;
+      background: #ff3f81;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-input::placeholder{
-  color:#bbb;
-}
+    button:active {
+      transform: scale(0.97);
+    }
+  </style>
+</head>
 
-button{
-  width:100%;
-  padding:15px;
-  border:none;
-  border-radius:12px;
-  background:linear-gradient(90deg,#ff1768,#ff4b91);
-  color:white;
-  font-size:17px;
-  font-weight
+<body>
+
+  <div class="box">
+    <div class="heart">❤️</div>
+
+    <h1>Dujon</h1>
+
+    <p>দুজন মানুষের জন্য, একটুখানি ভালোবাসার জায়গা।</p>
+
+    <button onclick="startApp()">
+      শুরু করি ❤️
+    </button>
+  </div>
+
+  <script>
+    function startApp() {
+      alert("Dujon-এ স্বাগতম ❤️");
+    }
+  </script>
+
+</body>
+</html>
