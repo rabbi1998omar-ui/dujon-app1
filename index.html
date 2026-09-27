@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <meta name="theme-color" content="#0b0b12">
+
 <title>দুজন ❤️</title>
 
 <style>
@@ -161,9 +161,14 @@ button.secondary{
 
 <body>
 
-<!-- LOGIN / REGISTER -->
+<!-- =========================
+     LOGIN / REGISTER PAGE
+========================= -->
+
 <div id="authPage" class="page">
+
   <div class="container">
+
     <div class="card">
 
       <div class="logo">❤️</div>
@@ -174,7 +179,9 @@ button.secondary{
         দুজন মানুষের জন্য একটি ছোট্ট জায়গা
       </p>
 
-      <!-- LOGIN FORM -->
+
+      <!-- LOGIN -->
+
       <div id="loginForm">
 
         <input
@@ -193,14 +200,18 @@ button.secondary{
           লগইন ❤️
         </button>
 
-        <div class="link" onclick="showRegister()">
+        <div
+          class="link"
+          onclick="showRegister()"
+        >
           নতুন অ্যাকাউন্ট তৈরি করো
         </div>
 
       </div>
 
 
-      <!-- REGISTER FORM -->
+      <!-- REGISTER -->
+
       <div id="registerForm" class="hidden">
 
         <input
@@ -225,18 +236,26 @@ button.secondary{
           অ্যাকাউন্ট তৈরি ❤️
         </button>
 
-        <div class="link" onclick="showLogin()">
+        <div
+          class="link"
+          onclick="showLogin()"
+        >
           আগে থেকেই অ্যাকাউন্ট আছে? লগইন করো
         </div>
 
       </div>
 
     </div>
+
   </div>
+
 </div>
 
 
-<!-- HOME PAGE -->
+<!-- =========================
+     HOME PAGE
+========================= -->
+
 <div id="homePage" class="hidden">
 
   <div class="container home">
@@ -247,36 +266,58 @@ button.secondary{
 
       <h2>স্বাগতম দুজনে</h2>
 
-      <p class="user" id="userEmail"></p>
+      <p
+        class="user"
+        id="userEmail"
+      ></p>
 
     </div>
 
 
     <div class="features">
 
-      <div class="feature" onclick="comingSoon('চ্যাট')">
+      <div
+        class="feature"
+        onclick="comingSoon('চ্যাট')"
+      >
         <div class="icon">💬</div>
         <p>চ্যাট</p>
       </div>
 
-      <div class="feature" onclick="comingSoon('ভিডিও কল')">
+
+      <div
+        class="feature"
+        onclick="comingSoon('ভিডিও কল')"
+      >
         <div class="icon">📹</div>
         <p>ভিডিও কল</p>
       </div>
 
-      <div class="feature" onclick="comingSoon('অডিও কল')">
+
+      <div
+        class="feature"
+        onclick="comingSoon('অডিও কল')"
+      >
         <div class="icon">📞</div>
         <p>অডিও কল</p>
       </div>
 
-      <div class="feature" onclick="comingSoon('প্রাইভেট রুম')">
+
+      <div
+        class="feature"
+        onclick="comingSoon('প্রাইভেট রুম')"
+      >
         <div class="icon">🔐</div>
         <p>প্রাইভেট রুম</p>
       </div>
 
     </div>
 
-    <button class="logout" onclick="logout()">
+
+    <button
+      class="logout"
+      onclick="logout()"
+    >
       লগআউট
     </button>
 
@@ -285,10 +326,17 @@ button.secondary{
 </div>
 
 
+<!-- =========================
+     FIREBASE
+========================= -->
+
 <script type="module">
 
-import { initializeApp }
+import {
+  initializeApp
+}
 from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
 
 import {
   getAuth,
@@ -299,6 +347,8 @@ import {
 }
 from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
+
+/* Firebase Configuration */
 
 const firebaseConfig = {
 
@@ -317,50 +367,83 @@ const firebaseConfig = {
 };
 
 
+/* Firebase Start */
+
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 
 
-// ======================
-// REGISTER
-// ======================
+/* =========================
+   REGISTER
+========================= */
 
 window.register = async function(){
 
   const email =
-    document.getElementById("registerEmail").value.trim();
+    document
+      .getElementById("registerEmail")
+      .value
+      .trim();
+
 
   const password =
-    document.getElementById("registerPassword").value;
+    document
+      .getElementById("registerPassword")
+      .value;
+
 
   const confirmPassword =
-    document.getElementById("confirmPassword").value;
+    document
+      .getElementById("confirmPassword")
+      .value;
 
 
-  if(!email || !password || !confirmPassword){
+  /* Empty Check */
 
-    alert("সব ঘর পূরণ করো ❤️");
+  if(
+    !email ||
+    !password ||
+    !confirmPassword
+  ){
+
+    alert(
+      "সব ঘর পূরণ করো ❤️"
+    );
+
+    return;
+  }
+
+
+  /* Password Match */
+
+  if(
+    password !== confirmPassword
+  ){
+
+    alert(
+      "দুইটি পাসওয়ার্ড একই নয়।"
+    );
 
     return;
   }
 
 
-  if(password !== confirmPassword){
+  /* Password Length */
 
-    alert("দুইটি পাসওয়ার্ড একই নয়।");
+  if(
+    password.length < 6
+  ){
 
-    return;
-  }
-
-
-  if(password.length < 6){
-
-    alert("পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।");
+    alert(
+      "পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।"
+    );
 
     return;
   }
 
+
+  /* Firebase Registration */
 
   try{
 
@@ -370,59 +453,64 @@ window.register = async function(){
       password
     );
 
-    alert("অ্যাকাউন্ট তৈরি হয়েছে ❤️");
+
+    alert(
+      "অ্যাকাউন্ট তৈরি হয়েছে ❤️"
+    );
 
   }
 
+
   catch(error){
 
-    console.error(error);
+    console.error(
+      "Firebase Error:",
+      error
+    );
 
-    if(error.code === "auth/email-already-in-use"){
 
-      alert("এই ই-মেইল দিয়ে আগে থেকেই অ্যাকাউন্ট আছে।");
+    /* আসল Error দেখাবে */
 
-    }
-
-    else if(error.code === "auth/invalid-email"){
-
-      alert("সঠিক ই-মেইল লিখো।");
-
-    }
-
-    else if(error.code === "auth/weak-password"){
-
-      alert("পাসওয়ার্ড আরও শক্ত করো।");
-
-    }
-
-    else{
-
-      alert("অ্যাকাউন্ট তৈরি করা যায়নি। আবার চেষ্টা করো।");
-
-    }
+    alert(
+      "Firebase Error\n\n" +
+      "Code: " +
+      error.code +
+      "\n\nMessage:\n" +
+      error.message
+    );
 
   }
 
 };
 
 
-// ======================
-// LOGIN
-// ======================
+/* =========================
+   LOGIN
+========================= */
 
 window.login = async function(){
 
   const email =
-    document.getElementById("loginEmail").value.trim();
+    document
+      .getElementById("loginEmail")
+      .value
+      .trim();
+
 
   const password =
-    document.getElementById("loginPassword").value;
+    document
+      .getElementById("loginPassword")
+      .value;
 
 
-  if(!email || !password){
+  if(
+    !email ||
+    !password
+  ){
 
-    alert("ই-মেইল এবং পাসওয়ার্ড লিখো।");
+    alert(
+      "ই-মেইল এবং পাসওয়ার্ড লিখো।"
+    );
 
     return;
   }
@@ -436,78 +524,90 @@ window.login = async function(){
       password
     );
 
-    alert("লগইন সফল হয়েছে ❤️");
+
+    alert(
+      "লগইন সফল হয়েছে ❤️"
+    );
 
   }
 
+
   catch(error){
 
-    console.error(error);
+    console.error(
+      "Login Error:",
+      error
+    );
 
-    if(
-      error.code === "auth/invalid-credential" ||
-      error.code === "auth/wrong-password" ||
-      error.code === "auth/user-not-found"
-    ){
 
-      alert("ই-মেইল অথবা পাসওয়ার্ড সঠিক নয়।");
-
-    }
-
-    else{
-
-      alert("লগইন করা যায়নি। আবার চেষ্টা করো।");
-
-    }
+    alert(
+      "Login Error\n\n" +
+      "Code: " +
+      error.code +
+      "\n\nMessage:\n" +
+      error.message
+    );
 
   }
 
 };
 
 
-// ======================
-// SHOW REGISTER
-// ======================
+/* =========================
+   SHOW REGISTER
+========================= */
 
 window.showRegister = function(){
 
   document
     .getElementById("loginForm")
-    .classList.add("hidden");
+    .classList
+    .add("hidden");
+
 
   document
     .getElementById("registerForm")
-    .classList.remove("hidden");
+    .classList
+    .remove("hidden");
+
 
   document
     .getElementById("authTitle")
-    .innerText = "নতুন অ্যাকাউন্ট ❤️";
+    .innerText =
+      "নতুন অ্যাকাউন্ট ❤️";
+
 
   document
     .getElementById("authSubtitle")
-    .innerText = "দুজনের যাত্রা এখান থেকেই শুরু";
-
+    .innerText =
+      "দুজনের যাত্রা এখান থেকেই শুরু";
 
 };
 
 
-// ======================
-// SHOW LOGIN
-// ======================
+/* =========================
+   SHOW LOGIN
+========================= */
 
 window.showLogin = function(){
 
   document
     .getElementById("registerForm")
-    .classList.add("hidden");
+    .classList
+    .add("hidden");
+
 
   document
     .getElementById("loginForm")
-    .classList.remove("hidden");
+    .classList
+    .remove("hidden");
+
 
   document
     .getElementById("authTitle")
-    .innerText = "দুজন";
+    .innerText =
+      "দুজন";
+
 
   document
     .getElementById("authSubtitle")
@@ -517,59 +617,85 @@ window.showLogin = function(){
 };
 
 
-// ======================
-// AUTH STATE
-// ======================
+/* =========================
+   AUTH STATE
+========================= */
 
-onAuthStateChanged(auth,(user)=>{
+onAuthStateChanged(
+  auth,
+  (user)=>{
 
-  if(user){
+    if(user){
 
-    document
-      .getElementById("authPage")
-      .classList.add("hidden");
+      document
+        .getElementById("authPage")
+        .classList
+        .add("hidden");
 
-    document
-      .getElementById("homePage")
-      .classList.remove("hidden");
 
-    document
-      .getElementById("userEmail")
-      .innerText = user.email;
+      document
+        .getElementById("homePage")
+        .classList
+        .remove("hidden");
+
+
+      document
+        .getElementById("userEmail")
+        .innerText =
+          user.email;
+
+    }
+
+    else{
+
+      document
+        .getElementById("homePage")
+        .classList
+        .add("hidden");
+
+
+      document
+        .getElementById("authPage")
+        .classList
+        .remove("hidden");
+
+    }
 
   }
-
-  else{
-
-    document
-      .getElementById("homePage")
-      .classList.add("hidden");
-
-    document
-      .getElementById("authPage")
-      .classList.remove("hidden");
-
-  }
-
-});
+);
 
 
-// ======================
-// LOGOUT
-// ======================
+/* =========================
+   LOGOUT
+========================= */
 
 window.logout = async function(){
 
-  await signOut(auth);
+  try{
+
+    await signOut(auth);
+
+  }
+
+  catch(error){
+
+    alert(
+      "Logout Error: " +
+      error.message
+    );
+
+  }
 
 };
 
 
-// ======================
-// COMING SOON
-// ======================
+/* =========================
+   COMING SOON
+========================= */
 
-window.comingSoon = function(feature){
+window.comingSoon = function(
+  feature
+){
 
   alert(
     feature +
