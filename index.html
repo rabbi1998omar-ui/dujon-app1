@@ -167,6 +167,7 @@ button{
   border-radius:15px;
   margin:8px 0;
   background:#333;
+  word-wrap:break-word;
 }
 
 .my-message{
@@ -459,6 +460,7 @@ class="chat-box"
 <input
 id="messageInput"
 placeholder="মেসেজ লিখো..."
+onkeydown="handleMessageKey(event)"
 >
 
 <button onclick="sendMessage()">
@@ -564,17 +566,22 @@ onclick="showHome()"
 DUJON SERVER
 ===================== */
 
-const WS_URL = "wss://dujon-app1.onrender.com";
+const WS_URL =
+"wss://dujon-app1.onrender.com";
 
 let socket = null;
 let currentRoom = null;
 
 
 /* =====================
-SERVER CONNECTION
+CONNECT ROOM
 ===================== */
 
 function connectRoom(code){
+
+if(!code){
+return;
+}
 
 currentRoom = code;
 
@@ -584,6 +591,8 @@ try{
 socket.close();
 }catch(e){}
 
+socket = null;
+
 }
 
 socket = new WebSocket(WS_URL);
@@ -591,14 +600,18 @@ socket = new WebSocket(WS_URL);
 
 socket.onopen = function(){
 
-console.log("Dujon server connected");
+console.log(
+"Dujon server connected"
+);
 
-socket.send(JSON.stringify({
+socket.send(
+JSON.stringify({
 
 type:"join",
 room:currentRoom
 
-}));
+})
+);
 
 };
 
@@ -609,16 +622,23 @@ let data;
 
 try{
 
-data = JSON.parse(event.data);
+data =
+JSON.parse(event.data);
 
 }catch(e){
+
+console.log(
+"Invalid server message"
+);
 
 return;
 
 }
 
 
-if(data.type === "joined"){
+/* ROOM JOINED */
+
+if(data.type==="joined"){
 
 console.log(
 "Room joined:",
@@ -628,7 +648,9 @@ data.room
 }
 
 
-if(data.type === "peer-joined"){
+/* OTHER PERSON JOINED */
+
+if(data.type==="peer-joined"){
 
 alert(
 "❤️ অন্যজন Room-এ প্রবেশ করেছে!"
@@ -637,7 +659,9 @@ alert(
 }
 
 
-if(data.type === "peer-left"){
+/* OTHER PERSON LEFT */
+
+if(data.type==="peer-left"){
 
 alert(
 "অন্যজন Room থেকে বের হয়ে গেছে।"
@@ -646,7 +670,13 @@ alert(
 }
 
 
-if(data.type === "chat"){
+/* CHAT MESSAGE */
+
+if(data.type==="chat"){
+
+if(
+typeof data.text === "string"
+){
 
 addMessage(
 data.text,
@@ -655,11 +685,16 @@ false
 
 }
 
+}
 
-if(data.type === "error"){
+
+/* SERVER ERROR */
+
+if(data.type==="error"){
 
 alert(
-data.message
+data.message ||
+"Server error হয়েছে।"
 );
 
 }
@@ -688,22 +723,33 @@ console.log(
 
 
 /* =====================
-CHAT MESSAGE DISPLAY
+ADD MESSAGE
 ===================== */
 
 function addMessage(text,mine){
 
 const box =
-document.getElementById("chatBox");
+document.getElementById(
+"chatBox"
+);
+
+if(!box){
+return;
+}
 
 const div =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
 div.className =
 "message "+
-(mine ? "my-message" : "");
+(mine ?
+"my-message" :
+"");
 
-div.innerText = text;
+div.innerText =
+text;
 
 box.appendChild(div);
 
@@ -719,16 +765,22 @@ ACCOUNT
 
 function register(){
 
-const phone=
-document.getElementById("registerPhone")
-.value.trim()
+const phone =
+document
+.getElementById("registerPhone")
+.value
+.trim()
 .replace(/\D/g,"");
 
-const pin=
-document.getElementById("registerPin").value;
+const pin =
+document
+.getElementById("registerPin")
+.value;
 
-const confirm=
-document.getElementById("confirmPin").value;
+const confirm =
+document
+.getElementById("confirmPin")
+.value;
 
 
 if(phone.length<10){
@@ -742,7 +794,10 @@ return;
 }
 
 
-if(pin.length<4 || pin.length>6){
+if(
+pin.length<4 ||
+pin.length>6
+){
 
 alert(
 "PIN ৪-৬ সংখ্যার হতে হবে।"
@@ -775,7 +830,7 @@ return;
 }
 
 
-const user={
+const user = {
 
 phone:phone,
 pin:pin
@@ -788,23 +843,19 @@ localStorage.setItem(
 JSON.stringify(user)
 );
 
-
 localStorage.setItem(
 "dujon_logged_in",
 "true"
 );
-
 
 localStorage.setItem(
 "dujon_current_phone",
 phone
 );
 
-
 alert(
 "অ্যাকাউন্ট তৈরি হয়েছে ❤️"
 );
-
 
 showHome();
 
@@ -817,15 +868,19 @@ LOGIN
 
 function login(){
 
-const phone=
-document.getElementById("loginPhone")
-.value.trim()
+const phone =
+document
+.getElementById("loginPhone")
+.value
+.trim()
 .replace(/\D/g,"");
 
-const pin=
-document.getElementById("loginPin").value;
+const pin =
+document
+.getElementById("loginPin")
+.value;
 
-const saved=
+const saved =
 localStorage.getItem(
 "dujon_user"
 );
@@ -842,7 +897,7 @@ return;
 }
 
 
-const user=
+const user =
 JSON.parse(saved);
 
 
@@ -856,12 +911,10 @@ localStorage.setItem(
 "true"
 );
 
-
 localStorage.setItem(
 "dujon_current_phone",
 phone
 );
-
 
 showHome();
 
@@ -884,23 +937,20 @@ function showHome(){
 
 hideAll();
 
-
 document
 .getElementById("homePage")
 .classList
 .remove("hidden");
 
-
-const phone=
+const phone =
 localStorage.getItem(
 "dujon_current_phone"
 );
 
-
 document
 .getElementById("userPhone")
-.innerText=
-"📱 "+phone;
+.innerText =
+"📱 "+(phone || "");
 
 }
 
@@ -911,7 +961,7 @@ HIDE ALL
 
 function hideAll(){
 
-const pages=[
+const pages = [
 
 "authPage",
 "homePage",
@@ -922,8 +972,8 @@ const pages=[
 
 ];
 
-
-pages.forEach(id=>{
+pages.forEach(
+function(id){
 
 document
 .getElementById(id)
@@ -936,14 +986,14 @@ document
 
 
 /* =====================
-ROOM
+CREATE ROOM
 ===================== */
 
 function createRoom(){
 
-const code=
+const code =
 Math.floor(
-100000+
+100000 +
 Math.random()*900000
 ).toString();
 
@@ -953,20 +1003,14 @@ localStorage.setItem(
 code
 );
 
-
-/* SERVER CONNECT */
-
 connectRoom(code);
-
 
 document
 .getElementById("roomCode")
-.innerText=
+.innerText =
 code;
 
-
 hideAll();
-
 
 document
 .getElementById("roomPage")
@@ -982,15 +1026,14 @@ OPEN ROOM
 
 function openRoom(){
 
-const code=
+const code =
 localStorage.getItem(
 "dujon_room"
 );
 
-
 document
 .getElementById("roomCode")
-.innerText=
+.innerText =
 code || "------";
 
 
@@ -1000,9 +1043,7 @@ connectRoom(code);
 
 }
 
-
 hideAll();
-
 
 document
 .getElementById("roomPage")
@@ -1018,13 +1059,14 @@ JOIN ROOM
 
 function joinRoom(){
 
-const code=
+const code =
 document
 .getElementById("joinCode")
-.value.trim();
+.value
+.trim();
 
 
-if(code.length!==6){
+if(!/^\d{6}$/.test(code)){
 
 alert(
 "৬ সংখ্যার Room Code লিখো।"
@@ -1040,16 +1082,11 @@ localStorage.setItem(
 code
 );
 
-
-/* SERVER CONNECT */
-
 connectRoom(code);
-
 
 alert(
 "Room Code গ্রহণ করা হয়েছে ❤️"
 );
-
 
 openRoom();
 
@@ -1062,13 +1099,16 @@ COPY ROOM CODE
 
 function copyRoomCode(){
 
-const code=
+const code =
 document
 .getElementById("roomCode")
 .innerText;
 
 
-if(code==="------"){
+if(
+code==="------" ||
+!code
+){
 
 alert(
 "আগে একটি Room তৈরি করো।"
@@ -1079,23 +1119,49 @@ return;
 }
 
 
-navigator.clipboard.writeText(code);
+if(
+navigator.clipboard
+){
+
+navigator.clipboard
+.writeText(code)
+.then(
+function(){
 
 alert(
 "Room Code Copy হয়েছে 📋"
 );
 
 }
+)
+.catch(
+function(){
+
+alert(
+"Code: "+code
+);
+
+}
+);
+
+}else{
+
+alert(
+"Code: "+code
+);
+
+}
+
+}
 
 
 /* =====================
-CHAT
+OPEN CHAT
 ===================== */
 
 function openChat(){
 
 hideAll();
-
 
 document
 .getElementById("chatPage")
@@ -1109,12 +1175,20 @@ localStorage.getItem(
 );
 
 
-if(room){
+if(!room){
 
-connectRoom(room);
+alert(
+"আগে একটি Room তৈরি বা Join করো ❤️"
+);
+
+showHome();
+
+return;
 
 }
 
+
+connectRoom(room);
 
 loadMessages();
 
@@ -1122,22 +1196,23 @@ loadMessages();
 
 
 /* =====================
-SEND MESSAGE
+SEND CHAT MESSAGE
 ===================== */
 
 function sendMessage(){
 
-const input=
+const input =
 document.getElementById(
 "messageInput"
 );
 
-
-const text=
+const text =
 input.value.trim();
 
 
-if(!text)return;
+if(!text){
+return;
+}
 
 
 const room =
@@ -1157,11 +1232,15 @@ return;
 }
 
 
-/* SERVER CHAT */
+/*
+SERVER CONNECTED হলে
+message server-এ পাঠানো হবে
+*/
 
 if(
 socket &&
-socket.readyState === WebSocket.OPEN
+socket.readyState ===
+WebSocket.OPEN
 ){
 
 socket.send(
@@ -1174,12 +1253,64 @@ text:text
 })
 );
 
+
+/*
+নিজের ফোনে সঙ্গে সঙ্গে দেখানো
+*/
+
+addMessage(
+text,
+true
+);
+
+
+/*
+লোকাল হিস্টোরিতে রাখা
+*/
+
+saveLocalMessage(
+text,
+true
+);
+
+input.value = "";
+
+}else{
+
+alert(
+"Server-এর সাথে সংযোগ হচ্ছে। একটু পরে আবার পাঠাও।"
+);
+
+}
+
 }
 
 
-/* LOCAL COPY */
+/* =====================
+ENTER KEY SEND
+===================== */
 
-const messages=
+function handleMessageKey(event){
+
+if(event.key==="Enter"){
+
+sendMessage();
+
+}
+
+}
+
+
+/* =====================
+SAVE LOCAL MESSAGE
+===================== */
+
+function saveLocalMessage(
+text,
+mine
+){
+
+const messages =
 JSON.parse(
 localStorage.getItem(
 "dujon_messages"
@@ -1190,21 +1321,27 @@ localStorage.getItem(
 messages.push({
 
 text:text,
-mine:true
+mine:mine
 
 });
+
+
+/*
+অতিরিক্ত পুরোনো message
+সীমিত রাখা
+*/
+
+if(messages.length>100){
+
+messages.shift();
+
+}
 
 
 localStorage.setItem(
 "dujon_messages",
 JSON.stringify(messages)
 );
-
-
-input.value="";
-
-
-loadMessages();
 
 }
 
@@ -1215,13 +1352,17 @@ LOAD LOCAL MESSAGES
 
 function loadMessages(){
 
-const box=
+const box =
 document.getElementById(
 "chatBox"
 );
 
+if(!box){
+return;
+}
 
-const messages=
+
+const messages =
 JSON.parse(
 localStorage.getItem(
 "dujon_messages"
@@ -1229,47 +1370,29 @@ localStorage.getItem(
 );
 
 
-box.innerHTML="";
+box.innerHTML = "";
 
 
 messages.forEach(
-message=>{
+function(message){
 
-const div=
-document.createElement(
-"div"
+addMessage(
+message.text,
+message.mine
 );
 
-
-div.className=
-"message "+
-(message.mine ?
-"my-message":"");
-
-
-div.innerText=
-message.text;
-
-
-box.appendChild(div);
-
 });
-
-
-box.scrollTop=
-box.scrollHeight;
 
 }
 
 
 /* =====================
-CALL
+VIDEO CALL
 ===================== */
 
 function openVideo(){
 
 hideAll();
-
 
 document
 .getElementById("videoPage")
@@ -1279,10 +1402,13 @@ document
 }
 
 
+/* =====================
+AUDIO CALL
+===================== */
+
 function openAudio(){
 
 hideAll();
-
 
 document
 .getElementById("audioPage")
@@ -1303,16 +1429,14 @@ document
 .classList
 .add("hidden");
 
-
 document
 .getElementById("registerBox")
 .classList
 .remove("hidden");
 
-
 document
 .getElementById("authTitle")
-.innerText=
+.innerText =
 "নতুন অ্যাকাউন্ট ❤️";
 
 }
@@ -1325,16 +1449,14 @@ document
 .classList
 .add("hidden");
 
-
 document
 .getElementById("loginBox")
 .classList
 .remove("hidden");
 
-
 document
 .getElementById("authTitle")
-.innerText=
+.innerText =
 "দুজন";
 
 }
@@ -1354,29 +1476,24 @@ socket.close();
 
 }catch(e){}
 
-socket=null;
+socket = null;
 
 }
-
 
 localStorage.removeItem(
 "dujon_logged_in"
 );
 
-
 localStorage.removeItem(
 "dujon_current_phone"
 );
 
-
 hideAll();
-
 
 document
 .getElementById("authPage")
 .classList
 .remove("hidden");
-
 
 showLogin();
 
@@ -1387,9 +1504,10 @@ showLogin();
 AUTO LOGIN
 ===================== */
 
-window.onload=function(){
+window.onload =
+function(){
 
-const logged=
+const logged =
 localStorage.getItem(
 "dujon_logged_in"
 );
@@ -1402,7 +1520,6 @@ showHome();
 }else{
 
 hideAll();
-
 
 document
 .getElementById("authPage")
