@@ -2,9 +2,8 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#0b0b12">
-
 <title>দুজন ❤️</title>
 
 <style>
@@ -16,16 +15,9 @@
 
 body{
   font-family:Arial,sans-serif;
-  background:linear-gradient(135deg,#08080d,#21101c);
-  color:white;
   min-height:100vh;
-}
-
-.container{
-  width:100%;
-  max-width:420px;
-  margin:auto;
-  padding:25px 20px;
+  color:white;
+  background:linear-gradient(135deg,#08080d,#25101d);
 }
 
 .page{
@@ -35,19 +27,25 @@ body{
   justify-content:center;
 }
 
-.card{
+.container{
   width:100%;
+  max-width:420px;
+  padding:20px;
+  margin:auto;
+}
+
+.card{
+  padding:30px 22px;
+  border-radius:26px;
   background:rgba(255,255,255,.08);
   border:1px solid rgba(255,255,255,.12);
-  border-radius:25px;
-  padding:28px 22px;
+  box-shadow:0 20px 50px rgba(0,0,0,.45);
   backdrop-filter:blur(15px);
-  box-shadow:0 20px 50px rgba(0,0,0,.4);
 }
 
 .logo{
   text-align:center;
-  font-size:42px;
+  font-size:46px;
   margin-bottom:8px;
 }
 
@@ -59,18 +57,18 @@ h1{
 
 .subtitle{
   text-align:center;
-  color:#cfcfcf;
+  color:#ccc;
   margin-bottom:25px;
 }
 
 input{
   width:100%;
   padding:15px;
-  margin:8px 0;
-  border:none;
+  margin:7px 0;
+  border:1px solid rgba(255,255,255,.12);
   outline:none;
   border-radius:14px;
-  background:rgba(255,255,255,.1);
+  background:rgba(255,255,255,.08);
   color:white;
   font-size:16px;
 }
@@ -83,32 +81,27 @@ button{
   width:100%;
   padding:15px;
   margin-top:12px;
-  border:none;
+  border:0;
   border-radius:14px;
   background:linear-gradient(135deg,#ff416c,#ff4b2b);
   color:white;
   font-size:16px;
   font-weight:bold;
-  cursor:pointer;
-}
-
-button.secondary{
-  background:rgba(255,255,255,.1);
 }
 
 .link{
   text-align:center;
+  color:#ff7895;
   margin-top:18px;
-  color:#ff7190;
   cursor:pointer;
 }
 
 .hidden{
-  display:none !important;
+  display:none!important;
 }
 
 .home{
-  padding-top:50px;
+  padding-top:45px;
   padding-bottom:30px;
 }
 
@@ -123,9 +116,8 @@ button.secondary{
 }
 
 .user{
-  color:#bbb;
+  color:#aaa;
   font-size:14px;
-  word-break:break-all;
 }
 
 .features{
@@ -135,574 +127,538 @@ button.secondary{
 }
 
 .feature{
-  background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:20px;
   padding:25px 10px;
   text-align:center;
-  cursor:pointer;
+  border-radius:20px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.1);
 }
 
-.feature .icon{
+.icon{
   font-size:35px;
   margin-bottom:10px;
 }
 
-.feature p{
-  font-size:14px;
-}
-
 .logout{
-  margin-top:25px;
   background:#333;
+  margin-top:25px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- =========================
-     LOGIN / REGISTER PAGE
-========================= -->
+<!-- LOGIN / REGISTER -->
 
 <div id="authPage" class="page">
 
-  <div class="container">
+<div class="container">
 
-    <div class="card">
+<div class="card">
 
-      <div class="logo">❤️</div>
+<div class="logo">❤️</div>
 
-      <h1 id="authTitle">দুজন</h1>
+<h1 id="title">দুজন</h1>
 
-      <p class="subtitle" id="authSubtitle">
-        দুজন মানুষের জন্য একটি ছোট্ট জায়গা
-      </p>
-
-
-      <!-- LOGIN -->
-
-      <div id="loginForm">
-
-        <input
-          type="email"
-          id="loginEmail"
-          placeholder="ই-মেইল"
-        >
-
-        <input
-          type="password"
-          id="loginPassword"
-          placeholder="পাসওয়ার্ড"
-        >
-
-        <button onclick="login()">
-          লগইন ❤️
-        </button>
-
-        <div
-          class="link"
-          onclick="showRegister()"
-        >
-          নতুন অ্যাকাউন্ট তৈরি করো
-        </div>
-
-      </div>
+<p class="subtitle" id="subtitle">
+মোবাইল নম্বর দিয়ে প্রবেশ করো
+</p>
 
 
-      <!-- REGISTER -->
+<!-- LOGIN -->
 
-      <div id="registerForm" class="hidden">
+<div id="loginBox">
 
-        <input
-          type="email"
-          id="registerEmail"
-          placeholder="ই-মেইল"
-        >
+<input
+type="tel"
+id="loginPhone"
+placeholder="মোবাইল নম্বর"
+>
 
-        <input
-          type="password"
-          id="registerPassword"
-          placeholder="পাসওয়ার্ড"
-        >
+<input
+type="password"
+id="loginPin"
+placeholder="৪-৬ সংখ্যার PIN"
+inputmode="numeric"
+maxlength="6"
+>
 
-        <input
-          type="password"
-          id="confirmPassword"
-          placeholder="পাসওয়ার্ড আবার লিখো"
-        >
+<button onclick="login()">
+লগইন ❤️
+</button>
 
-        <button onclick="register()">
-          অ্যাকাউন্ট তৈরি ❤️
-        </button>
-
-        <div
-          class="link"
-          onclick="showLogin()"
-        >
-          আগে থেকেই অ্যাকাউন্ট আছে? লগইন করো
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
+<div
+class="link"
+onclick="showRegister()"
+>
+নতুন অ্যাকাউন্ট তৈরি করো
+</div>
 
 </div>
 
 
-<!-- =========================
-     HOME PAGE
-========================= -->
+<!-- REGISTER -->
+
+<div id="registerBox" class="hidden">
+
+<input
+type="tel"
+id="registerPhone"
+placeholder="মোবাইল নম্বর"
+>
+
+<input
+type="password"
+id="registerPin"
+placeholder="৪-৬ সংখ্যার PIN"
+inputmode="numeric"
+maxlength="6"
+>
+
+<input
+type="password"
+id="confirmPin"
+placeholder="PIN আবার লিখো"
+inputmode="numeric"
+maxlength="6"
+>
+
+<button onclick="register()">
+অ্যাকাউন্ট তৈরি ❤️
+</button>
+
+<div
+class="link"
+onclick="showLogin()"
+>
+আগে থেকেই অ্যাকাউন্ট আছে? লগইন করো
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- HOME -->
 
 <div id="homePage" class="hidden">
 
-  <div class="container home">
+<div class="container home">
 
-    <div class="welcome">
+<div class="welcome">
 
-      <div class="logo">💞</div>
+<div class="logo">💞</div>
 
-      <h2>স্বাগতম দুজনে</h2>
+<h2>স্বাগতম দুজনে</h2>
 
-      <p
-        class="user"
-        id="userEmail"
-      ></p>
-
-    </div>
-
-
-    <div class="features">
-
-      <div
-        class="feature"
-        onclick="comingSoon('চ্যাট')"
-      >
-        <div class="icon">💬</div>
-        <p>চ্যাট</p>
-      </div>
-
-
-      <div
-        class="feature"
-        onclick="comingSoon('ভিডিও কল')"
-      >
-        <div class="icon">📹</div>
-        <p>ভিডিও কল</p>
-      </div>
-
-
-      <div
-        class="feature"
-        onclick="comingSoon('অডিও কল')"
-      >
-        <div class="icon">📞</div>
-        <p>অডিও কল</p>
-      </div>
-
-
-      <div
-        class="feature"
-        onclick="comingSoon('প্রাইভেট রুম')"
-      >
-        <div class="icon">🔐</div>
-        <p>প্রাইভেট রুম</p>
-      </div>
-
-    </div>
-
-
-    <button
-      class="logout"
-      onclick="logout()"
-    >
-      লগআউট
-    </button>
-
-  </div>
+<p
+class="user"
+id="userPhone"
+></p>
 
 </div>
 
 
-<!-- =========================
-     FIREBASE
-========================= -->
+<div class="features">
 
-<script type="module">
-
-import {
-  initializeApp
-}
-from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-
-
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut
-}
-from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+<div
+class="feature"
+onclick="comingSoon('চ্যাট')"
+>
+<div class="icon">💬</div>
+<p>চ্যাট</p>
+</div>
 
 
-/* Firebase Configuration */
-
-const firebaseConfig = {
-
-  apiKey: "AIzaSyDit5Hug1_T_ajiBqAU31QSZyc_rn8xf2mA",
-
-  authDomain: "dujon-91f07.firebaseapp.com",
-
-  projectId: "dujon-91f07",
-
-  storageBucket: "dujon-91f07.firebasestorage.app",
-
-  messagingSenderId: "214183518155",
-
-  appId: "1:214183518155:web:80ea07b1b16196a44f204e"
-
-};
+<div
+class="feature"
+onclick="comingSoon('ভিডিও কল')"
+>
+<div class="icon">📹</div>
+<p>ভিডিও কল</p>
+</div>
 
 
-/* Firebase Start */
+<div
+class="feature"
+onclick="comingSoon('অডিও কল')"
+>
+<div class="icon">📞</div>
+<p>অডিও কল</p>
+</div>
 
-const app = initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
+<div
+class="feature"
+onclick="comingSoon('প্রাইভেট রুম')"
+>
+<div class="icon">🔐</div>
+<p>প্রাইভেট রুম</p>
+</div>
 
+</div>
+
+
+<button
+class="logout"
+onclick="logout()"
+>
+লগআউট
+</button>
+
+</div>
+
+</div>
+
+
+<script>
 
 /* =========================
-   REGISTER
+   ACCOUNT CREATE
 ========================= */
 
-window.register = async function(){
+function register(){
 
-  const email =
-    document
-      .getElementById("registerEmail")
-      .value
-      .trim();
+const phone =
+document
+.getElementById("registerPhone")
+.value
+.trim();
 
+const pin =
+document
+.getElementById("registerPin")
+.value;
 
-  const password =
-    document
-      .getElementById("registerPassword")
-      .value;
-
-
-  const confirmPassword =
-    document
-      .getElementById("confirmPassword")
-      .value;
+const confirmPin =
+document
+.getElementById("confirmPin")
+.value;
 
 
-  /* Empty Check */
+/* ফোন নম্বর */
 
-  if(
-    !email ||
-    !password ||
-    !confirmPassword
-  ){
+if(!phone){
 
-    alert(
-      "সব ঘর পূরণ করো ❤️"
-    );
+alert("মোবাইল নম্বর লিখো 📱");
 
-    return;
-  }
+return;
+
+}
 
 
-  /* Password Match */
+/* শুধু সংখ্যা */
 
-  if(
-    password !== confirmPassword
-  ){
-
-    alert(
-      "দুইটি পাসওয়ার্ড একই নয়।"
-    );
-
-    return;
-  }
+const cleanPhone =
+phone.replace(/\D/g,"");
 
 
-  /* Password Length */
+if(cleanPhone.length < 10){
 
-  if(
-    password.length < 6
-  ){
+alert("সঠিক মোবাইল নম্বর লিখো।");
 
-    alert(
-      "পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।"
-    );
+return;
 
-    return;
-  }
+}
 
 
-  /* Firebase Registration */
+/* PIN */
 
-  try{
+if(pin.length < 4 || pin.length > 6){
 
-    await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+alert("PIN ৪ থেকে ৬ সংখ্যার হতে হবে।");
 
+return;
 
-    alert(
-      "অ্যাকাউন্ট তৈরি হয়েছে ❤️"
-    );
-
-  }
+}
 
 
-  catch(error){
+if(!/^\d+$/.test(pin)){
 
-    console.error(
-      "Firebase Error:",
-      error
-    );
+alert("PIN শুধু সংখ্যা দিয়ে হতে হবে।");
+
+return;
+
+}
 
 
-    /* আসল Error দেখাবে */
+if(pin !== confirmPin){
 
-    alert(
-      "Firebase Error\n\n" +
-      "Code: " +
-      error.code +
-      "\n\nMessage:\n" +
-      error.message
-    );
+alert("দুইটি PIN একই নয়।");
 
-  }
+return;
+
+}
+
+
+/* পুরোনো অ্যাকাউন্ট */
+
+const saved =
+localStorage.getItem("dujon_user");
+
+
+if(saved){
+
+const user =
+JSON.parse(saved);
+
+if(user.phone === cleanPhone){
+
+alert("এই নম্বর দিয়ে আগে থেকেই অ্যাকাউন্ট আছে।");
+
+return;
+
+}
+
+}
+
+
+/* নতুন অ্যাকাউন্ট */
+
+const user = {
+
+phone:cleanPhone,
+
+pin:pin
 
 };
+
+
+localStorage.setItem(
+"dujon_user",
+JSON.stringify(user)
+);
+
+localStorage.setItem(
+"dujon_logged_in",
+"true"
+);
+
+localStorage.setItem(
+"dujon_current_phone",
+cleanPhone
+);
+
+
+alert("অ্যাকাউন্ট তৈরি হয়েছে ❤️");
+
+showHome();
+
+}
 
 
 /* =========================
    LOGIN
 ========================= */
 
-window.login = async function(){
+function login(){
 
-  const email =
-    document
-      .getElementById("loginEmail")
-      .value
-      .trim();
+const phone =
+document
+.getElementById("loginPhone")
+.value
+.trim()
+.replace(/\D/g,"");
 
-
-  const password =
-    document
-      .getElementById("loginPassword")
-      .value;
-
-
-  if(
-    !email ||
-    !password
-  ){
-
-    alert(
-      "ই-মেইল এবং পাসওয়ার্ড লিখো।"
-    );
-
-    return;
-  }
+const pin =
+document
+.getElementById("loginPin")
+.value;
 
 
-  try{
-
-    await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+const saved =
+localStorage.getItem("dujon_user");
 
 
-    alert(
-      "লগইন সফল হয়েছে ❤️"
-    );
+if(!saved){
 
-  }
+alert("আগে একটি অ্যাকাউন্ট তৈরি করো।");
 
+return;
 
-  catch(error){
-
-    console.error(
-      "Login Error:",
-      error
-    );
+}
 
 
-    alert(
-      "Login Error\n\n" +
-      "Code: " +
-      error.code +
-      "\n\nMessage:\n" +
-      error.message
-    );
-
-  }
-
-};
+const user =
+JSON.parse(saved);
 
 
-/* =========================
-   SHOW REGISTER
-========================= */
+if(
+user.phone === phone &&
+user.pin === pin
+){
 
-window.showRegister = function(){
-
-  document
-    .getElementById("loginForm")
-    .classList
-    .add("hidden");
-
-
-  document
-    .getElementById("registerForm")
-    .classList
-    .remove("hidden");
-
-
-  document
-    .getElementById("authTitle")
-    .innerText =
-      "নতুন অ্যাকাউন্ট ❤️";
-
-
-  document
-    .getElementById("authSubtitle")
-    .innerText =
-      "দুজনের যাত্রা এখান থেকেই শুরু";
-
-};
-
-
-/* =========================
-   SHOW LOGIN
-========================= */
-
-window.showLogin = function(){
-
-  document
-    .getElementById("registerForm")
-    .classList
-    .add("hidden");
-
-
-  document
-    .getElementById("loginForm")
-    .classList
-    .remove("hidden");
-
-
-  document
-    .getElementById("authTitle")
-    .innerText =
-      "দুজন";
-
-
-  document
-    .getElementById("authSubtitle")
-    .innerText =
-      "দুজন মানুষের জন্য একটি ছোট্ট জায়গা";
-
-};
-
-
-/* =========================
-   AUTH STATE
-========================= */
-
-onAuthStateChanged(
-  auth,
-  (user)=>{
-
-    if(user){
-
-      document
-        .getElementById("authPage")
-        .classList
-        .add("hidden");
-
-
-      document
-        .getElementById("homePage")
-        .classList
-        .remove("hidden");
-
-
-      document
-        .getElementById("userEmail")
-        .innerText =
-          user.email;
-
-    }
-
-    else{
-
-      document
-        .getElementById("homePage")
-        .classList
-        .add("hidden");
-
-
-      document
-        .getElementById("authPage")
-        .classList
-        .remove("hidden");
-
-    }
-
-  }
+localStorage.setItem(
+"dujon_logged_in",
+"true"
 );
+
+localStorage.setItem(
+"dujon_current_phone",
+phone
+);
+
+alert("লগইন সফল হয়েছে ❤️");
+
+showHome();
+
+}
+
+else{
+
+alert("মোবাইল নম্বর অথবা PIN সঠিক নয়।");
+
+}
+
+}
+
+
+/* =========================
+   REGISTER PAGE
+========================= */
+
+function showRegister(){
+
+document
+.getElementById("loginBox")
+.classList.add("hidden");
+
+document
+.getElementById("registerBox")
+.classList.remove("hidden");
+
+document
+.getElementById("title")
+.innerText =
+"নতুন অ্যাকাউন্ট ❤️";
+
+document
+.getElementById("subtitle")
+.innerText =
+"দুজনের যাত্রা এখান থেকেই শুরু";
+
+}
+
+
+/* =========================
+   LOGIN PAGE
+========================= */
+
+function showLogin(){
+
+document
+.getElementById("registerBox")
+.classList.add("hidden");
+
+document
+.getElementById("loginBox")
+.classList.remove("hidden");
+
+document
+.getElementById("title")
+.innerText =
+"দুজন";
+
+document
+.getElementById("subtitle")
+.innerText =
+"মোবাইল নম্বর দিয়ে প্রবেশ করো";
+
+}
+
+
+/* =========================
+   HOME
+========================= */
+
+function showHome(){
+
+document
+.getElementById("authPage")
+.classList.add("hidden");
+
+document
+.getElementById("homePage")
+.classList.remove("hidden");
+
+
+const phone =
+localStorage.getItem(
+"dujon_current_phone"
+);
+
+
+document
+.getElementById("userPhone")
+.innerText =
+"📱 " + phone;
+
+}
 
 
 /* =========================
    LOGOUT
 ========================= */
 
-window.logout = async function(){
+function logout(){
 
-  try{
+localStorage.removeItem(
+"dujon_logged_in"
+);
 
-    await signOut(auth);
+localStorage.removeItem(
+"dujon_current_phone"
+);
 
-  }
+document
+.getElementById("homePage")
+.classList.add("hidden");
 
-  catch(error){
+document
+.getElementById("authPage")
+.classList.remove("hidden");
 
-    alert(
-      "Logout Error: " +
-      error.message
-    );
+showLogin();
 
-  }
+}
+
+
+/* =========================
+   AUTO LOGIN
+========================= */
+
+window.onload=function(){
+
+const loggedIn =
+localStorage.getItem(
+"dujon_logged_in"
+);
+
+if(loggedIn === "true"){
+
+showHome();
+
+}
 
 };
 
 
 /* =========================
-   COMING SOON
+   FUTURE FEATURES
 ========================= */
 
-window.comingSoon = function(
-  feature
-){
+function comingSoon(feature){
 
-  alert(
-    feature +
-    " ফিচারটি আমরা পরের ধাপে তৈরি করবো ❤️"
-  );
+alert(
+feature +
+" ফিচারটি আমরা পরের ধাপে তৈরি করবো ❤️"
+);
 
-};
+}
 
 </script>
 
