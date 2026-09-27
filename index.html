@@ -1,192 +1,410 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Dujon ❤️</title>
+<title>Dujon ❤️</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-    body {
-      min-height: 100vh;
-      font-family: Arial, sans-serif;
-      color: white;
-      background:
-        radial-gradient(circle at top, #8b164f, transparent 45%),
-        linear-gradient(135deg, #120014, #3b062c, #080008);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+body{
+  min-height:100vh;
+  font-family:Arial,sans-serif;
+  color:white;
+  background:
+    radial-gradient(circle at top,#8b164f,transparent 45%),
+    linear-gradient(135deg,#120014,#3b062c,#080008);
+}
 
-    .page {
-      width: 100%;
-      max-width: 430px;
-      padding: 25px;
-    }
+.page{
+  width:100%;
+  max-width:500px;
+  margin:auto;
+  padding:20px;
+}
 
-    .box {
-      padding: 35px 25px;
-      border-radius: 28px;
-      text-align: center;
-      background: rgba(255,255,255,0.10);
-      border: 1px solid rgba(255,255,255,0.15);
-      backdrop-filter: blur(15px);
-      box-shadow: 0 15px 50px rgba(0,0,0,0.5);
-    }
+.hidden{
+  display:none;
+}
 
-    .heart {
-      font-size: 65px;
-      margin-bottom: 10px;
-    }
+/* LOGIN */
 
-    h1 {
-      font-size: 40px;
-      margin-bottom: 8px;
-    }
+.box{
+  margin-top:80px;
+  padding:35px 25px;
+  text-align:center;
+  border-radius:28px;
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.15);
+  backdrop-filter:blur(15px);
+  box-shadow:0 15px 50px rgba(0,0,0,.5);
+}
 
-    .subtitle {
-      color: #ffd5e7;
-      font-size: 15px;
-      margin-bottom: 28px;
-      line-height: 1.6;
-    }
+.heart{
+  font-size:65px;
+  margin-bottom:10px;
+}
 
-    input {
-      width: 100%;
-      padding: 15px 18px;
-      margin-bottom: 14px;
-      border: none;
-      outline: none;
-      border-radius: 15px;
-      background: rgba(255,255,255,0.12);
-      color: white;
-      font-size: 15px;
-    }
+h1{
+  font-size:40px;
+  margin-bottom:8px;
+}
 
-    input::placeholder {
-      color: #e9bfd2;
-    }
+.subtitle{
+  color:#ffd5e7;
+  line-height:1.6;
+  margin-bottom:25px;
+}
 
-    button {
-      width: 100%;
-      padding: 15px;
-      border: none;
-      border-radius: 30px;
-      background: linear-gradient(90deg, #ff2f78, #ff5b9a);
-      color: white;
-      font-size: 17px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 5px;
-    }
+input{
+  width:100%;
+  padding:15px;
+  margin-bottom:14px;
+  border:0;
+  outline:0;
+  border-radius:15px;
+  background:rgba(255,255,255,.12);
+  color:white;
+  font-size:16px;
+}
 
-    button:active {
-      transform: scale(0.97);
-    }
+input::placeholder{
+  color:#e9bfd2;
+}
 
-    .hidden {
-      display: none;
-    }
+button{
+  border:0;
+  cursor:pointer;
+  color:white;
+  font-weight:bold;
+}
 
-    .welcome {
-      font-size: 22px;
-      margin-top: 20px;
-      color: #ffd8e8;
-    }
-  </style>
+/* HOME */
+
+.home{
+  padding-top:25px;
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+}
+
+.logo{
+  font-size:28px;
+  font-weight:bold;
+}
+
+.profile{
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background:#ff3f81;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:21px;
+}
+
+.couple{
+  text-align:center;
+  padding:30px 20px;
+  border-radius:28px;
+  background:rgba(255,255,255,.09);
+  border:1px solid rgba(255,255,255,.12);
+}
+
+.avatars{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:18px;
+  margin-bottom:18px;
+}
+
+.avatar{
+  width:75px;
+  height:75px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:35px;
+  background:rgba(255,255,255,.13);
+}
+
+.love{
+  font-size:25px;
+}
+
+.couple h2{
+  margin-bottom:8px;
+}
+
+.status{
+  color:#ffb8d4;
+  font-size:14px;
+}
+
+.actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+  margin-top:20px;
+}
+
+.action{
+  padding:22px 10px;
+  border-radius:22px;
+  background:rgba(255,255,255,.10);
+  text-align:center;
+  transition:.2s;
+}
+
+.action:active{
+  transform:scale(.96);
+}
+
+.icon{
+  font-size:35px;
+  margin-bottom:8px;
+}
+
+.action p{
+  font-size:14px;
+  color:#ffd9e8;
+}
+
+.logout{
+  width:100%;
+  margin-top:20px;
+  padding:15px;
+  border-radius:30px;
+  background:rgba(255,255,255,.10);
+  color:#ffbfd7;
+}
+
+</style>
 </head>
 
 <body>
 
-  <div class="page">
+<div class="page">
 
-    <!-- Welcome -->
-    <div class="box" id="welcomePage">
+<!-- LOGIN PAGE -->
 
-      <div class="heart">❤️</div>
+<div class="box" id="loginPage">
 
-      <h1>Dujon</h1>
+  <div class="heart">❤️</div>
 
-      <p class="subtitle">
-        দুজন মানুষের জন্য,<br>
-        একটুখানি ভালোবাসার জায়গা।
-      </p>
+  <h1>Dujon</h1>
 
-      <button onclick="showLogin()">
-        শুরু করি ❤️
-      </button>
+  <p class="subtitle">
+    দুজন মানুষের জন্য,<br>
+    একটুখানি ভালোবাসার জায়গা।
+  </p>
 
+  <input
+    type="text"
+    id="name"
+    placeholder="তোমার নাম"
+  >
+
+  <input
+    type="email"
+    id="email"
+    placeholder="ই-মেইল"
+  >
+
+  <input
+    type="password"
+    id="password"
+    placeholder="পাসওয়ার্ড"
+  >
+
+  <button
+    onclick="login()"
+    style="
+      width:100%;
+      padding:15px;
+      border-radius:30px;
+      background:linear-gradient(90deg,#ff2f78,#ff5b9a);
+      font-size:17px;
+    "
+  >
+    প্রবেশ করুন ❤️
+  </button>
+
+</div>
+
+
+<!-- HOME PAGE -->
+
+<div class="home hidden" id="homePage">
+
+  <div class="top">
+
+    <div class="logo">
+      Dujon ❤️
     </div>
 
-
-    <!-- Login -->
-    <div class="box hidden" id="loginPage">
-
-      <div class="heart">💞</div>
-
-      <h1>স্বাগতম</h1>
-
-      <p class="subtitle">
-        Dujon-এ তোমার যাত্রা শুরু করো
-      </p>
-
-      <input
-        type="text"
-        id="name"
-        placeholder="তোমার নাম"
-      >
-
-      <input
-        type="email"
-        id="email"
-        placeholder="ই-মেইল"
-      >
-
-      <input
-        type="password"
-        id="password"
-        placeholder="পাসওয়ার্ড"
-      >
-
-      <button onclick="login()">
-        প্রবেশ করুন ❤️
-      </button>
-
-      <p class="welcome" id="message"></p>
-
+    <div class="profile">
+      👤
     </div>
 
   </div>
 
 
-  <script>
+  <div class="couple">
 
-    function showLogin() {
-      document.getElementById("welcomePage").classList.add("hidden");
-      document.getElementById("loginPage").classList.remove("hidden");
-    }
+    <div class="avatars">
 
-    function login() {
+      <div class="avatar">
+        👨
+      </div>
 
-      const name = document.getElementById("name").value;
+      <div class="love">
+        ❤️
+      </div>
 
-      if (name.trim() === "") {
-        alert("দয়া করে তোমার নাম লিখো ❤️");
-        return;
-      }
+      <div class="avatar">
+        👩
+      </div>
 
-      document.getElementById("message").innerText =
-        "স্বাগতম " + name + " ❤️";
-    }
+    </div>
 
-  </script>
+    <h2 id="welcomeName">
+      দুজন
+    </h2>
+
+    <p class="status">
+      তোমাদের ব্যক্তিগত জায়গা 💕
+    </p>
+
+  </div>
+
+
+  <div class="actions">
+
+    <div
+      class="action"
+      onclick="chat()"
+    >
+      <div class="icon">💬</div>
+      <strong>Chat</strong>
+      <p>মেসেজ পাঠাও</p>
+    </div>
+
+
+    <div
+      class="action"
+      onclick="videoCall()"
+    >
+      <div class="icon">📹</div>
+      <strong>Video Call</strong>
+      <p>ভিডিও কলে কথা বলো</p>
+    </div>
+
+
+    <div
+      class="action"
+      onclick="audioCall()"
+    >
+      <div class="icon">📞</div>
+      <strong>Audio Call</strong>
+      <p>অডিও কলে কথা বলো</p>
+    </div>
+
+
+    <div
+      class="action"
+      onclick="privateRoom()"
+    >
+      <div class="icon">🔒</div>
+      <strong>Private Room</strong>
+      <p>শুধু তোমাদের জন্য</p>
+    </div>
+
+  </div>
+
+
+  <button
+    class="logout"
+    onclick="logout()"
+  >
+    লগআউট
+  </button>
+
+</div>
+
+</div>
+
+
+<script>
+
+function login(){
+
+  const name =
+    document.getElementById("name").value.trim();
+
+  if(name === ""){
+    alert("দয়া করে তোমার নাম লিখো ❤️");
+    return;
+  }
+
+  document.getElementById("loginPage")
+    .classList.add("hidden");
+
+  document.getElementById("homePage")
+    .classList.remove("hidden");
+
+  document.getElementById("welcomeName")
+    .innerText = name + " ❤️";
+}
+
+
+function logout(){
+
+  document.getElementById("homePage")
+    .classList.add("hidden");
+
+  document.getElementById("loginPage")
+    .classList.remove("hidden");
+}
+
+
+function chat(){
+
+  alert("Chat feature আমরা পরের ধাপে তৈরি করবো 💬");
+}
+
+
+function videoCall(){
+
+  alert("Video Call feature আমরা পরের ধাপে তৈরি করবো 📹");
+}
+
+
+function audioCall(){
+
+  alert("Audio Call feature আমরা পরের ধাপে তৈরি করবো 📞");
+}
+
+
+function privateRoom(){
+
+  alert("Private Room আমরা পরের ধাপে তৈরি করবো 🔒");
+}
+
+</script>
 
 </body>
 </html>
