@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Dujon ❤️</title>
+<meta name="theme-color" content="#0b0b12">
+<title>দুজন ❤️</title>
 
 <style>
 *{
@@ -14,285 +15,272 @@
 }
 
 body{
-  min-height:100vh;
   font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#08080d,#21101c);
   color:white;
-  background:
-    radial-gradient(circle at top,#8b164f,transparent 45%),
-    linear-gradient(135deg,#120014,#3b062c,#080008);
+  min-height:100vh;
+}
+
+.container{
+  width:100%;
+  max-width:420px;
+  margin:auto;
+  padding:25px 20px;
 }
 
 .page{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.card{
   width:100%;
-  max-width:500px;
-  margin:auto;
-  padding:20px;
-}
-
-.box{
-  margin-top:60px;
-  padding:35px 25px;
-  text-align:center;
-  border-radius:28px;
-  background:rgba(255,255,255,.10);
-  border:1px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:25px;
+  padding:28px 22px;
   backdrop-filter:blur(15px);
+  box-shadow:0 20px 50px rgba(0,0,0,.4);
 }
 
-.heart{
-  font-size:60px;
-  margin-bottom:10px;
+.logo{
+  text-align:center;
+  font-size:42px;
+  margin-bottom:8px;
 }
 
 h1{
-  font-size:40px;
+  text-align:center;
+  font-size:30px;
   margin-bottom:8px;
 }
 
 .subtitle{
-  color:#ffd5e7;
-  line-height:1.6;
+  text-align:center;
+  color:#cfcfcf;
   margin-bottom:25px;
 }
 
 input{
   width:100%;
   padding:15px;
-  margin-bottom:14px;
-  border:0;
-  outline:0;
-  border-radius:15px;
-  background:rgba(255,255,255,.12);
+  margin:8px 0;
+  border:none;
+  outline:none;
+  border-radius:14px;
+  background:rgba(255,255,255,.1);
   color:white;
   font-size:16px;
 }
 
 input::placeholder{
-  color:#e9bfd2;
+  color:#aaa;
 }
 
 button{
   width:100%;
   padding:15px;
-  border:0;
-  border-radius:30px;
-  background:linear-gradient(90deg,#ff2f78,#ff5b9a);
+  margin-top:12px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(135deg,#ff416c,#ff4b2b);
   color:white;
-  font-size:17px;
+  font-size:16px;
   font-weight:bold;
+  cursor:pointer;
 }
 
-button:active{
-  transform:scale(.98);
+button.secondary{
+  background:rgba(255,255,255,.1);
 }
 
 .link{
+  text-align:center;
   margin-top:18px;
-  color:#ffb8d4;
+  color:#ff7190;
   cursor:pointer;
 }
 
 .hidden{
-  display:none;
+  display:none !important;
 }
 
 .home{
-  padding-top:30px;
-  text-align:center;
+  padding-top:50px;
+  padding-bottom:30px;
 }
 
-.logo{
-  font-size:30px;
-  font-weight:bold;
+.welcome{
+  text-align:center;
   margin-bottom:30px;
 }
 
-.couple{
-  padding:30px 20px;
-  border-radius:28px;
-  background:rgba(255,255,255,.09);
-}
-
-.avatars{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:18px;
-  margin-bottom:18px;
-}
-
-.avatar{
-  width:75px;
-  height:75px;
-  border-radius:50%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:35px;
-  background:rgba(255,255,255,.13);
-}
-
-.actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:15px;
-  margin-top:20px;
-}
-
-.action{
-  padding:22px 10px;
-  border-radius:22px;
-  background:rgba(255,255,255,.10);
-  cursor:pointer;
-}
-
-.icon{
-  font-size:32px;
+.welcome h2{
+  font-size:28px;
   margin-bottom:8px;
 }
 
-.action p{
-  margin-top:6px;
-  color:#ffd9e8;
-  font-size:13px;
+.user{
+  color:#bbb;
+  font-size:14px;
+  word-break:break-all;
+}
+
+.features{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.feature{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:20px;
+  padding:25px 10px;
+  text-align:center;
+  cursor:pointer;
+}
+
+.feature .icon{
+  font-size:35px;
+  margin-bottom:10px;
+}
+
+.feature p{
+  font-size:14px;
 }
 
 .logout{
-  margin-top:20px;
-  background:rgba(255,255,255,.10);
-  color:#ffbfd7;
+  margin-top:25px;
+  background:#333;
 }
 </style>
 </head>
 
 <body>
 
-<div class="page">
+<!-- LOGIN / REGISTER -->
+<div id="authPage" class="page">
+  <div class="container">
+    <div class="card">
 
-<!-- PHONE LOGIN -->
+      <div class="logo">❤️</div>
 
-<div class="box" id="phonePage">
+      <h1 id="authTitle">দুজন</h1>
 
-  <div class="heart">❤️</div>
+      <p class="subtitle" id="authSubtitle">
+        দুজন মানুষের জন্য একটি ছোট্ট জায়গা
+      </p>
 
-  <h1>Dujon</h1>
+      <!-- LOGIN FORM -->
+      <div id="loginForm">
 
-  <p class="subtitle">
-    তোমার ফোন নম্বর দিয়ে প্রবেশ করো
-  </p>
+        <input
+          type="email"
+          id="loginEmail"
+          placeholder="ই-মেইল"
+        >
 
-  <input
-    id="phoneNumber"
-    type="tel"
-    placeholder="+8801XXXXXXXXX"
-  >
+        <input
+          type="password"
+          id="loginPassword"
+          placeholder="পাসওয়ার্ড"
+        >
 
-  <button id="sendOtpButton" onclick="sendOTP()">
-    OTP পাঠাও 📱
-  </button>
+        <button onclick="login()">
+          লগইন ❤️
+        </button>
 
-  <div class="link" onclick="showOTP()">
-    OTP ইতিমধ্যে পেয়েছ?
+        <div class="link" onclick="showRegister()">
+          নতুন অ্যাকাউন্ট তৈরি করো
+        </div>
+
+      </div>
+
+
+      <!-- REGISTER FORM -->
+      <div id="registerForm" class="hidden">
+
+        <input
+          type="email"
+          id="registerEmail"
+          placeholder="ই-মেইল"
+        >
+
+        <input
+          type="password"
+          id="registerPassword"
+          placeholder="পাসওয়ার্ড"
+        >
+
+        <input
+          type="password"
+          id="confirmPassword"
+          placeholder="পাসওয়ার্ড আবার লিখো"
+        >
+
+        <button onclick="register()">
+          অ্যাকাউন্ট তৈরি ❤️
+        </button>
+
+        <div class="link" onclick="showLogin()">
+          আগে থেকেই অ্যাকাউন্ট আছে? লগইন করো
+        </div>
+
+      </div>
+
+    </div>
   </div>
-
 </div>
 
 
-<!-- OTP -->
+<!-- HOME PAGE -->
+<div id="homePage" class="hidden">
 
-<div class="box hidden" id="otpPage">
+  <div class="container home">
 
-  <div class="heart">🔢</div>
+    <div class="welcome">
 
-  <h1>OTP</h1>
+      <div class="logo">💞</div>
 
-  <p class="subtitle">
-    তোমার ফোনে আসা ৬ সংখ্যার OTP লিখো
-  </p>
+      <h2>স্বাগতম দুজনে</h2>
 
-  <input
-    id="otp"
-    type="number"
-    inputmode="numeric"
-    placeholder="৬ সংখ্যার OTP"
-  >
-
-  <button onclick="verifyOTP()">
-    যাচাই করুন ❤️
-  </button>
-
-  <div class="link" onclick="backToPhone()">
-    ফোন নম্বর পরিবর্তন করুন
-  </div>
-
-</div>
-
-
-<!-- HOME -->
-
-<div class="home hidden" id="homePage">
-
-  <div class="logo">
-    Dujon ❤️
-  </div>
-
-  <div class="couple">
-
-    <div class="avatars">
-
-      <div class="avatar">👨</div>
-
-      <div>❤️</div>
-
-      <div class="avatar">👩</div>
+      <p class="user" id="userEmail"></p>
 
     </div>
 
-    <h2 id="userPhone">
-      স্বাগতম ❤️
-    </h2>
 
-    <p class="subtitle">
-      তোমাদের ব্যক্তিগত জায়গা
-    </p>
+    <div class="features">
+
+      <div class="feature" onclick="comingSoon('চ্যাট')">
+        <div class="icon">💬</div>
+        <p>চ্যাট</p>
+      </div>
+
+      <div class="feature" onclick="comingSoon('ভিডিও কল')">
+        <div class="icon">📹</div>
+        <p>ভিডিও কল</p>
+      </div>
+
+      <div class="feature" onclick="comingSoon('অডিও কল')">
+        <div class="icon">📞</div>
+        <p>অডিও কল</p>
+      </div>
+
+      <div class="feature" onclick="comingSoon('প্রাইভেট রুম')">
+        <div class="icon">🔐</div>
+        <p>প্রাইভেট রুম</p>
+      </div>
+
+    </div>
+
+    <button class="logout" onclick="logout()">
+      লগআউট
+    </button>
 
   </div>
-
-
-  <div class="actions">
-
-    <div class="action" onclick="comingSoon('Chat')">
-      <div class="icon">💬</div>
-      <strong>Chat</strong>
-      <p>মেসেজ পাঠাও</p>
-    </div>
-
-    <div class="action" onclick="comingSoon('Video Call')">
-      <div class="icon">📹</div>
-      <strong>Video Call</strong>
-      <p>ভিডিও কলে কথা বলো</p>
-    </div>
-
-    <div class="action" onclick="comingSoon('Audio Call')">
-      <div class="icon">📞</div>
-      <strong>Audio Call</strong>
-      <p>অডিও কলে কথা বলো</p>
-    </div>
-
-    <div class="action" onclick="comingSoon('Private Room')">
-      <div class="icon">🔒</div>
-      <strong>Private Room</strong>
-      <p>শুধু তোমাদের জন্য</p>
-    </div>
-
-  </div>
-
-
-  <button class="logout" onclick="logout()">
-    লগআউট
-  </button>
-
-</div>
 
 </div>
 
@@ -304,8 +292,8 @@ from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 
 import {
   getAuth,
-  RecaptchaVerifier,
-  signInWithPhoneNumber,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut
 }
@@ -314,7 +302,7 @@ from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 const firebaseConfig = {
 
-  apiKey: "AIzaSyDit5Hug1T_AjiBqAU31QSZyc_rn8xf2mA",
+  apiKey: "AIzaSyDit5Hug1_T_ajiBqAU31QSZyc_rn8xf2mA",
 
   authDomain: "dujon-91f07.firebaseapp.com",
 
@@ -333,66 +321,42 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 
-let confirmationResult = null;
 
-let recaptchaVerifier = null;
+// ======================
+// REGISTER
+// ======================
 
+window.register = async function(){
 
-/* INVISIBLE RECAPTCHA */
+  const email =
+    document.getElementById("registerEmail").value.trim();
 
-function setupRecaptcha(){
+  const password =
+    document.getElementById("registerPassword").value;
 
-  if(recaptchaVerifier){
-    return;
-  }
-
-  recaptchaVerifier = new RecaptchaVerifier(
-    auth,
-    "sendOtpButton",
-    {
-      size: "invisible",
-
-      callback: function(){
-
-        console.log("reCAPTCHA verified");
-
-      },
-
-      "expired-callback": function(){
-
-        recaptchaVerifier = null;
-
-      }
-    }
-  );
-
-}
+  const confirmPassword =
+    document.getElementById("confirmPassword").value;
 
 
-/* SEND OTP */
+  if(!email || !password || !confirmPassword){
 
-window.sendOTP = async function(){
-
-  const phone =
-    document
-    .getElementById("phoneNumber")
-    .value
-    .trim();
-
-
-  if(!phone){
-
-    alert("ফোন নম্বর লিখো 📱");
+    alert("সব ঘর পূরণ করো ❤️");
 
     return;
   }
 
 
-  if(!phone.startsWith("+880")){
+  if(password !== confirmPassword){
 
-    alert(
-      "বাংলাদেশের নম্বর হলে +880 দিয়ে লিখো।\n\nউদাহরণ:\n+8801712345678"
-    );
+    alert("দুইটি পাসওয়ার্ড একই নয়।");
+
+    return;
+  }
+
+
+  if(password.length < 6){
+
+    alert("পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।");
 
     return;
   }
@@ -400,85 +364,65 @@ window.sendOTP = async function(){
 
   try{
 
-    setupRecaptcha();
+    await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
+    alert("অ্যাকাউন্ট তৈরি হয়েছে ❤️");
 
-    confirmationResult =
-      await signInWithPhoneNumber(
-        auth,
-        phone,
-        recaptchaVerifier
-      );
+  }
 
-
-    alert("OTP পাঠানো হয়েছে 📱");
-
-
-    document
-      .getElementById("phonePage")
-      .classList
-      .add("hidden");
-
-
-    document
-      .getElementById("otpPage")
-      .classList
-      .remove("hidden");
-
-
-  }catch(error){
+  catch(error){
 
     console.error(error);
 
-    alert(
-      "OTP পাঠানো যায়নি।\n\nফোন নম্বর এবং Firebase Phone Authentication সেটিং পরীক্ষা করো।"
-    );
+    if(error.code === "auth/email-already-in-use"){
+
+      alert("এই ই-মেইল দিয়ে আগে থেকেই অ্যাকাউন্ট আছে।");
+
+    }
+
+    else if(error.code === "auth/invalid-email"){
+
+      alert("সঠিক ই-মেইল লিখো।");
+
+    }
+
+    else if(error.code === "auth/weak-password"){
+
+      alert("পাসওয়ার্ড আরও শক্ত করো।");
+
+    }
+
+    else{
+
+      alert("অ্যাকাউন্ট তৈরি করা যায়নি। আবার চেষ্টা করো।");
+
+    }
 
   }
 
 };
 
 
-/* SHOW OTP */
+// ======================
+// LOGIN
+// ======================
 
-window.showOTP = function(){
+window.login = async function(){
 
-  document
-    .getElementById("phonePage")
-    .classList
-    .add("hidden");
+  const email =
+    document.getElementById("loginEmail").value.trim();
 
-
-  document
-    .getElementById("otpPage")
-    .classList
-    .remove("hidden");
-
-};
+  const password =
+    document.getElementById("loginPassword").value;
 
 
-/* VERIFY OTP */
+  if(!email || !password){
 
-window.verifyOTP = async function(){
-
-  const code =
-    document
-    .getElementById("otp")
-    .value
-    .trim();
-
-
-  if(!confirmationResult){
-
-    alert("আগে OTP পাঠাও 📱");
-
-    return;
-  }
-
-
-  if(code.length !== 6){
-
-    alert("৬ সংখ্যার OTP লিখো।");
+    alert("ই-মেইল এবং পাসওয়ার্ড লিখো।");
 
     return;
   }
@@ -486,42 +430,133 @@ window.verifyOTP = async function(){
 
   try{
 
-    await confirmationResult.confirm(code);
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
     alert("লগইন সফল হয়েছে ❤️");
 
-  }catch(error){
+  }
+
+  catch(error){
 
     console.error(error);
 
-    alert(
-      "OTP সঠিক নয়। আবার চেষ্টা করো।"
-    );
+    if(
+      error.code === "auth/invalid-credential" ||
+      error.code === "auth/wrong-password" ||
+      error.code === "auth/user-not-found"
+    ){
+
+      alert("ই-মেইল অথবা পাসওয়ার্ড সঠিক নয়।");
+
+    }
+
+    else{
+
+      alert("লগইন করা যায়নি। আবার চেষ্টা করো।");
+
+    }
 
   }
 
 };
 
 
-/* BACK */
+// ======================
+// SHOW REGISTER
+// ======================
 
-window.backToPhone = function(){
-
-  document
-    .getElementById("otpPage")
-    .classList
-    .add("hidden");
-
+window.showRegister = function(){
 
   document
-    .getElementById("phonePage")
-    .classList
-    .remove("hidden");
+    .getElementById("loginForm")
+    .classList.add("hidden");
+
+  document
+    .getElementById("registerForm")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("authTitle")
+    .innerText = "নতুন অ্যাকাউন্ট ❤️";
+
+  document
+    .getElementById("authSubtitle")
+    .innerText = "দুজনের যাত্রা এখান থেকেই শুরু";
+
 
 };
 
 
-/* LOGOUT */
+// ======================
+// SHOW LOGIN
+// ======================
+
+window.showLogin = function(){
+
+  document
+    .getElementById("registerForm")
+    .classList.add("hidden");
+
+  document
+    .getElementById("loginForm")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("authTitle")
+    .innerText = "দুজন";
+
+  document
+    .getElementById("authSubtitle")
+    .innerText =
+      "দুজন মানুষের জন্য একটি ছোট্ট জায়গা";
+
+};
+
+
+// ======================
+// AUTH STATE
+// ======================
+
+onAuthStateChanged(auth,(user)=>{
+
+  if(user){
+
+    document
+      .getElementById("authPage")
+      .classList.add("hidden");
+
+    document
+      .getElementById("homePage")
+      .classList.remove("hidden");
+
+    document
+      .getElementById("userEmail")
+      .innerText = user.email;
+
+  }
+
+  else{
+
+    document
+      .getElementById("homePage")
+      .classList.add("hidden");
+
+    document
+      .getElementById("authPage")
+      .classList.remove("hidden");
+
+  }
+
+});
+
+
+// ======================
+// LOGOUT
+// ======================
 
 window.logout = async function(){
 
@@ -530,60 +565,15 @@ window.logout = async function(){
 };
 
 
-/* AUTH STATE */
-
-onAuthStateChanged(auth,(user)=>{
-
-  if(user){
-
-    document
-      .getElementById("phonePage")
-      .classList
-      .add("hidden");
-
-
-    document
-      .getElementById("otpPage")
-      .classList
-      .add("hidden");
-
-
-    document
-      .getElementById("homePage")
-      .classList
-      .remove("hidden");
-
-
-    document
-      .getElementById("userPhone")
-      .innerText =
-      user.phoneNumber + " ❤️";
-
-  }
-
-  else{
-
-    document
-      .getElementById("homePage")
-      .classList
-      .add("hidden");
-
-
-    document
-      .getElementById("phonePage")
-      .classList
-      .remove("hidden");
-
-  }
-
-});
-
+// ======================
+// COMING SOON
+// ======================
 
 window.comingSoon = function(feature){
 
   alert(
     feature +
-    " আমরা পরের ধাপে তৈরি করবো ❤️"
+    " ফিচারটি আমরা পরের ধাপে তৈরি করবো ❤️"
   );
 
 };
