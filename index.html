@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#090914">
+<meta name="theme-color" content="#0b0710">
 <title>দুজন ❤️</title>
 
 <style>
@@ -16,136 +16,261 @@
 
 body{
   background:
-    radial-gradient(circle at 20% 10%,#5b1748 0,transparent 30%),
-    radial-gradient(circle at 90% 80%,#251a67 0,transparent 35%),
-    #080810;
-  color:#fff;
+    radial-gradient(circle at top,#32152f 0%,#100912 45%,#050507 100%);
+  color:white;
   min-height:100vh;
+}
+
+button,input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+  border:0;
 }
 
 .page{
   display:none;
   min-height:100vh;
-  padding:24px;
+  padding:22px;
 }
 
-.page.active{
+.active{
   display:block;
 }
 
+.container{
+  max-width:520px;
+  margin:auto;
+}
+
 .card{
-  width:100%;
-  max-width:430px;
-  margin:45px auto;
-  padding:28px;
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:28px;
-  background:rgba(255,255,255,.07);
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12);
   backdrop-filter:blur(18px);
-  box-shadow:0 20px 60px rgba(0,0,0,.45);
-}
-
-.logo{
-  text-align:center;
-  font-size:42px;
-  margin-bottom:8px;
-}
-
-.subtitle{
-  text-align:center;
-  color:#aaa;
-  margin-bottom:25px;
+  border-radius:24px;
+  padding:22px;
+  box-shadow:0 15px 45px rgba(0,0,0,.35);
 }
 
 h1{
-  text-align:center;
-  margin-bottom:20px;
+  font-size:34px;
+  margin-bottom:10px;
+}
+
+h2{
+  margin-bottom:15px;
+}
+
+.sub{
+  color:#bbb;
+  line-height:1.6;
 }
 
 input{
   width:100%;
   padding:15px;
-  margin:7px 0;
-  border:none;
-  outline:none;
-  border-radius:15px;
-  background:rgba(255,255,255,.1);
+  margin:8px 0;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.08);
   color:white;
-  font-size:16px;
+  outline:none;
 }
 
 input::placeholder{
-  color:#999;
+  color:#aaa;
 }
 
-button{
-  border:0;
-  cursor:pointer;
-  color:white;
-  font-size:15px;
-}
-
-.main-btn{
+.btn{
   width:100%;
   padding:15px;
-  margin-top:12px;
-  border-radius:16px;
-  background:linear-gradient(135deg,#ff3b81,#8b5cf6);
-  box-shadow:0 8px 25px rgba(255,59,129,.18);
+  margin-top:10px;
+  border-radius:15px;
+  color:white;
+  background:linear-gradient(135deg,#ff3d81,#9b35ff);
+  font-weight:bold;
 }
 
-.secondary{
-  background:rgba(255,255,255,.08);
-  box-shadow:none;
+.btn.secondary{
+  background:rgba(255,255,255,.1);
 }
 
-.main-btn:active{
-  transform:scale(.98);
+.btn.danger{
+  background:#a71945;
 }
 
-.status{
+.center{
   text-align:center;
-  margin:18px 0;
-  color:#8affb0;
-  font-size:14px;
 }
+
+.logo{
+  font-size:70px;
+  margin:45px 0 15px;
+}
+
+.login-card{
+  margin-top:20px;
+}
+
+.small-link{
+  color:#ff73a9;
+  text-align:center;
+  margin-top:15px;
+  cursor:pointer;
+}
+
+/* HOME */
+
+.home-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:20px;
+}
+
+.profile-mini{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.avatar{
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  object-fit:cover;
+  background:linear-gradient(135deg,#ff3d81,#743cff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px;
+  border:2px solid rgba(255,255,255,.25);
+}
+
+.avatar.large{
+  width:110px;
+  height:110px;
+  margin:auto;
+  font-size:40px;
+}
+
+.online{
+  color:#66ff9a;
+  font-size:13px;
+  margin-top:3px;
+}
+
+.profile-btn{
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background:rgba(255,255,255,.1);
+  color:white;
+  font-size:20px;
+}
+
+.hero{
+  padding:25px;
+  border-radius:28px;
+  background:
+    linear-gradient(135deg,rgba(255,55,125,.2),rgba(126,48,255,.18));
+  border:1px solid rgba(255,255,255,.1);
+  margin-bottom:20px;
+}
+
+.hero h1{
+  font-size:30px;
+}
+
+.hero p{
+  color:#cfcfcf;
+  line-height:1.6;
+}
+
+.partner-card{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:20px;
+}
+
+.partner-info{
+  flex:1;
+}
+
+.feature-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.feature{
+  padding:22px 15px;
+  border-radius:22px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.1);
+  transition:.2s;
+}
+
+.feature:active{
+  transform:scale(.97);
+}
+
+.feature-icon{
+  font-size:34px;
+  margin-bottom:10px;
+}
+
+.feature h3{
+  margin-bottom:5px;
+}
+
+.feature p{
+  color:#aaa;
+  font-size:13px;
+}
+
+/* ROOM */
 
 .room-code{
-  text-align:center;
-  font-size:38px;
+  font-size:40px;
   letter-spacing:8px;
-  color:#ff75ad;
-  margin:25px 0 10px;
-  text-shadow:0 0 20px rgba(255,70,140,.5);
+  text-align:center;
+  margin:25px 0;
+  color:#ff7cae;
 }
+
+/* CHAT */
 
 .chat-box{
   height:55vh;
   overflow-y:auto;
-  padding:12px;
-  border-radius:18px;
-  background:rgba(0,0,0,.2);
+  padding:10px;
+  margin-bottom:10px;
 }
 
 .message{
-  width:max-content;
   max-width:80%;
-  padding:11px 15px;
-  margin:8px 0;
-  border-radius:17px 17px 17px 5px;
-  background:rgba(255,255,255,.1);
+  padding:11px 14px;
+  border-radius:17px;
+  margin:7px 0;
+  line-height:1.4;
 }
 
 .message.me{
+  background:linear-gradient(135deg,#ff3d81,#8c38ff);
   margin-left:auto;
-  border-radius:17px 17px 5px 17px;
-  background:linear-gradient(135deg,#ff3b81,#8b5cf6);
+}
+
+.message.other{
+  background:rgba(255,255,255,.1);
 }
 
 .chat-input{
   display:flex;
   gap:8px;
-  margin-top:10px;
 }
 
 .chat-input input{
@@ -153,2092 +278,1553 @@ button{
 }
 
 .chat-input button{
-  width:65px;
-  border-radius:15px;
-  background:#ff3b81;
+  width:60px;
+  border-radius:14px;
+  background:#ff3d81;
+  color:white;
 }
 
+/* CALL */
 
-/* HOME */
-
-.home-title{
+.call-page{
   text-align:center;
-  font-size:36px;
-  margin-bottom:6px;
+  padding-top:20px;
 }
 
-.home-heart{
-  text-align:center;
-  color:#ff6fa9;
-  margin-bottom:25px;
-}
-
-.feature{
-  text-align:left;
-  padding:17px;
-  margin:10px 0;
-  border-radius:18px;
-  background:rgba(255,255,255,.06);
-}
-
-.feature strong{
-  display:block;
-  margin-bottom:4px;
-}
-
-.feature span{
-  color:#999;
-  font-size:13px;
-}
-
-
-/* VIDEO */
-
-.video-page{
-  padding:0;
+.video-area{
+  position:relative;
+  height:65vh;
   background:#000;
-  position:relative;
-}
-
-.video-container{
-  position:relative;
-  width:100%;
-  height:78vh;
+  border-radius:25px;
   overflow:hidden;
-  background:#08080d;
+  margin:15px 0;
 }
 
 #remoteVideo{
   width:100%;
   height:100%;
   object-fit:cover;
+  background:#111;
 }
 
 #localVideo{
   position:absolute;
-  top:18px;
-  right:15px;
-  width:115px;
-  height:165px;
+  right:12px;
+  bottom:12px;
+  width:110px;
+  height:155px;
   object-fit:cover;
-  border-radius:18px;
-  border:2px solid rgba(255,255,255,.7);
-  background:#171722;
-  z-index:5;
+  border-radius:15px;
+  border:2px solid white;
+  background:#222;
 }
 
-.video-top{
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  padding:20px;
-  z-index:10;
-  display:flex;
-  justify-content:space-between;
-  background:linear-gradient(
-    rgba(0,0,0,.75),
-    transparent
-  );
-}
-
-.call-name{
-  font-size:18px;
-  font-weight:bold;
-}
-
-.call-timer{
-  color:#ddd;
-  font-size:13px;
-  margin-top:4px;
-}
-
-.connection{
-  padding:7px 12px;
-  border-radius:20px;
-  background:rgba(0,0,0,.45);
-  font-size:12px;
-}
-
-.video-bottom{
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:0;
-  padding:30px 15px;
-  z-index:10;
-  background:linear-gradient(
-    transparent,
-    rgba(0,0,0,.95)
-  );
-}
-
-.controls{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:15px;
-}
-
-.control-wrap{
-  text-align:center;
-}
-
-.control{
-  width:57px;
-  height:57px;
-  border-radius:50%;
-  background:rgba(255,255,255,.13);
-  font-size:21px;
-}
-
-.control.on{
-  background:#fff;
-  color:#111;
-}
-
-.label{
-  font-size:10px;
-  color:#ddd;
-  margin-top:6px;
-}
-
-.end{
-  width:68px;
-  height:58px;
-  border-radius:30px;
-  background:#e53935;
-  font-size:23px;
-}
-
-
-/* AUDIO */
-
-.audio-page{
-  padding:0;
-  min-height:100vh;
-  background:
-    radial-gradient(circle at center,#531d4a,#080810 60%);
-  display:none;
-  align-items:center;
-  justify-content:center;
-}
-
-.audio-page.active{
-  display:flex;
-}
-
-.audio-card{
-  width:90%;
-  max-width:380px;
-  text-align:center;
-}
-
-.audio-avatar{
-  width:125px;
-  height:125px;
-  margin:0 auto 20px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:58px;
-  background:linear-gradient(135deg,#ff3b81,#8b5cf6);
-  box-shadow:
-    0 0 0 12px rgba(255,59,129,.08),
-    0 0 60px rgba(255,59,129,.3);
-}
-
-.audio-title{
-  font-size:25px;
-  margin-bottom:8px;
-}
-
-.audio-status{
+.call-status{
   color:#aaa;
-  margin-bottom:8px;
+  margin:10px;
 }
 
-.audio-timer{
-  font-size:15px;
-  color:#ddd;
-  margin-bottom:35px;
-}
-
-.audio-controls{
+.call-controls{
   display:flex;
   justify-content:center;
-  gap:16px;
+  gap:12px;
 }
 
-.audio-button{
-  width:60px;
-  height:60px;
+.call-control{
+  width:58px;
+  height:58px;
   border-radius:50%;
-  background:rgba(255,255,255,.1);
+  background:rgba(255,255,255,.12);
+  color:white;
   font-size:22px;
 }
 
-.audio-button.on{
-  background:#fff;
-  color:#111;
+.call-control.end{
+  background:#e52e55;
 }
 
-.audio-end{
-  width:70px;
-  height:60px;
-  border-radius:30px;
-  background:#e53935;
-  font-size:24px;
+/* AUDIO */
+
+.audio-avatar{
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  margin:50px auto 25px;
+  object-fit:cover;
+  background:linear-gradient(135deg,#ff3d81,#713bff);
+  border:4px solid rgba(255,255,255,.15);
 }
 
+/* PROFILE */
+
+.profile-photo-area{
+  text-align:center;
+  margin:20px 0;
+}
+
+.file-label{
+  display:inline-block;
+  margin-top:15px;
+  padding:11px 18px;
+  border-radius:12px;
+  background:rgba(255,255,255,.1);
+  color:#fff;
+  cursor:pointer;
+}
+
+#photoInput{
+  display:none;
+}
 
 /* INCOMING */
 
-#incomingCall{
+.overlay{
+  display:none;
   position:fixed;
   inset:0;
-  display:none;
+  background:rgba(0,0,0,.82);
+  backdrop-filter:blur(15px);
+  z-index:99;
   align-items:center;
   justify-content:center;
-  z-index:99999;
-  background:rgba(3,3,8,.94);
-  backdrop-filter:blur(15px);
+  padding:25px;
 }
 
-.incoming-card{
-  width:88%;
-  max-width:360px;
-  padding:35px 25px;
+.overlay-card{
+  width:100%;
+  max-width:380px;
   text-align:center;
-  border-radius:30px;
-  background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.12);
+  padding:30px;
+  border-radius:28px;
+  background:#17101b;
+  border:1px solid rgba(255,255,255,.15);
 }
 
 .incoming-icon{
-  width:90px;
-  height:90px;
-  margin:auto;
+  font-size:70px;
+  margin:15px;
+}
+
+.overlay-actions{
   display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:50%;
-  font-size:40px;
-  background:linear-gradient(135deg,#ff3b81,#8b5cf6);
-  animation:pulse 1.5s infinite;
+  gap:10px;
 }
 
-@keyframes pulse{
-  0%{box-shadow:0 0 0 0 rgba(255,59,129,.5)}
-  70%{box-shadow:0 0 0 25px rgba(255,59,129,0)}
-  100%{box-shadow:0 0 0 0 rgba(255,59,129,0)}
-}
-
-.incoming-card h2{
-  margin-top:22px;
-}
-
-.incoming-card p{
-  color:#aaa;
-  margin-top:8px;
-}
-
-.incoming-buttons{
-  display:flex;
-  gap:12px;
-  margin-top:25px;
-}
-
-.incoming-buttons button{
+.overlay-actions button{
   flex:1;
-  padding:14px;
-  border-radius:15px;
 }
 
-.accept{
-  background:#19b95b;
+/* BACK */
+
+.back{
+  display:inline-block;
+  color:#ff73a9;
+  margin-bottom:20px;
+  cursor:pointer;
 }
 
-.reject{
-  background:#e53935;
+/* TOAST */
+
+.toast{
+  position:fixed;
+  bottom:25px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#222;
+  padding:12px 18px;
+  border-radius:14px;
+  display:none;
+  z-index:200;
+  box-shadow:0 10px 30px #000;
 }
 </style>
 </head>
 
-
 <body>
 
-
 <!-- LOGIN -->
-
 <section id="loginPage" class="page active">
-
-<div class="card">
-
+<div class="container">
+<div class="center">
 <div class="logo">❤️</div>
-
 <h1>দুজন</h1>
+<p class="sub">শুধু দুজনের জন্য একটি ছোট্ট জগৎ</p>
+</div>
 
-<p class="subtitle">
-দুজন মানুষ, একটুকরো ব্যক্তিগত জগৎ
-</p>
-
-<input id="loginPhone"
-type="tel"
-placeholder="মোবাইল নাম্বার">
-
-<input id="loginPin"
-type="password"
-placeholder="PIN">
-
-<button class="main-btn"
-onclick="login()">
-লগইন
-</button>
-
-<button class="main-btn secondary"
-onclick="showPage('registerPage')">
-নতুন অ্যাকাউন্ট
-</button>
-
-<p id="loginMessage"
-style="text-align:center;margin-top:15px;color:#ff7cab">
-</p>
-
+<div class="card login-card">
+<h2>লগইন</h2>
+<input id="loginPhone" type="tel" placeholder="মোবাইল নাম্বার">
+<input id="loginPin" type="password" placeholder="PIN">
+<button class="btn" onclick="login()">লগইন</button>
+<div class="small-link" onclick="showPage('registerPage')">
+নতুন অ্যাকাউন্ট তৈরি করুন
+</div>
+</div>
 </div>
 </section>
-
 
 <!-- REGISTER -->
-
 <section id="registerPage" class="page">
-
-<div class="card">
-
-<div class="logo">💗</div>
-
-<h1>নতুন শুরু</h1>
-
-<p class="subtitle">
-দুজন-এর নিজের ছোট্ট জগৎ তৈরি করুন
-</p>
-
-<input id="regPhone"
-type="tel"
-placeholder="মোবাইল নাম্বার">
-
-<input id="regPin"
-type="password"
-placeholder="PIN">
-
-<button class="main-btn"
-onclick="registerUser()">
-অ্যাকাউন্ট তৈরি
-</button>
-
-<button class="main-btn secondary"
-onclick="showPage('loginPage')">
-ফিরে যাও
-</button>
-
-<p id="regMessage"
-style="text-align:center;margin-top:15px;">
-</p>
-
+<div class="container">
+<div class="card" style="margin-top:40px">
+<h2>নতুন অ্যাকাউন্ট ❤️</h2>
+<input id="regPhone" type="tel" placeholder="মোবাইল নাম্বার">
+<input id="regPin" type="password" placeholder="৪-৬ ডিজিট PIN">
+<button class="btn" onclick="registerUser()">অ্যাকাউন্ট তৈরি</button>
+<div class="small-link" onclick="showPage('loginPage')">
+আগে থেকেই অ্যাকাউন্ট আছে
+</div>
+</div>
 </div>
 </section>
-
 
 <!-- HOME -->
-
 <section id="homePage" class="page">
+<div class="container">
 
-<div class="card">
-
-<div class="home-title">
-দুজন ❤️
+<div class="home-top">
+<div class="profile-mini">
+<div id="homeAvatar" class="avatar">❤️</div>
+<div>
+<strong id="homeName">আমার নাম</strong>
+<div class="online">🟢 Online</div>
+</div>
 </div>
 
-<div class="home-heart">
-একসাথে থাকুন, কথা বলুন
+<button class="profile-btn" onclick="openProfile()">⚙️</button>
 </div>
 
-<div class="feature"
-onclick="showPage('roomPage')">
-<strong>🔐 Private Room</strong>
-<span>শুধু দুজনের জন্য একটি ব্যক্তিগত Room</span>
+<div class="hero">
+<h1>দুজনের ছোট্ট জগৎ ❤️</h1>
+<p>
+এখানে শুধু তুমি আর তোমার প্রিয় মানুষ।
+কথা বলো, চ্যাট করো, ভিডিও কল বা অডিও কলে কাছাকাছি থাকো।
+</p>
 </div>
 
-<div class="feature"
-onclick="openChat()">
-<strong>💬 Private Chat</strong>
-<span>নিজেদের মধ্যে মেসেজ করুন</span>
+<div class="card partner-card">
+<div id="partnerAvatar" class="avatar">❤️</div>
+<div class="partner-info">
+<strong id="partnerName">Partner</strong>
+<div id="partnerStatus" class="online">⚪ Offline</div>
+</div>
 </div>
 
-<div class="feature"
-onclick="startVideoFromHome()">
-<strong>🎥 Video Call</strong>
-<span>সরাসরি ভিডিওতে কথা বলুন</span>
+<div class="feature-grid">
+
+<div class="feature" onclick="openRoom()">
+<div class="feature-icon">🔐</div>
+<h3>Private Room</h3>
+<p>দুজনের ব্যক্তিগত Room</p>
 </div>
 
-<div class="feature"
-onclick="startAudioFromHome()">
-<strong>🎤 Audio Call</strong>
-<span>শুধু কণ্ঠে কথা বলুন</span>
+<div class="feature" onclick="openChat()">
+<div class="feature-icon">💬</div>
+<h3>Chat</h3>
+<p>শুধু দুজনের কথা</p>
 </div>
 
-<button class="main-btn secondary"
-onclick="logout()">
-Logout
+<div class="feature" onclick="startVideoFromHome()">
+<div class="feature-icon">📹</div>
+<h3>Video Call</h3>
+<p>সরাসরি ভিডিও কলে</p>
+</div>
+
+<div class="feature" onclick="startAudioFromHome()">
+<div class="feature-icon">📞</div>
+<h3>Audio Call</h3>
+<p>শুধু কণ্ঠে কথা</p>
+</div>
+
+</div>
+
+<button class="btn secondary" style="margin-top:18px" onclick="logout()">
+লগআউট
 </button>
 
 </div>
 </section>
 
+<!-- PROFILE -->
+<section id="profilePage" class="page">
+<div class="container">
+<div class="back" onclick="showPage('homePage')">← ফিরে যান</div>
+
+<div class="card">
+<h2>আমার Profile ❤️</h2>
+
+<div class="profile-photo-area">
+<div id="profileAvatar" class="avatar large">❤️</div>
+
+<label class="file-label">
+📷 ছবি পরিবর্তন
+<input id="photoInput" type="file" accept="image/*" onchange="handlePhoto(event)">
+</label>
+</div>
+
+<input id="profileName" type="text" placeholder="তোমার নাম">
+
+<button class="btn" onclick="saveProfile()">
+Profile Save করুন
+</button>
+
+<button class="btn secondary" onclick="removePhoto()">
+ছবি সরিয়ে দিন
+</button>
+</div>
+</div>
+</section>
 
 <!-- ROOM -->
-
 <section id="roomPage" class="page">
+<div class="container">
+<div class="back" onclick="showPage('homePage')">← ফিরে যান</div>
 
 <div class="card">
+<h2>🔐 Private Room</h2>
+<p class="sub">Room Code দিয়ে তোমার প্রিয় মানুষকে যুক্ত করো।</p>
 
-<h1>🔐 Private Room</h1>
+<button class="btn" onclick="createRoom()">নতুন Room তৈরি</button>
 
-<p class="subtitle">
-আপনাদের Room Code তৈরি করুন
+<div id="roomCodeDisplay" class="room-code">------</div>
+
+<input id="joinCode" maxlength="6" inputmode="numeric" placeholder="৬ ডিজিট Room Code">
+
+<button class="btn secondary" onclick="joinRoom()">Room-এ Join</button>
+
+<p id="roomStatus" class="sub center" style="margin-top:15px">
+কোনো Room সংযুক্ত নেই
 </p>
-
-<button class="main-btn"
-onclick="createRoom()">
-নতুন Room তৈরি
-</button>
-
-<div id="roomCodeBox"></div>
-
-<input id="joinCode"
-maxlength="6"
-inputmode="numeric"
-placeholder="৬ সংখ্যার Room Code">
-
-<button class="main-btn"
-onclick="joinRoom()">
-Room-এ ঢুকুন
-</button>
-
-<p id="connectionStatus"
-class="status">
-⚪ Room Connected নয়
-</p>
-
-<button class="main-btn secondary"
-onclick="showPage('homePage')">
-Home
-</button>
-
+</div>
 </div>
 </section>
-
 
 <!-- CHAT -->
-
 <section id="chatPage" class="page">
+<div class="container">
+<div class="back" onclick="showPage('homePage')">← ফিরে যান</div>
 
 <div class="card">
+<h2>💬 Chat</h2>
 
-<h1>💬 দুজন Chat</h1>
-
-<div id="chatBox"
-class="chat-box">
-</div>
+<div id="chatBox" class="chat-box"></div>
 
 <div class="chat-input">
-
-<input id="messageInput"
-type="text"
-placeholder="একটা মেসেজ লিখুন..."
-onkeydown="if(event.key==='Enter')sendMessage()">
-
-<button onclick="sendMessage()">
-➤
-</button>
-
+<input id="messageInput" placeholder="মেসেজ লিখুন..."
+       onkeydown="if(event.key==='Enter')sendMessage()">
+<button onclick="sendMessage()">➤</button>
 </div>
-
-<button class="main-btn secondary"
-onclick="showPage('homePage')">
-Home
-</button>
-
+</div>
 </div>
 </section>
-
 
 <!-- VIDEO -->
+<section id="videoPage" class="page">
+<div class="container call-page">
 
-<section id="videoPage"
-class="page video-page">
+<div class="back" onclick="endCall(true)">← কল বন্ধ করুন</div>
 
-<div class="video-container">
+<h2>📹 Video Call</h2>
+<div id="videoStatus" class="call-status">Connecting...</div>
 
-<video id="remoteVideo"
-autoplay
-playsinline>
-</video>
-
-<video id="localVideo"
-autoplay
-muted
-playsinline>
-</video>
-
-<div class="video-top">
-
-<div>
-<div class="call-name">
-❤️ দুজন
+<div class="video-area">
+<video id="remoteVideo" autoplay playsinline></video>
+<video id="localVideo" autoplay playsinline muted></video>
 </div>
 
-<div id="videoTimer"
-class="call-timer">
-00:00
-</div>
-</div>
+<div id="videoTimer" class="call-status">00:00</div>
 
-<div id="videoConnection"
-class="connection">
-Connecting...
-</div>
-
-</div>
-
-
-<div class="video-bottom">
-
-<div class="controls">
-
-<div class="control-wrap">
-
-<button id="videoCamera"
-class="control on"
-onclick="toggleCamera()">
-📷
-</button>
-
-<div id="videoCameraLabel"
-class="label">
-Camera On
-</div>
-
-</div>
-
-
-<div class="control-wrap">
-
-<button id="videoMic"
-class="control on"
-onclick="toggleMic()">
-🎤
-</button>
-
-<div id="videoMicLabel"
-class="label">
-Mic On
-</div>
-
-</div>
-
-
-<div class="control-wrap">
-
-<button class="end"
-onclick="endCall(true)">
-☎
-</button>
-
-<div class="label">
-End
-</div>
-
-</div>
-
-</div>
-
+<div class="call-controls">
+<button class="call-control" onclick="toggleMic()" id="micBtn">🎤</button>
+<button class="call-control" onclick="toggleCamera()" id="cameraBtn">📷</button>
+<button class="call-control end" onclick="endCall(true)">📞</button>
 </div>
 
 </div>
 </section>
-
 
 <!-- AUDIO -->
+<section id="audioPage" class="page">
+<div class="container call-page">
 
-<section id="audioPage"
-class="page audio-page">
+<div class="back" onclick="endCall(true)">← কল বন্ধ করুন</div>
 
-<div class="audio-card">
+<h2>📞 Audio Call</h2>
+<div id="audioStatus" class="call-status">Connecting...</div>
 
-<div class="audio-avatar">
-❤️
-</div>
+<img id="audioAvatar" class="audio-avatar" src="" alt="">
 
-<div class="audio-title">
-দুজন
-</div>
+<div id="audioTimer" class="call-status">00:00</div>
 
-<div id="audioStatus"
-class="audio-status">
-Connecting...
-</div>
+<audio id="remoteAudio" autoplay></audio>
 
-<div id="audioTimer"
-class="audio-timer">
-00:00
-</div>
-
-<div class="audio-controls">
-
-<button id="audioMic"
-class="audio-button on"
-onclick="toggleMic()">
-🎤
-</button>
-
-<button class="audio-end"
-onclick="endCall(true)">
-☎
-</button>
-
+<div class="call-controls" style="margin-top:25px">
+<button class="call-control" onclick="toggleMic()" id="audioMicBtn">🎤</button>
+<button class="call-control end" onclick="endCall(true)">📞</button>
 </div>
 
 </div>
 </section>
 
+<!-- INCOMING CALL -->
+<div id="incomingCall" class="overlay">
+<div class="overlay-card">
 
-<!-- INCOMING -->
+<div id="incomingIcon" class="incoming-icon">📹</div>
 
-<div id="incomingCall">
+<h2 id="incomingTitle">Incoming Call</h2>
+<p id="incomingText" class="sub">তোমাকে কল করা হচ্ছে...</p>
 
-<div class="incoming-card">
-
-<div class="incoming-icon">
-📞
-</div>
-
-<h2 id="incomingTitle">
-Incoming Call
-</h2>
-
-<p id="incomingText">
-আপনার জন্য একটি কল এসেছে
-</p>
-
-<div class="incoming-buttons">
-
-<button class="accept"
-onclick="acceptCall()">
-গ্রহণ
-</button>
-
-<button class="reject"
-onclick="rejectCall()">
-বাতিল
-</button>
-
+<div class="overlay-actions">
+<button class="btn danger" onclick="rejectCall()">Reject</button>
+<button class="btn" onclick="acceptCall()">Accept</button>
 </div>
 
 </div>
 </div>
 
+<div id="toast" class="toast"></div>
 
 <script>
 
-/* =========================
-   SETTINGS
-========================= */
-
-const WS_URL =
-"wss://dujon-app1.onrender.com";
+const WS_URL="wss://dujon-app1.onrender.com";
 
 let socket=null;
-
-let currentRoom=
-localStorage.getItem("dujon_room")||null;
-
-let pendingOffer=null;
-
-let pendingCallType=null;
+let currentRoom=null;
 
 let peerConnection=null;
-
 let localStream=null;
 
+let pendingOffer=null;
+let pendingCallType=null;
+
 let callType=null;
-
 let callSeconds=0;
-
 let callTimerInterval=null;
 
-
-/* =========================
-   RTC
-========================= */
+let partnerProfile={
+  name:"Partner",
+  photo:""
+};
 
 const rtcConfig={
-iceServers:[
-{
-urls:"stun:stun.l.google.com:19302"
-},
-{
-urls:"stun:stun1.l.google.com:19302"
-}
-]
+  iceServers:[
+    {urls:"stun:stun.l.google.com:19302"},
+    {urls:"stun:stun1.l.google.com:19302"}
+  ]
 };
 
 
-/* =========================
-   PAGE
-========================= */
+/* PAGE */
 
 function showPage(id){
 
-document
-.querySelectorAll(".page")
-.forEach(p=>{
-p.classList.remove("active");
-});
+  document.querySelectorAll(".page").forEach(p=>{
+    p.classList.remove("active");
+  });
 
-const page=
-document.getElementById(id);
-
-if(page){
-page.classList.add("active");
-}
-
+  document.getElementById(id).classList.add("active");
 }
 
 
-/* =========================
-   REGISTER
-========================= */
+/* TOAST */
+
+function toast(message){
+
+  const el=document.getElementById("toast");
+
+  el.innerText=message;
+  el.style.display="block";
+
+  setTimeout(()=>{
+    el.style.display="none";
+  },2500);
+}
+
+
+/* ACCOUNT */
 
 function registerUser(){
 
-const phone=
-document.getElementById("regPhone")
-.value.trim();
+  const phone=document.getElementById("regPhone").value.trim();
+  const pin=document.getElementById("regPin").value.trim();
 
-const pin=
-document.getElementById("regPin")
-.value.trim();
+  if(!phone || !pin){
+    toast("সব তথ্য পূরণ করুন");
+    return;
+  }
 
-if(!phone||!pin){
+  localStorage.setItem(
+    "dujon_user",
+    JSON.stringify({phone,pin})
+  );
 
-document.getElementById("regMessage")
-.innerText=
-"সব তথ্য দিন";
+  localStorage.setItem("dujon_logged","yes");
 
-return;
+  toast("অ্যাকাউন্ট তৈরি হয়েছে ❤️");
+
+  setTimeout(()=>{
+    loadProfile();
+    showPage("homePage");
+  },500);
 }
 
-localStorage.setItem(
-"dujon_user",
-JSON.stringify({
-phone,
-pin
-})
-);
-
-document.getElementById("regMessage")
-.innerText=
-"অ্যাকাউন্ট তৈরি হয়েছে ❤️";
-
-setTimeout(()=>{
-showPage("loginPage");
-},800);
-
-}
-
-
-/* =========================
-   LOGIN
-========================= */
 
 function login(){
 
-const phone=
-document.getElementById("loginPhone")
-.value.trim();
+  const phone=document.getElementById("loginPhone").value.trim();
+  const pin=document.getElementById("loginPin").value.trim();
 
-const pin=
-document.getElementById("loginPin")
-.value.trim();
+  const user=JSON.parse(
+    localStorage.getItem("dujon_user") || "null"
+  );
 
-const saved=
-JSON.parse(
-localStorage.getItem("dujon_user")
-||"null"
-);
+  if(!user){
+    toast("আগে অ্যাকাউন্ট তৈরি করুন");
+    return;
+  }
 
-if(
-saved&&
-saved.phone===phone&&
-saved.pin===pin
-){
+  if(user.phone===phone && user.pin===pin){
 
-localStorage.setItem(
-"dujon_logged",
-"yes"
-);
+    localStorage.setItem("dujon_logged","yes");
 
-showPage("homePage");
+    loadProfile();
 
-}else{
+    showPage("homePage");
 
-document.getElementById("loginMessage")
-.innerText=
-"মোবাইল নাম্বার বা PIN ভুল";
-
+  }else{
+    toast("মোবাইল নাম্বার বা PIN ভুল");
+  }
 }
 
-}
-
-
-/* =========================
-   LOGOUT
-========================= */
 
 function logout(){
 
-endCall(false);
+  endCall(false);
+  closeSocket();
 
-closeSocket();
+  localStorage.removeItem("dujon_logged");
 
-localStorage.removeItem(
-"dujon_logged"
-);
-
-showPage("loginPage");
-
+  showPage("loginPage");
 }
 
 
-/* =========================
-   SOCKET
-========================= */
+/* PROFILE */
 
-function connectRoom(code){
+function getProfile(){
 
-code=
-String(code||"").trim();
-
-if(!/^\d{6}$/.test(code)){
-return;
+  return JSON.parse(
+    localStorage.getItem("dujon_profile") ||
+    '{"name":"আমার নাম","photo":""}'
+  );
 }
 
 
-if(
-socket&&
-socket.readyState===WebSocket.OPEN&&
-currentRoom===code
-){
+function loadProfile(){
 
-setConnectionStatus(
-"🟢 Room Connected"
-);
+  const profile=getProfile();
 
-return;
+  document.getElementById("homeName").innerText=
+    profile.name || "আমার নাম";
+
+  document.getElementById("profileName").value=
+    profile.name || "";
+
+  setAvatar("homeAvatar",profile.photo);
+  setAvatar("profileAvatar",profile.photo);
+
+  const audioAvatar=document.getElementById("audioAvatar");
+
+  if(profile.photo){
+    audioAvatar.src=profile.photo;
+  }else{
+    audioAvatar.removeAttribute("src");
+  }
 }
 
 
-if(socket){
+function setAvatar(id,photo){
 
-try{
-socket.close();
-}catch(e){}
+  const el=document.getElementById(id);
 
+  if(photo){
+    el.innerHTML="";
+    el.style.backgroundImage=`url("${photo}")`;
+    el.style.backgroundSize="cover";
+    el.style.backgroundPosition="center";
+  }else{
+    el.innerHTML="❤️";
+    el.style.backgroundImage="none";
+  }
 }
 
 
-currentRoom=code;
+function openProfile(){
 
-localStorage.setItem(
-"dujon_room",
-code
-);
-
-
-socket=
-new WebSocket(WS_URL);
-
-
-socket.onopen=()=>{
-
-socket.send(
-JSON.stringify({
-type:"join",
-room:code
-})
-);
-
-};
-
-
-socket.onmessage=async event=>{
-
-let data;
-
-try{
-data=JSON.parse(event.data);
-}catch(e){
-return;
+  loadProfile();
+  showPage("profilePage");
 }
 
 
-/* JOIN */
+function handlePhoto(event){
 
-if(data.type==="joined"){
+  const file=event.target.files[0];
 
-currentRoom=data.room;
+  if(!file) return;
 
-setConnectionStatus(
-"🟢 Room Connected"
-);
+  const reader=new FileReader();
 
-return;
+  reader.onload=function(e){
+
+    const img=new Image();
+
+    img.onload=function(){
+
+      const canvas=document.createElement("canvas");
+
+      const max=320;
+
+      let w=img.width;
+      let h=img.height;
+
+      if(w>h){
+        if(w>max){
+          h=h*max/w;
+          w=max;
+        }
+      }else{
+        if(h>max){
+          w=w*max/h;
+          h=max;
+        }
+      }
+
+      canvas.width=w;
+      canvas.height=h;
+
+      const ctx=canvas.getContext("2d");
+
+      ctx.drawImage(img,0,0,w,h);
+
+      const compressed=
+        canvas.toDataURL("image/jpeg",0.65);
+
+      document.getElementById("profileAvatar").style.backgroundImage=
+        `url("${compressed}")`;
+
+      document.getElementById("profileAvatar").innerHTML="";
+
+      document.getElementById("profileAvatar").dataset.photo=
+        compressed;
+    };
+
+    img.src=e.target.result;
+  };
+
+  reader.readAsDataURL(file);
 }
 
 
-/* PEER */
+function saveProfile(){
 
-if(data.type==="peer-joined"){
-return;
+  const name=
+    document.getElementById("profileName").value.trim();
+
+  if(!name){
+    toast("নাম লিখুন");
+    return;
+  }
+
+  const old=getProfile();
+
+  const newPhoto=
+    document.getElementById("profileAvatar").dataset.photo
+    || old.photo
+    || "";
+
+  const profile={
+    name:name,
+    photo:newPhoto
+  };
+
+  localStorage.setItem(
+    "dujon_profile",
+    JSON.stringify(profile)
+  );
+
+  loadProfile();
+
+  if(socket && socket.readyState===WebSocket.OPEN){
+    sendProfileToPartner();
+  }
+
+  toast("Profile Save হয়েছে ❤️");
+
+  setTimeout(()=>{
+    showPage("homePage");
+  },500);
 }
 
 
-/* CHAT */
+function removePhoto(){
 
-if(data.type==="chat"){
+  const profile=getProfile();
 
-addMessage(
-data.message,
-false
-);
+  profile.photo="";
 
-return;
+  localStorage.setItem(
+    "dujon_profile",
+    JSON.stringify(profile)
+  );
+
+  document.getElementById("profileAvatar").dataset.photo="";
+
+  loadProfile();
+
+  if(socket && socket.readyState===WebSocket.OPEN){
+    sendProfileToPartner();
+  }
+
+  toast("ছবি সরানো হয়েছে");
 }
 
 
-/* VIDEO CALL */
+/* ROOM */
 
-if(data.type==="video-call"){
+function generateRoomCode(){
 
-pendingCallType=
-data.callType||"video";
-
-showIncomingCall(
-pendingCallType
-);
-
-return;
+  return Math.floor(
+    100000+Math.random()*900000
+  ).toString();
 }
 
-
-/* OFFER */
-
-if(data.type==="video-offer"){
-
-pendingOffer=data.offer;
-
-return;
-}
-
-
-/* ANSWER */
-
-if(data.type==="video-answer"){
-
-if(!peerConnection){
-return;
-}
-
-try{
-
-await peerConnection
-.setRemoteDescription(
-new RTCSessionDescription(
-data.answer
-)
-);
-
-}catch(error){
-
-console.error(
-"Answer error:",
-error
-);
-
-}
-
-return;
-}
-
-
-/* ICE */
-
-if(data.type==="ice-candidate"){
-
-if(
-peerConnection&&
-data.candidate
-){
-
-try{
-
-await peerConnection
-.addIceCandidate(
-new RTCIceCandidate(
-data.candidate
-)
-);
-
-}catch(error){
-
-console.error(
-"ICE error:",
-error
-);
-
-}
-
-}
-
-return;
-}
-
-
-/* END */
-
-if(data.type==="call-ended"){
-
-endCall(false);
-
-return;
-}
-
-
-/* REJECT */
-
-if(data.type==="call-rejected"){
-
-endCall(false);
-
-alert(
-"অন্য ফোন কলটি বাতিল করেছে।"
-);
-
-return;
-}
-
-
-/* ERROR */
-
-if(data.type==="error"){
-
-alert(data.message);
-
-}
-
-};
-
-
-socket.onerror=()=>{
-
-setConnectionStatus(
-"🔴 Connection Error"
-);
-
-};
-
-
-socket.onclose=()=>{
-
-setConnectionStatus(
-"⚪ Disconnected"
-);
-
-};
-
-}
-
-
-/* =========================
-   SOCKET CLOSE
-========================= */
-
-function closeSocket(){
-
-if(socket){
-
-try{
-socket.close();
-}catch(e){}
-
-}
-
-socket=null;
-
-}
-
-
-/* =========================
-   ROOM
-========================= */
 
 function createRoom(){
 
-const code=
-String(
-Math.floor(
-100000+
-Math.random()*900000
-)
-);
+  const code=generateRoomCode();
 
-currentRoom=code;
+  currentRoom=code;
 
-localStorage.setItem(
-"dujon_room",
-code
-);
+  localStorage.setItem("dujon_room",code);
 
-document.getElementById(
-"roomCodeBox"
-).innerHTML=
-`
-<div class="room-code">
-${code}
-</div>
-<p style="text-align:center;color:#aaa">
-এই Code অন্য ফোনে দিন
-</p>
-`;
+  document.getElementById("roomCodeDisplay").innerText=code;
 
-connectRoom(code);
-
+  connectRoom(code);
 }
 
 
 function joinRoom(){
 
-const code=
-document.getElementById(
-"joinCode"
-).value.trim();
+  const code=
+    document.getElementById("joinCode").value.trim();
 
-if(!/^\d{6}$/.test(code)){
+  if(!/^\d{6}$/.test(code)){
+    toast("৬ ডিজিট Room Code দিন");
+    return;
+  }
 
-alert(
-"৬ সংখ্যার Room Code দিন"
-);
+  currentRoom=code;
 
-return;
-}
+  localStorage.setItem("dujon_room",code);
 
-connectRoom(code);
+  document.getElementById("roomCodeDisplay").innerText=code;
 
-}
-
-
-function setConnectionStatus(text){
-
-const el=
-document.getElementById(
-"connectionStatus"
-);
-
-if(el){
-el.innerText=text;
-}
-
+  connectRoom(code);
 }
 
 
-/* =========================
-   CHAT
-========================= */
+/* SOCKET */
+
+function connectRoom(code){
+
+  if(
+    socket &&
+    socket.readyState===WebSocket.OPEN &&
+    currentRoom===code
+  ){
+    setRoomStatus("🟢 Room Connected");
+    return;
+  }
+
+  closeSocket();
+
+  socket=new WebSocket(WS_URL);
+
+  socket.onopen=()=>{
+
+    socket.send(JSON.stringify({
+      type:"join",
+      room:code
+    }));
+
+  };
+
+  socket.onmessage=async event=>{
+
+    let data;
+
+    try{
+      data=JSON.parse(event.data);
+    }catch{
+      return;
+    }
+
+    if(data.type==="joined"){
+
+      currentRoom=data.room;
+
+      setRoomStatus("🟢 Room Connected");
+
+      sendProfileToPartner();
+
+      return;
+    }
+
+    if(data.type==="peer-joined"){
+
+      setRoomStatus("🟢 Partner Online");
+
+      return;
+    }
+
+    if(data.type==="peer-left"){
+
+      partnerOffline();
+
+      return;
+    }
+
+    if(data.type==="profile"){
+
+      partnerProfile={
+        name:data.name || "Partner",
+        photo:data.photo || ""
+      };
+
+      updatePartnerUI();
+
+      return;
+    }
+
+    if(data.type==="presence"){
+
+      if(data.online){
+        document.getElementById("partnerStatus").innerText=
+          "🟢 Online";
+      }else{
+        partnerOffline();
+      }
+
+      return;
+    }
+
+    if(data.type==="chat"){
+
+      addMessage(data.message,"other");
+
+      return;
+    }
+
+    if(data.type==="video-call"){
+
+      showIncomingCall(data.callType || "video");
+
+      return;
+    }
+
+    if(data.type==="video-offer"){
+
+      pendingOffer=data.offer;
+
+      return;
+    }
+
+    if(data.type==="video-answer"){
+
+      if(peerConnection){
+
+        await peerConnection.setRemoteDescription(
+          new RTCSessionDescription(data.answer)
+        );
+
+      }
+
+      return;
+    }
+
+    if(data.type==="ice-candidate"){
+
+      if(peerConnection && data.candidate){
+
+        try{
+
+          await peerConnection.addIceCandidate(
+            new RTCIceCandidate(data.candidate)
+          );
+
+        }catch(e){
+          console.log(e);
+        }
+
+      }
+
+      return;
+    }
+
+    if(data.type==="call-ended"){
+
+      endCall(false);
+
+      return;
+    }
+
+    if(data.type==="call-rejected"){
+
+      toast("Call Reject করা হয়েছে");
+
+      endCall(false);
+
+      return;
+    }
+
+    if(data.type==="error"){
+
+      toast(data.message);
+
+      return;
+    }
+
+  };
+
+  socket.onclose=()=>{
+
+    document.getElementById("partnerStatus").innerText=
+      "⚪ Offline";
+
+  };
+
+  socket.onerror=()=>{
+
+    toast("Server connection সমস্যা");
+
+  };
+}
+
+
+function closeSocket(){
+
+  if(socket){
+
+    try{
+      socket.close();
+    }catch(e){}
+
+    socket=null;
+  }
+}
+
+
+function sendToRoom(data){
+
+  if(
+    socket &&
+    socket.readyState===WebSocket.OPEN
+  ){
+
+    socket.send(JSON.stringify(data));
+  }
+}
+
+
+function setRoomStatus(text){
+
+  document.getElementById("roomStatus").innerText=text;
+}
+
+
+/* PROFILE / ONLINE */
+
+function sendProfileToPartner(){
+
+  const profile=getProfile();
+
+  sendToRoom({
+    type:"profile",
+    name:profile.name,
+    photo:profile.photo
+  });
+
+  sendToRoom({
+    type:"presence",
+    online:true
+  });
+}
+
+
+function updatePartnerUI(){
+
+  document.getElementById("partnerName").innerText=
+    partnerProfile.name;
+
+  document.getElementById("partnerStatus").innerText=
+    "🟢 Online";
+
+  setAvatar(
+    "partnerAvatar",
+    partnerProfile.photo
+  );
+
+  const audioAvatar=
+    document.getElementById("audioAvatar");
+
+  if(partnerProfile.photo){
+    audioAvatar.src=partnerProfile.photo;
+  }
+}
+
+
+function partnerOffline(){
+
+  document.getElementById("partnerStatus").innerText=
+    "⚪ Offline";
+}
+
+
+/* OPEN ROOM / CHAT */
+
+function openRoom(){
+
+  showPage("roomPage");
+
+  const saved=
+    localStorage.getItem("dujon_room");
+
+  if(saved){
+
+    currentRoom=saved;
+
+    document.getElementById("roomCodeDisplay").innerText=
+      saved;
+
+    connectRoom(saved);
+  }
+}
+
 
 function openChat(){
 
-if(!currentRoom){
+  if(!currentRoom){
 
-alert(
-"আগে Room-এ ঢুকুন"
-);
+    const saved=
+      localStorage.getItem("dujon_room");
 
-showPage("roomPage");
+    if(saved){
+      currentRoom=saved;
+    }
+  }
 
-return;
+  if(!currentRoom){
+
+    toast("আগে একটি Room তৈরি বা Join করুন");
+
+    showPage("roomPage");
+
+    return;
+  }
+
+  showPage("chatPage");
+
+  if(
+    !socket ||
+    socket.readyState!==WebSocket.OPEN
+  ){
+
+    connectRoom(currentRoom);
+
+  }
+
 }
 
-showPage("chatPage");
 
-
-if(
-!socket||
-socket.readyState!==WebSocket.OPEN
-){
-
-connectRoom(currentRoom);
-
-}
-
-}
-
+/* CHAT */
 
 function sendMessage(){
 
-const input=
-document.getElementById(
-"messageInput"
-);
+  const input=
+    document.getElementById("messageInput");
 
-const message=
-input.value.trim();
+  const message=input.value.trim();
 
-if(!message){
-return;
+  if(!message) return;
+
+  if(
+    !socket ||
+    socket.readyState!==WebSocket.OPEN
+  ){
+
+    toast("Room Connected নেই");
+    return;
+  }
+
+  sendToRoom({
+    type:"chat",
+    message:message
+  });
+
+  addMessage(message,"me");
+
+  input.value="";
 }
 
 
-if(
-!socket||
-socket.readyState!==WebSocket.OPEN
-){
+function addMessage(message,type){
 
-alert(
-"Room Connected নয়"
-);
+  const box=
+    document.getElementById("chatBox");
 
-return;
+  const div=document.createElement("div");
+
+  div.className="message "+type;
+
+  div.innerText=message;
+
+  box.appendChild(div);
+
+  box.scrollTop=box.scrollHeight;
 }
 
 
-socket.send(
-JSON.stringify({
-type:"chat",
-message:message
-})
-);
-
-
-addMessage(
-message,
-true
-);
-
-input.value="";
-
-}
-
-
-function addMessage(
-message,
-mine
-){
-
-const box=
-document.getElementById(
-"chatBox"
-);
-
-const div=
-document.createElement("div");
-
-div.className=
-"message"+
-(mine?" me":"");
-
-div.innerText=message;
-
-box.appendChild(div);
-
-box.scrollTop=
-box.scrollHeight;
-
-}
-
-
-/* =========================
-   VIDEO START
-========================= */
-
-function startVideoFromHome(){
-
-if(!currentRoom){
-
-alert(
-"আগে Room-এ ঢুকুন"
-);
-
-showPage("roomPage");
-
-return;
-}
-
-makeCall("video");
-
-}
-
-
-/* =========================
-   AUDIO START
-========================= */
-
-function startAudioFromHome(){
-
-if(!currentRoom){
-
-alert(
-"আগে Room-এ ঢুকুন"
-);
-
-showPage("roomPage");
-
-return;
-}
-
-makeCall("audio");
-
-}
-
-
-/* =========================
-   MEDIA
-========================= */
+/* VIDEO / AUDIO CALL */
 
 async function getLocalMedia(type){
 
-if(localStream){
-return localStream;
+  if(localStream){
+
+    localStream.getTracks().forEach(
+      track=>track.stop()
+    );
+  }
+
+  localStream=
+    await navigator.mediaDevices.getUserMedia({
+      video:type==="video",
+      audio:true
+    });
+
+  if(type==="video"){
+
+    document.getElementById("localVideo").srcObject=
+      localStream;
+
+  }
+
+  return localStream;
 }
 
 
-localStream=
-await navigator.mediaDevices
-.getUserMedia({
+async function createPeerConnection(){
 
-video:type==="video",
+  peerConnection=
+    new RTCPeerConnection(rtcConfig);
 
-audio:true
+  peerConnection.ontrack=event=>{
 
-});
+    const stream=event.streams[0];
+
+    if(callType==="video"){
+
+      document.getElementById("remoteVideo").srcObject=
+        stream;
+
+    }else{
+
+      document.getElementById("remoteAudio").srcObject=
+        stream;
+
+    }
+  };
 
 
-if(type==="video"){
+  peerConnection.onicecandidate=event=>{
 
-document.getElementById(
-"localVideo"
-).srcObject=
-localStream;
+    if(event.candidate){
 
+      sendToRoom({
+        type:"ice-candidate",
+        candidate:event.candidate
+      });
+
+    }
+  };
+
+
+  peerConnection.onconnectionstatechange=()=>{
+
+    const state=
+      peerConnection.connectionState;
+
+    if(state==="connected"){
+
+      setCallStatus("🟢 Connected");
+
+    }
+
+    if(
+      state==="disconnected" ||
+      state==="failed" ||
+      state==="closed"
+    ){
+
+      setCallStatus("Connection ended");
+
+    }
+  };
+
+
+  if(localStream){
+
+    localStream.getTracks().forEach(track=>{
+
+      peerConnection.addTrack(
+        track,
+        localStream
+      );
+
+    });
+  }
 }
 
-return localStream;
-
-}
-
-
-/* =========================
-   PEER
-========================= */
-
-function createPeerConnection(){
-
-if(peerConnection){
-
-try{
-peerConnection.close();
-}catch(e){}
-
-}
-
-
-peerConnection=
-new RTCPeerConnection(
-rtcConfig
-);
-
-
-peerConnection.ontrack=
-event=>{
-
-if(
-event.streams&&
-event.streams[0]
-){
-
-if(callType==="video"){
-
-const remote=
-document.getElementById(
-"remoteVideo"
-);
-
-remote.srcObject=
-event.streams[0];
-
-remote.play()
-.catch(()=>{});
-
-}
-
-}
-
-};
-
-
-peerConnection.onicecandidate=
-event=>{
-
-if(
-event.candidate&&
-socket&&
-socket.readyState===
-WebSocket.OPEN
-){
-
-socket.send(
-JSON.stringify({
-
-type:"ice-candidate",
-
-candidate:event.candidate
-
-})
-);
-
-}
-
-};
-
-
-peerConnection.onconnectionstatechange=
-()=>{
-
-const state=
-peerConnection.connectionState;
-
-if(callType==="video"){
-
-const el=
-document.getElementById(
-"videoConnection"
-);
-
-if(state==="connected"){
-
-el.innerText=
-"🟢 Connected";
-
-}else if(state==="connecting"){
-
-el.innerText=
-"Connecting...";
-
-}else if(
-state==="disconnected"||
-state==="failed"
-){
-
-el.innerText=
-"🔴 Disconnected";
-
-}
-
-}else{
-
-const el=
-document.getElementById(
-"audioStatus"
-);
-
-if(state==="connected"){
-
-el.innerText=
-"🟢 Connected";
-
-}else if(state==="connecting"){
-
-el.innerText=
-"Connecting...";
-
-}else if(
-state==="disconnected"||
-state==="failed"
-){
-
-el.innerText=
-"🔴 Disconnected";
-
-}
-
-}
-
-};
-
-
-if(localStream){
-
-localStream
-.getTracks()
-.forEach(track=>{
-
-peerConnection.addTrack(
-track,
-localStream
-);
-
-});
-
-}
-
-}
-
-
-/* =========================
-   MAKE CALL
-========================= */
 
 async function makeCall(type){
 
-try{
+  if(!currentRoom){
 
-callType=type;
+    toast("আগে Room-এ Join করুন");
+    return;
+  }
 
-showPage(
-type==="video"
-?"videoPage"
-:"audioPage"
-);
+  if(
+    !socket ||
+    socket.readyState!==WebSocket.OPEN
+  ){
 
-await getLocalMedia(type);
+    toast("Room Connected নেই");
+    return;
+  }
 
-createPeerConnection();
+  callType=type;
 
+  try{
 
-socket.send(
-JSON.stringify({
+    await getLocalMedia(type);
 
-type:"video-call",
+    await createPeerConnection();
 
-callType:type
+    showPage(
+      type==="video"
+      ?"videoPage"
+      :"audioPage"
+    );
 
-})
-);
+    setCallStatus("📞 Calling...");
 
+    sendToRoom({
+      type:"video-call",
+      callType:type
+    });
 
-const offer=
-await peerConnection
-.createOffer({
+    const offer=
+      await peerConnection.createOffer();
 
-offerToReceiveAudio:true,
+    await peerConnection.setLocalDescription(offer);
 
-offerToReceiveVideo:
-type==="video"
+    sendToRoom({
+      type:"video-offer",
+      offer:offer
+    });
 
-});
+    startCallTimer();
 
+  }catch(error){
 
-await peerConnection
-.setLocalDescription(
-offer
-);
+    console.log(error);
 
-
-socket.send(
-JSON.stringify({
-
-type:"video-offer",
-
-offer:
-peerConnection.localDescription
-
-})
-);
-
-
-startCallTimer();
-
-}catch(error){
-
-console.error(
-"Call error:",
-error
-);
-
-alert(
-"Microphone/Camera চালু করা যায়নি। Permission দিন।"
-);
-
-}
-
+    toast("Camera/Microphone permission দিন");
+  }
 }
 
 
-/* =========================
-   INCOMING
-========================= */
+function startVideoFromHome(){
+
+  makeCall("video");
+}
+
+
+function startAudioFromHome(){
+
+  makeCall("audio");
+}
+
+
+/* INCOMING */
 
 function showIncomingCall(type){
 
-pendingCallType=type;
+  pendingCallType=type;
 
-document.getElementById(
-"incomingTitle"
-).innerText=
-type==="video"
-?"Incoming Video Call"
-:"Incoming Audio Call";
+  document.getElementById("incomingCall").style.display=
+    "flex";
 
-document.getElementById(
-"incomingText"
-).innerText=
-type==="video"
-?"আপনার জন্য একটি ভিডিও কল এসেছে"
-:"আপনার জন্য একটি অডিও কল এসেছে";
+  if(type==="audio"){
 
-document.getElementById(
-"incomingCall"
-).style.display=
-"flex";
+    document.getElementById("incomingIcon").innerText="📞";
 
+    document.getElementById("incomingTitle").innerText=
+      "Incoming Audio Call";
+
+    document.getElementById("incomingText").innerText=
+      "তোমাকে Audio Call করা হচ্ছে";
+
+  }else{
+
+    document.getElementById("incomingIcon").innerText="📹";
+
+    document.getElementById("incomingTitle").innerText=
+      "Incoming Video Call";
+
+    document.getElementById("incomingText").innerText=
+      "তোমাকে Video Call করা হচ্ছে";
+
+  }
 }
 
-
-/* =========================
-   ACCEPT
-========================= */
 
 async function acceptCall(){
 
-document.getElementById(
-"incomingCall"
-).style.display=
-"none";
+  document.getElementById("incomingCall").style.display=
+    "none";
 
+  callType=pendingCallType || "video";
 
-try{
+  try{
 
-callType=
-pendingCallType||"video";
+    await getLocalMedia(callType);
 
-showPage(
-callType==="video"
-?"videoPage"
-:"audioPage"
-);
+    await createPeerConnection();
 
-await getLocalMedia(
-callType
-);
+    showPage(
+      callType==="video"
+      ?"videoPage"
+      :"audioPage"
+    );
 
-createPeerConnection();
+    setCallStatus("🔗 Connecting...");
 
+    if(!pendingOffer){
 
-if(!pendingOffer){
+      toast("Call data পাওয়া যায়নি");
+      return;
+    }
 
-return;
+    await peerConnection.setRemoteDescription(
+      new RTCSessionDescription(pendingOffer)
+    );
+
+    const answer=
+      await peerConnection.createAnswer();
+
+    await peerConnection.setLocalDescription(answer);
+
+    sendToRoom({
+      type:"video-answer",
+      answer:answer
+    });
+
+    startCallTimer();
+
+  }catch(error){
+
+    console.log(error);
+
+    toast("Call গ্রহণ করা যায়নি");
+  }
 }
 
-
-await peerConnection
-.setRemoteDescription(
-new RTCSessionDescription(
-pendingOffer
-)
-);
-
-
-const answer=
-await peerConnection
-.createAnswer({
-
-offerToReceiveAudio:true,
-
-offerToReceiveVideo:
-callType==="video"
-
-});
-
-
-await peerConnection
-.setLocalDescription(
-answer
-);
-
-
-socket.send(
-JSON.stringify({
-
-type:"video-answer",
-
-answer:
-peerConnection.localDescription
-
-})
-);
-
-
-pendingOffer=null;
-
-startCallTimer();
-
-}catch(error){
-
-console.error(
-"Accept error:",
-error
-);
-
-alert(
-"Call connection তৈরি করা যায়নি।"
-);
-
-}
-
-}
-
-
-/* =========================
-   REJECT
-========================= */
 
 function rejectCall(){
 
-document.getElementById(
-"incomingCall"
-).style.display=
-"none";
+  document.getElementById("incomingCall").style.display=
+    "none";
 
+  sendToRoom({
+    type:"call-rejected"
+  });
 
-if(
-socket&&
-socket.readyState===WebSocket.OPEN
-){
-
-socket.send(
-JSON.stringify({
-type:"call-rejected"
-})
-);
-
-}
-
-pendingOffer=null;
-
+  pendingOffer=null;
+  pendingCallType=null;
 }
 
 
-/* =========================
-   MIC
-========================= */
+/* CALL UI */
 
-function toggleMic(){
+function setCallStatus(text){
 
-if(!localStream){
-return;
+  if(callType==="video"){
+
+    document.getElementById("videoStatus").innerText=
+      text;
+
+  }else{
+
+    document.getElementById("audioStatus").innerText=
+      text;
+
+  }
 }
 
-const track=
-localStream.getAudioTracks()[0];
-
-if(!track){
-return;
-}
-
-track.enabled=
-!track.enabled;
-
-
-if(callType==="video"){
-
-const button=
-document.getElementById(
-"videoMic"
-);
-
-const label=
-document.getElementById(
-"videoMicLabel"
-);
-
-if(track.enabled){
-
-button.classList.add("on");
-
-button.innerText="🎤";
-
-label.innerText=
-"Mic On";
-
-}else{
-
-button.classList.remove("on");
-
-button.innerText="🔇";
-
-label.innerText=
-"Mic Off";
-
-}
-
-}else{
-
-const button=
-document.getElementById(
-"audioMic"
-);
-
-if(track.enabled){
-
-button.classList.add("on");
-
-button.innerText="🎤";
-
-}else{
-
-button.classList.remove("on");
-
-button.innerText="🔇";
-
-}
-
-}
-
-}
-
-
-/* =========================
-   CAMERA
-========================= */
-
-function toggleCamera(){
-
-if(!localStream){
-return;
-}
-
-const track=
-localStream.getVideoTracks()[0];
-
-if(!track){
-return;
-}
-
-track.enabled=
-!track.enabled;
-
-
-const button=
-document.getElementById(
-"videoCamera"
-);
-
-const label=
-document.getElementById(
-"videoCameraLabel"
-);
-
-
-if(track.enabled){
-
-button.classList.add("on");
-
-button.innerText="📷";
-
-label.innerText=
-"Camera On";
-
-}else{
-
-button.classList.remove("on");
-
-button.innerText="🚫";
-
-label.innerText=
-"Camera Off";
-
-}
-
-}
-
-
-/* =========================
-   TIMER
-========================= */
 
 function startCallTimer(){
 
-clearInterval(
-callTimerInterval
-);
+  clearInterval(callTimerInterval);
 
-callSeconds=0;
+  callSeconds=0;
 
-updateCallTimer();
+  updateCallTimer();
 
-callTimerInterval=
-setInterval(()=>{
-
-callSeconds++;
-
-updateCallTimer();
-
-},1000);
-
+  callTimerInterval=
+    setInterval(updateCallTimer,1000);
 }
 
 
 function updateCallTimer(){
 
-const min=
-String(
-Math.floor(
-callSeconds/60
-)
-).padStart(2,"0");
+  const min=
+    String(Math.floor(callSeconds/60)).padStart(2,"0");
 
-const sec=
-String(
-callSeconds%60
-).padStart(2,"0");
+  const sec=
+    String(callSeconds%60).padStart(2,"0");
 
-const time=
-min+":"+sec;
+  const time=min+":"+sec;
 
+  if(callType==="video"){
 
-const videoTimer=
-document.getElementById(
-"videoTimer"
-);
+    document.getElementById("videoTimer").innerText=
+      time;
 
-const audioTimer=
-document.getElementById(
-"audioTimer"
-);
+  }else{
 
-if(videoTimer){
-videoTimer.innerText=time;
-}
+    document.getElementById("audioTimer").innerText=
+      time;
+  }
 
-if(audioTimer){
-audioTimer.innerText=time;
-}
-
+  callSeconds++;
 }
 
 
-/* =========================
-   END CALL
-========================= */
+function toggleMic(){
 
-function endCall(sendSignal){
+  if(!localStream) return;
 
-if(
-sendSignal&&
-socket&&
-socket.readyState===
-WebSocket.OPEN
-){
+  const track=
+    localStream.getAudioTracks()[0];
 
-socket.send(
-JSON.stringify({
-type:"call-ended"
-})
-);
+  if(!track) return;
 
+  track.enabled=!track.enabled;
+
+  const icon=
+    track.enabled ? "🎤" : "🔇";
+
+  document.getElementById("micBtn").innerText=icon;
+  document.getElementById("audioMicBtn").innerText=icon;
 }
 
 
-clearInterval(
-callTimerInterval
-);
+function toggleCamera(){
 
-callTimerInterval=null;
+  if(!localStream) return;
 
-callSeconds=0;
+  const track=
+    localStream.getVideoTracks()[0];
 
+  if(!track) return;
 
-if(peerConnection){
+  track.enabled=!track.enabled;
 
-try{
-peerConnection.close();
-}catch(e){}
-
-}
-
-peerConnection=null;
-
-
-if(localStream){
-
-localStream
-.getTracks()
-.forEach(track=>{
-track.stop();
-});
-
-}
-
-localStream=null;
-
-
-const local=
-document.getElementById(
-"localVideo"
-);
-
-const remote=
-document.getElementById(
-"remoteVideo"
-);
-
-if(local){
-local.srcObject=null;
-}
-
-if(remote){
-remote.srcObject=null;
+  document.getElementById("cameraBtn").innerText=
+    track.enabled ? "📷" : "🚫";
 }
 
 
-pendingOffer=null;
+function endCall(sendSignal=true){
 
-callType=null;
+  if(sendSignal){
 
+    sendToRoom({
+      type:"call-ended"
+    });
 
-showPage("homePage");
+  }
 
+  clearInterval(callTimerInterval);
+
+  callTimerInterval=null;
+
+  if(peerConnection){
+
+    try{
+      peerConnection.close();
+    }catch(e){}
+
+    peerConnection=null;
+  }
+
+  if(localStream){
+
+    localStream.getTracks().forEach(
+      track=>track.stop()
+    );
+
+    localStream=null;
+  }
+
+  document.getElementById("localVideo").srcObject=null;
+  document.getElementById("remoteVideo").srcObject=null;
+  document.getElementById("remoteAudio").srcObject=null;
+
+  pendingOffer=null;
+  pendingCallType=null;
+  callType=null;
+
+  showPage("homePage");
 }
 
 
-/* =========================
-   AUTO LOGIN
-========================= */
+/* AUTO LOGIN */
 
-window.addEventListener(
-"load",
-()=>{
+window.addEventListener("load",()=>{
 
-if(
-localStorage.getItem(
-"dujon_logged"
-)==="yes"
-){
+  loadProfile();
 
-showPage("homePage");
+  const logged=
+    localStorage.getItem("dujon_logged");
 
-}
+  if(logged==="yes"){
+
+    showPage("homePage");
+
+    const saved=
+      localStorage.getItem("dujon_room");
+
+    if(saved){
+
+      currentRoom=saved;
+    }
+
+  }else{
+
+    showPage("loginPage");
+  }
 
 });
 
