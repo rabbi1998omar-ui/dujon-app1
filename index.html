@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#090914">
 <title>দুজন ❤️</title>
 
 <style>
@@ -14,27 +15,46 @@
 }
 
 body{
-  background:#08080d;
-  color:white;
+  background:
+    radial-gradient(circle at 20% 10%,#5b1748 0,transparent 30%),
+    radial-gradient(circle at 90% 80%,#251a67 0,transparent 35%),
+    #080810;
+  color:#fff;
   min-height:100vh;
 }
 
 .page{
   display:none;
   min-height:100vh;
-  padding:25px;
+  padding:24px;
 }
 
-.active{
+.page.active{
   display:block;
 }
 
 .card{
-  max-width:450px;
-  margin:40px auto;
-  background:#171722;
-  padding:25px;
-  border-radius:22px;
+  width:100%;
+  max-width:430px;
+  margin:45px auto;
+  padding:28px;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:28px;
+  background:rgba(255,255,255,.07);
+  backdrop-filter:blur(18px);
+  box-shadow:0 20px 60px rgba(0,0,0,.45);
+}
+
+.logo{
+  text-align:center;
+  font-size:42px;
+  margin-bottom:8px;
+}
+
+.subtitle{
+  text-align:center;
+  color:#aaa;
+  margin-bottom:25px;
 }
 
 h1{
@@ -44,66 +64,82 @@ h1{
 
 input{
   width:100%;
-  padding:14px;
-  margin:8px 0;
-  border:0;
-  border-radius:12px;
+  padding:15px;
+  margin:7px 0;
+  border:none;
+  outline:none;
+  border-radius:15px;
+  background:rgba(255,255,255,.1);
+  color:white;
   font-size:16px;
+}
+
+input::placeholder{
+  color:#999;
 }
 
 button{
   border:0;
-  border-radius:13px;
-  padding:13px 18px;
-  font-size:16px;
   cursor:pointer;
+  color:white;
+  font-size:15px;
 }
 
 .main-btn{
   width:100%;
+  padding:15px;
   margin-top:12px;
-  background:#ff3b81;
-  color:white;
+  border-radius:16px;
+  background:linear-gradient(135deg,#ff3b81,#8b5cf6);
+  box-shadow:0 8px 25px rgba(255,59,129,.18);
 }
 
 .secondary{
-  background:#292938;
-  color:white;
+  background:rgba(255,255,255,.08);
+  box-shadow:none;
+}
+
+.main-btn:active{
+  transform:scale(.98);
 }
 
 .status{
   text-align:center;
-  margin:15px 0;
-  color:#8aff9b;
+  margin:18px 0;
+  color:#8affb0;
+  font-size:14px;
 }
 
 .room-code{
   text-align:center;
-  font-size:35px;
-  letter-spacing:7px;
-  margin:25px 0;
-  color:#ff5b98;
+  font-size:38px;
+  letter-spacing:8px;
+  color:#ff75ad;
+  margin:25px 0 10px;
+  text-shadow:0 0 20px rgba(255,70,140,.5);
 }
 
 .chat-box{
   height:55vh;
   overflow-y:auto;
-  background:#11111a;
-  padding:15px;
-  border-radius:15px;
+  padding:12px;
+  border-radius:18px;
+  background:rgba(0,0,0,.2);
 }
 
 .message{
-  padding:10px 14px;
-  margin:8px 0;
-  border-radius:15px;
+  width:max-content;
   max-width:80%;
-  background:#292938;
+  padding:11px 15px;
+  margin:8px 0;
+  border-radius:17px 17px 17px 5px;
+  background:rgba(255,255,255,.1);
 }
 
-.me{
+.message.me{
   margin-left:auto;
-  background:#ff3b81;
+  border-radius:17px 17px 5px 17px;
+  background:linear-gradient(135deg,#ff3b81,#8b5cf6);
 }
 
 .chat-input{
@@ -117,12 +153,46 @@ button{
 }
 
 .chat-input button{
+  width:65px;
+  border-radius:15px;
   background:#ff3b81;
-  color:white;
 }
 
 
-/* ================= VIDEO CALL ================= */
+/* HOME */
+
+.home-title{
+  text-align:center;
+  font-size:36px;
+  margin-bottom:6px;
+}
+
+.home-heart{
+  text-align:center;
+  color:#ff6fa9;
+  margin-bottom:25px;
+}
+
+.feature{
+  text-align:left;
+  padding:17px;
+  margin:10px 0;
+  border-radius:18px;
+  background:rgba(255,255,255,.06);
+}
+
+.feature strong{
+  display:block;
+  margin-bottom:4px;
+}
+
+.feature span{
+  color:#999;
+  font-size:13px;
+}
+
+
+/* VIDEO */
 
 .video-page{
   padding:0;
@@ -134,61 +204,59 @@ button{
   position:relative;
   width:100%;
   height:78vh;
-  background:#111;
   overflow:hidden;
+  background:#08080d;
 }
 
 #remoteVideo{
   width:100%;
   height:100%;
   object-fit:cover;
-  background:#111;
 }
 
 #localVideo{
   position:absolute;
+  top:18px;
   right:15px;
-  top:15px;
-  width:125px;
-  height:175px;
+  width:115px;
+  height:165px;
   object-fit:cover;
-  border-radius:16px;
-  border:2px solid rgba(255,255,255,.8);
-  background:#222;
+  border-radius:18px;
+  border:2px solid rgba(255,255,255,.7);
+  background:#171722;
   z-index:5;
 }
 
 .video-top{
   position:absolute;
+  top:0;
   left:0;
   right:0;
-  top:0;
-  padding:18px;
+  padding:20px;
+  z-index:10;
   display:flex;
   justify-content:space-between;
-  align-items:center;
-  z-index:10;
   background:linear-gradient(
-    rgba(0,0,0,.65),
+    rgba(0,0,0,.75),
     transparent
   );
 }
 
-.call-title{
+.call-name{
   font-size:18px;
   font-weight:bold;
 }
 
-.call-time{
-  font-size:14px;
+.call-timer{
   color:#ddd;
+  font-size:13px;
   margin-top:4px;
 }
 
 .connection{
-  padding:7px 11px;
+  padding:7px 12px;
   border-radius:20px;
-  background:rgba(0,0,0,.5);
+  background:rgba(0,0,0,.45);
   font-size:12px;
 }
 
@@ -197,104 +265,207 @@ button{
   left:0;
   right:0;
   bottom:0;
-  padding:22px 15px 28px;
+  padding:30px 15px;
   z-index:10;
   background:linear-gradient(
     transparent,
-    rgba(0,0,0,.9)
+    rgba(0,0,0,.95)
   );
 }
 
-.video-controls{
+.controls{
   display:flex;
   justify-content:center;
   align-items:center;
-  gap:14px;
-}
-
-.control{
-  width:58px;
-  height:58px;
-  border-radius:50%;
-  padding:0;
-  background:#292938;
-  color:white;
-  font-size:22px;
-}
-
-.control.active{
-  background:#ffffff;
-  color:#111;
-}
-
-.end-call{
-  width:68px;
-  height:58px;
-  border-radius:30px;
-  background:#e53935;
-  color:white;
-  font-size:24px;
-}
-
-.control-label{
-  text-align:center;
-  margin-top:8px;
-  font-size:11px;
-  color:#ddd;
+  gap:15px;
 }
 
 .control-wrap{
   text-align:center;
 }
 
+.control{
+  width:57px;
+  height:57px;
+  border-radius:50%;
+  background:rgba(255,255,255,.13);
+  font-size:21px;
+}
 
-/* ================= INCOMING CALL ================= */
+.control.on{
+  background:#fff;
+  color:#111;
+}
+
+.label{
+  font-size:10px;
+  color:#ddd;
+  margin-top:6px;
+}
+
+.end{
+  width:68px;
+  height:58px;
+  border-radius:30px;
+  background:#e53935;
+  font-size:23px;
+}
+
+
+/* AUDIO */
+
+.audio-page{
+  padding:0;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at center,#531d4a,#080810 60%);
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+
+.audio-page.active{
+  display:flex;
+}
+
+.audio-card{
+  width:90%;
+  max-width:380px;
+  text-align:center;
+}
+
+.audio-avatar{
+  width:125px;
+  height:125px;
+  margin:0 auto 20px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:58px;
+  background:linear-gradient(135deg,#ff3b81,#8b5cf6);
+  box-shadow:
+    0 0 0 12px rgba(255,59,129,.08),
+    0 0 60px rgba(255,59,129,.3);
+}
+
+.audio-title{
+  font-size:25px;
+  margin-bottom:8px;
+}
+
+.audio-status{
+  color:#aaa;
+  margin-bottom:8px;
+}
+
+.audio-timer{
+  font-size:15px;
+  color:#ddd;
+  margin-bottom:35px;
+}
+
+.audio-controls{
+  display:flex;
+  justify-content:center;
+  gap:16px;
+}
+
+.audio-button{
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:rgba(255,255,255,.1);
+  font-size:22px;
+}
+
+.audio-button.on{
+  background:#fff;
+  color:#111;
+}
+
+.audio-end{
+  width:70px;
+  height:60px;
+  border-radius:30px;
+  background:#e53935;
+  font-size:24px;
+}
+
+
+/* INCOMING */
 
 #incomingCall{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.95);
   display:none;
   align-items:center;
   justify-content:center;
-  z-index:9999;
+  z-index:99999;
+  background:rgba(3,3,8,.94);
+  backdrop-filter:blur(15px);
 }
 
-.call-card{
-  width:90%;
+.incoming-card{
+  width:88%;
   max-width:360px;
-  background:#191925;
-  border-radius:25px;
-  padding:32px;
+  padding:35px 25px;
   text-align:center;
+  border-radius:30px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12);
 }
 
-.call-icon{
-  font-size:65px;
-  margin-bottom:15px;
+.incoming-icon{
+  width:90px;
+  height:90px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  font-size:40px;
+  background:linear-gradient(135deg,#ff3b81,#8b5cf6);
+  animation:pulse 1.5s infinite;
 }
 
-.call-buttons{
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(255,59,129,.5)}
+  70%{box-shadow:0 0 0 25px rgba(255,59,129,0)}
+  100%{box-shadow:0 0 0 0 rgba(255,59,129,0)}
+}
+
+.incoming-card h2{
+  margin-top:22px;
+}
+
+.incoming-card p{
+  color:#aaa;
+  margin-top:8px;
+}
+
+.incoming-buttons{
   display:flex;
   gap:12px;
   margin-top:25px;
 }
 
-.call-buttons button{
+.incoming-buttons button{
   flex:1;
+  padding:14px;
+  border-radius:15px;
 }
 
 .accept{
   background:#19b95b;
-  color:white;
 }
 
 .reject{
   background:#e53935;
-  color:white;
 }
 </style>
 </head>
+
 
 <body>
 
@@ -302,30 +473,37 @@ button{
 <!-- LOGIN -->
 
 <section id="loginPage" class="page active">
+
 <div class="card">
 
-<h1>দুজন ❤️</h1>
+<div class="logo">❤️</div>
+
+<h1>দুজন</h1>
+
+<p class="subtitle">
+দুজন মানুষ, একটুকরো ব্যক্তিগত জগৎ
+</p>
 
 <input id="loginPhone"
-       type="tel"
-       placeholder="মোবাইল নাম্বার">
+type="tel"
+placeholder="মোবাইল নাম্বার">
 
 <input id="loginPin"
-       type="password"
-       placeholder="PIN">
+type="password"
+placeholder="PIN">
 
 <button class="main-btn"
-        onclick="login()">
+onclick="login()">
 লগইন
 </button>
 
 <button class="main-btn secondary"
-        onclick="showPage('registerPage')">
+onclick="showPage('registerPage')">
 নতুন অ্যাকাউন্ট
 </button>
 
 <p id="loginMessage"
-   style="text-align:center;margin-top:15px;">
+style="text-align:center;margin-top:15px;color:#ff7cab">
 </p>
 
 </div>
@@ -335,30 +513,37 @@ button{
 <!-- REGISTER -->
 
 <section id="registerPage" class="page">
+
 <div class="card">
 
-<h1>অ্যাকাউন্ট তৈরি ❤️</h1>
+<div class="logo">💗</div>
+
+<h1>নতুন শুরু</h1>
+
+<p class="subtitle">
+দুজন-এর নিজের ছোট্ট জগৎ তৈরি করুন
+</p>
 
 <input id="regPhone"
-       type="tel"
-       placeholder="মোবাইল নাম্বার">
+type="tel"
+placeholder="মোবাইল নাম্বার">
 
 <input id="regPin"
-       type="password"
-       placeholder="PIN">
+type="password"
+placeholder="PIN">
 
 <button class="main-btn"
-        onclick="registerUser()">
+onclick="registerUser()">
 অ্যাকাউন্ট তৈরি
 </button>
 
 <button class="main-btn secondary"
-        onclick="showPage('loginPage')">
+onclick="showPage('loginPage')">
 ফিরে যাও
 </button>
 
 <p id="regMessage"
-   style="text-align:center;margin-top:15px;">
+style="text-align:center;margin-top:15px;">
 </p>
 
 </div>
@@ -368,27 +553,43 @@ button{
 <!-- HOME -->
 
 <section id="homePage" class="page">
+
 <div class="card">
 
-<h1>দুজন ❤️</h1>
+<div class="home-title">
+দুজন ❤️
+</div>
 
-<button class="main-btn"
-        onclick="showPage('roomPage')">
-🔐 Private Room
-</button>
+<div class="home-heart">
+একসাথে থাকুন, কথা বলুন
+</div>
 
-<button class="main-btn"
-        onclick="openChat()">
-💬 Chat
-</button>
+<div class="feature"
+onclick="showPage('roomPage')">
+<strong>🔐 Private Room</strong>
+<span>শুধু দুজনের জন্য একটি ব্যক্তিগত Room</span>
+</div>
 
-<button class="main-btn"
-        onclick="startVideoFromHome()">
-🎥 Video Call
-</button>
+<div class="feature"
+onclick="openChat()">
+<strong>💬 Private Chat</strong>
+<span>নিজেদের মধ্যে মেসেজ করুন</span>
+</div>
+
+<div class="feature"
+onclick="startVideoFromHome()">
+<strong>🎥 Video Call</strong>
+<span>সরাসরি ভিডিওতে কথা বলুন</span>
+</div>
+
+<div class="feature"
+onclick="startAudioFromHome()">
+<strong>🎤 Audio Call</strong>
+<span>শুধু কণ্ঠে কথা বলুন</span>
+</div>
 
 <button class="main-btn secondary"
-        onclick="logout()">
+onclick="logout()">
 Logout
 </button>
 
@@ -399,34 +600,39 @@ Logout
 <!-- ROOM -->
 
 <section id="roomPage" class="page">
+
 <div class="card">
 
-<h1>Private Room 🔐</h1>
+<h1>🔐 Private Room</h1>
+
+<p class="subtitle">
+আপনাদের Room Code তৈরি করুন
+</p>
 
 <button class="main-btn"
-        onclick="createRoom()">
+onclick="createRoom()">
 নতুন Room তৈরি
 </button>
 
 <div id="roomCodeBox"></div>
 
 <input id="joinCode"
-       maxlength="6"
-       inputmode="numeric"
-       placeholder="৬ সংখ্যার Room Code">
+maxlength="6"
+inputmode="numeric"
+placeholder="৬ সংখ্যার Room Code">
 
 <button class="main-btn"
-        onclick="joinRoom()">
+onclick="joinRoom()">
 Room-এ ঢুকুন
 </button>
 
 <p id="connectionStatus"
-   class="status">
+class="status">
 ⚪ Room Connected নয়
 </p>
 
 <button class="main-btn secondary"
-        onclick="showPage('homePage')">
+onclick="showPage('homePage')">
 Home
 </button>
 
@@ -437,29 +643,30 @@ Home
 <!-- CHAT -->
 
 <section id="chatPage" class="page">
+
 <div class="card">
 
 <h1>💬 দুজন Chat</h1>
 
 <div id="chatBox"
-     class="chat-box">
+class="chat-box">
 </div>
 
 <div class="chat-input">
 
 <input id="messageInput"
-       type="text"
-       placeholder="মেসেজ লিখুন..."
-       onkeydown="if(event.key==='Enter')sendMessage()">
+type="text"
+placeholder="একটা মেসেজ লিখুন..."
+onkeydown="if(event.key==='Enter')sendMessage()">
 
 <button onclick="sendMessage()">
-Send
+➤
 </button>
 
 </div>
 
 <button class="main-btn secondary"
-        onclick="showPage('homePage')">
+onclick="showPage('homePage')">
 Home
 </button>
 
@@ -467,40 +674,39 @@ Home
 </section>
 
 
-<!-- VIDEO CALL -->
+<!-- VIDEO -->
 
 <section id="videoPage"
-         class="page video-page">
+class="page video-page">
 
 <div class="video-container">
 
 <video id="remoteVideo"
-       autoplay
-       playsinline>
+autoplay
+playsinline>
 </video>
 
 <video id="localVideo"
-       autoplay
-       muted
-       playsinline>
+autoplay
+muted
+playsinline>
 </video>
-
 
 <div class="video-top">
 
 <div>
-<div class="call-title">
+<div class="call-name">
 ❤️ দুজন
 </div>
 
-<div id="callTimer"
-     class="call-time">
+<div id="videoTimer"
+class="call-timer">
 00:00
 </div>
 </div>
 
-<div id="connectionText"
-     class="connection">
+<div id="videoConnection"
+class="connection">
 Connecting...
 </div>
 
@@ -509,19 +715,18 @@ Connecting...
 
 <div class="video-bottom">
 
-<div class="video-controls">
-
+<div class="controls">
 
 <div class="control-wrap">
 
-<button id="cameraButton"
-        class="control active"
-        onclick="toggleCamera()">
+<button id="videoCamera"
+class="control on"
+onclick="toggleCamera()">
 📷
 </button>
 
-<div id="cameraLabel"
-     class="control-label">
+<div id="videoCameraLabel"
+class="label">
 Camera On
 </div>
 
@@ -530,14 +735,14 @@ Camera On
 
 <div class="control-wrap">
 
-<button id="micButton"
-        class="control active"
-        onclick="toggleMic()">
+<button id="videoMic"
+class="control on"
+onclick="toggleMic()">
 🎤
 </button>
 
-<div id="micLabel"
-     class="control-label">
+<div id="videoMicLabel"
+class="label">
 Mic On
 </div>
 
@@ -546,112 +751,153 @@ Mic On
 
 <div class="control-wrap">
 
-<button class="end-call"
-        onclick="endCall(true)">
+<button class="end"
+onclick="endCall(true)">
 ☎
 </button>
 
-<div class="control-label">
+<div class="label">
 End
 </div>
 
 </div>
 
-
 </div>
 
 </div>
 
 </div>
-
 </section>
 
 
-<!-- INCOMING CALL -->
+<!-- AUDIO -->
+
+<section id="audioPage"
+class="page audio-page">
+
+<div class="audio-card">
+
+<div class="audio-avatar">
+❤️
+</div>
+
+<div class="audio-title">
+দুজন
+</div>
+
+<div id="audioStatus"
+class="audio-status">
+Connecting...
+</div>
+
+<div id="audioTimer"
+class="audio-timer">
+00:00
+</div>
+
+<div class="audio-controls">
+
+<button id="audioMic"
+class="audio-button on"
+onclick="toggleMic()">
+🎤
+</button>
+
+<button class="audio-end"
+onclick="endCall(true)">
+☎
+</button>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- INCOMING -->
 
 <div id="incomingCall">
 
-<div class="call-card">
+<div class="incoming-card">
 
-<div class="call-icon">
+<div class="incoming-icon">
 📞
 </div>
 
-<h2>Incoming Video Call</h2>
+<h2 id="incomingTitle">
+Incoming Call
+</h2>
 
-<p style="margin-top:8px;color:#bbb;">
-আপনার জন্য একটি ভিডিও কল এসেছে
+<p id="incomingText">
+আপনার জন্য একটি কল এসেছে
 </p>
 
-<div class="call-buttons">
+<div class="incoming-buttons">
 
 <button class="accept"
-        onclick="acceptCall()">
+onclick="acceptCall()">
 গ্রহণ
 </button>
 
 <button class="reject"
-        onclick="rejectCall()">
+onclick="rejectCall()">
 বাতিল
 </button>
 
 </div>
 
 </div>
-
 </div>
 
 
 <script>
 
-/* ================================
+/* =========================
    SETTINGS
-================================ */
+========================= */
 
 const WS_URL =
 "wss://dujon-app1.onrender.com";
 
+let socket=null;
 
-let socket = null;
+let currentRoom=
+localStorage.getItem("dujon_room")||null;
 
-let currentRoom =
-localStorage.getItem("dujon_room") || null;
+let pendingOffer=null;
 
-let pendingOffer = null;
+let pendingCallType=null;
 
-let peerConnection = null;
+let peerConnection=null;
 
-let localStream = null;
+let localStream=null;
 
-let callSeconds = 0;
+let callType=null;
 
-let callTimerInterval = null;
+let callSeconds=0;
+
+let callTimerInterval=null;
 
 
-/* ================================
-   WEBRTC
-================================ */
+/* =========================
+   RTC
+========================= */
 
-const rtcConfig = {
-
+const rtcConfig={
 iceServers:[
-
 {
 urls:"stun:stun.l.google.com:19302"
 },
-
 {
 urls:"stun:stun1.l.google.com:19302"
 }
-
 ]
-
 };
 
 
-/* ================================
+/* =========================
    PAGE
-================================ */
+========================= */
 
 function showPage(id){
 
@@ -661,7 +907,7 @@ document
 p.classList.remove("active");
 });
 
-const page =
+const page=
 document.getElementById(id);
 
 if(page){
@@ -671,24 +917,24 @@ page.classList.add("active");
 }
 
 
-/* ================================
+/* =========================
    REGISTER
-================================ */
+========================= */
 
 function registerUser(){
 
-const phone =
+const phone=
 document.getElementById("regPhone")
 .value.trim();
 
-const pin =
+const pin=
 document.getElementById("regPin")
 .value.trim();
 
-if(!phone || !pin){
+if(!phone||!pin){
 
 document.getElementById("regMessage")
-.innerText =
+.innerText=
 "সব তথ্য দিন";
 
 return;
@@ -703,7 +949,7 @@ pin
 );
 
 document.getElementById("regMessage")
-.innerText =
+.innerText=
 "অ্যাকাউন্ট তৈরি হয়েছে ❤️";
 
 setTimeout(()=>{
@@ -713,29 +959,29 @@ showPage("loginPage");
 }
 
 
-/* ================================
+/* =========================
    LOGIN
-================================ */
+========================= */
 
 function login(){
 
-const phone =
+const phone=
 document.getElementById("loginPhone")
 .value.trim();
 
-const pin =
+const pin=
 document.getElementById("loginPin")
 .value.trim();
 
-const saved =
+const saved=
 JSON.parse(
 localStorage.getItem("dujon_user")
-|| "null"
+||"null"
 );
 
 if(
-saved &&
-saved.phone===phone &&
+saved&&
+saved.phone===phone&&
 saved.pin===pin
 ){
 
@@ -749,7 +995,7 @@ showPage("homePage");
 }else{
 
 document.getElementById("loginMessage")
-.innerText =
+.innerText=
 "মোবাইল নাম্বার বা PIN ভুল";
 
 }
@@ -757,9 +1003,9 @@ document.getElementById("loginMessage")
 }
 
 
-/* ================================
+/* =========================
    LOGOUT
-================================ */
+========================= */
 
 function logout(){
 
@@ -776,14 +1022,14 @@ showPage("loginPage");
 }
 
 
-/* ================================
-   SOCKET CONNECT
-================================ */
+/* =========================
+   SOCKET
+========================= */
 
 function connectRoom(code){
 
-code =
-String(code || "").trim();
+code=
+String(code||"").trim();
 
 if(!/^\d{6}$/.test(code)){
 return;
@@ -791,8 +1037,8 @@ return;
 
 
 if(
-socket &&
-socket.readyState===WebSocket.OPEN &&
+socket&&
+socket.readyState===WebSocket.OPEN&&
 currentRoom===code
 ){
 
@@ -801,7 +1047,6 @@ setConnectionStatus(
 );
 
 return;
-
 }
 
 
@@ -822,7 +1067,7 @@ code
 );
 
 
-socket =
+socket=
 new WebSocket(WS_URL);
 
 
@@ -883,11 +1128,16 @@ return;
 }
 
 
-/* INCOMING CALL */
+/* VIDEO CALL */
 
 if(data.type==="video-call"){
 
-showIncomingCall();
+pendingCallType=
+data.callType||"video";
+
+showIncomingCall(
+pendingCallType
+);
 
 return;
 }
@@ -922,7 +1172,10 @@ data.answer
 
 }catch(error){
 
-console.error(error);
+console.error(
+"Answer error:",
+error
+);
 
 }
 
@@ -935,7 +1188,7 @@ return;
 if(data.type==="ice-candidate"){
 
 if(
-peerConnection &&
+peerConnection&&
 data.candidate
 ){
 
@@ -950,7 +1203,10 @@ data.candidate
 
 }catch(error){
 
-console.error(error);
+console.error(
+"ICE error:",
+error
+);
 
 }
 
@@ -960,7 +1216,7 @@ return;
 }
 
 
-/* CALL END */
+/* END */
 
 if(data.type==="call-ended"){
 
@@ -970,7 +1226,7 @@ return;
 }
 
 
-/* CALL REJECT */
+/* REJECT */
 
 if(data.type==="call-rejected"){
 
@@ -1015,9 +1271,9 @@ setConnectionStatus(
 }
 
 
-/* ================================
-   CLOSE SOCKET
-================================ */
+/* =========================
+   SOCKET CLOSE
+========================= */
 
 function closeSocket(){
 
@@ -1034,13 +1290,13 @@ socket=null;
 }
 
 
-/* ================================
+/* =========================
    ROOM
-================================ */
+========================= */
 
 function createRoom(){
 
-const code =
+const code=
 String(
 Math.floor(
 100000+
@@ -1062,8 +1318,7 @@ document.getElementById(
 <div class="room-code">
 ${code}
 </div>
-
-<p style="text-align:center">
+<p style="text-align:center;color:#aaa">
 এই Code অন্য ফোনে দিন
 </p>
 `;
@@ -1075,7 +1330,7 @@ connectRoom(code);
 
 function joinRoom(){
 
-const code =
+const code=
 document.getElementById(
 "joinCode"
 ).value.trim();
@@ -1094,13 +1349,9 @@ connectRoom(code);
 }
 
 
-/* ================================
-   STATUS
-================================ */
-
 function setConnectionStatus(text){
 
-const el =
+const el=
 document.getElementById(
 "connectionStatus"
 );
@@ -1112,9 +1363,9 @@ el.innerText=text;
 }
 
 
-/* ================================
+/* =========================
    CHAT
-================================ */
+========================= */
 
 function openChat(){
 
@@ -1133,7 +1384,7 @@ showPage("chatPage");
 
 
 if(
-!socket ||
+!socket||
 socket.readyState!==WebSocket.OPEN
 ){
 
@@ -1146,12 +1397,12 @@ connectRoom(currentRoom);
 
 function sendMessage(){
 
-const input =
+const input=
 document.getElementById(
 "messageInput"
 );
 
-const message =
+const message=
 input.value.trim();
 
 if(!message){
@@ -1160,7 +1411,7 @@ return;
 
 
 if(
-!socket ||
+!socket||
 socket.readyState!==WebSocket.OPEN
 ){
 
@@ -1174,11 +1425,8 @@ return;
 
 socket.send(
 JSON.stringify({
-
 type:"chat",
-
 message:message
-
 })
 );
 
@@ -1198,15 +1446,13 @@ message,
 mine
 ){
 
-const box =
+const box=
 document.getElementById(
 "chatBox"
 );
 
-const div =
-document.createElement(
-"div"
-);
+const div=
+document.createElement("div");
 
 div.className=
 "message"+
@@ -1222,9 +1468,9 @@ box.scrollHeight;
 }
 
 
-/* ================================
-   VIDEO
-================================ */
+/* =========================
+   VIDEO START
+========================= */
 
 function startVideoFromHome(){
 
@@ -1239,48 +1485,72 @@ showPage("roomPage");
 return;
 }
 
-makeCall();
+makeCall("video");
 
 }
 
 
-/* ================================
-   LOCAL MEDIA
-================================ */
+/* =========================
+   AUDIO START
+========================= */
 
-async function getLocalMedia(){
+function startAudioFromHome(){
+
+if(!currentRoom){
+
+alert(
+"আগে Room-এ ঢুকুন"
+);
+
+showPage("roomPage");
+
+return;
+}
+
+makeCall("audio");
+
+}
+
+
+/* =========================
+   MEDIA
+========================= */
+
+async function getLocalMedia(type){
 
 if(localStream){
 return localStream;
 }
 
 
-localStream =
+localStream=
 await navigator.mediaDevices
 .getUserMedia({
 
-video:{
-facingMode:"user"
-},
+video:type==="video",
 
 audio:true
 
 });
 
 
+if(type==="video"){
+
 document.getElementById(
 "localVideo"
 ).srcObject=
 localStream;
+
+}
 
 return localStream;
 
 }
 
 
-/* ================================
-   PEER CONNECTION
-================================ */
+/* =========================
+   PEER
+========================= */
 
 function createPeerConnection(){
 
@@ -1293,42 +1563,46 @@ peerConnection.close();
 }
 
 
-peerConnection =
+peerConnection=
 new RTCPeerConnection(
 rtcConfig
 );
 
 
-peerConnection.ontrack =
+peerConnection.ontrack=
 event=>{
 
 if(
-event.streams &&
+event.streams&&
 event.streams[0]
 ){
 
-const video =
+if(callType==="video"){
+
+const remote=
 document.getElementById(
 "remoteVideo"
 );
 
-video.srcObject =
+remote.srcObject=
 event.streams[0];
 
-video.play()
+remote.play()
 .catch(()=>{});
+
+}
 
 }
 
 };
 
 
-peerConnection.onicecandidate =
+peerConnection.onicecandidate=
 event=>{
 
 if(
-event.candidate &&
-socket &&
+event.candidate&&
+socket&&
 socket.readyState===
 WebSocket.OPEN
 ){
@@ -1348,36 +1622,65 @@ candidate:event.candidate
 };
 
 
-peerConnection.onconnectionstatechange =
+peerConnection.onconnectionstatechange=
 ()=>{
 
-const state =
+const state=
 peerConnection.connectionState;
 
-const text =
+if(callType==="video"){
+
+const el=
 document.getElementById(
-"connectionText"
+"videoConnection"
 );
 
 if(state==="connected"){
 
-text.innerText =
+el.innerText=
 "🟢 Connected";
 
-}else if(
-state==="connecting"
-){
+}else if(state==="connecting"){
 
-text.innerText =
+el.innerText=
 "Connecting...";
 
 }else if(
-state==="disconnected" ||
+state==="disconnected"||
 state==="failed"
 ){
 
-text.innerText =
+el.innerText=
 "🔴 Disconnected";
+
+}
+
+}else{
+
+const el=
+document.getElementById(
+"audioStatus"
+);
+
+if(state==="connected"){
+
+el.innerText=
+"🟢 Connected";
+
+}else if(state==="connecting"){
+
+el.innerText=
+"Connecting...";
+
+}else if(
+state==="disconnected"||
+state==="failed"
+){
+
+el.innerText=
+"🔴 Disconnected";
+
+}
 
 }
 
@@ -1402,34 +1705,46 @@ localStream
 }
 
 
-/* ================================
-   START CALL
-================================ */
+/* =========================
+   MAKE CALL
+========================= */
 
-async function makeCall(){
+async function makeCall(type){
 
 try{
 
-showPage("videoPage");
+callType=type;
 
-await getLocalMedia();
+showPage(
+type==="video"
+?"videoPage"
+:"audioPage"
+);
+
+await getLocalMedia(type);
 
 createPeerConnection();
 
 
 socket.send(
 JSON.stringify({
-type:"video-call"
+
+type:"video-call",
+
+callType:type
+
 })
 );
 
 
-const offer =
+const offer=
 await peerConnection
 .createOffer({
 
 offerToReceiveAudio:true,
-offerToReceiveVideo:true
+
+offerToReceiveVideo:
+type==="video"
 
 });
 
@@ -1456,10 +1771,13 @@ startCallTimer();
 
 }catch(error){
 
-console.error(error);
+console.error(
+"Call error:",
+error
+);
 
 alert(
-"Camera/Microphone চালু করা যায়নি।"
+"Microphone/Camera চালু করা যায়নি। Permission দিন।"
 );
 
 }
@@ -1467,40 +1785,68 @@ alert(
 }
 
 
-/* ================================
+/* =========================
    INCOMING
-================================ */
+========================= */
 
-function showIncomingCall(){
+function showIncomingCall(type){
+
+pendingCallType=type;
+
+document.getElementById(
+"incomingTitle"
+).innerText=
+type==="video"
+?"Incoming Video Call"
+:"Incoming Audio Call";
+
+document.getElementById(
+"incomingText"
+).innerText=
+type==="video"
+?"আপনার জন্য একটি ভিডিও কল এসেছে"
+:"আপনার জন্য একটি অডিও কল এসেছে";
 
 document.getElementById(
 "incomingCall"
-).style.display="flex";
+).style.display=
+"flex";
 
 }
 
 
-/* ================================
+/* =========================
    ACCEPT
-================================ */
+========================= */
 
 async function acceptCall(){
 
 document.getElementById(
 "incomingCall"
-).style.display="none";
+).style.display=
+"none";
 
 
 try{
 
-showPage("videoPage");
+callType=
+pendingCallType||"video";
 
-await getLocalMedia();
+showPage(
+callType==="video"
+?"videoPage"
+:"audioPage"
+);
+
+await getLocalMedia(
+callType
+);
 
 createPeerConnection();
 
 
 if(!pendingOffer){
+
 return;
 }
 
@@ -1513,9 +1859,16 @@ pendingOffer
 );
 
 
-const answer =
+const answer=
 await peerConnection
-.createAnswer();
+.createAnswer({
+
+offerToReceiveAudio:true,
+
+offerToReceiveVideo:
+callType==="video"
+
+});
 
 
 await peerConnection
@@ -1542,10 +1895,13 @@ startCallTimer();
 
 }catch(error){
 
-console.error(error);
+console.error(
+"Accept error:",
+error
+);
 
 alert(
-"ভিডিও কানেকশন তৈরি করা যায়নি।"
+"Call connection তৈরি করা যায়নি।"
 );
 
 }
@@ -1553,19 +1909,20 @@ alert(
 }
 
 
-/* ================================
+/* =========================
    REJECT
-================================ */
+========================= */
 
 function rejectCall(){
 
 document.getElementById(
 "incomingCall"
-).style.display="none";
+).style.display=
+"none";
 
 
 if(
-socket &&
+socket&&
 socket.readyState===WebSocket.OPEN
 ){
 
@@ -1582,9 +1939,88 @@ pendingOffer=null;
 }
 
 
-/* ================================
+/* =========================
+   MIC
+========================= */
+
+function toggleMic(){
+
+if(!localStream){
+return;
+}
+
+const track=
+localStream.getAudioTracks()[0];
+
+if(!track){
+return;
+}
+
+track.enabled=
+!track.enabled;
+
+
+if(callType==="video"){
+
+const button=
+document.getElementById(
+"videoMic"
+);
+
+const label=
+document.getElementById(
+"videoMicLabel"
+);
+
+if(track.enabled){
+
+button.classList.add("on");
+
+button.innerText="🎤";
+
+label.innerText=
+"Mic On";
+
+}else{
+
+button.classList.remove("on");
+
+button.innerText="🔇";
+
+label.innerText=
+"Mic Off";
+
+}
+
+}else{
+
+const button=
+document.getElementById(
+"audioMic"
+);
+
+if(track.enabled){
+
+button.classList.add("on");
+
+button.innerText="🎤";
+
+}else{
+
+button.classList.remove("on");
+
+button.innerText="🔇";
+
+}
+
+}
+
+}
+
+
+/* =========================
    CAMERA
-================================ */
+========================= */
 
 function toggleCamera(){
 
@@ -1592,32 +2028,31 @@ if(!localStream){
 return;
 }
 
-const track =
+const track=
 localStream.getVideoTracks()[0];
 
 if(!track){
 return;
 }
 
-
-track.enabled =
+track.enabled=
 !track.enabled;
 
 
-const button =
+const button=
 document.getElementById(
-"cameraButton"
+"videoCamera"
 );
 
-const label =
+const label=
 document.getElementById(
-"cameraLabel"
+"videoCameraLabel"
 );
 
 
 if(track.enabled){
 
-button.classList.add("active");
+button.classList.add("on");
 
 button.innerText="📷";
 
@@ -1626,7 +2061,7 @@ label.innerText=
 
 }else{
 
-button.classList.remove("active");
+button.classList.remove("on");
 
 button.innerText="🚫";
 
@@ -1638,65 +2073,9 @@ label.innerText=
 }
 
 
-/* ================================
-   MICROPHONE
-================================ */
-
-function toggleMic(){
-
-if(!localStream){
-return;
-}
-
-const track =
-localStream.getAudioTracks()[0];
-
-if(!track){
-return;
-}
-
-
-track.enabled =
-!track.enabled;
-
-
-const button =
-document.getElementById(
-"micButton"
-);
-
-const label =
-document.getElementById(
-"micLabel"
-);
-
-
-if(track.enabled){
-
-button.classList.add("active");
-
-button.innerText="🎤";
-
-label.innerText=
-"Mic On";
-
-}else{
-
-button.classList.remove("active");
-
-button.innerText="🔇";
-
-label.innerText=
-"Mic Off";
-
-}
-
-}
-
-
-/* ================================
-   CALL TIMER
-================================ */
+/* =========================
+   TIMER
+========================= */
 
 function startCallTimer(){
 
@@ -1708,7 +2087,7 @@ callSeconds=0;
 
 updateCallTimer();
 
-callTimerInterval =
+callTimerInterval=
 setInterval(()=>{
 
 callSeconds++;
@@ -1722,44 +2101,52 @@ updateCallTimer();
 
 function updateCallTimer(){
 
-const min =
+const min=
 String(
 Math.floor(
 callSeconds/60
 )
 ).padStart(2,"0");
 
-const sec =
+const sec=
 String(
 callSeconds%60
 ).padStart(2,"0");
 
-const timer =
-document.getElementById(
-"callTimer"
-);
-
-if(timer){
-
-timer.innerText =
+const time=
 min+":"+sec;
 
+
+const videoTimer=
+document.getElementById(
+"videoTimer"
+);
+
+const audioTimer=
+document.getElementById(
+"audioTimer"
+);
+
+if(videoTimer){
+videoTimer.innerText=time;
+}
+
+if(audioTimer){
+audioTimer.innerText=time;
 }
 
 }
 
 
-/* ================================
+/* =========================
    END CALL
-================================ */
+========================= */
 
-function endCall(
-sendSignal
-){
+function endCall(sendSignal){
 
 if(
-sendSignal &&
-socket &&
+sendSignal&&
+socket&&
 socket.readyState===
 WebSocket.OPEN
 ){
@@ -1806,25 +2193,28 @@ track.stop();
 localStream=null;
 
 
+const local=
 document.getElementById(
 "localVideo"
-).srcObject=null;
+);
 
+const remote=
 document.getElementById(
 "remoteVideo"
-).srcObject=null;
+);
+
+if(local){
+local.srcObject=null;
+}
+
+if(remote){
+remote.srcObject=null;
+}
 
 
-document.getElementById(
-"connectionText"
-).innerText=
-"Connecting...";
+pendingOffer=null;
 
-
-document.getElementById(
-"callTimer"
-).innerText=
-"00:00";
+callType=null;
 
 
 showPage("homePage");
@@ -1832,9 +2222,9 @@ showPage("homePage");
 }
 
 
-/* ================================
+/* =========================
    AUTO LOGIN
-================================ */
+========================= */
 
 window.addEventListener(
 "load",
