@@ -240,7 +240,11 @@ button{
 
 <body>
 
-<!-- LOGIN -->
+
+<!-- =========================
+     LOGIN
+========================= -->
+
 <div id="authPage" class="page">
 
 <div class="container">
@@ -254,6 +258,7 @@ button{
 <p class="subtitle">
 মোবাইল নম্বর দিয়ে প্রবেশ করো
 </p>
+
 
 <div id="loginBox">
 
@@ -275,7 +280,10 @@ maxlength="6"
 লগইন ❤️
 </button>
 
-<div class="link" onclick="showRegister()">
+<div
+class="link"
+onclick="showRegister()"
+>
 নতুন অ্যাকাউন্ট তৈরি করো
 </div>
 
@@ -310,7 +318,10 @@ maxlength="6"
 অ্যাকাউন্ট তৈরি ❤️
 </button>
 
-<div class="link" onclick="showLogin()">
+<div
+class="link"
+onclick="showLogin()"
+>
 আগে থেকেই অ্যাকাউন্ট আছে? লগইন করো
 </div>
 
@@ -321,42 +332,99 @@ maxlength="6"
 </div>
 
 
-<!-- HOME -->
-<div id="homePage" class="page hidden">
+
+<!-- =========================
+     HOME
+========================= -->
+
+<div
+id="homePage"
+class="page hidden"
+>
 
 <div class="container home">
 
 <div class="welcome">
 
-<div class="logo">💞</div>
+<div class="logo">
+💞
+</div>
 
-<h2>স্বাগতম দুজনে</h2>
+<h2>
+স্বাগতম দুজনে
+</h2>
 
-<p id="userPhone" class="user"></p>
+<p
+id="userPhone"
+class="user"
+></p>
 
 </div>
 
 
 <div class="features">
 
-<div class="feature" onclick="openChat()">
-<div class="icon">💬</div>
-<p>চ্যাট</p>
+<div
+class="feature"
+onclick="openChat()"
+>
+
+<div class="icon">
+💬
 </div>
 
-<div class="feature" onclick="openRoom()">
-<div class="icon">🔐</div>
-<p>প্রাইভেট রুম</p>
+<p>
+চ্যাট
+</p>
+
 </div>
 
-<div class="feature" onclick="openVideo()">
-<div class="icon">📹</div>
-<p>ভিডিও কল</p>
+
+<div
+class="feature"
+onclick="openRoom()"
+>
+
+<div class="icon">
+🔐
 </div>
 
-<div class="feature" onclick="openAudio()">
-<div class="icon">📞</div>
-<p>অডিও কল</p>
+<p>
+প্রাইভেট রুম
+</p>
+
+</div>
+
+
+<div
+class="feature"
+onclick="openVideo()"
+>
+
+<div class="icon">
+📹
+</div>
+
+<p>
+ভিডিও কল
+</p>
+
+</div>
+
+
+<div
+class="feature"
+onclick="openAudio()"
+>
+
+<div class="icon">
+📞
+</div>
+
+<p>
+অডিও কল
+</p>
+
 </div>
 
 </div>
@@ -390,7 +458,10 @@ maxlength="6"
 </div>
 
 
-<button class="logout" onclick="logout()">
+<button
+class="logout"
+onclick="logout()"
+>
 লগআউট
 </button>
 
@@ -398,14 +469,25 @@ maxlength="6"
 </div>
 
 
-<!-- ROOM -->
-<div id="roomPage" class="page hidden">
+
+<!-- =========================
+     ROOM
+========================= -->
+
+<div
+id="roomPage"
+class="page hidden"
+>
 
 <div class="container">
 
-<button class="back" onclick="showHome()">
+<button
+class="back"
+onclick="showHome()"
+>
 ← ফিরে যাও
 </button>
+
 
 <div class="card">
 
@@ -421,19 +503,33 @@ maxlength="6"
 শুধু দুজনের জন্য ❤️
 </p>
 
-<div id="roomCode" class="room-code">
+
+<div
+id="roomCode"
+class="room-code"
+>
 ------
 </div>
 
-<div id="connectionStatus" class="status">
+
+<div
+id="connectionStatus"
+class="status"
+>
 🔄 Server-এর সাথে সংযোগ হচ্ছে...
 </div>
 
-<button onclick="copyRoomCode()">
+
+<button
+onclick="copyRoomCode()"
+>
 📋 Room Code Copy
 </button>
 
-<button onclick="openChat()">
+
+<button
+onclick="openChat()"
+>
 💬 মেসেজ করুন
 </button>
 
@@ -443,14 +539,25 @@ maxlength="6"
 </div>
 
 
-<!-- CHAT -->
-<div id="chatPage" class="page hidden">
+
+<!-- =========================
+     CHAT
+========================= -->
+
+<div
+id="chatPage"
+class="page hidden"
+>
 
 <div class="container">
 
-<button class="back" onclick="openRoom()">
+<button
+class="back"
+onclick="openRoom()"
+>
 ← Room-এ ফিরে যাও
 </button>
+
 
 <div class="card">
 
@@ -458,14 +565,24 @@ maxlength="6"
 💬 আমাদের চ্যাট
 </h2>
 
-<div id="chatStatus" class="status">
+
+<div
+id="chatStatus"
+class="status"
+>
 🔄 সংযোগ হচ্ছে...
 </div>
 
+
 <br>
 
-<div id="chatBox" class="chat-box">
+
+<div
+id="chatBox"
+class="chat-box"
+>
 </div>
+
 
 <div class="chat-input">
 
@@ -475,7 +592,9 @@ placeholder="মেসেজ লিখো..."
 onkeydown="handleMessageKey(event)"
 >
 
-<button onclick="sendMessage()">
+<button
+onclick="sendMessage()"
+>
 ➤
 </button>
 
@@ -487,14 +606,25 @@ onkeydown="handleMessageKey(event)"
 </div>
 
 
-<!-- VIDEO -->
-<div id="videoPage" class="page hidden">
+
+<!-- =========================
+     VIDEO
+========================= -->
+
+<div
+id="videoPage"
+class="page hidden"
+>
 
 <div class="container">
 
-<button class="back" onclick="showHome()">
+<button
+class="back"
+onclick="showHome()"
+>
 ← ফিরে যাও
 </button>
+
 
 <div class="card call-screen">
 
@@ -502,21 +632,30 @@ onkeydown="handleMessageKey(event)"
 📹 ভিডিও কল
 </h2>
 
+
 <div class="call-avatar">
 ❤️
 </div>
+
 
 <p>
 ভিডিও কল প্রস্তুত
 </p>
 
+
 <div class="call-buttons">
 
-<button onclick="alert('ভিডিও কলের WebRTC অংশ পরের ধাপে যোগ হবে ❤️')">
+<button
+onclick="alert('ভিডিও কলের WebRTC অংশ পরের ধাপে যোগ হবে ❤️')"
+>
 📹 ক্যামেরা
 </button>
 
-<button class="end" onclick="showHome()">
+
+<button
+class="end"
+onclick="showHome()"
+>
 ☎ শেষ
 </button>
 
@@ -528,14 +667,25 @@ onkeydown="handleMessageKey(event)"
 </div>
 
 
-<!-- AUDIO -->
-<div id="audioPage" class="page hidden">
+
+<!-- =========================
+     AUDIO
+========================= -->
+
+<div
+id="audioPage"
+class="page hidden"
+>
 
 <div class="container">
 
-<button class="back" onclick="showHome()">
+<button
+class="back"
+onclick="showHome()"
+>
 ← ফিরে যাও
 </button>
+
 
 <div class="card call-screen">
 
@@ -543,15 +693,21 @@ onkeydown="handleMessageKey(event)"
 📞 অডিও কল
 </h2>
 
+
 <div class="call-avatar">
 ❤️
 </div>
+
 
 <p>
 অডিও কল প্রস্তুত
 </p>
 
-<button class="end" onclick="showHome()">
+
+<button
+class="end"
+onclick="showHome()"
+>
 ☎ কল শেষ
 </button>
 
@@ -561,10 +717,12 @@ onkeydown="handleMessageKey(event)"
 </div>
 
 
+
 <script>
 
+
 /* =================================
-   DUJON WEBSOCKET SERVER
+   DUJON SERVER
 ================================= */
 
 const WS_URL =
@@ -575,11 +733,10 @@ let socket = null;
 
 let currentRoom = null;
 
-let reconnectTimer = null;
 
 
 /* =================================
-   CONNECTION STATUS
+   STATUS
 ================================= */
 
 function setConnectionStatus(text){
@@ -599,6 +756,7 @@ if(roomStatus){
 roomStatus.innerText = text;
 }
 
+
 if(chatStatus){
 chatStatus.innerText = text;
 }
@@ -606,8 +764,9 @@ chatStatus.innerText = text;
 }
 
 
+
 /* =================================
-   CONNECT SERVER
+   CONNECT ROOM
 ================================= */
 
 function connectRoom(code){
@@ -616,6 +775,36 @@ if(!code){
 return;
 }
 
+
+/*
+   সবচেয়ে গুরুত্বপূর্ণ অংশ:
+
+   একই Room-এ ইতিমধ্যে
+   WebSocket connected থাকলে
+   নতুন connection তৈরি করবে না।
+*/
+
+if(
+socket &&
+socket.readyState === WebSocket.OPEN &&
+currentRoom === code
+){
+
+console.log(
+"Already connected to room:",
+code
+);
+
+setConnectionStatus(
+"🟢 Room Connected"
+);
+
+return;
+
+}
+
+
+/* নতুন Room */
 
 currentRoom = code;
 
@@ -638,7 +827,7 @@ setConnectionStatus(
 );
 
 
-/* WebSocket */
+/* WebSocket তৈরি */
 
 try{
 
@@ -661,7 +850,10 @@ return;
 }
 
 
-/* OPEN */
+
+/* =================================
+   SOCKET OPEN
+================================= */
 
 socket.onopen = function(){
 
@@ -690,7 +882,10 @@ room:currentRoom
 };
 
 
-/* MESSAGE */
+
+/* =================================
+   SERVER MESSAGE
+================================= */
 
 socket.onmessage =
 function(event){
@@ -722,7 +917,9 @@ return;
 
 /* JOINED */
 
-if(data.type === "joined"){
+if(
+data.type === "joined"
+){
 
 console.log(
 "Joined room:",
@@ -742,6 +939,11 @@ setConnectionStatus(
 if(
 data.type === "peer-joined"
 ){
+
+console.log(
+"Other phone joined"
+);
+
 
 setConnectionStatus(
 "❤️ দুজনেই Room-এ আছো"
@@ -765,7 +967,9 @@ setConnectionStatus(
 
 /* CHAT */
 
-if(data.type === "chat"){
+if(
+data.type === "chat"
+){
 
 console.log(
 "Incoming chat:",
@@ -774,14 +978,19 @@ data.text
 
 
 if(
-typeof data.text ===
-"string"
+typeof data.text === "string"
 ){
 
 addMessage(
 data.text,
 false
 );
+
+
+/*
+   Incoming message local history-তে
+   সংরক্ষণ করছি।
+*/
 
 saveLocalMessage(
 data.text,
@@ -795,7 +1004,9 @@ false
 
 /* ERROR */
 
-if(data.type === "error"){
+if(
+data.type === "error"
+){
 
 console.log(
 "Server error:",
@@ -805,7 +1016,10 @@ data.message
 
 setConnectionStatus(
 "❌ " +
-(data.message || "Server error")
+(
+data.message ||
+"Server error"
+)
 );
 
 
@@ -819,7 +1033,10 @@ data.message ||
 };
 
 
-/* ERROR */
+
+/* =================================
+   SOCKET ERROR
+================================= */
 
 socket.onerror =
 function(error){
@@ -837,7 +1054,10 @@ setConnectionStatus(
 };
 
 
-/* CLOSE */
+
+/* =================================
+   SOCKET CLOSE
+================================= */
 
 socket.onclose =
 function(){
@@ -854,6 +1074,7 @@ setConnectionStatus(
 };
 
 }
+
 
 
 /* =================================
@@ -884,9 +1105,11 @@ document.createElement(
 
 div.className =
 "message " +
-(mine ?
+(
+mine ?
 "my-message" :
-"");
+""
+);
 
 
 div.innerText =
@@ -900,6 +1123,7 @@ box.scrollTop =
 box.scrollHeight;
 
 }
+
 
 
 /* =================================
@@ -934,7 +1158,9 @@ document
 .value;
 
 
-if(phone.length < 10){
+if(
+phone.length < 10
+){
 
 alert(
 "সঠিক মোবাইল নম্বর লিখো 📱"
@@ -959,7 +1185,9 @@ return;
 }
 
 
-if(!/^\d+$/.test(pin)){
+if(
+!/^\d+$/.test(pin)
+){
 
 alert(
 "PIN শুধু সংখ্যা হবে।"
@@ -970,7 +1198,9 @@ return;
 }
 
 
-if(pin !== confirm){
+if(
+pin !== confirm
+){
 
 alert(
 "দুইটি PIN একই নয়।"
@@ -1013,6 +1243,7 @@ alert(
 showHome();
 
 }
+
 
 
 /* =================================
@@ -1090,6 +1321,7 @@ alert(
 }
 
 
+
 /* =================================
    HOME
 ================================= */
@@ -1124,6 +1356,7 @@ document
 }
 
 
+
 /* =================================
    HIDE ALL
 ================================= */
@@ -1152,6 +1385,7 @@ document
 }
 
 
+
 /* =================================
    CREATE ROOM
 ================================= */
@@ -1159,12 +1393,10 @@ document
 function createRoom(){
 
 const code =
-Math
-.floor(
+Math.floor(
 100000 +
 Math.random() * 900000
-)
-.toString();
+).toString();
 
 
 localStorage.setItem(
@@ -1192,9 +1424,15 @@ document
 .remove("hidden");
 
 
+/*
+   Room তৈরি করার সময়
+   একবারই connection হবে।
+*/
+
 connectRoom(code);
 
 }
+
 
 
 /* =================================
@@ -1241,9 +1479,15 @@ document
 .remove("hidden");
 
 
+/*
+   যদি already connected থাকে,
+   connectRoom নতুন socket বানাবে না।
+*/
+
 connectRoom(code);
 
 }
+
 
 
 /* =================================
@@ -1261,7 +1505,9 @@ document
 .trim();
 
 
-if(!/^\d{6}$/.test(code)){
+if(
+!/^\d{6}$/.test(code)
+){
 
 alert(
 "৬ সংখ্যার Room Code লিখো।"
@@ -1300,6 +1546,7 @@ document
 connectRoom(code);
 
 }
+
 
 
 /* =================================
@@ -1364,6 +1611,7 @@ code
 }
 
 
+
 /* =================================
    OPEN CHAT
 ================================= */
@@ -1403,7 +1651,45 @@ document
 loadMessages();
 
 
+/*
+   গুরুত্বপূর্ণ:
+
+   এখানে connectRoom(room)
+   আর দেওয়া নেই।
+
+   Room-এ ঢোকার সময় WebSocket
+   আগেই connected হয়েছে।
+
+   তাই Chat খুললে নতুন connection
+   তৈরি হবে না।
+*/
+
+
+if(
+socket &&
+socket.readyState === WebSocket.OPEN &&
+currentRoom === room
+){
+
+setConnectionStatus(
+"🟢 Chat Connected"
+);
+
+}else{
+
+setConnectionStatus(
+"🔄 Server-এর সাথে সংযোগ হচ্ছে..."
+);
+
+
+/*
+   যদি কোনো কারণে connection
+   না থাকে, তখনই শুধু connect করবে।
+*/
+
 connectRoom(room);
+
+}
 
 
 /* Input focus */
@@ -1417,7 +1703,9 @@ document.getElementById(
 );
 
 if(input){
+
 input.focus();
+
 }
 
 },
@@ -1425,6 +1713,7 @@ input.focus();
 );
 
 }
+
 
 
 /* =================================
@@ -1465,12 +1754,15 @@ return;
 }
 
 
-/* Socket connected কিনা */
+/*
+   Socket OPEN হলে message পাঠাবে
+*/
 
 if(
 socket &&
 socket.readyState ===
-WebSocket.OPEN
+WebSocket.OPEN &&
+currentRoom === room
 ){
 
 console.log(
@@ -1500,7 +1792,7 @@ true
 );
 
 
-/* Local */
+/* Local history */
 
 saveLocalMessage(
 text,
@@ -1522,8 +1814,9 @@ alert(
 }
 
 
+
 /* =================================
-   ENTER
+   ENTER TO SEND
 ================================= */
 
 function handleMessageKey(event){
@@ -1539,6 +1832,7 @@ sendMessage();
 }
 
 }
+
 
 
 /* =================================
@@ -1567,7 +1861,9 @@ mine:mine
 });
 
 
-if(messages.length > 100){
+if(
+messages.length > 100
+){
 
 messages.shift();
 
@@ -1580,6 +1876,7 @@ JSON.stringify(messages)
 );
 
 }
+
 
 
 /* =================================
@@ -1624,6 +1921,7 @@ message.mine
 }
 
 
+
 /* =================================
    VIDEO
 ================================= */
@@ -1643,6 +1941,7 @@ document
 }
 
 
+
 /* =================================
    AUDIO
 ================================= */
@@ -1660,6 +1959,7 @@ document
 .remove("hidden");
 
 }
+
 
 
 /* =================================
@@ -1694,6 +1994,7 @@ document
 }
 
 
+
 /* =================================
    LOGIN PAGE
 ================================= */
@@ -1726,6 +2027,7 @@ document
 }
 
 
+
 /* =================================
    LOGOUT
 ================================= */
@@ -1735,12 +2037,17 @@ function logout(){
 if(socket){
 
 try{
+
 socket.close();
+
 }catch(e){}
 
 socket = null;
 
 }
+
+
+currentRoom = null;
 
 
 localStorage.removeItem(
@@ -1769,6 +2076,7 @@ showLogin();
 }
 
 
+
 /* =================================
    AUTO LOGIN
 ================================= */
@@ -1782,7 +2090,9 @@ localStorage.getItem(
 );
 
 
-if(logged === "true"){
+if(
+logged === "true"
+){
 
 showHome();
 
