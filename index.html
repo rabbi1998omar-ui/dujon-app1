@@ -2,668 +2,299 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#090912">
 <title>দুজন ❤️</title>
 
 <style>
-*{
- box-sizing:border-box;
- margin:0;
- padding:0;
- font-family:Arial,"Noto Sans Bengali",sans-serif;
-}
-
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,"Noto Sans Bengali",sans-serif}
 body{
- background:
- radial-gradient(circle at top,#321c45 0,#120d1d 42%,#07070c 100%);
- color:#fff;
- min-height:100vh;
+ background:radial-gradient(circle at top,#351d48,#120d1d 45%,#07070c);
+ color:#fff;min-height:100vh
 }
-
 button,input,textarea{font:inherit}
 button{border:0;cursor:pointer}
-
-.page{
- display:none;
- min-height:100vh;
- padding:20px;
-}
-
+.page{display:none;min-height:100vh;padding:20px}
 .page.active{display:block}
-
-.container{
- width:100%;
- max-width:520px;
- margin:auto;
-}
-
+.container{max-width:520px;margin:auto}
 .card{
  background:rgba(255,255,255,.08);
  border:1px solid rgba(255,255,255,.12);
  backdrop-filter:blur(18px);
- border-radius:24px;
- padding:20px;
- margin-bottom:16px;
- box-shadow:0 15px 45px rgba(0,0,0,.25);
+ border-radius:24px;padding:20px;margin-bottom:16px;
+ box-shadow:0 15px 45px rgba(0,0,0,.25)
 }
-
-h1{font-size:28px}
+h1{font-size:29px}
 h2{font-size:22px;margin-bottom:8px}
-h3{margin-bottom:6px}
-
-p{
- color:#cfcbd5;
- line-height:1.5;
-}
-
+h3{margin-bottom:7px}
+p{color:#ccc;line-height:1.5}
 .center{text-align:center}
-
 .hidden{display:none!important}
 
 input,textarea{
- width:100%;
- padding:15px;
- margin:8px 0;
- border-radius:15px;
- border:1px solid rgba(255,255,255,.12);
- outline:none;
- background:rgba(0,0,0,.25);
- color:#fff;
+ width:100%;padding:15px;margin:8px 0;
+ border-radius:15px;border:1px solid rgba(255,255,255,.12);
+ outline:0;background:rgba(0,0,0,.25);color:#fff
 }
-
-textarea{
- resize:none;
- min-height:100px;
-}
-
-input::placeholder,
-textarea::placeholder{
- color:#aaa;
-}
+textarea{resize:none;min-height:100px}
+input::placeholder,textarea::placeholder{color:#aaa}
 
 .btn{
- width:100%;
- padding:15px;
- border-radius:15px;
- margin-top:8px;
- background:linear-gradient(135deg,#ff4f91,#8d4dff);
- color:#fff;
- font-weight:bold;
+ width:100%;padding:15px;border-radius:15px;margin-top:8px;
+ background:linear-gradient(135deg,#ff4f91,#814cff);
+ color:#fff;font-weight:bold
 }
-
-.btn.secondary{
- background:rgba(255,255,255,.1);
-}
-
-.btn.danger{
- background:#b52d45;
-}
-
+.btn.secondary{background:rgba(255,255,255,.1)}
+.btn.danger{background:#b52d45}
 .small-btn{
- padding:9px 13px;
- border-radius:12px;
- background:rgba(255,255,255,.1);
- color:#fff;
+ padding:9px 13px;border-radius:12px;
+ background:rgba(255,255,255,.1);color:#fff
 }
-
-/* HOME */
 
 .home-header{
- display:flex;
- justify-content:space-between;
- align-items:center;
- margin-bottom:20px;
+ display:flex;justify-content:space-between;align-items:center;
+ margin-bottom:20px
 }
-
-.my-profile{
- display:flex;
- align-items:center;
- gap:12px;
-}
-
+.my-profile{display:flex;align-items:center;gap:12px}
 .avatar{
- width:54px;
- height:54px;
- border-radius:50%;
+ width:54px;height:54px;border-radius:50%;
  background:linear-gradient(135deg,#ff4f91,#814cff);
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:24px;
- overflow:hidden;
- flex-shrink:0;
+ display:flex;align-items:center;justify-content:center;
+ font-size:24px;overflow:hidden;flex-shrink:0
 }
-
-.avatar img{
- width:100%;
- height:100%;
- object-fit:cover;
-}
-
+.avatar img{width:100%;height:100%;object-fit:cover}
 .online-dot{
- display:inline-block;
- width:9px;
- height:9px;
- background:#34e27a;
- border-radius:50%;
- margin-right:5px;
+ display:inline-block;width:9px;height:9px;
+ background:#34e27a;border-radius:50%;margin-right:5px
 }
 
 .hero{
- padding:30px 20px;
- text-align:center;
- background:
- linear-gradient(135deg,rgba(255,75,145,.22),rgba(117,70,255,.2));
+ padding:30px 20px;text-align:center;
+ background:linear-gradient(135deg,rgba(255,75,145,.22),rgba(117,70,255,.2))
 }
-
-.hero .heart{
- font-size:50px;
- margin-bottom:8px;
-}
-
-.hero h1{font-size:30px}
-
+.hero .heart{font-size:50px;margin-bottom:8px}
 .hero p{margin-top:8px}
 
-.partner{
- display:flex;
- align-items:center;
- gap:14px;
-}
-
+.partner{display:flex;align-items:center;gap:14px}
 .partner-info{flex:1}
+.partner-name{font-size:19px;font-weight:bold}
+.status{color:#aaa;font-size:13px;margin-top:4px}
 
-.partner-name{
- font-size:19px;
- font-weight:bold;
-}
-
-.status{
- color:#a9a4b2;
- font-size:13px;
- margin-top:4px;
-}
-
-.quick-grid{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:12px;
-}
-
+.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .quick{
- position:relative;
- padding:20px 12px;
- border-radius:20px;
- background:rgba(255,255,255,.08);
- color:#fff;
- text-align:center;
- border:1px solid rgba(255,255,255,.08);
+ position:relative;padding:19px 10px;border-radius:20px;
+ background:rgba(255,255,255,.08);color:#fff;
+ text-align:center;border:1px solid rgba(255,255,255,.08)
 }
-
-.quick-icon{
- font-size:30px;
- display:block;
- margin-bottom:7px;
-}
-
+.quick-icon{font-size:29px;display:block;margin-bottom:7px}
 .badge{
- position:absolute;
- top:8px;
- right:10px;
- min-width:22px;
- height:22px;
- padding:0 6px;
- background:#ff315f;
- border-radius:20px;
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:11px;
- font-weight:bold;
+ position:absolute;top:8px;right:10px;min-width:22px;height:22px;
+ padding:0 6px;background:#ff315f;border-radius:20px;
+ display:flex;align-items:center;justify-content:center;
+ font-size:11px;font-weight:bold
 }
-
-/* ROMANTIC */
 
 .feeling-grid{
- display:grid;
- grid-template-columns:repeat(5,1fr);
- gap:7px;
- margin-top:12px;
+ display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:12px
 }
-
 .feeling{
- padding:12px 5px;
- border-radius:15px;
- background:rgba(255,255,255,.08);
- color:#fff;
- font-size:23px;
+ padding:12px 4px;border-radius:15px;
+ background:rgba(255,255,255,.08);color:#fff;font-size:22px
 }
 
-.love-note{
- padding:18px;
- border-radius:18px;
- background:linear-gradient(
-  135deg,
-  rgba(255,79,145,.18),
-  rgba(129,76,255,.18)
- );
- border:1px solid rgba(255,255,255,.08);
- margin-top:10px;
+.love-box{
+ padding:18px;border-radius:18px;
+ background:linear-gradient(135deg,rgba(255,79,145,.18),rgba(129,76,255,.18))
 }
-
-.note-text{
- color:#eee;
- line-height:1.7;
-}
-
-.surprise{
- text-align:center;
- padding:20px;
- border-radius:20px;
- background:rgba(255,255,255,.06);
-}
-
-.surprise-message{
- min-height:45px;
- margin-top:12px;
- color:#ffd6e6;
- line-height:1.6;
-}
-
-/* ROOM */
 
 .room-code{
- font-size:34px;
- letter-spacing:7px;
- text-align:center;
- margin:20px 0;
+ font-size:34px;letter-spacing:7px;text-align:center;margin:20px 0
 }
+.connection{text-align:center;color:#aaa;font-size:13px}
 
-.connection{
- text-align:center;
- color:#9f9aa8;
- font-size:13px;
-}
-
-/* CHAT */
-
-.chat-box{
- height:50vh;
- overflow-y:auto;
- padding:10px 2px;
-}
-
+.chat-box{height:48vh;overflow-y:auto;padding:8px 2px}
 .message{
- max-width:78%;
- padding:12px 15px;
- border-radius:18px;
- margin:8px 0;
- word-wrap:break-word;
+ max-width:78%;padding:12px 15px;border-radius:18px;
+ margin:8px 0;word-wrap:break-word
 }
-
 .message.me{
- margin-left:auto;
- background:linear-gradient(135deg,#ff4f91,#814cff);
- border-bottom-right-radius:5px;
+ margin-left:auto;background:linear-gradient(135deg,#ff4f91,#814cff);
+ border-bottom-right-radius:5px
 }
-
 .message.other{
- margin-right:auto;
- background:rgba(255,255,255,.1);
- border-bottom-left-radius:5px;
+ margin-right:auto;background:rgba(255,255,255,.1);
+ border-bottom-left-radius:5px
 }
-
-.message-time{
- display:block;
- font-size:9px;
- opacity:.65;
- margin-top:5px;
-}
-
-.chat-input{
- display:flex;
- gap:8px;
-}
-
-.chat-input input{
- margin:0;
- flex:1;
-}
-
-.chat-input button{
- width:55px;
- border-radius:15px;
- background:#ff4f91;
- color:#fff;
-}
-
-/* HISTORY */
+.message-time{display:block;font-size:9px;opacity:.65;margin-top:5px}
+.chat-input{display:flex;gap:8px}
+.chat-input input{margin:0;flex:1}
+.chat-input button{width:55px;border-radius:15px;background:#ff4f91;color:#fff}
 
 .history-item{
- display:flex;
- align-items:center;
- gap:12px;
- padding:14px 0;
- border-bottom:1px solid rgba(255,255,255,.08);
+ display:flex;gap:12px;align-items:center;
+ padding:14px 0;border-bottom:1px solid rgba(255,255,255,.08)
 }
-
 .history-icon{
- width:42px;
- height:42px;
- border-radius:50%;
- display:flex;
- align-items:center;
- justify-content:center;
- background:rgba(255,255,255,.08);
- font-size:21px;
+ width:42px;height:42px;border-radius:50%;
+ display:flex;align-items:center;justify-content:center;
+ background:rgba(255,255,255,.08);font-size:20px
 }
+.history-info{flex:1}
+.history-time{font-size:11px;color:#999;margin-top:4px}
+.empty{text-align:center;padding:28px;color:#999}
 
-.history-info{
- flex:1;
-}
-
-.history-title{
- font-weight:bold;
-}
-
-.history-time{
- font-size:11px;
- color:#999;
- margin-top:3px;
-}
-
-.empty-history{
+/* COUPLE SPACE */
+.days{
  text-align:center;
- padding:30px 10px;
- color:#999;
+ padding:22px;
+ border-radius:22px;
+ background:linear-gradient(135deg,rgba(255,79,145,.2),rgba(129,76,255,.2))
 }
+.days-number{font-size:42px;font-weight:bold;margin:7px}
+.days-label{color:#ccc}
 
-/* CALL */
-
-.call-screen{
- position:fixed;
- inset:0;
- z-index:100;
- background:
- radial-gradient(circle at center,#302044,#09090e 70%);
- display:none;
- flex-direction:column;
- align-items:center;
- justify-content:center;
- padding:20px;
-}
-
-.call-screen.active{display:flex}
-
-.remote-video{
- position:absolute;
- inset:0;
- width:100%;
- height:100%;
- object-fit:cover;
- background:#08080d;
-}
-
-.local-video{
- position:absolute;
- width:115px;
- height:165px;
- right:18px;
- top:20px;
- border-radius:18px;
- object-fit:cover;
- background:#111;
- border:2px solid rgba(255,255,255,.25);
-}
-
-.call-info{
- position:relative;
- z-index:2;
- text-align:center;
- margin-bottom:40px;
-}
-
-.call-avatar{
- width:100px;
- height:100px;
- border-radius:50%;
- background:linear-gradient(135deg,#ff4f91,#814cff);
- overflow:hidden;
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:40px;
- margin:auto;
- box-shadow:0 0 40px rgba(255,79,145,.35);
-}
-
-.call-avatar img{
- width:100%;
- height:100%;
- object-fit:cover;
-}
-
-.call-controls{
- position:absolute;
- bottom:35px;
- z-index:5;
- display:flex;
- gap:15px;
-}
-
-.call-control{
- width:58px;
- height:58px;
- border-radius:50%;
- background:rgba(255,255,255,.14);
- color:#fff;
- font-size:22px;
-}
-
-.call-control.end{background:#e73655}
-
-.call-status{
- margin-top:12px;
- color:#ddd;
-}
-
-/* INCOMING */
-
-.incoming{
- position:fixed;
- inset:0;
- z-index:200;
- background:rgba(5,5,10,.88);
- backdrop-filter:blur(18px);
- display:none;
- align-items:center;
- justify-content:center;
- padding:20px;
-}
-
-.incoming.active{display:flex}
-
-.incoming-card{
- width:100%;
- max-width:370px;
- padding:30px 20px;
- border-radius:30px;
- background:linear-gradient(145deg,#24162f,#12121c);
- border:1px solid rgba(255,255,255,.12);
- text-align:center;
- box-shadow:0 20px 70px rgba(0,0,0,.5);
-}
-
-.incoming-avatar{
- width:110px;
- height:110px;
- margin:auto;
- border-radius:50%;
- background:linear-gradient(135deg,#ff4f91,#814cff);
- overflow:hidden;
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:42px;
- animation:ringPulse 1.2s infinite;
-}
-
-.incoming-avatar img{
- width:100%;
- height:100%;
- object-fit:cover;
-}
-
-@keyframes ringPulse{
- 0%,100%{transform:scale(1)}
- 50%{transform:scale(1.08)}
-}
-
-.incoming-buttons{
- display:flex;
+.memory-grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
  gap:10px;
- margin-top:25px;
+ margin-top:12px
+}
+.memory{
+ position:relative;border-radius:17px;overflow:hidden;
+ background:rgba(255,255,255,.07);min-height:140px
+}
+.memory img{width:100%;height:140px;object-fit:cover}
+.memory-text{
+ padding:10px;font-size:13px;color:#ddd
+}
+.memory-delete{
+ position:absolute;right:7px;top:7px;
+ width:30px;height:30px;border-radius:50%;
+ background:rgba(0,0,0,.6);color:#fff
 }
 
-.incoming-buttons button{
- flex:1;
- padding:14px;
- border-radius:15px;
- color:#fff;
- font-weight:bold;
+.story{
+ white-space:pre-wrap;
+ line-height:1.8;color:#eee;
+ min-height:80px
 }
 
-.accept{background:#28b968}
-.reject{background:#df3c58}
-
-/* TOAST */
-
-.toast{
- position:fixed;
- left:50%;
- bottom:25px;
- transform:translateX(-50%) translateY(20px);
- background:rgba(25,22,32,.96);
- border:1px solid rgba(255,255,255,.12);
- padding:13px 18px;
- border-radius:15px;
- opacity:0;
- pointer-events:none;
- transition:.3s;
- z-index:500;
- max-width:90%;
- text-align:center;
+.moment{
+ padding:13px;border-radius:16px;
+ background:rgba(255,255,255,.06);
+ margin-top:8px
 }
-
-.toast.show{
- opacity:1;
- transform:translateX(-50%) translateY(0);
-}
-
-/* MESSAGE NOTIFICATION */
-
-.message-notification{
- position:fixed;
- top:18px;
- left:50%;
- transform:translate(-50%,-120%);
- width:calc(100% - 30px);
- max-width:430px;
- background:rgba(28,22,37,.97);
- border:1px solid rgba(255,255,255,.13);
- border-radius:18px;
- padding:13px;
- display:flex;
- align-items:center;
- gap:12px;
- z-index:450;
- transition:.35s;
- box-shadow:0 15px 40px rgba(0,0,0,.4);
-}
-
-.message-notification.show{
- transform:translate(-50%,0);
-}
-
-.notification-avatar{
- width:45px;
- height:45px;
- border-radius:50%;
- overflow:hidden;
- background:#814cff;
- display:flex;
- align-items:center;
- justify-content:center;
-}
-
-.notification-avatar img{
- width:100%;
- height:100%;
- object-fit:cover;
-}
-
-.notification-text{flex:1}
-
-.notification-text strong{
- display:block;
- margin-bottom:3px;
-}
-
-.notification-text span{
- color:#bbb;
- font-size:13px;
-}
-
-/* PROFILE */
-
-.profile-avatar-large{
- width:110px;
- height:110px;
- margin:10px auto 20px;
- border-radius:50%;
- overflow:hidden;
- background:linear-gradient(135deg,#ff4f91,#814cff);
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:40px;
-}
-
-.profile-avatar-large img{
- width:100%;
- height:100%;
- object-fit:cover;
-}
+.moment small{display:block;color:#999;margin-top:5px}
 
 .file-label{
- display:block;
- padding:13px;
- border-radius:15px;
- background:rgba(255,255,255,.1);
- text-align:center;
- cursor:pointer;
- margin-bottom:8px;
+ display:block;padding:13px;border-radius:15px;
+ background:rgba(255,255,255,.1);text-align:center;
+ cursor:pointer;margin-top:8px
 }
+#memoryInput,#photoInput{display:none}
 
-#photoInput{display:none}
-
-/* LOVE NOTE */
-
-.note-author{
- text-align:right;
- color:#ff9fc2;
- font-size:12px;
- margin-top:12px;
+/* CALL */
+.call-screen{
+ position:fixed;inset:0;z-index:100;
+ background:radial-gradient(circle at center,#302044,#09090e 70%);
+ display:none;flex-direction:column;
+ align-items:center;justify-content:center;padding:20px
 }
-
-/* DIVIDER */
-
-.divider{
- height:1px;
- background:rgba(255,255,255,.08);
- margin:15px 0;
+.call-screen.active{display:flex}
+.remote-video{
+ position:absolute;inset:0;width:100%;height:100%;
+ object-fit:cover;background:#08080d
 }
+.local-video{
+ position:absolute;width:115px;height:165px;
+ right:18px;top:20px;border-radius:18px;
+ object-fit:cover;background:#111;
+ border:2px solid rgba(255,255,255,.25)
+}
+.call-info{position:relative;z-index:2;text-align:center;margin-bottom:40px}
+.call-avatar{
+ width:100px;height:100px;border-radius:50%;
+ background:linear-gradient(135deg,#ff4f91,#814cff);
+ overflow:hidden;display:flex;align-items:center;
+ justify-content:center;font-size:40px;margin:auto
+}
+.call-avatar img{width:100%;height:100%;object-fit:cover}
+.call-controls{
+ position:absolute;bottom:35px;z-index:5;
+ display:flex;gap:15px
+}
+.call-control{
+ width:58px;height:58px;border-radius:50%;
+ background:rgba(255,255,255,.14);color:#fff;font-size:22px
+}
+.call-control.end{background:#e73655}
+.call-status{margin-top:10px;color:#ddd}
+
+.incoming{
+ position:fixed;inset:0;z-index:200;
+ background:rgba(5,5,10,.9);backdrop-filter:blur(18px);
+ display:none;align-items:center;justify-content:center;padding:20px
+}
+.incoming.active{display:flex}
+.incoming-card{
+ width:100%;max-width:370px;padding:30px 20px;
+ border-radius:30px;background:linear-gradient(145deg,#24162f,#12121c);
+ text-align:center
+}
+.incoming-avatar{
+ width:110px;height:110px;margin:auto;border-radius:50%;
+ background:linear-gradient(135deg,#ff4f91,#814cff);
+ overflow:hidden;display:flex;align-items:center;
+ justify-content:center;font-size:42px;
+ animation:pulse 1.2s infinite
+}
+.incoming-avatar img{width:100%;height:100%;object-fit:cover}
+@keyframes pulse{50%{transform:scale(1.08)}}
+.incoming-buttons{display:flex;gap:10px;margin-top:25px}
+.incoming-buttons button{
+ flex:1;padding:14px;border-radius:15px;color:#fff;font-weight:bold
+}
+.accept{background:#28b968}.reject{background:#df3c58}
+
+.toast{
+ position:fixed;left:50%;bottom:25px;
+ transform:translateX(-50%) translateY(20px);
+ background:rgba(25,22,32,.97);
+ border:1px solid rgba(255,255,255,.12);
+ padding:13px 18px;border-radius:15px;
+ opacity:0;pointer-events:none;transition:.3s;
+ z-index:500;max-width:90%;text-align:center
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.message-notification{
+ position:fixed;top:18px;left:50%;
+ transform:translate(-50%,-120%);
+ width:calc(100% - 30px);max-width:430px;
+ background:rgba(28,22,37,.98);
+ border:1px solid rgba(255,255,255,.13);
+ border-radius:18px;padding:13px;
+ display:flex;align-items:center;gap:12px;
+ z-index:450;transition:.35s
+}
+.message-notification.show{transform:translate(-50%,0)}
+.notification-avatar{
+ width:45px;height:45px;border-radius:50%;
+ overflow:hidden;background:#814cff;
+ display:flex;align-items:center;justify-content:center
+}
+.notification-avatar img{width:100%;height:100%;object-fit:cover}
+.notification-text{flex:1}
+.notification-text strong{display:block}
+.notification-text span{color:#bbb;font-size:13px}
+
+.profile-avatar-large{
+ width:110px;height:110px;margin:10px auto 20px;
+ border-radius:50%;overflow:hidden;
+ background:linear-gradient(135deg,#ff4f91,#814cff);
+ display:flex;align-items:center;justify-content:center;font-size:40px
+}
+.profile-avatar-large img{width:100%;height:100%;object-fit:cover}
 </style>
 </head>
 
@@ -672,391 +303,231 @@ textarea::placeholder{
 <!-- LOGIN -->
 <section id="loginPage" class="page active">
 <div class="container">
-<div class="card center" style="margin-top:50px;">
-
-<div style="font-size:55px;">❤️</div>
-
+<div class="card center" style="margin-top:50px">
+<div style="font-size:55px">❤️</div>
 <h1>দুজন</h1>
-
-<p style="margin:8px 0 20px;">
-শুধু দুজনের ছোট্ট একটা জগৎ
-</p>
-
-<input id="loginPhone"
-type="tel"
-placeholder="মোবাইল নম্বর">
-
-<input id="loginPin"
-type="password"
-placeholder="PIN">
-
-<button class="btn" onclick="login()">
-লগইন
-</button>
-
-<button class="btn secondary"
-onclick="showPage('registerPage')">
+<p style="margin:8px 0 20px">শুধু দুজনের ছোট্ট একটা জগৎ</p>
+<input id="loginPhone" type="tel" placeholder="মোবাইল নম্বর">
+<input id="loginPin" type="password" placeholder="PIN">
+<button class="btn" onclick="login()">লগইন</button>
+<button class="btn secondary" onclick="showPage('registerPage')">
 নতুন অ্যাকাউন্ট তৈরি
 </button>
-
 </div>
 </div>
 </section>
-
 
 <!-- REGISTER -->
 <section id="registerPage" class="page">
 <div class="container">
-
 <div class="card">
-
 <h2>নতুন অ্যাকাউন্ট ❤️</h2>
-
 <p>তোমার তথ্য দিয়ে অ্যাকাউন্ট তৈরি করো।</p>
-
-<input id="regPhone"
-type="tel"
-placeholder="মোবাইল নম্বর">
-
-<input id="regPin"
-type="password"
-placeholder="৪-৬ সংখ্যার PIN">
-
-<button class="btn"
-onclick="registerUser()">
-অ্যাকাউন্ট তৈরি
-</button>
-
-<button class="btn secondary"
-onclick="showPage('loginPage')">
-ফিরে যাও
-</button>
-
+<input id="regPhone" type="tel" placeholder="মোবাইল নম্বর">
+<input id="regPin" type="password" placeholder="৪-৬ সংখ্যার PIN">
+<button class="btn" onclick="registerUser()">অ্যাকাউন্ট তৈরি</button>
+<button class="btn secondary" onclick="showPage('loginPage')">ফিরে যাও</button>
 </div>
 </div>
 </section>
-
 
 <!-- HOME -->
 <section id="homePage" class="page">
 <div class="container">
 
 <div class="home-header">
-
 <div class="my-profile">
-
-<div id="homeAvatar" class="avatar">
-❤️
-</div>
-
+<div id="homeAvatar" class="avatar">❤️</div>
 <div>
-<strong id="homeName">
-আমার প্রোফাইল
-</strong>
-
-<div style="font-size:12px;color:#aaa;">
+<strong id="homeName">আমার প্রোফাইল</strong>
+<div style="font-size:12px;color:#aaa">
 <span class="online-dot"></span>Online
 </div>
 </div>
-
 </div>
-
-<button class="small-btn"
-onclick="openProfile()">
-⚙️
-</button>
-
+<button class="small-btn" onclick="openProfile()">⚙️</button>
 </div>
-
 
 <div class="card hero">
-
 <div class="heart">💞</div>
-
 <h1>দুজনের ছোট্ট জগৎ</h1>
-
-<p>
-দূরে থেকেও কাছাকাছি থাকো ❤️
-</p>
-
+<p>দূরে থেকেও কাছাকাছি থাকো ❤️</p>
 </div>
 
-
-<!-- PARTNER -->
 <div class="card">
-
 <div class="partner">
-
-<div id="partnerAvatar" class="avatar">
-❤️
-</div>
-
+<div id="partnerAvatar" class="avatar">❤️</div>
 <div class="partner-info">
-
-<div id="partnerName"
-class="partner-name">
-এখনো কেউ যুক্ত হয়নি
+<div id="partnerName" class="partner-name">এখনো কেউ যুক্ত হয়নি</div>
+<div id="partnerStatus" class="status">Room-এ একজনকে অপেক্ষা করছি...</div>
+</div>
+</div>
 </div>
 
-<div id="partnerStatus"
-class="status">
-Room-এ একজনকে অপেক্ষা করছি...
+<!-- TOGETHER DAYS -->
+<div class="card days">
+<div style="font-size:30px">💑</div>
+<div class="days-number" id="togetherDays">0</div>
+<div class="days-label">দিন একসাথে ❤️</div>
+<button class="btn secondary" onclick="setTogetherDate()">
+📅 আমাদের দিন সেট করুন
+</button>
 </div>
 
-</div>
-
-</div>
-
-</div>
-
-
-<!-- QUICK -->
 <div class="quick-grid">
 
-<button class="quick"
-onclick="openChat()">
-
-<span class="quick-icon">💬</span>
-
-Chat
-
-<span id="chatBadge"
-class="badge hidden">
-0
-</span>
-
+<button class="quick" onclick="openChat()">
+<span class="quick-icon">💬</span>Chat
+<span id="chatBadge" class="badge hidden">0</span>
 </button>
 
-
-<button class="quick"
-onclick="startVideoFromHome()">
-
-<span class="quick-icon">📹</span>
-
-Video Call
-
+<button class="quick" onclick="startVideoFromHome()">
+<span class="quick-icon">📹</span>Video Call
 </button>
 
-
-<button class="quick"
-onclick="startAudioFromHome()">
-
-<span class="quick-icon">📞</span>
-
-Audio Call
-
+<button class="quick" onclick="startAudioFromHome()">
+<span class="quick-icon">📞</span>Audio Call
 </button>
 
-
-<button class="quick"
-onclick="openRoom()">
-
-<span class="quick-icon">🔐</span>
-
-Private Room
-
+<button class="quick" onclick="openRoom()">
+<span class="quick-icon">🔐</span>Private Room
 </button>
 
 </div>
 
-
-<!-- ROMANTIC -->
 <div class="card">
-
 <h3>💖 আজকের অনুভূতি</h3>
-
-<p style="font-size:13px;">
-একটা অনুভূতি পাঠিয়ে দাও ❤️
-</p>
+<p style="font-size:13px">একটা অনুভূতি পাঠিয়ে দাও ❤️</p>
 
 <div class="feeling-grid">
-
-<button class="feeling"
-onclick="sendFeeling('❤️')">
-❤️
-</button>
-
-<button class="feeling"
-onclick="sendFeeling('🥰')">
-🥰
-</button>
-
-<button class="feeling"
-onclick="sendFeeling('😘')">
-😘
-</button>
-
-<button class="feeling"
-onclick="sendFeeling('🫶')">
-🫶
-</button>
-
-<button class="feeling"
-onclick="sendFeeling('💋')">
-💋
-</button>
-
+<button class="feeling" onclick="sendFeeling('❤️')">❤️</button>
+<button class="feeling" onclick="sendFeeling('🥰')">🥰</button>
+<button class="feeling" onclick="sendFeeling('😘')">😘</button>
+<button class="feeling" onclick="sendFeeling('🫶')">🫶</button>
+<button class="feeling" onclick="sendFeeling('💋')">💋</button>
+</div>
 </div>
 
-</div>
-
-
-<!-- LOVE NOTE -->
 <div class="card">
-
 <h3>💌 Love Note</h3>
-
-<p style="font-size:13px;">
-মনের কথা ছোট্ট করে লিখে পাঠাও।
-</p>
-
-<textarea
-id="loveNoteInput"
-maxlength="300"
+<textarea id="loveNoteInput" maxlength="300"
 placeholder="তোমার জন্য একটা কথা..."></textarea>
-
-<button class="btn"
-onclick="sendLoveNote()">
-💌 পাঠিয়ে দাও
-</button>
-
+<button class="btn" onclick="sendLoveNote()">💌 পাঠিয়ে দাও</button>
 </div>
 
-
-<!-- SURPRISE -->
-<div class="card surprise">
-
-<div style="font-size:38px;">
-🎁
-</div>
-
-<h3 style="margin-top:8px;">
-একটা Surprise
-</h3>
-
-<p style="font-size:13px;">
-একবার চাপ দাও, একটা সুন্দর কথা আসবে।
-</p>
-
-<div id="surpriseMessage"
-class="surprise-message">
+<div class="card">
+<h3>🎁 Surprise</h3>
+<p>একটা সুন্দর কথা পেতে চাপ দাও।</p>
+<div id="surpriseMessage" style="margin:14px 0;color:#ffd6e6">
 ❤️ Surprise অপেক্ষা করছে...
 </div>
-
-<button class="btn"
-onclick="showSurprise()">
-✨ Surprise
-</button>
-
+<button class="btn" onclick="showSurprise()">✨ Surprise</button>
 </div>
 
+<!-- COUPLE SPACE -->
+<div class="card">
+<h2>💑 Couple Space</h2>
+<p>তোমাদের নিজেদের ছোট্ট স্মৃতির জায়গা।</p>
 
-<!-- HISTORY BUTTONS -->
+<button class="btn" onclick="openCoupleSpace()">
+💖 Couple Space খুলুন
+</button>
+</div>
+
 <div class="quick-grid">
-
-<button class="quick"
-onclick="openMessageHistory()">
-
-<span class="quick-icon">💬</span>
-
-Message History
-
+<button class="quick" onclick="openMessageHistory()">
+<span class="quick-icon">💬</span>Message History
 </button>
-
-
-<button class="quick"
-onclick="openCallHistory()">
-
-<span class="quick-icon">📞</span>
-
-Call History
-
+<button class="quick" onclick="openCallHistory()">
+<span class="quick-icon">📞</span>Call History
 </button>
-
 </div>
 
-
-<!-- NOTIFICATION -->
-<div class="card" style="margin-top:16px;">
-
+<div class="card">
 <h3>🔔 Notifications</h3>
-
-<p style="font-size:13px;margin:5px 0 10px;">
-নতুন মেসেজের notification চালু রাখো।
-</p>
-
-<button class="btn secondary"
-onclick="requestNotifications()">
+<p style="font-size:13px">নতুন মেসেজের notification চালু রাখো।</p>
+<button class="btn secondary" onclick="requestNotifications()">
 🔔 Notification চালু করুন
 </button>
-
 </div>
 
-
-<!-- ROOM -->
 <div class="card">
-
 <h3>🔐 তোমাদের Room</h3>
-
-<div id="homeRoomCode"
-class="room-code">
-------
+<div id="homeRoomCode" class="room-code">------</div>
+<button class="btn secondary" onclick="copyRoom()">📋 Room Code Copy</button>
 </div>
 
-<button class="btn secondary"
-onclick="copyRoom()">
-📋 Room Code Copy
-</button>
-
-</div>
-
-
-<button class="btn danger"
-onclick="logout()">
-Logout
-</button>
+<button class="btn danger" onclick="logout()">Logout</button>
 
 </div>
 </section>
 
-
-<!-- ROOM -->
-<section id="roomPage" class="page">
+<!-- COUPLE SPACE -->
+<section id="couplePage" class="page">
 <div class="container">
 
+<div class="card center">
+<h2>💑 Our Little World</h2>
+<p>শুধু তোমাদের দুজনের জন্য ❤️</p>
+</div>
+
+<!-- STORY -->
 <div class="card">
-
-<h2>🔐 Private Room</h2>
-
-<p>
-এই Room Code তোমার সঙ্গীকে দাও।
+<h3>📖 Our Story</h3>
+<p style="font-size:13px">
+তোমাদের গল্প এখানে লিখে রাখো।
 </p>
 
-<div id="roomCodeDisplay"
-class="room-code">
-------
-</div>
+<textarea id="storyInput"
+placeholder="আমাদের গল্পটা শুরু হয়েছিল..."></textarea>
 
-<button class="btn"
-onclick="createRoom()">
-✨ নতুন Room তৈরি
+<button class="btn" onclick="saveStory()">
+💾 Story Save
 </button>
 
-<input id="joinRoomInput"
-type="tel"
-maxlength="6"
-placeholder="৬ সংখ্যার Room Code">
-
-<button class="btn secondary"
-onclick="joinRoom()">
-Room-এ Join
-</button>
-
-<div id="roomStatus"
-class="connection">
-🔴 Not Connected
+<div class="love-box" style="margin-top:12px">
+<div id="storyDisplay" class="story">
+এখনো কোনো গল্প লেখা হয়নি ❤️
+</div>
+</div>
 </div>
 
+<!-- MEMORY -->
+<div class="card">
+<h3>📸 Shared Memories</h3>
+<p style="font-size:13px">
+প্রিয় ছবির সাথে ছোট্ট একটা স্মৃতি রেখে দাও।
+</p>
+
+<label class="file-label" for="memoryInput">
+📷 Memory Photo নির্বাচন
+</label>
+
+<input id="memoryInput"
+type="file"
+accept="image/*"
+onchange="addMemory(event)">
+
+<input id="memoryCaption"
+maxlength="100"
+placeholder="এই ছবির স্মৃতি...">
+
+<div id="memoryGrid" class="memory-grid"></div>
+</div>
+
+<!-- FAVORITE MOMENTS -->
+<div class="card">
+<h3>⭐ Favorite Moments</h3>
+
+<input id="momentInput"
+maxlength="150"
+placeholder="একটা প্রিয় মুহূর্ত লিখো...">
+
+<button class="btn" onclick="addMoment()">
+⭐ Save Moment
+</button>
+
+<div id="momentsList"></div>
 </div>
 
 <button class="btn secondary"
@@ -1067,378 +538,189 @@ onclick="showPage('homePage')">
 </div>
 </section>
 
+<!-- ROOM -->
+<section id="roomPage" class="page">
+<div class="container">
+<div class="card">
+<h2>🔐 Private Room</h2>
+<p>এই Room Code তোমার সঙ্গীকে দাও।</p>
+
+<div id="roomCodeDisplay" class="room-code">------</div>
+
+<button class="btn" onclick="createRoom()">✨ নতুন Room তৈরি</button>
+
+<input id="joinRoomInput" type="tel" maxlength="6"
+placeholder="৬ সংখ্যার Room Code">
+
+<button class="btn secondary" onclick="joinRoom()">Room-এ Join</button>
+
+<div id="roomStatus" class="connection">🔴 Not Connected</div>
+</div>
+
+<button class="btn secondary" onclick="showPage('homePage')">← Home</button>
+</div>
+</section>
 
 <!-- CHAT -->
 <section id="chatPage" class="page">
 <div class="container">
 
-<div class="card" style="padding:15px;">
-
-<div style="display:flex;align-items:center;gap:12px;">
-
-<div id="chatPartnerAvatar"
-class="avatar">
-❤️
-</div>
-
+<div class="card" style="padding:15px">
+<div style="display:flex;align-items:center;gap:12px">
+<div id="chatPartnerAvatar" class="avatar">❤️</div>
 <div>
-
-<strong id="chatPartnerName">
-Partner
-</strong>
-
-<div id="chatPartnerStatus"
-class="status">
-Offline
+<strong id="chatPartnerName">Partner</strong>
+<div id="chatPartnerStatus" class="status">Offline</div>
 </div>
-
 </div>
-
 </div>
-
-</div>
-
 
 <div class="card">
-
-<div id="chatBox"
-class="chat-box">
-</div>
+<div id="chatBox" class="chat-box"></div>
 
 <div class="chat-input">
-
-<input
-id="messageInput"
+<input id="messageInput"
 placeholder="একটা মেসেজ লিখো..."
 onkeydown="if(event.key==='Enter')sendMessage()">
-
-<button onclick="sendMessage()">
-➤
-</button>
-
+<button onclick="sendMessage()">➤</button>
+</div>
 </div>
 
-</div>
-
-
-<button class="btn secondary"
-onclick="showPage('homePage')">
-← Home
-</button>
-
+<button class="btn secondary" onclick="showPage('homePage')">← Home</button>
 </div>
 </section>
-
 
 <!-- MESSAGE HISTORY -->
 <section id="messageHistoryPage" class="page">
 <div class="container">
-
 <div class="card">
-
 <h2>💬 Message History</h2>
-
-<div class="divider"></div>
-
 <div id="messageHistoryList"></div>
-
-<button class="btn danger"
-onclick="clearMessageHistory()">
-🗑️ Message History Clear
+<button class="btn danger" onclick="clearMessageHistory()">
+🗑️ History Clear
 </button>
-
 </div>
-
-<button class="btn secondary"
-onclick="showPage('homePage')">
-← Home
-</button>
-
+<button class="btn secondary" onclick="showPage('homePage')">← Home</button>
 </div>
 </section>
-
 
 <!-- CALL HISTORY -->
 <section id="callHistoryPage" class="page">
 <div class="container">
-
 <div class="card">
-
 <h2>📞 Call History</h2>
-
-<div class="divider"></div>
-
 <div id="callHistoryList"></div>
-
-<button class="btn danger"
-onclick="clearCallHistory()">
-🗑️ Call History Clear
+<button class="btn danger" onclick="clearCallHistory()">
+🗑️ History Clear
 </button>
-
 </div>
-
-<button class="btn secondary"
-onclick="showPage('homePage')">
-← Home
-</button>
-
+<button class="btn secondary" onclick="showPage('homePage')">← Home</button>
 </div>
 </section>
-
 
 <!-- PROFILE -->
 <section id="profilePage" class="page">
 <div class="container">
-
 <div class="card center">
-
 <h2>আমার Profile</h2>
 
-<div id="profileAvatar"
-class="profile-avatar-large">
-❤️
+<div id="profileAvatar" class="profile-avatar-large">❤️</div>
+
+<label class="file-label" for="photoInput">📷 ছবি নির্বাচন</label>
+<input id="photoInput" type="file" accept="image/*" onchange="handlePhoto(event)">
+
+<button class="btn secondary" onclick="removePhoto()">ছবি সরিয়ে ফেলুন</button>
+
+<input id="profileName" placeholder="তোমার নাম">
+
+<button class="btn" onclick="saveProfile()">💾 Profile Save</button>
 </div>
 
-<label class="file-label"
-for="photoInput">
-📷 ছবি নির্বাচন
-</label>
-
-<input id="photoInput"
-type="file"
-accept="image/*"
-onchange="handlePhoto(event)">
-
-<button class="btn secondary"
-onclick="removePhoto()">
-ছবি সরিয়ে ফেলুন
-</button>
-
-<input id="profileName"
-placeholder="তোমার নাম">
-
-<button class="btn"
-onclick="saveProfile()">
-💾 Profile Save
-</button>
-
-</div>
-
-<button class="btn secondary"
-onclick="showPage('homePage')">
-← Home
-</button>
-
+<button class="btn secondary" onclick="showPage('homePage')">← Home</button>
 </div>
 </section>
 
-
-<!-- VIDEO CALL -->
-<div id="videoCallScreen"
-class="call-screen">
-
-<video id="remoteVideo"
-class="remote-video"
-autoplay
-playsinline></video>
-
-<video id="localVideo"
-class="local-video"
-autoplay
-muted
-playsinline></video>
+<!-- VIDEO -->
+<div id="videoCallScreen" class="call-screen">
+<video id="remoteVideo" class="remote-video" autoplay playsinline></video>
+<video id="localVideo" class="local-video" autoplay muted playsinline></video>
 
 <div class="call-info">
-
-<div id="videoCallAvatar"
-class="call-avatar">
-❤️
-</div>
-
-<h2 id="videoCallName">
-Partner
-</h2>
-
-<div id="videoCallStatus"
-class="call-status">
-Connecting...
-</div>
-
-<div id="videoTimer"
-class="call-status">
-00:00
-</div>
-
+<div id="videoCallAvatar" class="call-avatar">❤️</div>
+<h2 id="videoCallName">Partner</h2>
+<div id="videoCallStatus" class="call-status">Connecting...</div>
+<div id="videoTimer" class="call-status">00:00</div>
 </div>
 
 <div class="call-controls">
-
-<button class="call-control"
-onclick="toggleMic()">
-🎙️
-</button>
-
-<button class="call-control"
-onclick="toggleCamera()">
-📹
-</button>
-
-<button class="call-control end"
-onclick="endCall()">
-📞
-</button>
-
+<button class="call-control" onclick="toggleMic()">🎙️</button>
+<button class="call-control" onclick="toggleCamera()">📹</button>
+<button class="call-control end" onclick="endCall()">📞</button>
+</div>
 </div>
 
-</div>
-
-
-<!-- AUDIO CALL -->
-<div id="audioCallScreen"
-class="call-screen">
-
+<!-- AUDIO -->
+<div id="audioCallScreen" class="call-screen">
 <div class="call-info">
-
-<div id="audioCallAvatar"
-class="call-avatar">
-❤️
-</div>
-
-<h2 id="audioCallName">
-Partner
-</h2>
-
-<div id="audioCallStatus"
-class="call-status">
-Connecting...
-</div>
-
-<div id="audioTimer"
-class="call-status">
-00:00
-</div>
-
+<div id="audioCallAvatar" class="call-avatar">❤️</div>
+<h2 id="audioCallName">Partner</h2>
+<div id="audioCallStatus" class="call-status">Connecting...</div>
+<div id="audioTimer" class="call-status">00:00</div>
 </div>
 
 <div class="call-controls">
-
-<button class="call-control"
-onclick="toggleMic()">
-🎙️
-</button>
-
-<button class="call-control end"
-onclick="endCall()">
-📞
-</button>
-
+<button class="call-control" onclick="toggleMic()">🎙️</button>
+<button class="call-control end" onclick="endCall()">📞</button>
+</div>
 </div>
 
-</div>
-
-
-<!-- INCOMING CALL -->
-<div id="incomingCall"
-class="incoming">
-
+<!-- INCOMING -->
+<div id="incomingCall" class="incoming">
 <div class="incoming-card">
 
-<div id="incomingAvatar"
-class="incoming-avatar">
-❤️
-</div>
+<div id="incomingAvatar" class="incoming-avatar">❤️</div>
 
-<div style="margin-top:18px;color:#aaa;">
-Incoming Call
-</div>
+<div style="margin-top:18px;color:#aaa">Incoming Call</div>
 
-<h2 id="incomingName"
-style="margin-top:5px;">
-Partner
-</h2>
+<h2 id="incomingName">Partner</h2>
 
-<p id="incomingType">
-Video Call করছে...
-</p>
+<p id="incomingType">Call করছে...</p>
 
 <div class="incoming-buttons">
-
-<button class="reject"
-onclick="rejectCall()">
-❌ Reject
-</button>
-
-<button class="accept"
-onclick="acceptCall()">
-❤️ Accept
-</button>
-
+<button class="reject" onclick="rejectCall()">❌ Reject</button>
+<button class="accept" onclick="acceptCall()">❤️ Accept</button>
 </div>
 
 </div>
-
 </div>
 
-
-<!-- MESSAGE NOTIFICATION -->
+<!-- NOTIFICATION -->
 <div id="messageNotification"
 class="message-notification"
 onclick="openChatFromNotification()">
 
-<div id="notificationAvatar"
-class="notification-avatar">
-❤️
-</div>
+<div id="notificationAvatar" class="notification-avatar">❤️</div>
 
 <div class="notification-text">
-
-<strong id="notificationName">
-Partner
-</strong>
-
-<span id="notificationMessage">
-নতুন মেসেজ
-</span>
-
+<strong id="notificationName">Partner</strong>
+<span id="notificationMessage">নতুন মেসেজ</span>
 </div>
 
 </div>
 
-
-<!-- TOAST -->
-<div id="toast"
-class="toast">
-</div>
+<div id="toast" class="toast"></div>
 
 
 <script>
-
-/* =========================
- VARIABLES
-========================= */
-
 const WS_URL="wss://dujon-app1.onrender.com";
 
-let socket=null;
-let currentRoom=null;
+let socket=null,currentRoom=null;
+let peerConnection=null,localStream=null;
+let pendingOffer=null,pendingCallType=null,callType=null;
+let callSeconds=0,callTimerInterval=null;
+let unreadCount=0,notificationTimeout=null;
 
-let peerConnection=null;
-let localStream=null;
-
-let pendingOffer=null;
-let pendingCallType=null;
-let callType=null;
-
-let callSeconds=0;
-let callTimerInterval=null;
-
-let unreadCount=0;
-let notificationTimeout=null;
-
-let partnerProfile={
- name:"Partner",
- photo:""
-};
+let partnerProfile={name:"Partner",photo:""};
 
 const rtcConfig={
  iceServers:[
@@ -1448,63 +730,42 @@ const rtcConfig={
 };
 
 
-/* =========================
- PAGE
-========================= */
+/* PAGE */
 
 function showPage(id){
-
  document.querySelectorAll(".page")
  .forEach(p=>p.classList.remove("active"));
 
  const page=document.getElementById(id);
-
- if(page) page.classList.add("active");
+ if(page)page.classList.add("active");
 
  if(id==="chatPage"){
   unreadCount=0;
   updateUnreadBadge();
  }
-
- if(id==="messageHistoryPage"){
-  renderMessageHistory();
+ if(id==="messageHistoryPage")renderMessageHistory();
+ if(id==="callHistoryPage")renderCallHistory();
+ if(id==="couplePage"){
+  loadCoupleSpace();
  }
-
- if(id==="callHistoryPage"){
-  renderCallHistory();
 }
 
 
-/* =========================
- TOAST
-========================= */
+/* TOAST */
 
 function toast(message){
-
  const el=document.getElementById("toast");
-
  el.textContent=message;
  el.classList.add("show");
-
- setTimeout(()=>{
-  el.classList.remove("show");
- },2500);
+ setTimeout(()=>el.classList.remove("show"),2500);
 }
 
 
-/* =========================
- ACCOUNT
-========================= */
+/* ACCOUNT */
 
 function registerUser(){
-
- const phone=
- document.getElementById("regPhone")
- .value.trim();
-
- const pin=
- document.getElementById("regPin")
- .value.trim();
+ const phone=document.getElementById("regPhone").value.trim();
+ const pin=document.getElementById("regPin").value.trim();
 
  if(!phone||!pin){
   toast("সব তথ্য পূরণ করো");
@@ -1517,25 +778,14 @@ function registerUser(){
  );
 
  toast("Account তৈরি হয়েছে ❤️");
-
- setTimeout(()=>{
-  showPage("loginPage");
- },800);
+ setTimeout(()=>showPage("loginPage"),700);
 }
 
-
 function login(){
+ const phone=document.getElementById("loginPhone").value.trim();
+ const pin=document.getElementById("loginPin").value.trim();
 
- const phone=
- document.getElementById("loginPhone")
- .value.trim();
-
- const pin=
- document.getElementById("loginPin")
- .value.trim();
-
- const saved=
- localStorage.getItem("dujon_account");
+ const saved=localStorage.getItem("dujon_account");
 
  if(!saved){
   toast("আগে Account তৈরি করো");
@@ -1544,179 +794,85 @@ function login(){
 
  const account=JSON.parse(saved);
 
- if(
-  phone!==account.phone ||
-  pin!==account.pin
- ){
+ if(phone!==account.phone||pin!==account.pin){
   toast("মোবাইল নম্বর অথবা PIN ভুল");
   return;
  }
 
- localStorage.setItem(
-  "dujon_logged_in",
-  "true"
- );
-
+ localStorage.setItem("dujon_logged_in","true");
  loadProfile();
-
+ updateTogetherDays();
  showPage("homePage");
 }
 
-
 function logout(){
-
  closeSocket();
-
- localStorage.removeItem(
-  "dujon_logged_in"
- );
-
+ localStorage.removeItem("dujon_logged_in");
  showPage("loginPage");
-
  toast("Logout হয়েছে");
 }
 
 
-/* =========================
- PROFILE
-========================= */
+/* PROFILE */
 
 function getProfile(){
-
  try{
-
-  return JSON.parse(
-   localStorage.getItem("dujon_profile")
-  ) || {
-   name:"আমি",
-   photo:""
-  };
-
+  return JSON.parse(localStorage.getItem("dujon_profile"))||
+  {name:"আমি",photo:""};
  }catch{
-
-  return {
-   name:"আমি",
-   photo:""
-  };
+  return {name:"আমি",photo:""};
  }
 }
 
+function setAvatar(el,photo){
+ if(!el)return;
+ el.innerHTML=photo?
+ `<img src="${photo}" alt="profile">`:"❤️";
+}
 
 function loadProfile(){
-
  const profile=getProfile();
 
- document.getElementById("homeName")
- .textContent=profile.name||"আমি";
+ document.getElementById("homeName").textContent=profile.name||"আমি";
+ document.getElementById("profileName").value=profile.name||"";
 
- setAvatar(
-  document.getElementById("homeAvatar"),
-  profile.photo
- );
-
- document.getElementById("profileName")
- .value=profile.name||"";
-
- setAvatar(
-  document.getElementById("profileAvatar"),
-  profile.photo
- );
+ setAvatar(document.getElementById("homeAvatar"),profile.photo);
+ setAvatar(document.getElementById("profileAvatar"),profile.photo);
 
  updateHomeRoom();
 }
 
-
-function setAvatar(el,photo){
-
- if(!el)return;
-
- if(photo){
-
-  el.innerHTML=
-  `<img src="${photo}" alt="profile">`;
-
- }else{
-
-  el.innerHTML="❤️";
- }
-}
-
-
 function openProfile(){
-
  loadProfile();
-
  showPage("profilePage");
 }
 
-
 function handlePhoto(event){
-
  const file=event.target.files[0];
-
  if(!file)return;
 
  const reader=new FileReader();
 
- reader.onload=function(e){
-
+ reader.onload=e=>{
   const img=new Image();
 
-  img.onload=function(){
-
-   const canvas=
-   document.createElement("canvas");
-
+  img.onload=()=>{
+   const canvas=document.createElement("canvas");
    const max=320;
+   let w=img.width,h=img.height;
 
-   let w=img.width;
-   let h=img.height;
-
-   if(w>h){
-
-    if(w>max){
-     h=h*max/w;
-     w=max;
-    }
-
-   }else{
-
-    if(h>max){
-     w=w*max/h;
-     h=max;
-    }
-   }
+   if(w>h&&w>max){h=h*max/w;w=max}
+   if(h>=w&&h>max){w=w*max/h;h=max}
 
    canvas.width=w;
    canvas.height=h;
 
-   const ctx=canvas.getContext("2d");
+   canvas.getContext("2d").drawImage(img,0,0,w,h);
 
-   ctx.drawImage(
-    img,
-    0,
-    0,
-    w,
-    h
-   );
+   const photo=canvas.toDataURL("image/jpeg",.65);
 
-   const photo=
-   canvas.toDataURL(
-    "image/jpeg",
-    .65
-   );
-
-   localStorage.setItem(
-    "dujon_temp_photo",
-    photo
-   );
-
-   setAvatar(
-    document.getElementById(
-     "profileAvatar"
-    ),
-    photo
-   );
+   localStorage.setItem("dujon_temp_photo",photo);
+   setAvatar(document.getElementById("profileAvatar"),photo);
   };
 
   img.src=e.target.result;
@@ -1725,143 +881,75 @@ function handlePhoto(event){
  reader.readAsDataURL(file);
 }
 
-
 function removePhoto(){
-
- localStorage.removeItem(
-  "dujon_temp_photo"
- );
+ localStorage.removeItem("dujon_temp_photo");
 
  const profile=getProfile();
-
  profile.photo="";
 
- localStorage.setItem(
-  "dujon_profile",
-  JSON.stringify(profile)
- );
+ localStorage.setItem("dujon_profile",JSON.stringify(profile));
 
- setAvatar(
-  document.getElementById("profileAvatar"),
-  ""
- );
-
- setAvatar(
-  document.getElementById("homeAvatar"),
-  ""
- );
+ setAvatar(document.getElementById("profileAvatar"),"");
+ setAvatar(document.getElementById("homeAvatar"),"");
 
  sendProfileToPartner();
-
  toast("ছবি সরানো হয়েছে");
 }
 
-
 function saveProfile(){
-
- const name=
- document.getElementById("profileName")
- .value.trim()||"আমি";
-
+ const name=document.getElementById("profileName").value.trim()||"আমি";
  const old=getProfile();
 
- const tempPhoto=
- localStorage.getItem("dujon_temp_photo");
-
- const photo=
- tempPhoto!==null
- ?tempPhoto
- :old.photo||"";
-
- const profile={
-  name,
-  photo
- };
+ const temp=localStorage.getItem("dujon_temp_photo");
+ const photo=temp!==null?temp:(old.photo||"");
 
  localStorage.setItem(
   "dujon_profile",
-  JSON.stringify(profile)
+  JSON.stringify({name,photo})
  );
 
- localStorage.removeItem(
-  "dujon_temp_photo"
- );
+ localStorage.removeItem("dujon_temp_photo");
 
  loadProfile();
-
  sendProfileToPartner();
 
  toast("Profile Save হয়েছে ❤️");
-
- setTimeout(()=>{
-  showPage("homePage");
- },700);
+ setTimeout(()=>showPage("homePage"),600);
 }
 
 
-/* =========================
- ROOM
-========================= */
+/* ROOM */
 
 function generateRoomCode(){
-
- return String(
-  Math.floor(
-   100000+
-   Math.random()*900000
-  )
- );
+ return String(Math.floor(100000+Math.random()*900000));
 }
 
-
 function createRoom(){
-
  const code=generateRoomCode();
 
- document.getElementById(
-  "roomCodeDisplay"
- ).textContent=code;
-
- document.getElementById(
-  "homeRoomCode"
- ).textContent=code;
+ document.getElementById("roomCodeDisplay").textContent=code;
+ document.getElementById("homeRoomCode").textContent=code;
 
  connectRoom(code);
-
  toast("Room তৈরি হয়েছে ❤️");
 }
 
-
 function joinRoom(){
-
- const code=
- document.getElementById(
-  "joinRoomInput"
- ).value.trim();
+ const code=document.getElementById("joinRoomInput").value.trim();
 
  if(!/^\d{6}$/.test(code)){
   toast("৬ সংখ্যার Room Code দাও");
   return;
  }
 
- document.getElementById(
-  "roomCodeDisplay"
- ).textContent=code;
-
- document.getElementById(
-  "homeRoomCode"
- ).textContent=code;
+ document.getElementById("roomCodeDisplay").textContent=code;
+ document.getElementById("homeRoomCode").textContent=code;
 
  connectRoom(code);
 }
 
-
 function copyRoom(){
-
- const code=
- document.getElementById(
-  "homeRoomCode"
- ).textContent;
+ const code=document.getElementById("homeRoomCode").textContent;
 
  if(!/^\d{6}$/.test(code)){
   toast("আগে Room তৈরি বা Join করো");
@@ -1869,304 +957,151 @@ function copyRoom(){
  }
 
  navigator.clipboard.writeText(code)
- .then(()=>{
-  toast("Room Code Copy হয়েছে 📋");
- })
- .catch(()=>{
-  toast("Copy করা যায়নি");
- });
+ .then(()=>toast("Room Code Copy হয়েছে 📋"));
 }
-
 
 function updateHomeRoom(){
-
- if(currentRoom){
-
-  document.getElementById(
-   "homeRoomCode"
-  ).textContent=currentRoom;
- }
+ if(currentRoom)
+ document.getElementById("homeRoomCode").textContent=currentRoom;
 }
-
 
 function openRoom(){
-
  showPage("roomPage");
-
- if(currentRoom){
-
-  document.getElementById(
-   "roomCodeDisplay"
-  ).textContent=currentRoom;
- }
+ if(currentRoom)
+ document.getElementById("roomCodeDisplay").textContent=currentRoom;
 }
 
 
-/* =========================
- WEBSOCKET
-========================= */
+/* WEBSOCKET */
 
 function connectRoom(code){
 
- if(
-  socket &&
-  socket.readyState===WebSocket.OPEN &&
-  currentRoom===code
- ){
-
+ if(socket&&socket.readyState===WebSocket.OPEN&&currentRoom===code){
   setRoomStatus("🟢 Room Connected");
-
   return;
  }
 
  closeSocket();
-
  currentRoom=code;
-
  setRoomStatus("🟡 Connecting...");
 
  socket=new WebSocket(WS_URL);
 
- socket.onopen=function(){
-
+ socket.onopen=()=>{
   setRoomStatus("🟢 Connected");
-
-  socket.send(JSON.stringify({
-   type:"join",
-   room:code
-  }));
+  socket.send(JSON.stringify({type:"join",room:code}));
  };
 
- socket.onmessage=function(event){
-
+ socket.onmessage=e=>{
   let data;
-
-  try{
-   data=JSON.parse(event.data);
-  }catch{
-   return;
-  }
-
+  try{data=JSON.parse(e.data)}catch{return}
   handleSocketMessage(data);
  };
 
- socket.onerror=function(){
+ socket.onerror=()=>setRoomStatus("🔴 Connection Error");
 
-  setRoomStatus("🔴 Connection Error");
- };
-
- socket.onclose=function(){
-
+ socket.onclose=()=>{
   setRoomStatus("🔴 Disconnected");
-
   socket=null;
  };
 }
 
-
 function closeSocket(){
-
  if(socket){
-
-  try{
-   socket.close();
-  }catch{}
-
-  socket=null;
+  try{socket.close()}catch{}
  }
-
+ socket=null;
  currentRoom=null;
 }
 
-
 function setRoomStatus(text){
-
- const el=
- document.getElementById("roomStatus");
-
+ const el=document.getElementById("roomStatus");
  if(el)el.textContent=text;
 }
 
-
 function sendToRoom(data){
-
- if(
-  socket &&
-  socket.readyState===WebSocket.OPEN
- ){
-
-  socket.send(
-   JSON.stringify(data)
-  );
- }
+ if(socket&&socket.readyState===WebSocket.OPEN)
+ socket.send(JSON.stringify(data));
 }
 
 
-/* =========================
- SOCKET HANDLER
-========================= */
+/* SOCKET */
 
 function handleSocketMessage(data){
 
  if(data.type==="joined"){
-
   currentRoom=data.room;
-
-  document.getElementById(
-   "roomCodeDisplay"
-  ).textContent=currentRoom;
-
-  document.getElementById(
-   "homeRoomCode"
-  ).textContent=currentRoom;
-
-  setRoomStatus(
-   "🟢 Room Connected"
-  );
-
+  document.getElementById("roomCodeDisplay").textContent=currentRoom;
+  document.getElementById("homeRoomCode").textContent=currentRoom;
+  setRoomStatus("🟢 Room Connected");
   sendProfileToPartner();
-
   return;
  }
-
 
  if(data.type==="peer-joined"){
-
   updatePartnerOnline();
-
   sendProfileToPartner();
-
-  toast(
-   "Partner Room-এ এসেছে ❤️"
-  );
-
+  toast("Partner Room-এ এসেছে ❤️");
   return;
  }
-
 
  if(data.type==="peer-left"){
-
   partnerOffline();
-
-  toast(
-   "Partner Room থেকে বের হয়েছে"
-  );
-
+  toast("Partner Room থেকে বের হয়েছে");
   return;
  }
 
-
  if(data.type==="profile"){
-
   partnerProfile={
    name:data.name||"Partner",
    photo:data.photo||""
   };
-
   updatePartnerUI();
-
   return;
  }
-
 
  if(data.type==="presence"){
-
-  if(data.online){
-   updatePartnerOnline();
-  }else{
-   partnerOffline();
-  }
-
+  data.online?updatePartnerOnline():partnerOffline();
   return;
  }
-
 
  if(data.type==="chat"){
+  addMessage(data.message,"other",true);
 
-  addMessage(
-   data.message,
-   "other",
-   true
-  );
-
-  if(
-   !document.getElementById(
-    "chatPage"
-   ).classList.contains("active")
-  ){
-
+  if(!document.getElementById("chatPage").classList.contains("active")){
    unreadCount++;
-
    updateUnreadBadge();
-
-   showMessageNotification(
-    data.message
-   );
-
-   browserNotification(
-    data.message
-   );
+   showMessageNotification(data.message);
+   browserNotification(data.message);
   }
-
   return;
  }
-
 
  if(data.type==="feeling"){
-
-  showReceivedFeeling(
-   data.feeling
-  );
-
+  toast(partnerProfile.name+" তোমাকে "+data.feeling+" পাঠিয়েছে ❤️");
   return;
  }
-
 
  if(data.type==="love-note"){
-
-  addReceivedLoveNote(
-   data.message
-  );
-
+  showLoveNote(data.message);
   return;
  }
 
-
- if(data.type==="video-call"){
-
-  handleCallSignal(
-   data,
-   "video"
-  );
-
-  return;
- }
-
-
- if(data.type==="audio-call"){
-
-  handleCallSignal(
-   data,
-   "audio"
-  );
-
-  return;
+ if(data.type==="video-call"||data.type==="audio-call"){
+  handleCallSignal(data,data.type==="video-call"?"video":"audio");
  }
 }
 
 
-/* =========================
- PARTNER
-========================= */
+/* PARTNER */
 
 function sendProfileToPartner(){
-
- const profile=getProfile();
+ const p=getProfile();
 
  sendToRoom({
   type:"profile",
-  name:profile.name||"আমি",
-  photo:profile.photo||""
+  name:p.name||"আমি",
+  photo:p.photo||""
  });
 
  sendToRoom({
@@ -2175,121 +1110,49 @@ function sendProfileToPartner(){
  });
 }
 
-
 function updatePartnerUI(){
 
- document.getElementById(
-  "partnerName"
- ).textContent=
- partnerProfile.name;
+ document.getElementById("partnerName").textContent=partnerProfile.name;
+ document.getElementById("chatPartnerName").textContent=partnerProfile.name;
 
- document.getElementById(
-  "chatPartnerName"
- ).textContent=
- partnerProfile.name;
+ updatePartnerOnline();
 
- document.getElementById(
-  "partnerStatus"
- ).innerHTML=
- '<span class="online-dot"></span>Online';
-
- document.getElementById(
-  "chatPartnerStatus"
- ).innerHTML=
- '<span class="online-dot"></span>Online';
-
- setAvatar(
-  document.getElementById(
-   "partnerAvatar"
-  ),
-  partnerProfile.photo
- );
-
- setAvatar(
-  document.getElementById(
-   "chatPartnerAvatar"
-  ),
-  partnerProfile.photo
- );
-
- setAvatar(
-  document.getElementById(
-   "videoCallAvatar"
-  ),
-  partnerProfile.photo
- );
-
- setAvatar(
-  document.getElementById(
-   "audioCallAvatar"
-  ),
-  partnerProfile.photo
- );
+ setAvatar(document.getElementById("partnerAvatar"),partnerProfile.photo);
+ setAvatar(document.getElementById("chatPartnerAvatar"),partnerProfile.photo);
+ setAvatar(document.getElementById("videoCallAvatar"),partnerProfile.photo);
+ setAvatar(document.getElementById("audioCallAvatar"),partnerProfile.photo);
 }
-
 
 function updatePartnerOnline(){
-
- document.getElementById(
-  "partnerStatus"
- ).innerHTML=
- '<span class="online-dot"></span>Online';
-
- document.getElementById(
-  "chatPartnerStatus"
- ).innerHTML=
- '<span class="online-dot"></span>Online';
+ document.getElementById("partnerStatus").innerHTML='<span class="online-dot"></span>Online';
+ document.getElementById("chatPartnerStatus").innerHTML='<span class="online-dot"></span>Online';
 }
-
 
 function partnerOffline(){
-
- document.getElementById(
-  "partnerStatus"
- ).textContent="Offline";
-
- document.getElementById(
-  "chatPartnerStatus"
- ).textContent="Offline";
+ document.getElementById("partnerStatus").textContent="Offline";
+ document.getElementById("chatPartnerStatus").textContent="Offline";
 }
 
 
-/* =========================
- CHAT
-========================= */
+/* CHAT */
 
 function openChat(){
-
  unreadCount=0;
-
  updateUnreadBadge();
-
  showPage("chatPage");
 
  setTimeout(()=>{
-  document.getElementById(
-   "messageInput"
-  ).focus();
+  document.getElementById("messageInput").focus();
  },100);
 }
 
-
 function sendMessage(){
-
- const input=
- document.getElementById(
-  "messageInput"
- );
-
+ const input=document.getElementById("messageInput");
  const message=input.value.trim();
 
  if(!message)return;
 
- addMessage(
-  message,
-  "me",
-  true
- );
+ addMessage(message,"me",true);
 
  sendToRoom({
   type:"chat",
@@ -2299,133 +1162,64 @@ function sendMessage(){
  input.value="";
 }
 
+function addMessage(message,type,save){
 
-function addMessage(
- message,
- type,
- save
-){
+ const box=document.getElementById("chatBox");
+ const div=document.createElement("div");
 
- const box=
- document.getElementById(
-  "chatBox"
- );
+ div.className="message "+type;
 
- const div=
- document.createElement("div");
-
- div.className=
- "message "+type;
-
- const time=
- new Date().toLocaleTimeString(
-  "bn-BD",
-  {
-   hour:"2-digit",
-   minute:"2-digit"
-  }
- );
+ const time=new Date().toLocaleTimeString("bn-BD",{
+  hour:"2-digit",minute:"2-digit"
+ });
 
  div.innerHTML=
  `${escapeHTML(message)}
  <span class="message-time">${time}</span>`;
 
  box.appendChild(div);
+ box.scrollTop=box.scrollHeight;
 
- box.scrollTop=
- box.scrollHeight;
-
- if(save){
-
-  saveMessageHistory(
-   message,
-   type,
-   time
-  );
- }
+ if(save)saveMessageHistory(message,type,time);
 }
 
-
 function escapeHTML(text){
-
- const div=
- document.createElement("div");
-
+ const div=document.createElement("div");
  div.textContent=text;
-
  return div.innerHTML;
 }
 
-
 function updateUnreadBadge(){
-
- const badge=
- document.getElementById(
-  "chatBadge"
- );
+ const badge=document.getElementById("chatBadge");
 
  if(unreadCount>0){
-
-  badge.textContent=
-   unreadCount>99
-   ?"99+"
-   :unreadCount;
-
-  badge.classList.remove(
-   "hidden"
-  );
-
+  badge.textContent=unreadCount>99?"99+":unreadCount;
+  badge.classList.remove("hidden");
  }else{
-
-  badge.classList.add(
-   "hidden"
-  );
+  badge.classList.add("hidden");
  }
 }
 
 
-/* =========================
- MESSAGE HISTORY
-========================= */
+/* MESSAGE HISTORY */
 
 function getMessageHistory(){
-
  try{
-
-  return JSON.parse(
-   localStorage.getItem(
-    "dujon_message_history"
-   )
-  )||[];
-
+  return JSON.parse(localStorage.getItem("dujon_message_history"))||[];
  }catch{
-
   return [];
  }
 }
 
-
-function saveMessageHistory(
- message,
- type,
- time
-){
-
- const history=
- getMessageHistory();
+function saveMessageHistory(message,type,time){
+ const history=getMessageHistory();
 
  history.push({
-  message,
-  type,
-  time,
-  date:new Date().toLocaleDateString(
-   "bn-BD"
-  )
+  message,type,time,
+  date:new Date().toLocaleDateString("bn-BD")
  });
 
- if(history.length>100){
-  history.shift();
- }
+ if(history.length>100)history.shift();
 
  localStorage.setItem(
   "dujon_message_history",
@@ -2433,154 +1227,65 @@ function saveMessageHistory(
  );
 }
 
-
 function openMessageHistory(){
-
- showPage(
-  "messageHistoryPage"
- );
-
+ showPage("messageHistoryPage");
  renderMessageHistory();
 }
 
-
 function renderMessageHistory(){
 
- const box=
- document.getElementById(
-  "messageHistoryList"
- );
-
- const history=
- getMessageHistory();
+ const box=document.getElementById("messageHistoryList");
+ const history=getMessageHistory();
 
  box.innerHTML="";
 
  if(!history.length){
-
-  box.innerHTML=
-  `<div class="empty-history">
-  💌 এখনো কোনো Message History নেই
-  </div>`;
-
+  box.innerHTML='<div class="empty">💌 এখনো কোনো Message History নেই</div>';
   return;
  }
 
- history
- .slice()
- .reverse()
- .forEach(item=>{
-
-  const div=
-  document.createElement("div");
-
-  div.className=
-  "history-item";
-
-  const icon=
-  item.type==="me"
-  ?"💙"
-  :"💗";
-
-  const who=
-  item.type==="me"
-  ?"আমি"
-  :partnerProfile.name;
+ history.slice().reverse().forEach(item=>{
+  const div=document.createElement("div");
+  div.className="history-item";
 
   div.innerHTML=`
-  <div class="history-icon">
-   ${icon}
-  </div>
-
-  <div class="history-info">
-
-   <div class="history-title">
-    ${escapeHTML(who)}
+   <div class="history-icon">${item.type==="me"?"💙":"💗"}</div>
+   <div class="history-info">
+    <strong>${item.type==="me"?"আমি":escapeHTML(partnerProfile.name)}</strong>
+    <div style="color:#ccc;font-size:13px;margin-top:3px">
+     ${escapeHTML(item.message)}
+    </div>
+    <div class="history-time">${item.date} • ${item.time}</div>
    </div>
-
-   <div style="color:#ccc;font-size:13px;margin-top:3px;">
-    ${escapeHTML(item.message)}
-   </div>
-
-   <div class="history-time">
-    ${item.date} • ${item.time}
-   </div>
-
-  </div>
   `;
 
   box.appendChild(div);
  });
 }
 
-
 function clearMessageHistory(){
+ if(!confirm("সব Message History মুছে ফেলবে?"))return;
 
- if(!confirm(
-  "সব Message History মুছে ফেলবে?"
-  )){
-  return;
- }
-
- localStorage.removeItem(
-  "dujon_message_history"
- );
-
+ localStorage.removeItem("dujon_message_history");
  renderMessageHistory();
-
- toast("Message History Clear হয়েছে");
+ toast("History Clear হয়েছে");
 }
 
 
-/* =========================
- ROMANTIC FEELINGS
-========================= */
+/* ROMANTIC */
 
 function sendFeeling(feeling){
-
- sendToRoom({
-  type:"feeling",
-  feeling
- });
-
- toast(
-  feeling+" পাঠানো হয়েছে ❤️"
- );
+ sendToRoom({type:"feeling",feeling});
+ toast(feeling+" পাঠানো হয়েছে ❤️");
 }
-
-
-function showReceivedFeeling(feeling){
-
- toast(
-  partnerProfile.name+
-  " তোমাকে "+feeling+
-  " পাঠিয়েছে ❤️"
- );
-
- showMessageNotification(
-  feeling+" — তোমার জন্য"
- );
-}
-
-
-/* =========================
- LOVE NOTE
-========================= */
 
 function sendLoveNote(){
 
- const input=
- document.getElementById(
-  "loveNoteInput"
- );
-
- const message=
- input.value.trim();
+ const input=document.getElementById("loveNoteInput");
+ const message=input.value.trim();
 
  if(!message){
-
   toast("আগে কিছু লিখো ❤️");
-
   return;
  }
 
@@ -2589,296 +1294,391 @@ function sendLoveNote(){
   message
  });
 
- saveLoveNote(
-  message,
-  "me"
- );
-
  input.value="";
-
  toast("Love Note পাঠানো হয়েছে 💌");
 }
 
+function showLoveNote(message){
 
-function addReceivedLoveNote(message){
-
- saveLoveNote(
-  message,
-  "other"
- );
-
- showLoveNotePopup(
-  message
- );
-
-
- browserNotification(
-  "💌 "+message
- );
+ showMessageNotification("💌 "+message);
+ browserNotification("💌 "+message);
 }
-
-
-function saveLoveNote(
- message,
- type
-){
-
- const notes=
- JSON.parse(
-  localStorage.getItem(
-   "dujon_love_notes"
-  )||"[]"
- );
-
- notes.push({
-  message,
-  type,
-  time:new Date().toLocaleString(
-   "bn-BD"
-  )
- });
-
- if(notes.length>50){
-  notes.shift();
- }
-
- localStorage.setItem(
-  "dujon_love_notes",
-  JSON.stringify(notes)
- );
-}
-
-
-function showLoveNotePopup(message){
-
- const box=
- document.getElementById(
-  "messageNotification"
- );
-
- document.getElementById(
-  "notificationName"
- ).textContent=
- "💌 "+partnerProfile.name;
-
- document.getElementById(
-  "notificationMessage"
- ).textContent=
- message;
-
- setAvatar(
-  document.getElementById(
-   "notificationAvatar"
-  ),
-  partnerProfile.photo
- );
-
- box.classList.add("show");
-
- clearTimeout(
-  notificationTimeout
- );
-
- notificationTimeout=
- setTimeout(()=>{
-  box.classList.remove("show");
- },5000);
-}
-
-
-/* =========================
- SURPRISE
-========================= */
 
 const surprises=[
-
 "তোমাদের গল্পটা সুন্দর থাকুক ❤️",
-
-"কিছু মানুষ জীবনে এসে জীবনটাকেই একটু বেশি সুন্দর করে দেয়। 💞",
-
+"কিছু মানুষ জীবনটাকে একটু বেশি সুন্দর করে দেয়। 💞",
 "দূরত্ব থাকলেও মনের কাছাকাছি থাকা যায়। 🫶",
-
 "আজ একটু বেশি করে হাসো। 😊",
-
-"একটা ছোট্ট মেসেজও কারো পুরো দিনটা সুন্দর করে দিতে পারে। 💌",
-
-"ভালো সময়গুলো জমিয়ে রাখো, এগুলোই একদিন স্মৃতি হবে। ✨",
-
+"একটা ছোট্ট মেসেজও পুরো দিন সুন্দর করে দিতে পারে। 💌",
 "আজকের দিনটা তোমাদের জন্য সুন্দর হোক। ❤️"
-
 ];
 
-
 function showSurprise(){
-
- const message=
- surprises[
-  Math.floor(
-   Math.random()*surprises.length
-  )
- ];
-
- document.getElementById(
-  "surpriseMessage"
- ).textContent=
- message;
+ const msg=surprises[Math.floor(Math.random()*surprises.length)];
+ document.getElementById("surpriseMessage").textContent=msg;
 }
 
 
-/* =========================
- NOTIFICATION
-========================= */
+/* NOTIFICATION */
 
-function showMessageNotification(
- message
-){
+function showMessageNotification(message){
 
- const box=
- document.getElementById(
-  "messageNotification"
- );
+ const box=document.getElementById("messageNotification");
 
- document.getElementById(
-  "notificationName"
- ).textContent=
- partnerProfile.name;
-
- document.getElementById(
-  "notificationMessage"
- ).textContent=
- message;
+ document.getElementById("notificationName").textContent=partnerProfile.name;
+ document.getElementById("notificationMessage").textContent=message;
 
  setAvatar(
-  document.getElementById(
-   "notificationAvatar"
-  ),
+  document.getElementById("notificationAvatar"),
   partnerProfile.photo
  );
 
  box.classList.add("show");
 
- clearTimeout(
-  notificationTimeout
- );
+ clearTimeout(notificationTimeout);
 
- notificationTimeout=
- setTimeout(()=>{
+ notificationTimeout=setTimeout(()=>{
   box.classList.remove("show");
- },4000);
+ },4500);
 }
-
 
 function openChatFromNotification(){
-
- document.getElementById(
-  "messageNotification"
- ).classList.remove("show");
-
+ document.getElementById("messageNotification").classList.remove("show");
  openChat();
 }
-
 
 async function requestNotifications(){
 
  if(!("Notification" in window)){
-
-  toast(
-   "এই Browser-এ Notification নেই"
-  );
-
+  toast("এই Browser-এ Notification নেই");
   return;
  }
 
- try{
+ const permission=await Notification.requestPermission();
 
-  const permission=
-  await Notification.requestPermission();
-
-  if(permission==="granted"){
-
-   toast(
-    "🔔 Notification চালু হয়েছে"
-   );
-
-  }else{
-
-   toast(
-    "Notification permission দেওয়া হয়নি"
-   );
-  }
-
- }catch{
-
-  toast(
-   "Notification চালু করা যায়নি"
-  );
+ toast(
+  permission==="granted"
+  ?"🔔 Notification চালু হয়েছে"
+  :"Notification permission দেওয়া হয়নি"
+ );
 }
-
 
 function browserNotification(message){
 
  if(
   !("Notification" in window)||
   Notification.permission!=="granted"
- ){
-  return;
- }
+ )return;
 
  try{
-
-  new Notification(
-   "💬 "+partnerProfile.name,
-   {
-    body:message
-   }
-  );
-
+  new Notification("💬 "+partnerProfile.name,{
+   body:message
+  });
  }catch{}
 }
 
 
-/* =========================
- CALL HISTORY
-========================= */
+/* TOGETHER DAYS */
 
-function getCallHistory(){
+function setTogetherDate(){
 
+ const current=
+ localStorage.getItem("dujon_together_date");
+
+ const date=prompt(
+  "যেদিন থেকে তোমাদের বিশেষ যাত্রা শুরু, তারিখ লিখো:\nYYYY-MM-DD",
+  current||""
+ );
+
+ if(!date)return;
+
+ if(!/^\d{4}-\d{2}-\d{2}$/.test(date)){
+  toast("তারিখের format: YYYY-MM-DD");
+  return;
+ }
+
+ localStorage.setItem(
+  "dujon_together_date",
+  date
+ );
+
+ updateTogetherDays();
+ toast("আমাদের দিন Save হয়েছে ❤️");
+}
+
+function updateTogetherDays(){
+
+ const el=document.getElementById("togetherDays");
+ if(!el)return;
+
+ const saved=localStorage.getItem("dujon_together_date");
+
+ if(!saved){
+  el.textContent="0";
+  return;
+ }
+
+ const start=new Date(saved+"T00:00:00");
+ const now=new Date();
+
+ const diff=Math.max(
+  0,
+  Math.floor((now-start)/86400000)
+ );
+
+ el.textContent=diff;
+}
+
+
+/* COUPLE SPACE */
+
+function openCoupleSpace(){
+ showPage("couplePage");
+ loadCoupleSpace();
+}
+
+function saveStory(){
+
+ const story=
+ document.getElementById("storyInput").value.trim();
+
+ if(!story){
+  toast("আগে তোমাদের গল্প লিখো ❤️");
+  return;
+ }
+
+ localStorage.setItem(
+  "dujon_story",
+  story
+ );
+
+ renderStory();
+ toast("Our Story Save হয়েছে 📖");
+}
+
+function renderStory(){
+
+ const story=
+ localStorage.getItem("dujon_story");
+
+ document.getElementById("storyInput").value=story||"";
+
+ document.getElementById("storyDisplay").textContent=
+ story||"এখনো কোনো গল্প লেখা হয়নি ❤️";
+}
+
+
+/* MEMORY */
+
+function getMemories(){
  try{
-
   return JSON.parse(
-   localStorage.getItem(
-    "dujon_call_history"
-   )
+   localStorage.getItem("dujon_memories")
   )||[];
-
  }catch{
-
   return [];
  }
 }
 
+function addMemory(event){
 
-function saveCallHistory(
- type,
- direction,
- status
-){
+ const file=event.target.files[0];
+ if(!file)return;
 
- const history=
- getCallHistory();
+ const reader=new FileReader();
 
- history.push({
-  type,
-  direction,
-  status,
-  time:new Date().toLocaleString(
-   "bn-BD"
-  )
+ reader.onload=e=>{
+
+  const caption=
+   document.getElementById("memoryCaption").value.trim();
+
+  const memories=getMemories();
+
+  memories.push({
+   photo:e.target.result,
+   caption:caption||"একটা সুন্দর স্মৃতি ❤️",
+   time:new Date().toLocaleDateString("bn-BD")
+  });
+
+  if(memories.length>20)memories.shift();
+
+  localStorage.setItem(
+   "dujon_memories",
+   JSON.stringify(memories)
+  );
+
+  document.getElementById("memoryCaption").value="";
+  document.getElementById("memoryInput").value="";
+
+  renderMemories();
+
+  toast("Memory Save হয়েছে 📸");
+ };
+
+ reader.readAsDataURL(file);
+}
+
+function renderMemories(){
+
+ const box=document.getElementById("memoryGrid");
+ const memories=getMemories();
+
+ box.innerHTML="";
+
+ memories.slice().reverse().forEach((m,index)=>{
+
+  const realIndex=memories.length-1-index;
+
+  const div=document.createElement("div");
+  div.className="memory";
+
+  div.innerHTML=`
+   <img src="${m.photo}" alt="memory">
+   <button class="memory-delete"
+   onclick="deleteMemory(${realIndex})">×</button>
+   <div class="memory-text">
+    ${escapeHTML(m.caption)}
+    <div style="font-size:10px;color:#888;margin-top:4px">
+     ${m.time}
+    </div>
+   </div>
+  `;
+
+  box.appendChild(div);
+ });
+}
+
+function deleteMemory(index){
+
+ const memories=getMemories();
+
+ memories.splice(index,1);
+
+ localStorage.setItem(
+  "dujon_memories",
+  JSON.stringify(memories)
+ );
+
+ renderMemories();
+}
+
+
+/* FAVORITE MOMENTS */
+
+function getMoments(){
+ try{
+  return JSON.parse(
+   localStorage.getItem("dujon_moments")
+  )||[];
+ }catch{
+  return [];
+ }
+}
+
+function addMoment(){
+
+ const input=document.getElementById("momentInput");
+ const text=input.value.trim();
+
+ if(!text){
+  toast("একটা মুহূর্ত লিখো ⭐");
+  return;
+ }
+
+ const moments=getMoments();
+
+ moments.push({
+  text,
+  time:new Date().toLocaleString("bn-BD")
  });
 
- if(history.length>50){
-  history.shift();
+ if(moments.length>50)moments.shift();
+
+ localStorage.setItem(
+  "dujon_moments",
+  JSON.stringify(moments)
+ );
+
+ input.value="";
+ renderMoments();
+
+ toast("Favorite Moment Save হয়েছে ⭐");
+}
+
+function renderMoments(){
+
+ const box=document.getElementById("momentsList");
+ const moments=getMoments();
+
+ box.innerHTML="";
+
+ moments.slice().reverse().forEach((m,index)=>{
+
+  const realIndex=moments.length-1-index;
+
+  const div=document.createElement("div");
+  div.className="moment";
+
+  div.innerHTML=`
+   ⭐ ${escapeHTML(m.text)}
+   <small>${m.time}</small>
+   <button class="small-btn"
+   style="float:right;margin-top:-25px"
+   onclick="deleteMoment(${realIndex})">
+   🗑️
+   </button>
+  `;
+
+  box.appendChild(div);
+ });
+}
+
+function deleteMoment(index){
+
+ const moments=getMoments();
+
+ moments.splice(index,1);
+
+ localStorage.setItem(
+  "dujon_moments",
+  JSON.stringify(moments)
+ );
+
+ renderMoments();
+}
+
+
+/* COUPLE LOAD */
+
+function loadCoupleSpace(){
+ renderStory();
+ renderMemories();
+ renderMoments();
+}
+
+
+/* CALL HISTORY */
+
+function getCallHistory(){
+ try{
+  return JSON.parse(
+   localStorage.getItem("dujon_call_history")
+  )||[];
+ }catch{
+  return [];
  }
+}
+
+function saveCallHistory(type,direction,status){
+
+ const history=getCallHistory();
+
+ history.push({
+  type,direction,status,
+  time:new Date().toLocaleString("bn-BD")
+ });
+
+ if(history.length>50)history.shift();
 
  localStorage.setItem(
   "dujon_call_history",
@@ -2886,233 +1686,116 @@ function saveCallHistory(
  );
 }
 
-
 function openCallHistory(){
-
- showPage(
-  "callHistoryPage"
- );
-
+ showPage("callHistoryPage");
  renderCallHistory();
 }
 
-
 function renderCallHistory(){
 
- const box=
- document.getElementById(
-  "callHistoryList"
- );
-
- const history=
- getCallHistory();
+ const box=document.getElementById("callHistoryList");
+ const history=getCallHistory();
 
  box.innerHTML="";
 
  if(!history.length){
-
-  box.innerHTML=
-  `<div class="empty-history">
-  📞 এখনো কোনো Call History নেই
-  </div>`;
-
+  box.innerHTML='<div class="empty">📞 এখনো কোনো Call History নেই</div>';
   return;
  }
 
- history
- .slice()
- .reverse()
- .forEach(item=>{
+ history.slice().reverse().forEach(item=>{
 
-  let icon=
-  item.type==="video"
-  ?"📹"
-  :"📞";
-
-  let title=
-  item.direction==="outgoing"
-  ?"তুমি "+item.type+" call করেছিলে"
-  :partnerProfile.name+
-   " "+item.type+
-   " call করেছিল";
-
-  const div=
-  document.createElement("div");
-
-  div.className=
-  "history-item";
+  const div=document.createElement("div");
+  div.className="history-item";
 
   div.innerHTML=`
-
-  <div class="history-icon">
-   ${icon}
-  </div>
-
-  <div class="history-info">
-
-   <div class="history-title">
-    ${title}
+   <div class="history-icon">
+    ${item.type==="video"?"📹":"📞"}
    </div>
-
-   <div class="history-time">
-    ${item.status} • ${item.time}
+   <div class="history-info">
+    <strong>
+     ${item.direction==="outgoing"
+      ?"তুমি কল করেছিলে"
+      :partnerProfile.name+" কল করেছিল"}
+    </strong>
+    <div class="history-time">
+     ${item.type} • ${item.status} • ${item.time}
+    </div>
    </div>
-
-  </div>
   `;
 
   box.appendChild(div);
  });
 }
 
-
 function clearCallHistory(){
 
- if(!confirm(
-  "সব Call History মুছে ফেলবে?"
-  )){
-  return;
- }
+ if(!confirm("সব Call History মুছে ফেলবে?"))return;
 
- localStorage.removeItem(
-  "dujon_call_history"
- );
-
+ localStorage.removeItem("dujon_call_history");
  renderCallHistory();
-
  toast("Call History Clear হয়েছে");
 }
 
 
-/* =========================
- WEBRTC
-========================= */
+/* WEBRTC */
 
 async function getLocalMedia(type){
 
  if(localStream){
-
-  localStream.getTracks()
-  .forEach(track=>track.stop());
-
-  localStream=null;
+  localStream.getTracks().forEach(t=>t.stop());
  }
 
- if(type==="video"){
-
-  localStream=
-  await navigator.mediaDevices
-  .getUserMedia({
-   video:true,
-   audio:true
-  });
-
- }else{
-
-  localStream=
-  await navigator.mediaDevices
-  .getUserMedia({
-   video:false,
-   audio:true
-  });
- }
-
- const localVideo=
- document.getElementById(
-  "localVideo"
+ localStream=
+ await navigator.mediaDevices.getUserMedia(
+  type==="video"
+  ?{video:true,audio:true}
+  :{video:false,audio:true}
  );
 
- if(type==="video"){
+ const local=document.getElementById("localVideo");
 
-  localVideo.srcObject=
-  localStream;
-
- }else{
-
-  localVideo.srcObject=null;
- }
+ local.srcObject=
+ type==="video"?localStream:null;
 }
-
 
 function createPeerConnection(type){
 
- peerConnection=
- new RTCPeerConnection(
-  rtcConfig
- );
+ peerConnection=new RTCPeerConnection(rtcConfig);
 
- if(localStream){
+ localStream.getTracks().forEach(track=>{
+  peerConnection.addTrack(track,localStream);
+ });
 
-  localStream.getTracks()
-  .forEach(track=>{
-
-   peerConnection.addTrack(
-    track,
-    localStream
-   );
-
-  });
- }
-
-
- peerConnection.ontrack=function(event){
-
-  const remote=
-  document.getElementById(
-   "remoteVideo"
-  );
-
-  remote.srcObject=
-  event.streams[0];
-
+ peerConnection.ontrack=e=>{
+  const remote=document.getElementById("remoteVideo");
+  remote.srcObject=e.streams[0];
   remote.play().catch(()=>{});
  };
 
-
- peerConnection.onicecandidate=
- function(event){
-
-  if(!event.candidate)return;
+ peerConnection.onicecandidate=e=>{
+  if(!e.candidate)return;
 
   sendToRoom({
-
-   type:
-   type==="video"
-   ?"video-call"
-   :"audio-call",
-
+   type:type==="video"?"video-call":"audio-call",
    action:"ice",
-
-   candidate:event.candidate
+   candidate:e.candidate
   });
  };
 
-
- peerConnection.onconnectionstatechange=
- function(){
-
-  const state=
-  peerConnection.connectionState;
-
-  setCallStatus(state);
+ peerConnection.onconnectionstatechange=()=>{
+  if(peerConnection)
+  setCallStatus(peerConnection.connectionState);
 
   if(
-   state==="disconnected"||
-   state==="failed"||
-   state==="closed"
+   peerConnection &&
+   ["failed","disconnected","closed"]
+   .includes(peerConnection.connectionState)
   ){
-
    endCall(false);
   }
  };
-
- return peerConnection;
 }
-
-
-/* =========================
- MAKE CALL
-========================= */
 
 async function makeCall(type){
 
@@ -3121,80 +1804,44 @@ async function makeCall(type){
  try{
 
   await getLocalMedia(type);
-
   createPeerConnection(type);
-
   showCallScreen(type);
 
-  saveCallHistory(
-   type,
-   "outgoing",
-   "Calling"
-  );
+  saveCallHistory(type,"outgoing","Calling");
 
-  const offer=
-  await peerConnection.createOffer();
+  const offer=await peerConnection.createOffer();
 
-  await peerConnection.setLocalDescription(
-   offer
-  );
+  await peerConnection.setLocalDescription(offer);
 
   sendToRoom({
-
-   type:
-   type==="video"
-   ?"video-call"
-   :"audio-call",
-
+   type:type==="video"?"video-call":"audio-call",
    action:"offer",
-
    offer
   });
 
   setCallStatus("Ringing...");
 
- }catch(error){
+ }catch(e){
 
-  console.log(error);
-
-  toast(
-   "Camera/Microphone permission দরকার"
-  );
-
+  toast("Camera/Microphone permission দরকার");
   endCall(false);
  }
 }
 
-
 function startVideoFromHome(){
 
- if(
-  !socket||
-  socket.readyState!==WebSocket.OPEN
- ){
-
-  toast(
-   "আগে Room-এ Connect করো"
-  );
-
+ if(!socket||socket.readyState!==WebSocket.OPEN){
+  toast("আগে Room-এ Connect করো");
   return;
  }
 
  makeCall("video");
 }
 
-
 function startAudioFromHome(){
 
- if(
-  !socket||
-  socket.readyState!==WebSocket.OPEN
- ){
-
-  toast(
-   "আগে Room-এ Connect করো"
-  );
-
+ if(!socket||socket.readyState!==WebSocket.OPEN){
+  toast("আগে Room-এ Connect করো");
   return;
  }
 
@@ -3202,449 +1849,226 @@ function startAudioFromHome(){
 }
 
 
-/* =========================
- CALL SIGNAL
-========================= */
+/* CALL SIGNAL */
 
-function handleCallSignal(
- data,
- type
-){
+function handleCallSignal(data,type){
 
  if(data.action==="offer"){
-
   pendingOffer=data.offer;
-
   pendingCallType=type;
-
   showIncomingCall(type);
-
  }
 
- else if(data.action==="answer"){
-
-  handleAnswer(
-   data.answer
-  );
-
+ if(data.action==="answer"){
+  handleAnswer(data.answer);
  }
 
- else if(data.action==="ice"){
-
-  addIceCandidate(
-   data.candidate
-  );
-
+ if(data.action==="ice"){
+  addIceCandidate(data.candidate);
  }
 
- else if(data.action==="end"){
-
+ if(data.action==="end"){
   endCall(false);
  }
 }
 
 
-/* =========================
- INCOMING
-========================= */
+/* INCOMING */
 
 function showIncomingCall(type){
 
- document.getElementById(
-  "incomingName"
- ).textContent=
- partnerProfile.name;
+ document.getElementById("incomingName").textContent=partnerProfile.name;
 
- document.getElementById(
-  "incomingType"
- ).textContent=
+ document.getElementById("incomingType").textContent=
  type==="video"
  ?"📹 Video Call করছে..."
  :"📞 Audio Call করছে...";
 
  setAvatar(
-  document.getElementById(
-   "incomingAvatar"
-  ),
+  document.getElementById("incomingAvatar"),
   partnerProfile.photo
  );
 
- document.getElementById(
-  "incomingCall"
- ).classList.add("active");
+ document.getElementById("incomingCall")
+ .classList.add("active");
 
- saveCallHistory(
-  type,
-  "incoming",
-  "Incoming"
- );
+ saveCallHistory(type,"incoming","Incoming");
 
- if(navigator.vibrate){
-
-  navigator.vibrate([
-   300,200,300,200,300
-  ]);
- }
+ if(navigator.vibrate)
+ navigator.vibrate([300,200,300,200,300]);
 }
-
 
 async function acceptCall(){
 
- document.getElementById(
-  "incomingCall"
- ).classList.remove("active");
+ document.getElementById("incomingCall")
+ .classList.remove("active");
 
- if(navigator.vibrate){
-  navigator.vibrate(0);
- }
+ if(navigator.vibrate)navigator.vibrate(0);
 
  const type=pendingCallType;
-
  callType=type;
 
  try{
 
   await getLocalMedia(type);
-
   createPeerConnection(type);
-
   showCallScreen(type);
 
-  await peerConnection
-  .setRemoteDescription(
-   new RTCSessionDescription(
-    pendingOffer
-   )
+  await peerConnection.setRemoteDescription(
+   new RTCSessionDescription(pendingOffer)
   );
 
-  const answer=
-  await peerConnection
-  .createAnswer();
+  const answer=await peerConnection.createAnswer();
 
-  await peerConnection
-  .setLocalDescription(
-   answer
-  );
+  await peerConnection.setLocalDescription(answer);
 
   sendToRoom({
-
-   type:
-   type==="video"
-   ?"video-call"
-   :"audio-call",
-
+   type:type==="video"?"video-call":"audio-call",
    action:"answer",
-
    answer
   });
 
-  setCallStatus(
-   "Connected"
-  );
+  setCallStatus("Connected");
 
- }catch(error){
+ }catch(e){
 
-  console.log(error);
-
-  toast(
-   "Call গ্রহণ করা যায়নি"
-  );
-
+  toast("Call গ্রহণ করা যায়নি");
   endCall(false);
  }
 }
 
-
 function rejectCall(){
 
- document.getElementById(
-  "incomingCall"
- ).classList.remove("active");
+ document.getElementById("incomingCall")
+ .classList.remove("active");
 
- if(navigator.vibrate){
-  navigator.vibrate(0);
- }
+ if(navigator.vibrate)navigator.vibrate(0);
 
  pendingOffer=null;
  pendingCallType=null;
 }
 
 
-/* =========================
- ANSWER / ICE
-========================= */
+/* CALL */
 
 async function handleAnswer(answer){
 
  if(!peerConnection)return;
 
- try{
+ await peerConnection.setRemoteDescription(
+  new RTCSessionDescription(answer)
+ );
 
-  await peerConnection
-  .setRemoteDescription(
-   new RTCSessionDescription(
-    answer
-   )
-  );
-
-  setCallStatus(
-   "Connected"
-  );
-
- }catch(error){
-
-  console.log(error);
- }
+ setCallStatus("Connected");
 }
-
 
 async function addIceCandidate(candidate){
 
- if(
-  !peerConnection||
-  !candidate
- ){
-  return;
- }
+ if(!peerConnection||!candidate)return;
 
  try{
-
-  await peerConnection
-  .addIceCandidate(
-   new RTCIceCandidate(
-    candidate
-   )
+  await peerConnection.addIceCandidate(
+   new RTCIceCandidate(candidate)
   );
-
- }catch(error){
-
-  console.log(error);
- }
+ }catch{}
 }
-
-
-/* =========================
- CALL UI
-========================= */
 
 function showCallScreen(type){
 
- document.getElementById(
-  "videoCallScreen"
- ).classList.remove("active");
-
- document.getElementById(
-  "audioCallScreen"
- ).classList.remove("active");
+ document.getElementById("videoCallScreen").classList.remove("active");
+ document.getElementById("audioCallScreen").classList.remove("active");
 
  if(type==="video"){
-
-  document.getElementById(
-   "videoCallScreen"
-  ).classList.add("active");
-
-  document.getElementById(
-   "videoCallName"
-  ).textContent=
-  partnerProfile.name;
-
+  document.getElementById("videoCallScreen").classList.add("active");
+  document.getElementById("videoCallName").textContent=partnerProfile.name;
  }else{
-
-  document.getElementById(
-   "audioCallScreen"
-  ).classList.add("active");
-
-  document.getElementById(
-   "audioCallName"
-  ).textContent=
-  partnerProfile.name;
+  document.getElementById("audioCallScreen").classList.add("active");
+  document.getElementById("audioCallName").textContent=partnerProfile.name;
  }
 
  startCallTimer();
 }
 
-
 function setCallStatus(status){
 
- const video=
- document.getElementById(
-  "videoCallStatus"
- );
-
- const audio=
- document.getElementById(
-  "audioCallStatus"
- );
-
- if(video)video.textContent=status;
- if(audio)audio.textContent=status;
+ document.getElementById("videoCallStatus").textContent=status;
+ document.getElementById("audioCallStatus").textContent=status;
 }
-
 
 function startCallTimer(){
 
- clearInterval(
-  callTimerInterval
- );
-
+ clearInterval(callTimerInterval);
  callSeconds=0;
 
- callTimerInterval=
- setInterval(()=>{
+ callTimerInterval=setInterval(()=>{
 
   callSeconds++;
 
-  const min=
-  String(
-   Math.floor(
-    callSeconds/60
-   )
-  ).padStart(2,"0");
+  const m=String(Math.floor(callSeconds/60)).padStart(2,"0");
+  const s=String(callSeconds%60).padStart(2,"0");
 
-  const sec=
-  String(
-   callSeconds%60
-  ).padStart(2,"0");
-
-  const time=
-  min+":"+sec;
-
-  document.getElementById(
-   "videoTimer"
-  ).textContent=time;
-
-  document.getElementById(
-   "audioTimer"
-  ).textContent=time;
+  document.getElementById("videoTimer").textContent=m+":"+s;
+  document.getElementById("audioTimer").textContent=m+":"+s;
 
  },1000);
 }
-
 
 function toggleMic(){
 
  if(!localStream)return;
 
- const track=
- localStream.getAudioTracks()[0];
+ const track=localStream.getAudioTracks()[0];
 
- if(!track)return;
-
- track.enabled=
- !track.enabled;
-
- toast(
-  track.enabled
-  ?"🎙️ Mic On"
-  :"🔇 Mic Off"
- );
+ if(track){
+  track.enabled=!track.enabled;
+  toast(track.enabled?"🎙️ Mic On":"🔇 Mic Off");
+ }
 }
-
 
 function toggleCamera(){
 
  if(!localStream)return;
 
- const track=
- localStream.getVideoTracks()[0];
+ const track=localStream.getVideoTracks()[0];
 
- if(!track)return;
-
- track.enabled=
- !track.enabled;
-
- toast(
-  track.enabled
-  ?"📹 Camera On"
-  :"🚫 Camera Off"
- );
+ if(track){
+  track.enabled=!track.enabled;
+  toast(track.enabled?"📹 Camera On":"🚫 Camera Off");
+ }
 }
 
-
-/* =========================
- END CALL
-========================= */
-
-function endCall(
- sendSignal=true
-){
+function endCall(sendSignal=true){
 
  if(sendSignal){
-
   sendToRoom({
-
-   type:
-   callType==="video"
-   ?"video-call"
-   :"audio-call",
-
+   type:callType==="video"?"video-call":"audio-call",
    action:"end"
   });
  }
 
- if(callType){
+ if(callType)
+ saveCallHistory(callType,"outgoing","Ended");
 
-  saveCallHistory(
-   callType,
-   "outgoing",
-   "Ended"
-  );
- }
+ clearInterval(callTimerInterval);
 
- clearInterval(
-  callTimerInterval
- );
-
- callTimerInterval=null;
-
- if(localStream){
-
-  localStream.getTracks()
-  .forEach(track=>track.stop());
-
-  localStream=null;
- }
+ if(localStream)
+ localStream.getTracks().forEach(t=>t.stop());
 
  if(peerConnection){
-
-  try{
-   peerConnection.close();
-  }catch{}
-
-  peerConnection=null;
+  try{peerConnection.close()}catch{}
  }
 
- const remote=
- document.getElementById(
-  "remoteVideo"
- );
+ peerConnection=null;
+ localStream=null;
 
- const local=
- document.getElementById(
-  "localVideo"
- );
+ document.getElementById("remoteVideo").srcObject=null;
+ document.getElementById("localVideo").srcObject=null;
 
- if(remote)
-  remote.srcObject=null;
+ document.getElementById("videoCallScreen").classList.remove("active");
+ document.getElementById("audioCallScreen").classList.remove("active");
+ document.getElementById("incomingCall").classList.remove("active");
 
- if(local)
-  local.srcObject=null;
-
- document.getElementById(
-  "videoCallScreen"
- ).classList.remove("active");
-
- document.getElementById(
-  "audioCallScreen"
- ).classList.remove("active");
-
- document.getElementById(
-  "incomingCall"
- ).classList.remove("active");
-
- if(navigator.vibrate){
-  navigator.vibrate(0);
- }
+ if(navigator.vibrate)navigator.vibrate(0);
 
  pendingOffer=null;
  pendingCallType=null;
@@ -3654,54 +2078,30 @@ function endCall(
 }
 
 
-/* =========================
- AUTO START
-========================= */
+/* START */
 
-window.addEventListener(
- "load",
- ()=>{
+window.addEventListener("load",()=>{
 
-  const logged=
-  localStorage.getItem(
-   "dujon_logged_in"
-  );
+ if(localStorage.getItem("dujon_logged_in")==="true"){
 
-  if(logged==="true"){
+  loadProfile();
+  updateTogetherDays();
+  showPage("homePage");
 
-   loadProfile();
+ }else{
 
-   showPage(
-    "homePage"
-   );
+  showPage("loginPage");
+ }
+});
 
-  }else{
-
-   showPage(
-    "loginPage"
-   );
-  }
- });
-
-
-/* =========================
- BEFORE LEAVE
-========================= */
-
-window.addEventListener(
- "beforeunload",
- ()=>{
-
-  try{
-
-   sendToRoom({
-    type:"presence",
-    online:false
-   });
-
-  }catch{}
- });
-
+window.addEventListener("beforeunload",()=>{
+ try{
+  sendToRoom({
+   type:"presence",
+   online:false
+  });
+ }catch{}
+});
 </script>
 
 </body>
