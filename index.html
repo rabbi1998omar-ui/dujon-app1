@@ -162,10 +162,6 @@ button:active{
   background:rgba(255,255,255,.10);
   color:#ffbfd7;
 }
-
-#recaptcha-container{
-  margin:15px 0;
-}
 </style>
 </head>
 
@@ -191,9 +187,7 @@ button:active{
     placeholder="+8801XXXXXXXXX"
   >
 
-  <div id="recaptcha-container"></div>
-
-  <button onclick="sendOTP()">
+  <button id="sendOtpButton" onclick="sendOTP()">
     OTP পাঠাও 📱
   </button>
 
@@ -319,12 +313,19 @@ from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 
 const firebaseConfig = {
+
   apiKey: "AIzaSyDit5Hug1T_AjiBqAU31QSZyc_rn8xf2mA",
+
   authDomain: "dujon-91f07.firebaseapp.com",
+
   projectId: "dujon-91f07",
+
   storageBucket: "dujon-91f07.firebasestorage.app",
+
   messagingSenderId: "214183518155",
+
   appId: "1:214183518155:web:80ea07b1b16196a44f204e"
+
 };
 
 
@@ -334,19 +335,37 @@ const auth = getAuth(app);
 
 let confirmationResult = null;
 
+let recaptchaVerifier = null;
 
-/* reCAPTCHA */
+
+/* INVISIBLE RECAPTCHA */
 
 function setupRecaptcha(){
 
-  window.recaptchaVerifier =
-    new RecaptchaVerifier(
-      auth,
-      "recaptcha-container",
-      {
-        size:"normal"
+  if(recaptchaVerifier){
+    return;
+  }
+
+  recaptchaVerifier = new RecaptchaVerifier(
+    auth,
+    "sendOtpButton",
+    {
+      size: "invisible",
+
+      callback: function(){
+
+        console.log("reCAPTCHA verified");
+
+      },
+
+      "expired-callback": function(){
+
+        recaptchaVerifier = null;
+
       }
-    );
+    }
+  );
+
 }
 
 
@@ -355,8 +374,11 @@ function setupRecaptcha(){
 window.sendOTP = async function(){
 
   const phone =
-    document.getElementById("phoneNumber")
-    .value.trim();
+    document
+    .getElementById("phoneNumber")
+    .value
+    .trim();
+
 
   if(!phone){
 
@@ -365,44 +387,51 @@ window.sendOTP = async function(){
     return;
   }
 
+
   if(!phone.startsWith("+880")){
 
     alert(
-      "বাংলাদেশের নম্বর হলে +880 দিয়ে লিখো।\nউদাহরণ: +8801XXXXXXXXX"
+      "বাংলাদেশের নম্বর হলে +880 দিয়ে লিখো।\n\nউদাহরণ:\n+8801712345678"
     );
 
     return;
   }
 
+
   try{
 
-    if(!window.recaptchaVerifier){
+    setupRecaptcha();
 
-      setupRecaptcha();
-
-    }
 
     confirmationResult =
       await signInWithPhoneNumber(
         auth,
         phone,
-        window.recaptchaVerifier
+        recaptchaVerifier
       );
+
 
     alert("OTP পাঠানো হয়েছে 📱");
 
-    document.getElementById("phonePage")
-      .classList.add("hidden");
 
-    document.getElementById("otpPage")
-      .classList.remove("hidden");
+    document
+      .getElementById("phonePage")
+      .classList
+      .add("hidden");
+
+
+    document
+      .getElementById("otpPage")
+      .classList
+      .remove("hidden");
+
 
   }catch(error){
 
     console.error(error);
 
     alert(
-      "OTP পাঠানো যায়নি। নম্বর ও reCAPTCHA পরীক্ষা করো।"
+      "OTP পাঠানো যায়নি।\n\nফোন নম্বর এবং Firebase Phone Authentication সেটিং পরীক্ষা করো।"
     );
 
   }
@@ -410,15 +439,20 @@ window.sendOTP = async function(){
 };
 
 
-/* SHOW OTP PAGE */
+/* SHOW OTP */
 
 window.showOTP = function(){
 
-  document.getElementById("phonePage")
-    .classList.add("hidden");
+  document
+    .getElementById("phonePage")
+    .classList
+    .add("hidden");
 
-  document.getElementById("otpPage")
-    .classList.remove("hidden");
+
+  document
+    .getElementById("otpPage")
+    .classList
+    .remove("hidden");
 
 };
 
@@ -428,8 +462,11 @@ window.showOTP = function(){
 window.verifyOTP = async function(){
 
   const code =
-    document.getElementById("otp")
-    .value.trim();
+    document
+    .getElementById("otp")
+    .value
+    .trim();
+
 
   if(!confirmationResult){
 
@@ -438,12 +475,14 @@ window.verifyOTP = async function(){
     return;
   }
 
+
   if(code.length !== 6){
 
     alert("৬ সংখ্যার OTP লিখো।");
 
     return;
   }
+
 
   try{
 
@@ -455,7 +494,9 @@ window.verifyOTP = async function(){
 
     console.error(error);
 
-    alert("OTP সঠিক নয়। আবার চেষ্টা করো।");
+    alert(
+      "OTP সঠিক নয়। আবার চেষ্টা করো।"
+    );
 
   }
 
@@ -466,11 +507,16 @@ window.verifyOTP = async function(){
 
 window.backToPhone = function(){
 
-  document.getElementById("otpPage")
-    .classList.add("hidden");
+  document
+    .getElementById("otpPage")
+    .classList
+    .add("hidden");
 
-  document.getElementById("phonePage")
-    .classList.remove("hidden");
+
+  document
+    .getElementById("phonePage")
+    .classList
+    .remove("hidden");
 
 };
 
@@ -484,32 +530,49 @@ window.logout = async function(){
 };
 
 
-/* HOME */
+/* AUTH STATE */
 
 onAuthStateChanged(auth,(user)=>{
 
   if(user){
 
-    document.getElementById("phonePage")
-      .classList.add("hidden");
+    document
+      .getElementById("phonePage")
+      .classList
+      .add("hidden");
 
-    document.getElementById("otpPage")
-      .classList.add("hidden");
 
-    document.getElementById("homePage")
-      .classList.remove("hidden");
+    document
+      .getElementById("otpPage")
+      .classList
+      .add("hidden");
 
-    document.getElementById("userPhone")
+
+    document
+      .getElementById("homePage")
+      .classList
+      .remove("hidden");
+
+
+    document
+      .getElementById("userPhone")
       .innerText =
       user.phoneNumber + " ❤️";
 
-  }else{
+  }
 
-    document.getElementById("homePage")
-      .classList.add("hidden");
+  else{
 
-    document.getElementById("phonePage")
-      .classList.remove("hidden");
+    document
+      .getElementById("homePage")
+      .classList
+      .add("hidden");
+
+
+    document
+      .getElementById("phonePage")
+      .classList
+      .remove("hidden");
 
   }
 
