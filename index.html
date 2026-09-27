@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#000">
 
 <title>দুজন</title>
 
@@ -17,7 +17,7 @@
 body{
   font-family:Arial,sans-serif;
   background:#080808;
-  color:white;
+  color:#fff;
 }
 
 .hidden{
@@ -29,7 +29,28 @@ body{
   padding:20px;
 }
 
-h1,h2,h3{
+.logo{
+  text-align:center;
+  font-size:40px;
+  font-weight:bold;
+  margin:35px 0 10px;
+}
+
+.subtitle{
+  text-align:center;
+  color:#aaa;
+  margin-bottom:30px;
+}
+
+.card{
+  background:#111;
+  border:1px solid #292929;
+  border-radius:18px;
+  padding:18px;
+  margin:12px 0;
+}
+
+h2,h3{
   margin-bottom:15px;
 }
 
@@ -40,7 +61,7 @@ input{
   border:1px solid #333;
   border-radius:12px;
   background:#151515;
-  color:white;
+  color:#fff;
   font-size:16px;
 }
 
@@ -51,13 +72,9 @@ button{
   border:0;
   border-radius:12px;
   background:#ff3b6b;
-  color:white;
+  color:#fff;
   font-size:16px;
   font-weight:bold;
-}
-
-button:active{
-  transform:scale(.98);
 }
 
 .secondary{
@@ -68,42 +85,13 @@ button:active{
   background:#d62828;
 }
 
-.card{
-  background:#111;
-  border:1px solid #252525;
-  border-radius:18px;
-  padding:18px;
-  margin:12px 0;
-}
-
-.center{
-  text-align:center;
-}
-
 .status{
+  text-align:center;
   background:#151515;
   border-radius:10px;
   padding:10px;
   margin:10px 0;
-  text-align:center;
-  font-size:14px;
   color:#aaa;
-}
-
-/* HOME */
-
-.logo{
-  font-size:40px;
-  font-weight:bold;
-  text-align:center;
-  margin-top:30px;
-  margin-bottom:10px;
-}
-
-.subtitle{
-  text-align:center;
-  color:#aaa;
-  margin-bottom:30px;
 }
 
 .feature{
@@ -124,14 +112,12 @@ button:active{
   font-size:14px;
 }
 
-/* ROOM */
-
 .room-code{
+  text-align:center;
   font-size:42px;
   letter-spacing:8px;
-  text-align:center;
-  margin:25px 0;
   color:#ff4f7b;
+  margin:25px 0;
 }
 
 /* CHAT */
@@ -160,20 +146,19 @@ button:active{
 
 .other-message{
   background:#222;
-  margin-right:auto;
 }
 
-.chat-input-area{
+.chat-input{
   display:flex;
   gap:7px;
   margin-top:10px;
 }
 
-.chat-input-area input{
+.chat-input input{
   margin:0;
 }
 
-.chat-input-area button{
+.chat-input button{
   width:90px;
   margin:0;
 }
@@ -183,7 +168,7 @@ button:active{
 .video-container{
   position:relative;
   width:100%;
-  height:65vh;
+  height:62vh;
   background:#000;
   border-radius:18px;
   overflow:hidden;
@@ -202,36 +187,97 @@ button:active{
   right:12px;
   bottom:12px;
   width:32%;
-  max-height:200px;
+  max-height:180px;
   object-fit:cover;
+  border:2px solid #fff;
   border-radius:14px;
-  border:2px solid white;
   background:#222;
 }
 
-.video-controls{
-  margin-top:12px;
+.video-buttons{
+  display:flex;
+  gap:7px;
 }
 
-.video-controls button{
-  width:32%;
-  display:inline-block;
-  margin:1%;
-  padding:12px 5px;
+.video-buttons button{
+  flex:1;
   font-size:13px;
 }
 
-.call-status{
+/* INCOMING CALL */
+
+.incoming{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.96);
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:25px;
+}
+
+.incoming-box{
+  width:100%;
+  max-width:380px;
   text-align:center;
+  background:#151515;
+  border:1px solid #333;
+  border-radius:25px;
+  padding:30px 20px;
+}
+
+.call-icon{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  background:#ff3b6b;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:42px;
+  margin:0 auto 20px;
+  animation:pulse 1.2s infinite;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.08)}
+  100%{transform:scale(1)}
+}
+
+.incoming-title{
+  font-size:26px;
+  margin-bottom:8px;
+}
+
+.incoming-text{
   color:#aaa;
-  padding:10px;
+  margin-bottom:25px;
+}
+
+.call-actions{
+  display:flex;
+  gap:10px;
+}
+
+.call-actions button{
+  flex:1;
+}
+
+.accept{
+  background:#20bf55;
+}
+
+.reject{
+  background:#d62828;
 }
 </style>
 </head>
 
 <body>
 
-<!-- ================= LOGIN ================= -->
+<!-- LOGIN -->
 
 <div id="loginPage" class="page">
 
@@ -261,11 +307,10 @@ button:active{
     </button>
 
   </div>
-
 </div>
 
 
-<!-- ================= REGISTER ================= -->
+<!-- REGISTER -->
 
 <div id="registerPage" class="page hidden">
 
@@ -287,18 +332,19 @@ button:active{
       placeholder="একটি PIN দিন"
     >
 
-    <button onclick="register()">Account তৈরি করুন</button>
+    <button onclick="register()">
+      Account তৈরি করুন
+    </button>
 
     <button class="secondary" onclick="showLogin()">
       Login
     </button>
 
   </div>
-
 </div>
 
 
-<!-- ================= HOME ================= -->
+<!-- HOME -->
 
 <div id="homePage" class="page hidden">
 
@@ -336,7 +382,7 @@ button:active{
 </div>
 
 
-<!-- ================= ROOM ================= -->
+<!-- ROOM -->
 
 <div id="roomPage" class="page hidden">
 
@@ -344,13 +390,17 @@ button:active{
 
   <div class="card">
 
-    <div class="center">
+    <div style="text-align:center">
       তোমার Room Code
     </div>
 
     <div id="roomCodeDisplay" class="room-code">
       ------
     </div>
+
+    <button onclick="createRoom()">
+      ➕ নতুন Room তৈরি
+    </button>
 
     <button onclick="copyRoomCode()">
       📋 Code Copy
@@ -376,7 +426,7 @@ button:active{
 
   <div class="card">
 
-    <h3>অন্য ফোনে Join করাতে</h3>
+    <h3>অন্য ফোনে Join করুন</h3>
 
     <input
       id="joinCodeInput"
@@ -393,25 +443,25 @@ button:active{
 </div>
 
 
-<!-- ================= CHAT ================= -->
+<!-- CHAT -->
 
 <div id="chatPage" class="page hidden">
 
   <h2>💬 Chat</h2>
 
   <div id="chatStatus" class="status">
-    Server-এর সাথে সংযোগ হচ্ছে...
+    সংযোগ হচ্ছে...
   </div>
 
   <div id="chatBox" class="chat-box"></div>
 
-  <div class="chat-input-area">
+  <div class="chat-input">
 
     <input
       id="messageInput"
       type="text"
       placeholder="মেসেজ লিখুন..."
-      onkeydown="if(event.key==='Enter') sendMessage()"
+      onkeydown="if(event.key==='Enter')sendMessage()"
     >
 
     <button onclick="sendMessage()">
@@ -427,14 +477,14 @@ button:active{
 </div>
 
 
-<!-- ================= VIDEO CALL ================= -->
+<!-- VIDEO -->
 
 <div id="videoPage" class="page hidden">
 
   <h2>🎥 Video Call</h2>
 
-  <div id="callStatus" class="call-status">
-    Call শুরু করার জন্য অপেক্ষা...
+  <div id="callStatus" class="status">
+    Video Call-এর জন্য প্রস্তুত
   </div>
 
   <div class="video-container">
@@ -454,7 +504,7 @@ button:active{
 
   </div>
 
-  <div class="video-controls">
+  <div class="video-buttons">
 
     <button onclick="toggleMic()">
       🎤 Mic
@@ -470,6 +520,13 @@ button:active{
 
   </div>
 
+  <button
+    id="callButton"
+    onclick="makeCall()"
+  >
+    📞 কল করুন
+  </button>
+
   <button class="secondary" onclick="openRoom()">
     ← Room
   </button>
@@ -477,20 +534,74 @@ button:active{
 </div>
 
 
+<!-- INCOMING CALL -->
+
+<div
+  id="incomingCall"
+  class="incoming hidden"
+>
+
+  <div class="incoming-box">
+
+    <div class="call-icon">
+      📞
+    </div>
+
+    <div class="incoming-title">
+      Incoming Video Call
+    </div>
+
+    <div class="incoming-text">
+      তোমাকে Video Call করা হচ্ছে
+    </div>
+
+    <div class="call-actions">
+
+      <button
+        class="reject"
+        onclick="rejectCall()"
+      >
+        ❌ Reject
+      </button>
+
+      <button
+        class="accept"
+        onclick="acceptCall()"
+      >
+        ✅ Accept
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
 <script>
 
-/* =====================================================
+/* =========================================
    LOGIN
-===================================================== */
+========================================= */
 
 function showRegister(){
+
   hideAll();
-  document.getElementById("registerPage").classList.remove("hidden");
+
+  document
+    .getElementById("registerPage")
+    .classList.remove("hidden");
+
 }
 
 function showLogin(){
+
   hideAll();
-  document.getElementById("loginPage").classList.remove("hidden");
+
+  document
+    .getElementById("loginPage")
+    .classList.remove("hidden");
+
 }
 
 function register(){
@@ -502,21 +613,24 @@ function register(){
     document.getElementById("registerPin").value.trim();
 
   if(!phone || !pin){
+
     alert("মোবাইল নম্বর এবং PIN দিন");
     return;
+
   }
 
   localStorage.setItem(
     "dujon_user",
     JSON.stringify({
-      phone:phone,
-      pin:pin
+      phone,
+      pin
     })
   );
 
   alert("Account তৈরি হয়েছে");
 
   showLogin();
+
 }
 
 function login(){
@@ -528,7 +642,9 @@ function login(){
     document.getElementById("loginPin").value.trim();
 
   const saved =
-    JSON.parse(localStorage.getItem("dujon_user") || "null");
+    JSON.parse(
+      localStorage.getItem("dujon_user") || "null"
+    );
 
   if(
     saved &&
@@ -536,7 +652,10 @@ function login(){
     saved.pin === pin
   ){
 
-    localStorage.setItem("dujon_logged_in","yes");
+    localStorage.setItem(
+      "dujon_logged_in",
+      "yes"
+    );
 
     showHome();
 
@@ -545,34 +664,44 @@ function login(){
     alert("মোবাইল নম্বর অথবা PIN ভুল");
 
   }
+
 }
 
 function logout(){
 
-  localStorage.removeItem("dujon_logged_in");
+  endCall();
 
   if(socket){
+
     try{
       socket.close();
     }catch(e){}
+
   }
 
   socket = null;
   currentRoom = null;
 
+  localStorage.removeItem(
+    "dujon_logged_in"
+  );
+
   showLogin();
+
 }
 
 
-/* =====================================================
-   PAGE CONTROL
-===================================================== */
+/* =========================================
+   PAGE
+========================================= */
 
 function hideAll(){
 
   document
     .querySelectorAll(".page")
-    .forEach(page => page.classList.add("hidden"));
+    .forEach(page =>
+      page.classList.add("hidden")
+    );
 
 }
 
@@ -616,8 +745,7 @@ function openChat(){
 
   if(!room){
 
-    alert("আগে একটি Room তৈরি বা Join করুন");
-    showHome();
+    alert("আগে Room তৈরি বা Join করুন");
     return;
 
   }
@@ -640,8 +768,6 @@ function openChat(){
 
   }else{
 
-    setChatStatus("🔄 Server-এর সাথে সংযোগ হচ্ছে...");
-
     connectRoom(room);
 
   }
@@ -649,22 +775,16 @@ function openChat(){
 }
 
 
-/* =====================================================
+/* =========================================
    ROOM
-===================================================== */
-
-function generateRoomCode(){
-
-  return Math.floor(
-    100000 + Math.random() * 900000
-  ).toString();
-
-}
+========================================= */
 
 function createRoom(){
 
   const code =
-    generateRoomCode();
+    Math.floor(
+      100000 + Math.random()*900000
+    ).toString();
 
   localStorage.setItem(
     "dujon_room",
@@ -679,47 +799,12 @@ function createRoom(){
 
 }
 
-
-/* যদি Home থেকে Private Room খোলা হয় এবং Room না থাকে,
-   তাহলে নতুন Room তৈরি করা হবে */
-
-document.addEventListener("DOMContentLoaded",()=>{
-
-  if(
-    localStorage.getItem("dujon_logged_in") === "yes"
-  ){
-
-    showHome();
-
-  }
-
-});
-
-
-/* Room page-এ click করলে নতুন Room তৈরির সুবিধা */
-
-document
-  .getElementById("roomPage")
-  .addEventListener("dblclick",()=>{
-
-    if(
-      !localStorage.getItem("dujon_room")
-    ){
-
-      createRoom();
-
-    }
-
-  });
-
-
 function joinRoom(){
 
   const code =
     document
       .getElementById("joinCodeInput")
-      .value
-      .trim();
+      .value.trim();
 
   if(!/^\d{6}$/.test(code)){
 
@@ -750,28 +835,25 @@ function copyRoomCode(){
 
   navigator.clipboard
     .writeText(room)
-    .then(()=>{
-      alert("Room Code Copy হয়েছে");
-    })
-    .catch(()=>{
-      alert("Code: " + room);
-    });
+    .then(() =>
+      alert("Room Code Copy হয়েছে")
+    )
+    .catch(() =>
+      alert("Room Code: " + room)
+    );
 
 }
 
 
-/* =====================================================
+/* =========================================
    WEBSOCKET
-===================================================== */
+========================================= */
 
 const WS_URL =
   "wss://dujon-app1.onrender.com";
 
 let socket = null;
 let currentRoom = null;
-
-
-/* Duplicate connection আটকানো */
 
 function connectRoom(code){
 
@@ -781,20 +863,12 @@ function connectRoom(code){
     currentRoom === code
   ){
 
-    console.log(
-      "Already connected:",
-      code
-    );
-
     setRoomStatus("🟢 Room Connected");
     setChatStatus("🟢 Chat Connected");
 
     return;
 
   }
-
-
-  /* পুরোনো socket বন্ধ */
 
   if(socket){
 
@@ -806,7 +880,6 @@ function connectRoom(code){
 
   }
 
-
   currentRoom = code;
 
   setRoomStatus(
@@ -816,10 +889,7 @@ function connectRoom(code){
   socket =
     new WebSocket(WS_URL);
 
-
   socket.onopen = function(){
-
-    console.log("WebSocket connected");
 
     socket.send(
       JSON.stringify({
@@ -829,7 +899,6 @@ function connectRoom(code){
     );
 
   };
-
 
   socket.onmessage = async function(event){
 
@@ -846,18 +915,10 @@ function connectRoom(code){
 
     }
 
+    console.log("Server:",data);
 
-    console.log(
-      "Server:",
-      data
-    );
-
-
-    /* Room joined */
 
     if(data.type === "joined"){
-
-      currentRoom = data.room;
 
       setRoomStatus(
         "🟢 Room Connected"
@@ -872,12 +933,10 @@ function connectRoom(code){
     }
 
 
-    /* অন্য ফোন এসেছে */
-
     if(data.type === "peer-joined"){
 
       setRoomStatus(
-        "💚 অন্য ফোন Room-এ যুক্ত হয়েছে"
+        "💚 অন্য ফোন যুক্ত হয়েছে"
       );
 
       setChatStatus(
@@ -889,38 +948,24 @@ function connectRoom(code){
     }
 
 
-    /* অন্য ফোন চলে গেছে */
-
     if(data.type === "peer-left"){
 
       setRoomStatus(
-        "🟡 অন্য ফোন Room থেকে বের হয়েছে"
+        "🟡 অন্য ফোন Offline"
       );
 
       setChatStatus(
         "🟡 অন্য ফোন Offline"
       );
 
-      if(
-        peerConnection
-      ){
-
-        peerConnection.close();
-        peerConnection = null;
-
-      }
-
       return;
 
     }
 
 
-    /* Server error */
-
     if(data.type === "error"){
 
       alert(data.message);
-
       return;
 
     }
@@ -945,20 +990,53 @@ function connectRoom(code){
     }
 
 
-    /* =================================================
-       WEBRTC SIGNALING
-    ================================================= */
+    /* VIDEO CALL */
 
-    if(data.type === "video-offer"){
+    if(data.type === "video-call"){
 
-      await handleOffer(
-        data.offer
+      showIncomingCall();
+      return;
+
+    }
+
+
+    /* CALL REJECT */
+
+    if(data.type === "call-rejected"){
+
+      setCallStatus(
+        "❌ অন্য ফোন কলটি গ্রহণ করেনি"
       );
 
       return;
 
     }
 
+
+    /* CALL END */
+
+    if(data.type === "call-ended"){
+
+      endCall(false);
+
+      return;
+
+    }
+
+
+    /* WEBRTC OFFER */
+
+    if(data.type === "video-offer"){
+
+      pendingOffer =
+        data.offer;
+
+      return;
+
+    }
+
+
+    /* WEBRTC ANSWER */
 
     if(data.type === "video-answer"){
 
@@ -970,6 +1048,8 @@ function connectRoom(code){
 
     }
 
+
+    /* ICE */
 
     if(data.type === "ice-candidate"){
 
@@ -983,29 +1063,10 @@ function connectRoom(code){
 
   };
 
-
-  socket.onerror = function(error){
-
-    console.log(
-      "WebSocket Error",
-      error
-    );
+  socket.onerror = function(){
 
     setRoomStatus(
       "🔴 Server Connection Error"
-    );
-
-    setChatStatus(
-      "🔴 Server Connection Error"
-    );
-
-  };
-
-
-  socket.onclose = function(){
-
-    console.log(
-      "WebSocket closed"
     );
 
   };
@@ -1013,51 +1074,67 @@ function connectRoom(code){
 }
 
 
-/* =====================================================
+/* =========================================
    STATUS
-===================================================== */
+========================================= */
 
 function setRoomStatus(text){
 
   const el =
-    document.getElementById("roomStatus");
+    document.getElementById(
+      "roomStatus"
+    );
 
-  if(el){
+  if(el)
     el.innerText = text;
-  }
 
 }
 
 function setChatStatus(text){
 
   const el =
-    document.getElementById("chatStatus");
+    document.getElementById(
+      "chatStatus"
+    );
 
-  if(el){
+  if(el)
     el.innerText = text;
-  }
+
+}
+
+function setCallStatus(text){
+
+  const el =
+    document.getElementById(
+      "callStatus"
+    );
+
+  if(el)
+    el.innerText = text;
 
 }
 
 
-/* =====================================================
+/* =========================================
    CHAT
-===================================================== */
+========================================= */
 
 function sendMessage(){
 
   const input =
-    document.getElementById("messageInput");
+    document.getElementById(
+      "messageInput"
+    );
 
   const message =
     input.value.trim();
 
   const room =
-    localStorage.getItem("dujon_room");
-
+    localStorage.getItem(
+      "dujon_room"
+    );
 
   if(!message) return;
-
 
   if(
     !socket ||
@@ -1065,44 +1142,34 @@ function sendMessage(){
     currentRoom !== room
   ){
 
-    alert(
-      "Room-এর সাথে সংযোগ নেই"
-    );
-
+    alert("Room-এর সাথে সংযোগ নেই");
     return;
 
   }
-
 
   socket.send(
     JSON.stringify({
 
       type:"chat",
-
       room:room,
-
       message:message
 
     })
   );
-
 
   addMessage(
     message,
     true
   );
 
-
   saveMessage(
     message,
     true
   );
 
-
   input.value = "";
 
 }
-
 
 function addMessage(
   message,
@@ -1110,14 +1177,16 @@ function addMessage(
 ){
 
   const box =
-    document.getElementById("chatBox");
+    document.getElementById(
+      "chatBox"
+    );
 
   if(!box) return;
 
-
   const div =
-    document.createElement("div");
-
+    document.createElement(
+      "div"
+    );
 
   div.className =
     "message " +
@@ -1127,19 +1196,15 @@ function addMessage(
       : "other-message"
     );
 
-
   div.innerText =
     message;
 
-
   box.appendChild(div);
-
 
   box.scrollTop =
     box.scrollHeight;
 
 }
-
 
 function saveMessage(
   message,
@@ -1153,17 +1218,13 @@ function saveMessage(
       ) || "[]"
     );
 
-
   messages.push({
 
-    message:message,
-
-    mine:mine,
-
+    message,
+    mine,
     time:Date.now()
 
   });
-
 
   localStorage.setItem(
     "dujon_messages",
@@ -1172,17 +1233,16 @@ function saveMessage(
 
 }
 
-
 function loadMessages(){
 
   const box =
-    document.getElementById("chatBox");
+    document.getElementById(
+      "chatBox"
+    );
 
   if(!box) return;
 
-
   box.innerHTML = "";
-
 
   const messages =
     JSON.parse(
@@ -1190,7 +1250,6 @@ function loadMessages(){
         "dujon_messages"
       ) || "[]"
     );
-
 
   messages.forEach(item => {
 
@@ -1204,48 +1263,39 @@ function loadMessages(){
 }
 
 
-/* =====================================================
-   VIDEO CALL - WEBRTC
-===================================================== */
+/* =========================================
+   WEBRTC VARIABLES
+========================================= */
 
 let peerConnection = null;
-
 let localStream = null;
 
-let micEnabled = true;
+let pendingOffer = null;
 
+let micEnabled = true;
 let cameraEnabled = true;
 
 
-/* Google public STUN server */
-
-const rtcConfig = {
-
-  iceServers:[
-    {
-      urls:
-      "stun:stun.l.google.com:19302"
-    }
-  ]
-
-};
-
+/* =========================================
+   VIDEO PAGE
+========================================= */
 
 async function openVideoCall(){
 
   const room =
-    localStorage.getItem("dujon_room");
+    localStorage.getItem(
+      "dujon_room"
+    );
 
   if(!room){
 
     alert(
-      "আগে একটি Room তৈরি বা Join করুন"
+      "আগে Room তৈরি বা Join করুন"
     );
 
     return;
 
   }
-
 
   hideAll();
 
@@ -1253,43 +1303,24 @@ async function openVideoCall(){
     .getElementById("videoPage")
     .classList.remove("hidden");
 
-
-  setCallStatus(
-    "📷 Camera ও Microphone চালু হচ্ছে..."
-  );
-
-
   try{
 
     await startLocalMedia();
 
-
-    if(
-      !socket ||
-      socket.readyState !== WebSocket.OPEN ||
-      currentRoom !== room
-    ){
-
-      await waitForSocket();
-
-    }
-
-
     setCallStatus(
-      "🟢 Camera চালু হয়েছে — অন্য ফোনের জন্য অপেক্ষা..."
+      "🟢 প্রস্তুত — কল করতে নিচের Call button চাপুন"
     );
-
 
   }catch(error){
 
     console.error(error);
 
     setCallStatus(
-      "🔴 Camera/Microphone চালু করা যায়নি"
+      "🔴 Camera/Microphone permission প্রয়োজন"
     );
 
     alert(
-      "Camera ও Microphone permission দিন।"
+      "Camera এবং Microphone Allow করুন"
     );
 
   }
@@ -1297,24 +1328,22 @@ async function openVideoCall(){
 }
 
 
+/* =========================================
+   CAMERA + MICROPHONE
+========================================= */
+
 async function startLocalMedia(){
 
-  if(localStream){
-
+  if(localStream)
     return;
-
-  }
-
 
   localStream =
     await navigator.mediaDevices.getUserMedia({
 
       video:true,
-
       audio:true
 
     });
-
 
   document
     .getElementById("localVideo")
@@ -1324,22 +1353,27 @@ async function startLocalMedia(){
 }
 
 
+/* =========================================
+   CREATE PEER
+========================================= */
+
 function createPeerConnection(){
 
-  if(peerConnection){
-
+  if(peerConnection)
     return peerConnection;
 
-  }
-
-
   peerConnection =
-    new RTCPeerConnection(
-      rtcConfig
-    );
+    new RTCPeerConnection({
 
+      iceServers:[
+        {
+          urls:
+          "stun:stun.l.google.com:19302"
+        }
+      ]
 
-  /* নিজের Camera/Mic peer connection-এ যোগ */
+    });
+
 
   if(localStream){
 
@@ -1357,17 +1391,14 @@ function createPeerConnection(){
   }
 
 
-  /* অন্য ফোনের Video */
-
   peerConnection.ontrack =
     function(event){
 
-      const remoteVideo =
-        document.getElementById(
+      document
+        .getElementById(
           "remoteVideo"
-        );
-
-      remoteVideo.srcObject =
+        )
+        .srcObject =
         event.streams[0];
 
       setCallStatus(
@@ -1377,15 +1408,14 @@ function createPeerConnection(){
     };
 
 
-  /* ICE candidate */
-
   peerConnection.onicecandidate =
     function(event){
 
       if(
         event.candidate &&
         socket &&
-        socket.readyState === WebSocket.OPEN
+        socket.readyState ===
+        WebSocket.OPEN
       ){
 
         socket.send(
@@ -1416,30 +1446,6 @@ function createPeerConnection(){
         peerConnection.connectionState
       );
 
-
-      if(
-        peerConnection.connectionState ===
-        "connected"
-      ){
-
-        setCallStatus(
-          "💚 Video Call Connected"
-        );
-
-      }
-
-
-      if(
-        peerConnection.connectionState ===
-        "disconnected"
-      ){
-
-        setCallStatus(
-          "🟡 Connection disconnected"
-        );
-
-      }
-
     };
 
 
@@ -1448,52 +1454,68 @@ function createPeerConnection(){
 }
 
 
-/* =====================================================
-   START CALL
-===================================================== */
+/* =========================================
+   PHONE 1 → CALL
+========================================= */
 
-async function startVideoOffer(){
+async function makeCall(){
+
+  if(!socket ||
+     socket.readyState !== WebSocket.OPEN){
+
+    alert(
+      "Room-এর সাথে সংযোগ নেই"
+    );
+
+    return;
+
+  }
 
   try{
+
+    await startLocalMedia();
 
     const pc =
       createPeerConnection();
 
+    socket.send(
+      JSON.stringify({
+
+        type:"video-call",
+        room:currentRoom
+
+      })
+    );
 
     const offer =
       await pc.createOffer();
-
 
     await pc.setLocalDescription(
       offer
     );
 
-
     socket.send(
       JSON.stringify({
 
-        type:
-        "video-offer",
+        type:"video-offer",
 
-        room:
-        currentRoom,
+        room:currentRoom,
 
         offer:offer
 
       })
     );
 
-
     setCallStatus(
-      "📞 Calling..."
+      "📞 অন্য ফোনে কল পাঠানো হয়েছে..."
     );
-
 
   }catch(error){
 
-    console.error(
-      "Offer error:",
-      error
+    console.error(error);
+
+    setCallStatus(
+      "🔴 কল শুরু করা যায়নি"
     );
 
   }
@@ -1501,61 +1523,129 @@ async function startVideoOffer(){
 }
 
 
-/* =====================================================
-   RECEIVE OFFER
-===================================================== */
+/* =========================================
+   PHONE 2 → INCOMING CALL
+========================================= */
 
-async function handleOffer(
-  offer
-){
+function showIncomingCall(){
+
+  document
+    .getElementById(
+      "incomingCall"
+    )
+    .classList
+    .remove("hidden");
+
+}
+
+
+/* =========================================
+   ACCEPT
+========================================= */
+
+async function acceptCall(){
+
+  document
+    .getElementById(
+      "incomingCall"
+    )
+    .classList
+    .add("hidden");
+
+  hideAll();
+
+  document
+    .getElementById(
+      "videoPage"
+    )
+    .classList
+    .remove("hidden");
 
   try{
+
+    await startLocalMedia();
 
     const pc =
       createPeerConnection();
 
+    if(pendingOffer){
 
-    await pc.setRemoteDescription(
-      new RTCSessionDescription(
-        offer
-      )
+      await pc.setRemoteDescription(
+        new RTCSessionDescription(
+          pendingOffer
+        )
+      );
+
+      const answer =
+        await pc.createAnswer();
+
+      await pc.setLocalDescription(
+        answer
+      );
+
+      socket.send(
+        JSON.stringify({
+
+          type:
+          "video-answer",
+
+          room:
+          currentRoom,
+
+          answer:answer
+
+        })
+      );
+
+      pendingOffer = null;
+
+    }
+
+    setCallStatus(
+      "💚 কল Connect হচ্ছে..."
     );
 
+  }catch(error){
 
-    const answer =
-      await pc.createAnswer();
+    console.error(error);
 
-
-    await pc.setLocalDescription(
-      answer
+    setCallStatus(
+      "🔴 কল Connect করা যায়নি"
     );
 
+  }
+
+}
+
+
+/* =========================================
+   REJECT
+========================================= */
+
+function rejectCall(){
+
+  document
+    .getElementById(
+      "incomingCall"
+    )
+    .classList
+    .add("hidden");
+
+  if(
+    socket &&
+    socket.readyState === WebSocket.OPEN
+  ){
 
     socket.send(
       JSON.stringify({
 
         type:
-        "video-answer",
+        "call-rejected",
 
         room:
-        currentRoom,
-
-        answer:answer
+        currentRoom
 
       })
-    );
-
-
-    setCallStatus(
-      "💚 Connecting Video Call..."
-    );
-
-
-  }catch(error){
-
-    console.error(
-      "Offer handling error:",
-      error
     );
 
   }
@@ -1563,19 +1653,18 @@ async function handleOffer(
 }
 
 
-/* =====================================================
-   RECEIVE ANSWER
-===================================================== */
+/* =========================================
+   ANSWER
+========================================= */
 
 async function handleAnswer(
   answer
 ){
 
+  if(!peerConnection)
+    return;
+
   try{
-
-    if(!peerConnection)
-      return;
-
 
     await peerConnection.setRemoteDescription(
       new RTCSessionDescription(
@@ -1583,37 +1672,31 @@ async function handleAnswer(
       )
     );
 
-
     setCallStatus(
       "💚 Video Call Connected"
     );
 
-
   }catch(error){
 
-    console.error(
-      "Answer error:",
-      error
-    );
+    console.error(error);
 
   }
 
 }
 
 
-/* =====================================================
+/* =========================================
    ICE
-===================================================== */
+========================================= */
 
 async function handleCandidate(
   candidate
 ){
 
+  if(!peerConnection)
+    return;
+
   try{
-
-    if(!peerConnection)
-      return;
-
 
     await peerConnection.addIceCandidate(
       new RTCIceCandidate(
@@ -1621,95 +1704,35 @@ async function handleCandidate(
       )
     );
 
-
   }catch(error){
 
-    console.error(
-      "ICE error:",
-      error
-    );
+    console.error(error);
 
   }
 
 }
 
 
-/* =====================================================
-   WAIT SOCKET
-===================================================== */
-
-function waitForSocket(){
-
-  return new Promise(
-    (resolve,reject)=>{
-
-      let count = 0;
-
-
-      const timer =
-        setInterval(()=>{
-
-          if(
-            socket &&
-            socket.readyState ===
-            WebSocket.OPEN &&
-            currentRoom
-          ){
-
-            clearInterval(timer);
-
-            resolve();
-
-          }
-
-
-          count++;
-
-
-          if(count > 50){
-
-            clearInterval(timer);
-
-            reject(
-              new Error(
-                "Socket timeout"
-              )
-            );
-
-          }
-
-        },100);
-
-    }
-  );
-
-}
-
-
-/* =====================================================
+/* =========================================
    MIC
-===================================================== */
+========================================= */
 
 function toggleMic(){
 
   if(!localStream)
     return;
 
+  localStream
+    .getAudioTracks()
+    .forEach(track => {
 
-  const tracks =
-    localStream.getAudioTracks();
+      track.enabled =
+        !track.enabled;
 
+      micEnabled =
+        track.enabled;
 
-  tracks.forEach(track => {
-
-    track.enabled =
-      !track.enabled;
-
-    micEnabled =
-      track.enabled;
-
-  });
-
+    });
 
   setCallStatus(
     micEnabled
@@ -1720,30 +1743,26 @@ function toggleMic(){
 }
 
 
-/* =====================================================
+/* =========================================
    CAMERA
-===================================================== */
+========================================= */
 
 function toggleCamera(){
 
   if(!localStream)
     return;
 
+  localStream
+    .getVideoTracks()
+    .forEach(track => {
 
-  const tracks =
-    localStream.getVideoTracks();
+      track.enabled =
+        !track.enabled;
 
+      cameraEnabled =
+        track.enabled;
 
-  tracks.forEach(track => {
-
-    track.enabled =
-      !track.enabled;
-
-    cameraEnabled =
-      track.enabled;
-
-  });
-
+    });
 
   setCallStatus(
     cameraEnabled
@@ -1754,16 +1773,38 @@ function toggleCamera(){
 }
 
 
-/* =====================================================
+/* =========================================
    END CALL
-===================================================== */
+========================================= */
 
-function endCall(){
+function endCall(
+  notify = true
+){
+
+  if(
+    notify &&
+    socket &&
+    socket.readyState === WebSocket.OPEN
+  ){
+
+    socket.send(
+      JSON.stringify({
+
+        type:
+        "call-ended",
+
+        room:
+        currentRoom
+
+      })
+    );
+
+  }
+
 
   if(peerConnection){
 
     peerConnection.close();
-
     peerConnection = null;
 
   }
@@ -1773,11 +1814,9 @@ function endCall(){
 
     localStream
       .getTracks()
-      .forEach(track => {
-
-        track.stop();
-
-      });
+      .forEach(track =>
+        track.stop()
+      );
 
     localStream = null;
 
@@ -1785,107 +1824,44 @@ function endCall(){
 
 
   document
-    .getElementById("localVideo")
+    .getElementById(
+      "localVideo"
+    )
     .srcObject = null;
-
 
   document
-    .getElementById("remoteVideo")
+    .getElementById(
+      "remoteVideo"
+    )
     .srcObject = null;
 
-
-  setCallStatus(
-    "📞 Call ended"
-  );
-
-}
-
-
-/* =====================================================
-   CALL STATUS
-===================================================== */
-
-function setCallStatus(text){
-
-  const el =
-    document.getElementById(
-      "callStatus"
-    );
-
-  if(el){
-
-    el.innerText =
-      text;
-
-  }
-
-}
-
-
-/* =====================================================
-   VIDEO CALL BUTTON
-===================================================== */
-
-/*
-  Room-এ দুই ফোন যুক্ত হওয়ার পর
-  প্রথম ফোন থেকে Video Call page খুললে
-  offer তৈরি হবে।
-*/
-
-let videoPageOpened = false;
-
-
-/* প্রতি 1.5 second-এ check করা হবে
-   অন্য ফোন Room-এ আছে কিনা */
-
-setInterval(()=>{
+  pendingOffer = null;
 
   if(
     document
-      .getElementById("videoPage")
+      .getElementById(
+        "videoPage"
+      )
       .classList
-      .contains("hidden")
+      .contains("hidden") === false
   ){
 
-    return;
+    setCallStatus(
+      "📞 Call ended"
+    );
 
   }
 
-
-  if(
-    !localStream ||
-    !socket ||
-    socket.readyState !== WebSocket.OPEN
-  ){
-
-    return;
-
-  }
+}
 
 
-  /*
-    Peer connection না থাকলে
-    Video Call শুরু করার চেষ্টা।
-  */
-
-  if(!peerConnection){
-
-    videoPageOpened = true;
-
-    startVideoOffer();
-
-  }
-
-},1500);
-
-
-/* =====================================================
-   START PAGE
-===================================================== */
+/* =========================================
+   PAGE LOAD
+========================================= */
 
 window.addEventListener(
   "load",
-  ()=>{
+  function(){
 
     if(
       localStorage.getItem(
