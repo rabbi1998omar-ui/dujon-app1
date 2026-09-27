@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Dujon ❤️</title>
 
   <style>
@@ -14,38 +15,63 @@
 
     body {
       min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: white;
+      background:
+        radial-gradient(circle at top, #8b164f, transparent 45%),
+        linear-gradient(135deg, #120014, #3b062c, #080008);
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #16001f, #5b073b, #120014);
-      color: white;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 430px;
+      padding: 25px;
     }
 
     .box {
-      width: 90%;
-      max-width: 400px;
       padding: 35px 25px;
+      border-radius: 28px;
       text-align: center;
-      border-radius: 25px;
       background: rgba(255,255,255,0.10);
-      backdrop-filter: blur(12px);
-      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.15);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 15px 50px rgba(0,0,0,0.5);
     }
 
     .heart {
       font-size: 65px;
-      margin-bottom: 15px;
-    }
-
-    h1 {
-      font-size: 38px;
       margin-bottom: 10px;
     }
 
-    p {
-      color: #ffd9ed;
-      margin-bottom: 25px;
+    h1 {
+      font-size: 40px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #ffd5e7;
+      font-size: 15px;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px 18px;
+      margin-bottom: 14px;
+      border: none;
+      outline: none;
+      border-radius: 15px;
+      background: rgba(255,255,255,0.12);
+      color: white;
+      font-size: 15px;
+    }
+
+    input::placeholder {
+      color: #e9bfd2;
     }
 
     button {
@@ -53,37 +79,113 @@
       padding: 15px;
       border: none;
       border-radius: 30px;
-      background: #ff3f81;
+      background: linear-gradient(90deg, #ff2f78, #ff5b9a);
       color: white;
       font-size: 17px;
       font-weight: bold;
       cursor: pointer;
+      margin-top: 5px;
     }
 
     button:active {
       transform: scale(0.97);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .welcome {
+      font-size: 22px;
+      margin-top: 20px;
+      color: #ffd8e8;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="box">
-    <div class="heart">❤️</div>
+  <div class="page">
 
-    <h1>Dujon</h1>
+    <!-- Welcome -->
+    <div class="box" id="welcomePage">
 
-    <p>দুজন মানুষের জন্য, একটুখানি ভালোবাসার জায়গা।</p>
+      <div class="heart">❤️</div>
 
-    <button onclick="startApp()">
-      শুরু করি ❤️
-    </button>
+      <h1>Dujon</h1>
+
+      <p class="subtitle">
+        দুজন মানুষের জন্য,<br>
+        একটুখানি ভালোবাসার জায়গা।
+      </p>
+
+      <button onclick="showLogin()">
+        শুরু করি ❤️
+      </button>
+
+    </div>
+
+
+    <!-- Login -->
+    <div class="box hidden" id="loginPage">
+
+      <div class="heart">💞</div>
+
+      <h1>স্বাগতম</h1>
+
+      <p class="subtitle">
+        Dujon-এ তোমার যাত্রা শুরু করো
+      </p>
+
+      <input
+        type="text"
+        id="name"
+        placeholder="তোমার নাম"
+      >
+
+      <input
+        type="email"
+        id="email"
+        placeholder="ই-মেইল"
+      >
+
+      <input
+        type="password"
+        id="password"
+        placeholder="পাসওয়ার্ড"
+      >
+
+      <button onclick="login()">
+        প্রবেশ করুন ❤️
+      </button>
+
+      <p class="welcome" id="message"></p>
+
+    </div>
+
   </div>
 
+
   <script>
-    function startApp() {
-      alert("Dujon-এ স্বাগতম ❤️");
+
+    function showLogin() {
+      document.getElementById("welcomePage").classList.add("hidden");
+      document.getElementById("loginPage").classList.remove("hidden");
     }
+
+    function login() {
+
+      const name = document.getElementById("name").value;
+
+      if (name.trim() === "") {
+        alert("দয়া করে তোমার নাম লিখো ❤️");
+        return;
+      }
+
+      document.getElementById("message").innerText =
+        "স্বাগতম " + name + " ❤️";
+    }
+
   </script>
 
 </body>
