@@ -470,7 +470,13 @@ button{
 
 .section-title{
   font-size:23px;
-  margin:10px 0 16px;
+  margin:22px 0 16px;
+}
+
+.sub-title{
+  color:#aaa;
+  font-size:14px;
+  margin:0 0 10px;
 }
 
 .search-row{
@@ -491,7 +497,8 @@ button{
 }
 
 .user-card,
-.friend-card{
+.friend-card,
+.request-card{
   display:flex;
   align-items:center;
   gap:13px;
@@ -529,6 +536,27 @@ button{
   border-radius:12px;
   color:#fff;
   background:linear-gradient(135deg,#ff3d78,#8b5cf6);
+  font-size:12px;
+  white-space:nowrap;
+}
+
+.accept-btn{
+  background:#22c55e;
+}
+
+.reject-btn{
+  background:#ef4444;
+}
+
+.request-actions{
+  display:flex;
+  gap:6px;
+}
+
+.request-actions button{
+  padding:8px 10px;
+  border-radius:10px;
+  color:#fff;
   font-size:12px;
 }
 
@@ -635,8 +663,6 @@ button{
   text-align:center;
   margin-bottom:25px;
 }
-
-/* নতুন photo upload area */
 
 .profile-photo-wrap{
   position:relative;
@@ -882,7 +908,7 @@ button{
 
 .empty{
   text-align:center;
-  padding:45px 20px;
+  padding:35px 20px;
   color:#888;
 }
 
@@ -932,9 +958,7 @@ button{
 
       <div class="logo">❤️</div>
 
-      <h1 class="auth-title">
-        দুজন
-      </h1>
+      <h1 class="auth-title">দুজন</h1>
 
       <p class="auth-sub">
         শুধু তোমাদের দুজনের জন্য<br>
@@ -1123,13 +1147,9 @@ button{
       class="feature card"
       onclick="showPage('friendsPage')"
     >
-      <div class="feature-icon">
-        👥
-      </div>
+      <div class="feature-icon">👥</div>
 
-      <h3>
-        Friends
-      </h3>
+      <h3>Friends</h3>
 
       <p>
         বন্ধু খুঁজুন এবং connection তৈরি করুন।
@@ -1140,13 +1160,9 @@ button{
       class="feature card"
       onclick="showPage('profilePage')"
     >
-      <div class="feature-icon">
-        💗
-      </div>
+      <div class="feature-icon">💗</div>
 
-      <h3>
-        My Profile
-      </h3>
+      <h3>My Profile</h3>
 
       <p>
         নাম ও profile information আপডেট করুন।
@@ -1157,13 +1173,9 @@ button{
       class="feature card"
       onclick="showPage('friendsPage')"
     >
-      <div class="feature-icon">
-        💬
-      </div>
+      <div class="feature-icon">💬</div>
 
-      <h3>
-        Private Chat
-      </h3>
+      <h3>Private Chat</h3>
 
       <p>
         নিজের মানুষটির সাথে সরাসরি কথা বলুন।
@@ -1174,13 +1186,9 @@ button{
       class="feature card"
       onclick="showPage('couplePage')"
     >
-      <div class="feature-icon">
-        🥰
-      </div>
+      <div class="feature-icon">🥰</div>
 
-      <h3>
-        Our Space
-      </h3>
+      <h3>Our Space</h3>
 
       <p>
         দুজনের জন্য আরও সুন্দর স্মৃতি।
@@ -1217,7 +1225,7 @@ button{
       <input
         id="friendSearch"
         class="input"
-        placeholder="Username / Phone"
+        placeholder="Username"
         onkeydown="if(event.key==='Enter')searchUser()"
       >
 
@@ -1231,6 +1239,16 @@ button{
     </div>
 
     <div id="searchResults"></div>
+
+    <!-- FRIEND REQUESTS -->
+
+    <h2 class="section-title">
+      Friend Requests 💌
+    </h2>
+
+    <div id="requestsList"></div>
+
+    <!-- FRIENDS -->
 
     <h2 class="section-title">
       My Friends ❤️
@@ -1387,8 +1405,6 @@ button{
   <div class="profile-card card">
 
     <div class="profile-center">
-
-      <!-- PHOTO UPLOAD -->
 
       <div class="profile-photo-wrap">
 
@@ -1653,19 +1669,27 @@ function $(id){
 
 function toast(message){
 
-  const el = $("toast");
+  const el =
+    $("toast");
 
   if(!el)return;
 
-  el.textContent = message;
+  el.textContent =
+    message;
 
-  el.classList.add("show");
+  el.classList.add(
+    "show"
+  );
 
-  clearTimeout(window.toastTimer);
+  clearTimeout(
+    window.toastTimer
+  );
 
   window.toastTimer =
     setTimeout(()=>{
-      el.classList.remove("show");
+      el.classList.remove(
+        "show"
+      );
     },2500);
 }
 
@@ -1684,6 +1708,7 @@ function getAccount(){
     return null;
 
   }
+
 }
 
 function getProfile(){
@@ -1701,9 +1726,12 @@ function getProfile(){
     return {};
 
   }
+
 }
 
-function saveLocalProfile(profile){
+function saveLocalProfile(
+  profile
+){
 
   localStorage.setItem(
     "dujon_profile",
@@ -1712,7 +1740,9 @@ function saveLocalProfile(profile){
 
 }
 
-function avatarData(text){
+function avatarData(
+  text
+){
 
   const letter =
     String(text || "❤️")
@@ -1773,23 +1803,28 @@ function avatarData(text){
     "data:image/svg+xml;charset=UTF-8," +
     encodeURIComponent(svg)
   );
+
 }
 
 /* =========================
-   PHOTO UPLOAD
+   PHOTO
 ========================= */
 
-function handlePhotoUpload(event){
+function handlePhotoUpload(
+  event
+){
 
   const file =
     event.target.files &&
     event.target.files[0];
 
-  if(!file){
-    return;
-  }
+  if(!file)return;
 
-  if(!file.type.startsWith("image/")){
+  if(
+    !file.type.startsWith(
+      "image/"
+    )
+  ){
 
     toast(
       "শুধু ছবি নির্বাচন করুন"
@@ -1799,151 +1834,273 @@ function handlePhotoUpload(event){
 
   }
 
-  /*
-   * ছবিকে ছোট করে compressed Base64 বানানো হচ্ছে।
-   * এতে মোবাইলের বড় ছবি সরাসরি localStorage/API-তে
-   * পাঠানোর সমস্যা কমে।
-   */
-
   const reader =
     new FileReader();
 
-  reader.onload = function(){
+  reader.onload =
+    function(){
 
-    const img =
-      new Image();
+      const img =
+        new Image();
 
-    img.onload = function(){
+      img.onload =
+        function(){
 
-      const maxSize = 700;
+          const maxSize =
+            700;
 
-      let width =
-        img.width;
+          let width =
+            img.width;
 
-      let height =
-        img.height;
+          let height =
+            img.height;
 
-      if(width > height){
+          if(width > height){
 
-        if(width > maxSize){
+            if(
+              width >
+              maxSize
+            ){
 
-          height =
-            Math.round(
-              height *
-              maxSize /
-              width
+              height =
+                Math.round(
+                  height *
+                  maxSize /
+                  width
+                );
+
+              width =
+                maxSize;
+
+            }
+
+          }else{
+
+            if(
+              height >
+              maxSize
+            ){
+
+              width =
+                Math.round(
+                  width *
+                  maxSize /
+                  height
+                );
+
+              height =
+                maxSize;
+
+            }
+
+          }
+
+          const canvas =
+            document.createElement(
+              "canvas"
             );
 
-          width =
-            maxSize;
+          canvas.width =
+            width;
 
-        }
+          canvas.height =
+            height;
 
-      }else{
-
-        if(height > maxSize){
-
-          width =
-            Math.round(
-              width *
-              maxSize /
-              height
+          const ctx =
+            canvas.getContext(
+              "2d"
             );
 
-          height =
-            maxSize;
+          ctx.drawImage(
+            img,
+            0,
+            0,
+            width,
+            height
+          );
 
-        }
+          const photo =
+            canvas.toDataURL(
+              "image/jpeg",
+              0.78
+            );
 
-      }
+          const oldProfile =
+            getProfile();
 
-      const canvas =
-        document.createElement(
-          "canvas"
-        );
+          saveLocalProfile({
 
-      canvas.width =
-        width;
+            ...oldProfile,
 
-      canvas.height =
-        height;
+            photo
 
-      const ctx =
-        canvas.getContext(
-          "2d"
-        );
+          });
 
-      ctx.drawImage(
-        img,
-        0,
-        0,
-        width,
-        height
+          loadProfileToUI();
+
+          /*
+           * Profile Photo server-এও save
+           * করার চেষ্টা করা হচ্ছে।
+           */
+
+          saveProfilePhotoToServer(
+            photo
+          );
+
+          toast(
+            "Profile Photo পরিবর্তন হয়েছে ❤️"
+          );
+
+          event.target.value =
+            "";
+
+        };
+
+      img.onerror =
+        function(){
+
+          toast(
+            "ছবিটি পড়া যাচ্ছে না"
+          );
+
+        };
+
+      img.src =
+        reader.result;
+
+    };
+
+  reader.onerror =
+    function(){
+
+      toast(
+        "ছবি নির্বাচন করা যায়নি"
       );
 
-      const compressedPhoto =
-        canvas.toDataURL(
-          "image/jpeg",
-          0.78
-        );
+    };
 
-      /*
-       * আগে local profile-এ preview/save
-       */
+  reader.readAsDataURL(
+    file
+  );
 
-      const oldProfile =
-        getProfile();
+}
 
-      const newProfile = {
-        ...oldProfile,
+/* =========================
+   SAVE PHOTO SERVER
+========================= */
+
+async function saveProfilePhotoToServer(
+  photo
+){
+
+  const account =
+    getAccount();
+
+  if(!account)return;
+
+  const oldProfile =
+    getProfile();
+
+  try{
+
+    const response =
+      await fetch(
+        API_URL +
+        "/api/profile",
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+
+              phone:
+                account.phone,
+
+              pin:
+                account.pin,
+
+              name:
+                oldProfile.name ||
+                account.name ||
+                "আমি",
+
+              username:
+                oldProfile.username ||
+                account.username ||
+                "",
+
+              photo:
+                photo || ""
+
+            })
+
+        }
+      );
+
+    const text =
+      await response.text();
+
+    let data={};
+
+    try{
+      data =
+        JSON.parse(text);
+    }catch{}
+
+    if(
+      !response.ok
+    ){
+
+      console.log(
+        "Photo server save failed:",
+        data
+      );
+
+      return;
+
+    }
+
+    if(
+      data.user
+    ){
+
+      saveLocalProfile({
+
+        ...getProfile(),
+
+        name:
+          data.user.name ||
+          oldProfile.name ||
+          account.name,
+
+        username:
+          data.user.username ||
+          oldProfile.username ||
+          account.username,
+
         photo:
-          compressedPhoto
-      };
+          data.user.photo ||
+          photo
 
-      saveLocalProfile(
-        newProfile
-      );
-
-      /*
-       * UI update
-       */
+      });
 
       loadProfileToUI();
 
-      toast(
-        "Profile Photo পরিবর্তন হয়েছে ❤️"
-      );
+    }
 
-      /*
-       * File input reset
-       */
+  }catch(error){
 
-      event.target.value = "";
-
-    };
-
-    img.onerror = function(){
-
-      toast(
-        "ছবিটি পড়া যাচ্ছে না"
-      );
-
-    };
-
-    img.src =
-      reader.result;
-
-  };
-
-  reader.onerror = function(){
-
-    toast(
-      "ছবি নির্বাচন করা যায়নি"
+    console.log(
+      "Photo save error:",
+      error
     );
 
-  };
-
-  reader.readAsDataURL(file);
+  }
 
 }
 
@@ -1951,23 +2108,29 @@ function handlePhotoUpload(event){
    PAGE
 ========================= */
 
-function showPage(pageId){
+function showPage(
+  pageId
+){
 
   document
     .querySelectorAll(".page")
-    .forEach(page=>{
-      page.classList.remove(
-        "active"
-      );
-    });
+    .forEach(
+      page=>{
+        page.classList.remove(
+          "active"
+        );
+      }
+    );
 
   const page =
     $(pageId);
 
   if(page){
+
     page.classList.add(
       "active"
     );
+
   }
 
   currentPage =
@@ -1994,20 +2157,30 @@ function showPage(pageId){
 
   document
     .querySelectorAll(".nav-btn")
-    .forEach(btn=>{
-      btn.classList.remove(
-        "active"
-      );
-    });
+    .forEach(
+      btn=>{
+        btn.classList.remove(
+          "active"
+        );
+      }
+    );
 
-  if(pageId === "homePage"){
+  if(
+    pageId ===
+    "homePage"
+  ){
+
     $("navHome")
       ?.classList.add(
         "active"
       );
+
   }
 
-  if(pageId === "friendsPage"){
+  if(
+    pageId ===
+    "friendsPage"
+  ){
 
     $("navFriends")
       ?.classList.add(
@@ -2018,7 +2191,10 @@ function showPage(pageId){
 
   }
 
-  if(pageId === "couplePage"){
+  if(
+    pageId ===
+    "couplePage"
+  ){
 
     $("navCouple")
       ?.classList.add(
@@ -2027,7 +2203,10 @@ function showPage(pageId){
 
   }
 
-  if(pageId === "profilePage"){
+  if(
+    pageId ===
+    "profilePage"
+  ){
 
     $("navProfile")
       ?.classList.add(
@@ -2094,35 +2273,47 @@ function loadProfileToUI(){
     $("homeUsername");
 
   if(nameEl){
+
     nameEl.textContent =
       name;
+
   }
 
   if(userEl){
+
     userEl.textContent =
       username
         ? "@" + username
         : "";
+
   }
 
   if(input){
+
     input.value =
       name;
+
   }
 
   if(img){
+
     img.src =
       avatar;
+
   }
 
   if(homeImg){
+
     homeImg.src =
       avatar;
+
   }
 
   if(homeName){
+
     homeName.textContent =
       name;
+
   }
 
   if(homeUsername){
@@ -2151,7 +2342,8 @@ async function register(){
     $("registerUsername")
       .value
       .trim()
-      .replace(/^@/,"");
+      .replace(/^@/,"")
+      .toLowerCase();
 
   const phone =
     $("registerPhone")
@@ -2211,16 +2403,22 @@ async function register(){
         "/api/register",
         {
           method:"POST",
+
           headers:{
             "Content-Type":
               "application/json"
           },
-          body:JSON.stringify({
-            name,
-            username,
-            phone,
-            pin
-          })
+
+          body:
+            JSON.stringify({
+
+              name,
+              username,
+              phone,
+              pin
+
+            })
+
         }
       );
 
@@ -2246,21 +2444,27 @@ async function register(){
     }
 
     const account = {
+
       name,
       username,
       phone,
       pin
+
     };
 
     localStorage.setItem(
       "dujon_account",
-      JSON.stringify(account)
+      JSON.stringify(
+        account
+      )
     );
 
     saveLocalProfile({
+
       name,
       username,
       photo:""
+
     });
 
     toast(
@@ -2335,14 +2539,20 @@ async function login(){
         "/api/social",
         {
           method:"POST",
+
           headers:{
             "Content-Type":
               "application/json"
           },
-          body:JSON.stringify({
-            phone,
-            pin
-          })
+
+          body:
+            JSON.stringify({
+
+              phone,
+              pin
+
+            })
+
         }
       );
 
@@ -2379,7 +2589,6 @@ async function login(){
 
       name:
         user.name ||
-        user.displayName ||
         oldProfile.name ||
         "আমি",
 
@@ -2389,7 +2598,6 @@ async function login(){
         "",
 
       phone:
-        user.phone ||
         phone,
 
       pin
@@ -2398,13 +2606,10 @@ async function login(){
 
     localStorage.setItem(
       "dujon_account",
-      JSON.stringify(account)
+      JSON.stringify(
+        account
+      )
     );
-
-    /*
-     * Server থেকে photo থাকলে সেটি নেবে।
-     * না থাকলে আগের local photo রেখে দেবে।
-     */
 
     saveLocalProfile({
 
@@ -2480,34 +2685,26 @@ async function saveProfile(){
   const oldProfile =
     getProfile();
 
-  /*
-   * photo এখানে অবশ্যই রাখা হচ্ছে।
-   */
-
   const profile = {
+
     ...oldProfile,
+
     name,
+
     username:
       oldProfile.username ||
       account.username ||
       "",
+
     photo:
       oldProfile.photo ||
       ""
-  };
 
-  /*
-   * আগে local save
-   */
+  };
 
   saveLocalProfile(
     profile
   );
-
-  /*
-   * তারপর server-এ /api/profile
-   * আগের endpoint অপরিবর্তিত।
-   */
 
   try{
 
@@ -2517,28 +2714,32 @@ async function saveProfile(){
         "/api/profile",
         {
           method:"POST",
+
           headers:{
             "Content-Type":
               "application/json"
           },
-          body:JSON.stringify({
 
-            phone:
-              account.phone,
+          body:
+            JSON.stringify({
 
-            pin:
-              account.pin,
+              phone:
+                account.phone,
 
-            name:
-              profile.name,
+              pin:
+                account.pin,
 
-            username:
-              profile.username,
+              name:
+                profile.name,
 
-            photo:
-              profile.photo
+              username:
+                profile.username,
 
-          })
+              photo:
+                profile.photo
+
+            })
+
         }
       );
 
@@ -2554,11 +2755,6 @@ async function saveProfile(){
 
     if(!response.ok){
 
-      /*
-       * Server save না হলেও local photo
-       * যেন হারিয়ে না যায়।
-       */
-
       loadProfileToUI();
 
       toast(
@@ -2567,6 +2763,28 @@ async function saveProfile(){
       );
 
       return;
+
+    }
+
+    if(data.user){
+
+      saveLocalProfile({
+
+        ...profile,
+
+        name:
+          data.user.name ||
+          profile.name,
+
+        username:
+          data.user.username ||
+          profile.username,
+
+        photo:
+          data.user.photo ||
+          profile.photo
+
+      });
 
     }
 
@@ -2602,7 +2820,9 @@ function logout(){
   try{
 
     if(ws){
+
       ws.close();
+
     }
 
   }catch{}
@@ -2653,38 +2873,39 @@ function connectWS(){
         WS_URL
       );
 
-    ws.onopen = ()=>{
+    ws.onopen =
+      ()=>{
 
-      console.log(
-        "WebSocket connected"
-      );
+        console.log(
+          "WebSocket connected"
+        );
 
-      sendWS({
+        sendWS({
 
-        type:"join",
+          type:"join",
 
-        phone:
-          account.phone,
+          phone:
+            account.phone,
 
-        username:
-          account.username,
+          username:
+            account.username,
 
-        pin:
-          account.pin
+          pin:
+            account.pin
 
-      });
+        });
 
-      const presence =
-        $("presenceText");
+        const presence =
+          $("presenceText");
 
-      if(presence){
+        if(presence){
 
-        presence.textContent =
-          "Connection ready";
+          presence.textContent =
+            "Online";
 
-      }
+        }
 
-    };
+      };
 
     ws.onmessage =
       event=>{
@@ -2711,21 +2932,32 @@ function connectWS(){
 
       };
 
-    ws.onclose = ()=>{
+    ws.onclose =
+      ()=>{
 
-      console.log(
-        "WebSocket disconnected"
-      );
+        console.log(
+          "WebSocket disconnected"
+        );
 
-      setTimeout(()=>{
+        const accountNow =
+          getAccount();
 
-        if(getAccount()){
-          connectWS();
+        if(accountNow){
+
+          setTimeout(
+            ()=>{
+              if(
+                getAccount()
+              ){
+                connectWS();
+              }
+            },
+            3000
+          );
+
         }
 
-      },3000);
-
-    };
+      };
 
     ws.onerror =
       error=>{
@@ -2745,7 +2977,9 @@ function connectWS(){
 
 }
 
-function sendWS(data){
+function sendWS(
+  data
+){
 
   if(
     ws &&
@@ -2754,7 +2988,9 @@ function sendWS(data){
   ){
 
     ws.send(
-      JSON.stringify(data)
+      JSON.stringify(
+        data
+      )
     );
 
   }
@@ -2765,15 +3001,67 @@ function sendWS(data){
    WS MESSAGE
 ========================= */
 
-function handleWSMessage(data){
+function handleWSMessage(
+  data
+){
 
   console.log(
     "WS:",
     data
   );
 
+  /*
+   * Friend request realtime
+   */
+
   if(
-    data.type === "chat"
+    data.type ===
+    "friend-request"
+  ){
+
+    toast(
+      "💌 নতুন Friend Request এসেছে"
+    );
+
+    if(
+      currentPage ===
+      "friendsPage"
+    ){
+
+      loadFriends();
+
+    }
+
+    return;
+
+  }
+
+  /*
+   * Friend accepted realtime
+   */
+
+  if(
+    data.type ===
+    "friend-accepted"
+  ){
+
+    toast(
+      "❤️ Friend Request accepted"
+    );
+
+    loadFriends();
+
+    return;
+
+  }
+
+  /*
+   * Chat
+   */
+
+  if(
+    data.type ===
+    "chat"
   ){
 
     const fromUsername =
@@ -2809,13 +3097,20 @@ function handleWSMessage(data){
 
   }
 
+  /*
+   * Calls
+   */
+
   if(
-    data.type === "video-call" ||
-    data.type === "audio-call"
+    data.type ===
+      "video-call" ||
+    data.type ===
+      "audio-call"
   ){
 
     if(
-      data.action === "offer"
+      data.action ===
+      "offer"
     ){
 
       incomingCaller = {
@@ -2851,7 +3146,8 @@ function handleWSMessage(data){
     }
 
     if(
-      data.action === "answer"
+      data.action ===
+      "answer"
     ){
 
       handleAnswer(
@@ -2863,7 +3159,8 @@ function handleWSMessage(data){
     }
 
     if(
-      data.action === "reject"
+      data.action ===
+      "reject"
     ){
 
       toast(
@@ -2877,7 +3174,8 @@ function handleWSMessage(data){
     }
 
     if(
-      data.action === "end"
+      data.action ===
+      "end"
     ){
 
       closeCallScreen();
@@ -2902,7 +3200,7 @@ function handleWSMessage(data){
 }
 
 /* =========================
-   SEARCH
+   SEARCH USER
 ========================= */
 
 async function searchUser(){
@@ -2915,7 +3213,20 @@ async function searchUser(){
   if(!query){
 
     toast(
-      "Username বা Phone লিখুন"
+      "Username লিখুন"
+    );
+
+    return;
+
+  }
+
+  const account =
+    getAccount();
+
+  if(!account){
+
+    toast(
+      "আগে Login করুন"
     );
 
     return;
@@ -2927,9 +3238,12 @@ async function searchUser(){
     const response =
       await fetch(
         API_URL +
-        "/api/search?q=" +
+        "/api/search?username=" +
         encodeURIComponent(
-          query
+          query.replace(
+            /^@/,
+            ""
+          )
         )
       );
 
@@ -2943,21 +3257,15 @@ async function searchUser(){
         JSON.parse(text);
     }catch{}
 
-    const users =
-      data.users ||
-      data.results ||
-      (
-        Array.isArray(data)
-          ? data
-          : []
-      );
-
     const box =
       $("searchResults");
 
     box.innerHTML = "";
 
-    if(!users.length){
+    if(
+      !response.ok ||
+      !data.user
+    ){
 
       box.innerHTML = `
 
@@ -2967,7 +3275,7 @@ async function searchUser(){
             🔍
           </div>
 
-          কাউকে পাওয়া যায়নি
+          User পাওয়া যায়নি
 
         </div>
 
@@ -2977,71 +3285,101 @@ async function searchUser(){
 
     }
 
-    users.forEach(
-      user=>{
+    const user =
+      data.user;
 
-        const div =
-          document.createElement(
-            "div"
-          );
+    const username =
+      user.username ||
+      "";
 
-        div.className =
-          "user-card card";
+    /*
+     * নিজের account
+     */
 
-        const name =
-          user.name ||
-          user.username ||
-          "User";
+    if(
+      username.toLowerCase() ===
+      String(
+        account.username || ""
+      ).toLowerCase()
+    ){
 
-        const username =
-          user.username ||
-          "";
+      box.innerHTML = `
 
-        const photo =
-          user.photo ||
-          avatarData(name);
+        <div class="empty">
 
-        div.innerHTML = `
-
-          <img
-            class="avatar"
-            src="${photo}"
-          >
-
-          <div class="user-info">
-
-            <strong>
-              ${escapeHtml(name)}
-            </strong>
-
-            <span>
-              @${escapeHtml(username)}
-            </span>
-
+          <div class="empty-icon">
+            ❤️
           </div>
 
-          <button
-            class="small-btn"
-            onclick="sendFriendRequest('${escapeAttr(username)}')"
-          >
-            Add
-          </button>
+          এটা আপনার নিজের Account
 
-        `;
+        </div>
 
-        box.appendChild(
-          div
-        );
+      `;
 
-      }
+      return;
+
+    }
+
+    const name =
+      user.name ||
+      username ||
+      "User";
+
+    const photo =
+      user.photo ||
+      avatarData(name);
+
+    const div =
+      document.createElement(
+        "div"
+      );
+
+    div.className =
+      "user-card card";
+
+    div.innerHTML = `
+
+      <img
+        class="avatar"
+        src="${escapeAttr(photo)}"
+        alt=""
+      >
+
+      <div class="user-info">
+
+        <strong>
+          ${escapeHtml(name)}
+        </strong>
+
+        <span>
+          @${escapeHtml(username)}
+        </span>
+
+      </div>
+
+      <button
+        class="small-btn"
+        onclick="sendFriendRequest('${escapeAttr(username)}')"
+      >
+        Add
+      </button>
+
+    `;
+
+    box.appendChild(
+      div
     );
 
   }catch(error){
 
-    console.log(error);
+    console.log(
+      "Search error:",
+      error
+    );
 
     toast(
-      "Search failed"
+      "Server connection failed"
     );
 
   }
@@ -3049,7 +3387,7 @@ async function searchUser(){
 }
 
 /* =========================
-   FRIEND REQUEST
+   ADD FRIEND
 ========================= */
 
 async function sendFriendRequest(
@@ -3059,7 +3397,25 @@ async function sendFriendRequest(
   const account =
     getAccount();
 
-  if(!account)return;
+  if(!account){
+
+    toast(
+      "আগে Login করুন"
+    );
+
+    return;
+
+  }
+
+  if(!username){
+
+    toast(
+      "Username পাওয়া যায়নি"
+    );
+
+    return;
+
+  }
 
   try{
 
@@ -3069,21 +3425,26 @@ async function sendFriendRequest(
         "/api/friend-request",
         {
           method:"POST",
+
           headers:{
             "Content-Type":
               "application/json"
           },
-          body:JSON.stringify({
 
-            phone:
-              account.phone,
+          body:
+            JSON.stringify({
 
-            pin:
-              account.pin,
+              phone:
+                account.phone,
 
-            username
+              pin:
+                account.pin,
 
-          })
+              username:
+                username
+
+            })
+
         }
       );
 
@@ -3101,7 +3462,7 @@ async function sendFriendRequest(
 
       toast(
         data.message ||
-        "Request failed"
+        "Friend Request পাঠানো যায়নি"
       );
 
       return;
@@ -3109,15 +3470,18 @@ async function sendFriendRequest(
     }
 
     toast(
-      "Friend request sent ❤️"
+      "Friend Request পাঠানো হয়েছে ❤️"
     );
 
   }catch(error){
 
-    console.log(error);
+    console.log(
+      "Friend request error:",
+      error
+    );
 
     toast(
-      "Server error"
+      "Server connection failed"
     );
 
   }
@@ -3125,7 +3489,7 @@ async function sendFriendRequest(
 }
 
 /* =========================
-   FRIENDS
+   LOAD FRIENDS
 ========================= */
 
 async function loadFriends(){
@@ -3143,19 +3507,23 @@ async function loadFriends(){
         "/api/social",
         {
           method:"POST",
+
           headers:{
             "Content-Type":
               "application/json"
           },
-          body:JSON.stringify({
 
-            phone:
-              account.phone,
+          body:
+            JSON.stringify({
 
-            pin:
-              account.pin
+              phone:
+                account.phone,
 
-          })
+              pin:
+                account.pin
+
+            })
+
         }
       );
 
@@ -3169,106 +3537,503 @@ async function loadFriends(){
         JSON.parse(text);
     }catch{}
 
-    const friends =
-      data.friends ||
-      data.user?.friends ||
-      [];
+    if(!response.ok){
 
-    const list =
-      $("friendsList");
-
-    list.innerHTML = "";
-
-    if(!friends.length){
-
-      list.innerHTML = `
-
-        <div class="empty">
-
-          <div class="empty-icon">
-            💕
-          </div>
-
-          এখনো কোনো friend নেই।
-
-        </div>
-
-      `;
+      toast(
+        data.message ||
+        "Friends load failed"
+      );
 
       return;
 
     }
 
-    friends.forEach(
-      friend=>{
+    const friends =
+      data.friends ||
+      data.user?.friends ||
+      [];
 
-        const username =
-          typeof friend === "string"
-            ? friend
-            : friend.username;
+    const requests =
+      data.requests ||
+      data.user?.requests ||
+      [];
 
-        const name =
-          typeof friend === "string"
-            ? friend
-            : (
-                friend.name ||
-                friend.username
-              );
+    renderRequests(
+      requests
+    );
 
-        const photo =
-          typeof friend === "object"
-            ? (
-                friend.photo ||
-                avatarData(name)
-              )
-            : avatarData(name);
-
-        const div =
-          document.createElement(
-            "div"
-          );
-
-        div.className =
-          "friend-card card";
-
-        div.innerHTML = `
-
-          <img
-            class="avatar"
-            src="${photo}"
-          >
-
-          <div class="user-info">
-
-            <strong>
-              ${escapeHtml(name)}
-            </strong>
-
-            <span>
-              @${escapeHtml(username)}
-            </span>
-
-          </div>
-
-          <button
-            class="small-btn"
-            onclick="openFriendChat('${escapeAttr(username)}')"
-          >
-            Chat
-          </button>
-
-        `;
-
-        list.appendChild(
-          div
-        );
-
-      }
+    await renderFriends(
+      friends
     );
 
   }catch(error){
 
-    console.log(error);
+    console.log(
+      "Load friends error:",
+      error
+    );
+
+  }
+
+}
+
+/* =========================
+   RENDER REQUESTS
+========================= */
+
+async function renderRequests(
+  requests
+){
+
+  const list =
+    $("requestsList");
+
+  if(!list)return;
+
+  list.innerHTML = "";
+
+  if(
+    !Array.isArray(requests) ||
+    !requests.length
+  ){
+
+    list.innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-icon">
+          💌
+        </div>
+
+        কোনো নতুন Friend Request নেই।
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  for(
+    const username
+    of requests
+  ){
+
+    let name =
+      username;
+
+    let photo =
+      avatarData(
+        username
+      );
+
+    try{
+
+      const response =
+        await fetch(
+          API_URL +
+          "/api/search?username=" +
+          encodeURIComponent(
+            username
+          )
+        );
+
+      const data =
+        await response.json();
+
+      if(
+        data.user
+      ){
+
+        name =
+          data.user.name ||
+          username;
+
+        photo =
+          data.user.photo ||
+          avatarData(name);
+
+      }
+
+    }catch{}
+
+    const div =
+      document.createElement(
+        "div"
+      );
+
+    div.className =
+      "request-card card";
+
+    div.innerHTML = `
+
+      <img
+        class="avatar"
+        src="${escapeAttr(photo)}"
+        alt=""
+      >
+
+      <div class="user-info">
+
+        <strong>
+          ${escapeHtml(name)}
+        </strong>
+
+        <span>
+          @${escapeHtml(username)}
+        </span>
+
+      </div>
+
+      <div class="request-actions">
+
+        <button
+          class="accept-btn"
+          onclick="acceptFriendRequest('${escapeAttr(username)}')"
+        >
+          Accept
+        </button>
+
+        <button
+          class="reject-btn"
+          onclick="rejectFriendRequest('${escapeAttr(username)}')"
+        >
+          Reject
+        </button>
+
+      </div>
+
+    `;
+
+    list.appendChild(
+      div
+    );
+
+  }
+
+}
+
+/* =========================
+   ACCEPT FRIEND
+========================= */
+
+async function acceptFriendRequest(
+  username
+){
+
+  const account =
+    getAccount();
+
+  if(!account)return;
+
+  try{
+
+    const response =
+      await fetch(
+        API_URL +
+        "/api/friend-accept",
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+
+              phone:
+                account.phone,
+
+              pin:
+                account.pin,
+
+              username:
+                username
+
+            })
+
+        }
+      );
+
+    const text =
+      await response.text();
+
+    let data={};
+
+    try{
+      data =
+        JSON.parse(text);
+    }catch{}
+
+    if(!response.ok){
+
+      toast(
+        data.message ||
+        "Accept করা যায়নি"
+      );
+
+      return;
+
+    }
+
+    toast(
+      "❤️ Friend যুক্ত হয়েছে"
+    );
+
+    /*
+     * সঙ্গে সঙ্গে Friends list refresh
+     */
+
+    await loadFriends();
+
+  }catch(error){
+
+    console.log(
+      "Accept error:",
+      error
+    );
+
+    toast(
+      "Server connection failed"
+    );
+
+  }
+
+}
+
+/* =========================
+   REJECT FRIEND
+========================= */
+
+async function rejectFriendRequest(
+  username
+){
+
+  const account =
+    getAccount();
+
+  if(!account)return;
+
+  try{
+
+    const response =
+      await fetch(
+        API_URL +
+        "/api/friend-reject",
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+
+              phone:
+                account.phone,
+
+              pin:
+                account.pin,
+
+              username:
+                username
+
+            })
+
+        }
+      );
+
+    const text =
+      await response.text();
+
+    let data={};
+
+    try{
+      data =
+        JSON.parse(text);
+    }catch{}
+
+    if(!response.ok){
+
+      toast(
+        data.message ||
+        "Reject করা যায়নি"
+      );
+
+      return;
+
+    }
+
+    toast(
+      "Request rejected"
+    );
+
+    await loadFriends();
+
+  }catch(error){
+
+    console.log(
+      "Reject error:",
+      error
+    );
+
+    toast(
+      "Server connection failed"
+    );
+
+  }
+
+}
+
+/* =========================
+   RENDER FRIENDS
+========================= */
+
+async function renderFriends(
+  friends
+){
+
+  const list =
+    $("friendsList");
+
+  if(!list)return;
+
+  list.innerHTML = "";
+
+  if(
+    !Array.isArray(friends) ||
+    !friends.length
+  ){
+
+    list.innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-icon">
+          💕
+        </div>
+
+        এখনো কোনো friend নেই।
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  for(
+    const friend
+    of friends
+  ){
+
+    const username =
+      typeof friend ===
+      "string"
+        ? friend
+        : friend.username;
+
+    if(!username)continue;
+
+    let name =
+      typeof friend ===
+      "object"
+        ? (
+            friend.name ||
+            username
+          )
+        : username;
+
+    let photo =
+      typeof friend ===
+      "object"
+        ? (
+            friend.photo ||
+            avatarData(name)
+          )
+        : avatarData(name);
+
+    /*
+     * Server friends array-তে username
+     * থাকায় search করে profile নিচ্ছি।
+     */
+
+    try{
+
+      const response =
+        await fetch(
+          API_URL +
+          "/api/search?username=" +
+          encodeURIComponent(
+            username
+          )
+        );
+
+      const data =
+        await response.json();
+
+      if(
+        data.user
+      ){
+
+        name =
+          data.user.name ||
+          username;
+
+        photo =
+          data.user.photo ||
+          avatarData(name);
+
+      }
+
+    }catch{}
+
+    const div =
+      document.createElement(
+        "div"
+      );
+
+    div.className =
+      "friend-card card";
+
+    div.innerHTML = `
+
+      <img
+        class="avatar"
+        src="${escapeAttr(photo)}"
+        alt=""
+      >
+
+      <div class="user-info">
+
+        <strong>
+          ${escapeHtml(name)}
+        </strong>
+
+        <span>
+          @${escapeHtml(username)}
+        </span>
+
+      </div>
+
+      <button
+        class="small-btn"
+        onclick="openFriendChat('${escapeAttr(username)}')"
+      >
+        Chat
+      </button>
+
+    `;
+
+    list.appendChild(
+      div
+    );
 
   }
 
@@ -3293,9 +4058,12 @@ async function openFriendChat(
     const response =
       await fetch(
         API_URL +
-        "/api/search?q=" +
+        "/api/search?username=" +
         encodeURIComponent(
-          username
+          username.replace(
+            /^@/,
+            ""
+          )
         )
       );
 
@@ -3309,22 +4077,9 @@ async function openFriendChat(
         JSON.parse(text);
     }catch{}
 
-    const users =
-      data.users ||
-      data.results ||
-      (
-        Array.isArray(data)
-          ? data
-          : []
-      );
-
     const user =
-      users.find(
-        x =>
-          x.username ===
-          username
-      ) ||
-      users[0];
+      data.user ||
+      null;
 
     if(user){
 
@@ -3349,11 +4104,30 @@ async function openFriendChat(
           username
         );
 
+    }else{
+
+      $("chatName")
+        .textContent =
+        username;
+
+      $("chatUsername")
+        .textContent =
+        "@" + username;
+
+      $("chatPhoto")
+        .src =
+        avatarData(
+          username
+        );
+
     }
 
   }catch(error){
 
-    console.log(error);
+    console.log(
+      "Friend profile error:",
+      error
+    );
 
     $("chatName")
       .textContent =
@@ -3365,7 +4139,9 @@ async function openFriendChat(
 
     $("chatPhoto")
       .src =
-      avatarData(username);
+      avatarData(
+        username
+      );
 
   }
 
@@ -3398,6 +4174,8 @@ function loadMessages(){
 
   const box =
     $("messages");
+
+  if(!box)return;
 
   box.innerHTML = "";
 
@@ -3445,24 +4223,33 @@ function saveMessage(
   }catch{}
 
   messages.push({
+
     text,
+
     me,
+
     time:
       Date.now()
+
   });
 
   if(
-    messages.length > 200
+    messages.length >
+    200
   ){
 
     messages =
-      messages.slice(-200);
+      messages.slice(
+        -200
+      );
 
   }
 
   localStorage.setItem(
     chatStorageKey(),
-    JSON.stringify(messages)
+    JSON.stringify(
+      messages
+    )
   );
 
 }
@@ -3549,7 +4336,8 @@ function sendMessage(){
     toPhone:
       currentChatPhone,
 
-    message:text
+    message:
+      text
 
   });
 
@@ -3592,7 +4380,8 @@ async function makeCall(
           };
 
     localStream =
-      await navigator.mediaDevices
+      await navigator
+        .mediaDevices
         .getUserMedia(
           constraints
         );
@@ -3631,7 +4420,8 @@ async function makeCall(
           ? "video-call"
           : "audio-call",
 
-      action:"offer",
+      action:
+        "offer",
 
       offer,
 
@@ -3750,7 +4540,8 @@ function showIncomingCall(){
 
   $("incomingType")
     .textContent =
-    currentCallType === "video"
+    currentCallType ===
+    "video"
       ? "ভিডিও কল আসছে..."
       : "অডিও কল আসছে...";
 
@@ -3777,7 +4568,8 @@ async function acceptCall(){
     await createPeerConnection();
 
     const constraints =
-      currentCallType === "video"
+      currentCallType ===
+      "video"
         ? {
             audio:true,
             video:true
@@ -3788,7 +4580,8 @@ async function acceptCall(){
           };
 
     localStream =
-      await navigator.mediaDevices
+      await navigator
+        .mediaDevices
         .getUserMedia(
           constraints
         );
@@ -3837,11 +4630,13 @@ async function acceptCall(){
     sendWS({
 
       type:
-        currentCallType === "video"
+        currentCallType ===
+        "video"
           ? "video-call"
           : "audio-call",
 
-      action:"answer",
+      action:
+        "answer",
 
       answer,
 
@@ -3876,11 +4671,13 @@ function rejectCall(){
   sendWS({
 
     type:
-      currentCallType === "video"
+      currentCallType ===
+      "video"
         ? "video-call"
         : "audio-call",
 
-    action:"reject",
+    action:
+      "reject",
 
     toUsername:
       incomingCaller?.username ||
@@ -3897,9 +4694,11 @@ function rejectCall(){
       "show"
     );
 
-  pendingOffer = null;
+  pendingOffer =
+    null;
 
-  incomingCaller = null;
+  incomingCaller =
+    null;
 
 }
 
@@ -3972,7 +4771,9 @@ async function handleIceCandidate(
   }else{
 
     pendingIceCandidates
-      .push(candidate);
+      .push(
+        candidate
+      );
 
   }
 
@@ -3992,7 +4793,8 @@ async function flushIceCandidates(){
   const queue =
     [...pendingIceCandidates];
 
-  pendingIceCandidates = [];
+  pendingIceCandidates =
+    [];
 
   for(
     const candidate
@@ -4050,12 +4852,15 @@ function closePeer(){
   if(peerConnection){
 
     try{
+
       peerConnection.close();
+
     }catch{}
 
   }
 
-  peerConnection = null;
+  peerConnection =
+    null;
 
   if(localStream){
 
@@ -4068,15 +4873,19 @@ function closePeer(){
 
   }
 
-  localStream = null;
+  localStream =
+    null;
 
   $("localVideo")
-    .srcObject = null;
+    .srcObject =
+    null;
 
   $("remoteVideo")
-    .srcObject = null;
+    .srcObject =
+    null;
 
-  pendingIceCandidates = [];
+  pendingIceCandidates =
+    [];
 
 }
 
@@ -4085,11 +4894,13 @@ function endCall(){
   sendWS({
 
     type:
-      currentCallType === "video"
+      currentCallType ===
+      "video"
         ? "video-call"
         : "audio-call",
 
-    action:"end",
+    action:
+      "end",
 
     toUsername:
       currentChatUsername,
@@ -4108,7 +4919,8 @@ function toggleMic(){
   if(!localStream)return;
 
   const tracks =
-    localStream.getAudioTracks();
+    localStream
+      .getAudioTracks();
 
   micEnabled =
     !micEnabled;
@@ -4133,7 +4945,8 @@ function toggleCamera(){
   if(!localStream)return;
 
   const tracks =
-    localStream.getVideoTracks();
+    localStream
+      .getVideoTracks();
 
   cameraEnabled =
     !cameraEnabled;
@@ -4157,9 +4970,13 @@ function toggleCamera(){
    ESCAPE
 ========================= */
 
-function escapeHtml(value){
+function escapeHtml(
+  value
+){
 
-  return String(value || "")
+  return String(
+    value || ""
+  )
     .replaceAll(
       "&",
       "&amp;"
@@ -4183,9 +5000,13 @@ function escapeHtml(value){
 
 }
 
-function escapeAttr(value){
+function escapeAttr(
+  value
+){
 
-  return String(value || "")
+  return String(
+    value || ""
+  )
     .replaceAll(
       "\\",
       "\\\\"
