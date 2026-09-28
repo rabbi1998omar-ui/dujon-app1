@@ -63,8 +63,6 @@ button{
   }
 }
 
-/* Background */
-
 .bg{
   position:fixed;
   inset:0;
@@ -115,8 +113,6 @@ button{
   }
 }
 
-/* Glass */
-
 .card{
   background:rgba(255,255,255,.055);
   border:1px solid rgba(255,255,255,.09);
@@ -126,7 +122,7 @@ button{
   box-shadow:0 20px 60px rgba(0,0,0,.25);
 }
 
-/* Auth */
+/* AUTH */
 
 .auth{
   min-height:100vh;
@@ -225,7 +221,7 @@ button{
   font-weight:bold;
 }
 
-/* Header */
+/* TOP */
 
 .topbar{
   max-width:700px;
@@ -249,7 +245,7 @@ button{
   font-size:20px;
 }
 
-/* Home identity */
+/* HOME */
 
 .home-hero{
   position:relative;
@@ -398,8 +394,6 @@ button{
   }
 }
 
-/* Floating hearts */
-
 .heart{
   position:absolute;
   bottom:-30px;
@@ -431,8 +425,6 @@ button{
     opacity:0;
   }
 }
-
-/* Feature cards */
 
 .feature-grid{
   max-width:700px;
@@ -469,7 +461,7 @@ button{
   line-height:1.5;
 }
 
-/* Friends */
+/* FRIENDS */
 
 .section{
   max-width:700px;
@@ -540,12 +532,7 @@ button{
   font-size:12px;
 }
 
-.danger-btn{
-  background:rgba(239,68,68,.12);
-  color:#ff8a8a;
-}
-
-/* Chat */
+/* CHAT */
 
 .chat-wrap{
   max-width:700px;
@@ -636,7 +623,7 @@ button{
   color:#fff;
 }
 
-/* Profile */
+/* PROFILE */
 
 .profile-card{
   max-width:600px;
@@ -649,13 +636,44 @@ button{
   margin-bottom:25px;
 }
 
+/* নতুন photo upload area */
+
+.profile-photo-wrap{
+  position:relative;
+  width:120px;
+  height:120px;
+  margin:0 auto 15px;
+}
+
 .profile-big{
-  width:110px;
-  height:110px;
+  width:120px;
+  height:120px;
   border-radius:50%;
   object-fit:cover;
   border:3px solid rgba(255,61,120,.5);
-  box-shadow:0 0 35px rgba(255,61,120,.25);
+  box-shadow:
+    0 0 35px rgba(255,61,120,.25);
+  background:#151520;
+}
+
+.photo-edit-btn{
+  position:absolute;
+  right:-2px;
+  bottom:2px;
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  color:#fff;
+  background:linear-gradient(135deg,#ff3d78,#8b5cf6);
+  border:4px solid #101018;
+  font-size:18px;
+  box-shadow:0 7px 20px rgba(0,0,0,.3);
+}
+
+.photo-hint{
+  color:#888;
+  font-size:12px;
+  margin-top:8px;
 }
 
 .profile-center h2{
@@ -674,7 +692,7 @@ button{
   margin:12px 0 7px;
 }
 
-/* Bottom nav */
+/* NAV */
 
 .bottom-nav{
   position:fixed;
@@ -720,7 +738,7 @@ button{
   );
 }
 
-/* Modal */
+/* MODAL */
 
 .modal{
   display:none;
@@ -782,7 +800,7 @@ button{
   background:#ef4444;
 }
 
-/* Call screen */
+/* CALL */
 
 .call-screen{
   display:none;
@@ -837,7 +855,7 @@ button{
   background:#ef4444;
 }
 
-/* Toast */
+/* TOAST */
 
 .toast{
   position:fixed;
@@ -862,8 +880,6 @@ button{
   transform:translate(-50%,0);
 }
 
-/* Empty */
-
 .empty{
   text-align:center;
   padding:45px 20px;
@@ -876,6 +892,7 @@ button{
 }
 
 @media(max-width:420px){
+
   .page{
     padding:15px;
     padding-bottom:95px;
@@ -892,6 +909,7 @@ button{
   .feature-grid{
     gap:9px;
   }
+
 }
 </style>
 </head>
@@ -905,13 +923,18 @@ button{
 </div>
 
 <!-- LOGIN -->
+
 <section id="loginPage" class="page active">
+
   <div class="auth">
+
     <div class="auth-card card">
 
       <div class="logo">❤️</div>
 
-      <h1 class="auth-title">দুজন</h1>
+      <h1 class="auth-title">
+        দুজন
+      </h1>
 
       <p class="auth-sub">
         শুধু তোমাদের দুজনের জন্য<br>
@@ -933,7 +956,10 @@ button{
         placeholder="PIN"
       >
 
-      <button class="primary" onclick="login()">
+      <button
+        class="primary"
+        onclick="login()"
+      >
         প্রবেশ করুন ❤️
       </button>
 
@@ -945,17 +971,24 @@ button{
       </div>
 
     </div>
+
   </div>
+
 </section>
 
 <!-- REGISTER -->
+
 <section id="registerPage" class="page">
+
   <div class="auth">
+
     <div class="auth-card card">
 
       <div class="logo">💞</div>
 
-      <h1 class="auth-title">নতুন একাউন্ট</h1>
+      <h1 class="auth-title">
+        নতুন একাউন্ট
+      </h1>
 
       <p class="auth-sub">
         দুজনের গল্পটা এখান থেকেই শুরু হোক।
@@ -990,7 +1023,10 @@ button{
         placeholder="৪-৬ সংখ্যার PIN"
       >
 
-      <button class="primary" onclick="register()">
+      <button
+        class="primary"
+        onclick="register()"
+      >
         একাউন্ট তৈরি করুন 💗
       </button>
 
@@ -1002,14 +1038,20 @@ button{
       </button>
 
     </div>
+
   </div>
+
 </section>
 
 <!-- HOME -->
+
 <section id="homePage" class="page">
 
   <div class="topbar">
-    <div class="top-title">Home</div>
+
+    <div class="top-title">
+      Home
+    </div>
 
     <button
       class="icon-btn"
@@ -1017,6 +1059,7 @@ button{
     >
       ⚙️
     </button>
+
   </div>
 
   <div class="home-hero card">
@@ -1036,7 +1079,9 @@ button{
         alt="Profile"
       >
 
-      <div class="verified-dot">♥</div>
+      <div class="verified-dot">
+        ♥
+      </div>
 
     </div>
 
@@ -1061,10 +1106,13 @@ button{
     </p>
 
     <div class="online-pill">
+
       <span class="online-dot"></span>
+
       <span id="presenceText">
         Connection ready
       </span>
+
     </div>
 
   </div>
@@ -1075,8 +1123,14 @@ button{
       class="feature card"
       onclick="showPage('friendsPage')"
     >
-      <div class="feature-icon">👥</div>
-      <h3>Friends</h3>
+      <div class="feature-icon">
+        👥
+      </div>
+
+      <h3>
+        Friends
+      </h3>
+
       <p>
         বন্ধু খুঁজুন এবং connection তৈরি করুন।
       </p>
@@ -1086,8 +1140,14 @@ button{
       class="feature card"
       onclick="showPage('profilePage')"
     >
-      <div class="feature-icon">💗</div>
-      <h3>My Profile</h3>
+      <div class="feature-icon">
+        💗
+      </div>
+
+      <h3>
+        My Profile
+      </h3>
+
       <p>
         নাম ও profile information আপডেট করুন।
       </p>
@@ -1097,8 +1157,14 @@ button{
       class="feature card"
       onclick="showPage('friendsPage')"
     >
-      <div class="feature-icon">💬</div>
-      <h3>Private Chat</h3>
+      <div class="feature-icon">
+        💬
+      </div>
+
+      <h3>
+        Private Chat
+      </h3>
+
       <p>
         নিজের মানুষটির সাথে সরাসরি কথা বলুন।
       </p>
@@ -1108,8 +1174,14 @@ button{
       class="feature card"
       onclick="showPage('couplePage')"
     >
-      <div class="feature-icon">🥰</div>
-      <h3>Our Space</h3>
+      <div class="feature-icon">
+        🥰
+      </div>
+
+      <h3>
+        Our Space
+      </h3>
+
       <p>
         দুজনের জন্য আরও সুন্দর স্মৃতি।
       </p>
@@ -1120,10 +1192,14 @@ button{
 </section>
 
 <!-- FRIENDS -->
+
 <section id="friendsPage" class="page">
 
   <div class="topbar">
-    <div class="top-title">Friends</div>
+
+    <div class="top-title">
+      Friends
+    </div>
 
     <button
       class="icon-btn"
@@ -1131,6 +1207,7 @@ button{
     >
       🏠
     </button>
+
   </div>
 
   <div class="section">
@@ -1166,6 +1243,7 @@ button{
 </section>
 
 <!-- CHAT -->
+
 <section id="chatPage" class="page">
 
   <div class="chat-wrap">
@@ -1187,8 +1265,15 @@ button{
       >
 
       <div class="user-info">
-        <strong id="chatName">Chat</strong>
-        <span id="chatUsername">@username</span>
+
+        <strong id="chatName">
+          Chat
+        </strong>
+
+        <span id="chatUsername">
+          @username
+        </span>
+
       </div>
 
       <div class="chat-actions">
@@ -1233,10 +1318,14 @@ button{
 </section>
 
 <!-- COUPLE -->
+
 <section id="couplePage" class="page">
 
   <div class="topbar">
-    <div class="top-title">Our Space ❤️</div>
+
+    <div class="top-title">
+      Our Space ❤️
+    </div>
 
     <button
       class="icon-btn"
@@ -1244,11 +1333,15 @@ button{
     >
       🏠
     </button>
+
   </div>
 
   <div class="section">
 
-    <div class="card" style="padding:25px;text-align:center">
+    <div
+      class="card"
+      style="padding:25px;text-align:center"
+    >
 
       <div style="font-size:55px">
         🥰
@@ -1258,7 +1351,9 @@ button{
         শুধু দুজনের জন্য
       </h2>
 
-      <p style="color:#999;line-height:1.7">
+      <p
+        style="color:#999;line-height:1.7"
+      >
         এখানে তোমাদের ভালোবাসার
         গল্প, স্মৃতি আর বিশেষ মুহূর্তগুলো
         ধীরে ধীরে সাজানো যাবে।
@@ -1271,10 +1366,14 @@ button{
 </section>
 
 <!-- PROFILE -->
+
 <section id="profilePage" class="page">
 
   <div class="topbar">
-    <div class="top-title">My Profile</div>
+
+    <div class="top-title">
+      My Profile
+    </div>
 
     <button
       class="icon-btn"
@@ -1282,18 +1381,45 @@ button{
     >
       🏠
     </button>
+
   </div>
 
   <div class="profile-card card">
 
     <div class="profile-center">
 
-      <img
-        id="profilePhoto"
-        class="profile-big"
-        src=""
-        alt="Profile"
+      <!-- PHOTO UPLOAD -->
+
+      <div class="profile-photo-wrap">
+
+        <img
+          id="profilePhoto"
+          class="profile-big"
+          src=""
+          alt="Profile"
+        >
+
+        <button
+          type="button"
+          class="photo-edit-btn"
+          onclick="document.getElementById('photoInput').click()"
+        >
+          📷
+        </button>
+
+      </div>
+
+      <input
+        id="photoInput"
+        type="file"
+        accept="image/*"
+        style="display:none"
+        onchange="handlePhotoUpload(event)"
       >
+
+      <div class="photo-hint">
+        📷 ছবিতে চাপ দিয়ে Profile Photo পরিবর্তন করুন
+      </div>
 
       <h2 id="profileTitle">
         আমি
@@ -1333,7 +1459,8 @@ button{
 
 </section>
 
-<!-- BOTTOM NAV -->
+<!-- NAV -->
+
 <nav
   id="bottomNav"
   class="bottom-nav"
@@ -1378,6 +1505,7 @@ button{
 </nav>
 
 <!-- INCOMING CALL -->
+
 <div
   id="incomingModal"
   class="modal"
@@ -1425,7 +1553,8 @@ button{
 
 </div>
 
-<!-- CALL SCREEN -->
+<!-- CALL -->
+
 <div
   id="callScreen"
   class="call-screen"
@@ -1446,11 +1575,17 @@ button{
 
   <div class="call-control">
 
-    <button onclick="toggleMic()" id="micBtn">
+    <button
+      onclick="toggleMic()"
+      id="micBtn"
+    >
       🎤
     </button>
 
-    <button onclick="toggleCamera()" id="cameraBtn">
+    <button
+      onclick="toggleCamera()"
+      id="cameraBtn"
+    >
       📹
     </button>
 
@@ -1479,15 +1614,11 @@ const WS_URL =
   "wss://dujon-app1.onrender.com";
 
 let ws = null;
-
 let peerConnection = null;
 let localStream = null;
 
 let currentCallType = "video";
-
 let pendingOffer = null;
-
-let currentRoom = null;
 
 let currentPage = "loginPage";
 
@@ -1502,7 +1633,6 @@ let micEnabled = true;
 let cameraEnabled = true;
 
 const ICE_SERVERS = {
-
   iceServers:[
     {
       urls:"stun:stun.l.google.com:19302"
@@ -1511,7 +1641,6 @@ const ICE_SERVERS = {
       urls:"stun:stun1.l.google.com:19302"
     }
   ]
-
 };
 
 /* =========================
@@ -1538,7 +1667,6 @@ function toast(message){
     setTimeout(()=>{
       el.classList.remove("show");
     },2500);
-
 }
 
 function getAccount(){
@@ -1556,7 +1684,6 @@ function getAccount(){
     return null;
 
   }
-
 }
 
 function getProfile(){
@@ -1574,7 +1701,6 @@ function getProfile(){
     return {};
 
   }
-
 }
 
 function saveLocalProfile(profile){
@@ -1647,6 +1773,177 @@ function avatarData(text){
     "data:image/svg+xml;charset=UTF-8," +
     encodeURIComponent(svg)
   );
+}
+
+/* =========================
+   PHOTO UPLOAD
+========================= */
+
+function handlePhotoUpload(event){
+
+  const file =
+    event.target.files &&
+    event.target.files[0];
+
+  if(!file){
+    return;
+  }
+
+  if(!file.type.startsWith("image/")){
+
+    toast(
+      "শুধু ছবি নির্বাচন করুন"
+    );
+
+    return;
+
+  }
+
+  /*
+   * ছবিকে ছোট করে compressed Base64 বানানো হচ্ছে।
+   * এতে মোবাইলের বড় ছবি সরাসরি localStorage/API-তে
+   * পাঠানোর সমস্যা কমে।
+   */
+
+  const reader =
+    new FileReader();
+
+  reader.onload = function(){
+
+    const img =
+      new Image();
+
+    img.onload = function(){
+
+      const maxSize = 700;
+
+      let width =
+        img.width;
+
+      let height =
+        img.height;
+
+      if(width > height){
+
+        if(width > maxSize){
+
+          height =
+            Math.round(
+              height *
+              maxSize /
+              width
+            );
+
+          width =
+            maxSize;
+
+        }
+
+      }else{
+
+        if(height > maxSize){
+
+          width =
+            Math.round(
+              width *
+              maxSize /
+              height
+            );
+
+          height =
+            maxSize;
+
+        }
+
+      }
+
+      const canvas =
+        document.createElement(
+          "canvas"
+        );
+
+      canvas.width =
+        width;
+
+      canvas.height =
+        height;
+
+      const ctx =
+        canvas.getContext(
+          "2d"
+        );
+
+      ctx.drawImage(
+        img,
+        0,
+        0,
+        width,
+        height
+      );
+
+      const compressedPhoto =
+        canvas.toDataURL(
+          "image/jpeg",
+          0.78
+        );
+
+      /*
+       * আগে local profile-এ preview/save
+       */
+
+      const oldProfile =
+        getProfile();
+
+      const newProfile = {
+        ...oldProfile,
+        photo:
+          compressedPhoto
+      };
+
+      saveLocalProfile(
+        newProfile
+      );
+
+      /*
+       * UI update
+       */
+
+      loadProfileToUI();
+
+      toast(
+        "Profile Photo পরিবর্তন হয়েছে ❤️"
+      );
+
+      /*
+       * File input reset
+       */
+
+      event.target.value = "";
+
+    };
+
+    img.onerror = function(){
+
+      toast(
+        "ছবিটি পড়া যাচ্ছে না"
+      );
+
+    };
+
+    img.src =
+      reader.result;
+
+  };
+
+  reader.onerror = function(){
+
+    toast(
+      "ছবি নির্বাচন করা যায়নি"
+    );
+
+  };
+
+  reader.readAsDataURL(file);
 
 }
 
@@ -1659,16 +1956,22 @@ function showPage(pageId){
   document
     .querySelectorAll(".page")
     .forEach(page=>{
-      page.classList.remove("active");
+      page.classList.remove(
+        "active"
+      );
     });
 
-  const page = $(pageId);
+  const page =
+    $(pageId);
 
   if(page){
-    page.classList.add("active");
+    page.classList.add(
+      "active"
+    );
   }
 
-  currentPage = pageId;
+  currentPage =
+    pageId;
 
   const nav =
     $("bottomNav");
@@ -1679,36 +1982,60 @@ function showPage(pageId){
     pageId === "chatPage"
   ){
 
-    nav.style.display = "none";
+    nav.style.display =
+      "none";
 
   }else{
 
-    nav.style.display = "flex";
+    nav.style.display =
+      "flex";
 
   }
 
   document
     .querySelectorAll(".nav-btn")
     .forEach(btn=>{
-      btn.classList.remove("active");
+      btn.classList.remove(
+        "active"
+      );
     });
 
   if(pageId === "homePage"){
-    $("navHome")?.classList.add("active");
+    $("navHome")
+      ?.classList.add(
+        "active"
+      );
   }
 
   if(pageId === "friendsPage"){
-    $("navFriends")?.classList.add("active");
+
+    $("navFriends")
+      ?.classList.add(
+        "active"
+      );
+
     loadFriends();
+
   }
 
   if(pageId === "couplePage"){
-    $("navCouple")?.classList.add("active");
+
+    $("navCouple")
+      ?.classList.add(
+        "active"
+      );
+
   }
 
   if(pageId === "profilePage"){
-    $("navProfile")?.classList.add("active");
+
+    $("navProfile")
+      ?.classList.add(
+        "active"
+      );
+
     loadProfileToUI();
+
   }
 
 }
@@ -1738,10 +2065,12 @@ function loadProfileToUI(){
     "";
 
   const photo =
-    profile.photo || "";
+    profile.photo ||
+    "";
 
   const avatar =
-    photo || avatarData(name);
+    photo ||
+    avatarData(name);
 
   const nameEl =
     $("profileTitle");
@@ -1765,38 +2094,43 @@ function loadProfileToUI(){
     $("homeUsername");
 
   if(nameEl){
-    nameEl.textContent = name;
+    nameEl.textContent =
+      name;
   }
 
   if(userEl){
     userEl.textContent =
       username
-      ? "@" + username
-      : "";
+        ? "@" + username
+        : "";
   }
 
   if(input){
-    input.value = name;
+    input.value =
+      name;
   }
 
   if(img){
-    img.src = avatar;
+    img.src =
+      avatar;
   }
 
   if(homeImg){
-    homeImg.src = avatar;
+    homeImg.src =
+      avatar;
   }
 
   if(homeName){
-    homeName.textContent = name;
+    homeName.textContent =
+      name;
   }
 
   if(homeUsername){
 
     homeUsername.textContent =
       username
-      ? "@" + username
-      : "@username";
+        ? "@" + username
+        : "@username";
 
   }
 
@@ -1809,44 +2143,72 @@ function loadProfileToUI(){
 async function register(){
 
   const name =
-    $("registerName").value.trim();
+    $("registerName")
+      .value
+      .trim();
 
   const username =
-    $("registerUsername").value
+    $("registerUsername")
+      .value
       .trim()
       .replace(/^@/,"");
 
   const phone =
-    $("registerPhone").value.trim();
+    $("registerPhone")
+      .value
+      .trim();
 
   const pin =
-    $("registerPin").value.trim();
+    $("registerPin")
+      .value
+      .trim();
 
   if(!name){
-    toast("নাম লিখুন");
+
+    toast(
+      "নাম লিখুন"
+    );
+
     return;
+
   }
 
   if(!username){
-    toast("Username লিখুন");
+
+    toast(
+      "Username লিখুন"
+    );
+
     return;
+
   }
 
   if(!phone){
-    toast("মোবাইল নাম্বার লিখুন");
+
+    toast(
+      "মোবাইল নাম্বার লিখুন"
+    );
+
     return;
+
   }
 
   if(!pin){
-    toast("PIN লিখুন");
+
+    toast(
+      "PIN লিখুন"
+    );
+
     return;
+
   }
 
   try{
 
     const response =
       await fetch(
-        API_URL + "/api/register",
+        API_URL +
+        "/api/register",
         {
           method:"POST",
           headers:{
@@ -1868,7 +2230,8 @@ async function register(){
     let data={};
 
     try{
-      data=JSON.parse(text);
+      data =
+        JSON.parse(text);
     }catch{}
 
     if(!response.ok){
@@ -1905,9 +2268,15 @@ async function register(){
     );
 
     setTimeout(()=>{
-      showPage("homePage");
+
+      showPage(
+        "homePage"
+      );
+
       loadProfileToUI();
+
       connectWS();
+
     },500);
 
   }catch(error){
@@ -1929,26 +2298,41 @@ async function register(){
 async function login(){
 
   const phone =
-    $("loginPhone").value.trim();
+    $("loginPhone")
+      .value
+      .trim();
 
   const pin =
-    $("loginPin").value.trim();
+    $("loginPin")
+      .value
+      .trim();
 
   if(!phone){
-    toast("মোবাইল নাম্বার লিখুন");
+
+    toast(
+      "মোবাইল নাম্বার লিখুন"
+    );
+
     return;
+
   }
 
   if(!pin){
-    toast("PIN লিখুন");
+
+    toast(
+      "PIN লিখুন"
+    );
+
     return;
+
   }
 
   try{
 
     const response =
       await fetch(
-        API_URL + "/api/social",
+        API_URL +
+        "/api/social",
         {
           method:"POST",
           headers:{
@@ -1968,7 +2352,8 @@ async function login(){
     let data={};
 
     try{
-      data=JSON.parse(text);
+      data =
+        JSON.parse(text);
     }catch{}
 
     if(!response.ok){
@@ -1987,15 +2372,20 @@ async function login(){
       data.account ||
       data;
 
+    const oldProfile =
+      getProfile();
+
     const account = {
 
       name:
         user.name ||
         user.displayName ||
+        oldProfile.name ||
         "আমি",
 
       username:
         user.username ||
+        oldProfile.username ||
         "",
 
       phone:
@@ -2011,23 +2401,37 @@ async function login(){
       JSON.stringify(account)
     );
 
+    /*
+     * Server থেকে photo থাকলে সেটি নেবে।
+     * না থাকলে আগের local photo রেখে দেবে।
+     */
+
     saveLocalProfile({
 
-      name:account.name,
+      ...oldProfile,
 
-      username:account.username,
+      name:
+        account.name,
+
+      username:
+        account.username,
 
       photo:
         user.photo ||
+        oldProfile.photo ||
         ""
 
     });
 
-    toast("Login successful ❤️");
+    toast(
+      "Login successful ❤️"
+    );
 
     setTimeout(()=>{
 
-      showPage("homePage");
+      showPage(
+        "homePage"
+      );
 
       loadProfileToUI();
 
@@ -2065,7 +2469,9 @@ async function saveProfile(){
 
   if(!name){
 
-    toast("নাম লিখুন");
+    toast(
+      "নাম লিখুন"
+    );
 
     return;
 
@@ -2074,18 +2480,41 @@ async function saveProfile(){
   const oldProfile =
     getProfile();
 
+  /*
+   * photo এখানে অবশ্যই রাখা হচ্ছে।
+   */
+
   const profile = {
     ...oldProfile,
-    name
+    name,
+    username:
+      oldProfile.username ||
+      account.username ||
+      "",
+    photo:
+      oldProfile.photo ||
+      ""
   };
 
-  saveLocalProfile(profile);
+  /*
+   * আগে local save
+   */
+
+  saveLocalProfile(
+    profile
+  );
+
+  /*
+   * তারপর server-এ /api/profile
+   * আগের endpoint অপরিবর্তিত।
+   */
 
   try{
 
     const response =
       await fetch(
-        API_URL + "/api/profile",
+        API_URL +
+        "/api/profile",
         {
           method:"POST",
           headers:{
@@ -2104,13 +2533,10 @@ async function saveProfile(){
               profile.name,
 
             username:
-              profile.username ||
-              account.username ||
-              "",
+              profile.username,
 
             photo:
-              profile.photo ||
-              ""
+              profile.photo
 
           })
         }
@@ -2122,14 +2548,22 @@ async function saveProfile(){
     let data={};
 
     try{
-      data=JSON.parse(text);
+      data =
+        JSON.parse(text);
     }catch{}
 
     if(!response.ok){
 
+      /*
+       * Server save না হলেও local photo
+       * যেন হারিয়ে না যায়।
+       */
+
+      loadProfileToUI();
+
       toast(
         data.message ||
-        "Profile save হয়নি"
+        "Profile local-এ save হয়েছে"
       );
 
       return;
@@ -2138,7 +2572,9 @@ async function saveProfile(){
 
     loadProfileToUI();
 
-    toast("Profile saved ❤️");
+    toast(
+      "Profile saved ❤️"
+    );
 
   }catch(error){
 
@@ -2146,6 +2582,8 @@ async function saveProfile(){
       "Profile Error:",
       error
     );
+
+    loadProfileToUI();
 
     toast(
       "Profile local-এ save হয়েছে"
@@ -2169,7 +2607,7 @@ function logout(){
 
   }catch{}
 
-  ws=null;
+  ws = null;
 
   localStorage.removeItem(
     "dujon_account"
@@ -2179,9 +2617,13 @@ function logout(){
     "dujon_profile"
   );
 
-  showPage("loginPage");
+  showPage(
+    "loginPage"
+  );
 
-  toast("Logout হয়েছে");
+  toast(
+    "Logout হয়েছে"
+  );
 
 }
 
@@ -2236,33 +2678,38 @@ function connectWS(){
         $("presenceText");
 
       if(presence){
+
         presence.textContent =
           "Connection ready";
+
       }
 
     };
 
-    ws.onmessage = event=>{
+    ws.onmessage =
+      event=>{
 
-      try{
+        try{
 
-        const data =
-          JSON.parse(
-            event.data
+          const data =
+            JSON.parse(
+              event.data
+            );
+
+          handleWSMessage(
+            data
           );
 
-        handleWSMessage(data);
+        }catch(error){
 
-      }catch(error){
+          console.log(
+            "WS parse error",
+            error
+          );
 
-        console.log(
-          "WS parse error",
-          error
-        );
+        }
 
-      }
-
-    };
+      };
 
     ws.onclose = ()=>{
 
@@ -2272,9 +2719,7 @@ function connectWS(){
 
       setTimeout(()=>{
 
-        if(
-          getAccount()
-        ){
+        if(getAccount()){
           connectWS();
         }
 
@@ -2282,14 +2727,15 @@ function connectWS(){
 
     };
 
-    ws.onerror = error=>{
+    ws.onerror =
+      error=>{
 
-      console.log(
-        "WebSocket error",
-        error
-      );
+        console.log(
+          "WebSocket error",
+          error
+        );
 
-    };
+      };
 
   }catch(error){
 
@@ -2303,7 +2749,8 @@ function sendWS(data){
 
   if(
     ws &&
-    ws.readyState === WebSocket.OPEN
+    ws.readyState ===
+    WebSocket.OPEN
   ){
 
     ws.send(
@@ -2455,7 +2902,7 @@ function handleWSMessage(data){
 }
 
 /* =========================
-   FRIEND SEARCH
+   SEARCH
 ========================= */
 
 async function searchUser(){
@@ -2481,7 +2928,9 @@ async function searchUser(){
       await fetch(
         API_URL +
         "/api/search?q=" +
-        encodeURIComponent(query)
+        encodeURIComponent(
+          query
+        )
       );
 
     const text =
@@ -2490,15 +2939,18 @@ async function searchUser(){
     let data={};
 
     try{
-      data=JSON.parse(text);
+      data =
+        JSON.parse(text);
     }catch{}
 
     const users =
       data.users ||
       data.results ||
-      (Array.isArray(data)
-        ? data
-        : []);
+      (
+        Array.isArray(data)
+          ? data
+          : []
+      );
 
     const box =
       $("searchResults");
@@ -2508,70 +2960,81 @@ async function searchUser(){
     if(!users.length){
 
       box.innerHTML = `
+
         <div class="empty">
-          <div class="empty-icon">🔍</div>
+
+          <div class="empty-icon">
+            🔍
+          </div>
+
           কাউকে পাওয়া যায়নি
+
         </div>
+
       `;
 
       return;
 
     }
 
-    users.forEach(user=>{
+    users.forEach(
+      user=>{
 
-      const div =
-        document.createElement(
-          "div"
+        const div =
+          document.createElement(
+            "div"
+          );
+
+        div.className =
+          "user-card card";
+
+        const name =
+          user.name ||
+          user.username ||
+          "User";
+
+        const username =
+          user.username ||
+          "";
+
+        const photo =
+          user.photo ||
+          avatarData(name);
+
+        div.innerHTML = `
+
+          <img
+            class="avatar"
+            src="${photo}"
+          >
+
+          <div class="user-info">
+
+            <strong>
+              ${escapeHtml(name)}
+            </strong>
+
+            <span>
+              @${escapeHtml(username)}
+            </span>
+
+          </div>
+
+          <button
+            class="small-btn"
+            onclick="sendFriendRequest('${escapeAttr(username)}')"
+          >
+            Add
+          </button>
+
+        `;
+
+        box.appendChild(
+          div
         );
 
-      div.className =
-        "user-card card";
-
-      const name =
-        user.name ||
-        user.username ||
-        "User";
-
-      const username =
-        user.username ||
-        "";
-
-      const photo =
-        user.photo ||
-        avatarData(name);
-
-      div.innerHTML = `
-
-        <img
-          class="avatar"
-          src="${photo}"
-        >
-
-        <div class="user-info">
-
-          <strong>
-            ${escapeHtml(name)}
-          </strong>
-
-          <span>
-            @${escapeHtml(username)}
-          </span>
-
-        </div>
-
-        <button
-          class="small-btn"
-          onclick="sendFriendRequest('${escapeAttr(username)}')"
-        >
-          Add
-        </button>
-
-      `;
-
-      box.appendChild(div);
-
-    });
+      }
+    );
 
   }catch(error){
 
@@ -2630,7 +3093,8 @@ async function sendFriendRequest(
     let data={};
 
     try{
-      data=JSON.parse(text);
+      data =
+        JSON.parse(text);
     }catch{}
 
     if(!response.ok){
@@ -2661,7 +3125,7 @@ async function sendFriendRequest(
 }
 
 /* =========================
-   LOAD FRIENDS
+   FRIENDS
 ========================= */
 
 async function loadFriends(){
@@ -2701,7 +3165,8 @@ async function loadFriends(){
     let data={};
 
     try{
-      data=JSON.parse(text);
+      data =
+        JSON.parse(text);
     }catch{}
 
     const friends =
@@ -2734,68 +3199,72 @@ async function loadFriends(){
 
     }
 
-    friends.forEach(friend=>{
+    friends.forEach(
+      friend=>{
 
-      const username =
-        typeof friend === "string"
-          ? friend
-          : friend.username;
+        const username =
+          typeof friend === "string"
+            ? friend
+            : friend.username;
 
-      const name =
-        typeof friend === "string"
-          ? friend
-          : (
-              friend.name ||
-              friend.username
-            );
+        const name =
+          typeof friend === "string"
+            ? friend
+            : (
+                friend.name ||
+                friend.username
+              );
 
-      const photo =
-        typeof friend === "object"
-          ? (
-              friend.photo ||
-              avatarData(name)
-            )
-          : avatarData(name);
+        const photo =
+          typeof friend === "object"
+            ? (
+                friend.photo ||
+                avatarData(name)
+              )
+            : avatarData(name);
 
-      const div =
-        document.createElement(
-          "div"
+        const div =
+          document.createElement(
+            "div"
+          );
+
+        div.className =
+          "friend-card card";
+
+        div.innerHTML = `
+
+          <img
+            class="avatar"
+            src="${photo}"
+          >
+
+          <div class="user-info">
+
+            <strong>
+              ${escapeHtml(name)}
+            </strong>
+
+            <span>
+              @${escapeHtml(username)}
+            </span>
+
+          </div>
+
+          <button
+            class="small-btn"
+            onclick="openFriendChat('${escapeAttr(username)}')"
+          >
+            Chat
+          </button>
+
+        `;
+
+        list.appendChild(
+          div
         );
 
-      div.className =
-        "friend-card card";
-
-      div.innerHTML = `
-
-        <img
-          class="avatar"
-          src="${photo}"
-        >
-
-        <div class="user-info">
-
-          <strong>
-            ${escapeHtml(name)}
-          </strong>
-
-          <span>
-            @${escapeHtml(username)}
-          </span>
-
-        </div>
-
-        <button
-          class="small-btn"
-          onclick="openFriendChat('${escapeAttr(username)}')"
-        >
-          Chat
-        </button>
-
-      `;
-
-      list.appendChild(div);
-
-    });
+      }
+    );
 
   }catch(error){
 
@@ -2806,7 +3275,7 @@ async function loadFriends(){
 }
 
 /* =========================
-   OPEN CHAT
+   CHAT
 ========================= */
 
 async function openFriendChat(
@@ -2816,7 +3285,8 @@ async function openFriendChat(
   currentChatUsername =
     username;
 
-  currentChatPhone = "";
+  currentChatPhone =
+    "";
 
   try{
 
@@ -2824,7 +3294,9 @@ async function openFriendChat(
       await fetch(
         API_URL +
         "/api/search?q=" +
-        encodeURIComponent(username)
+        encodeURIComponent(
+          username
+        )
       );
 
     const text =
@@ -2833,27 +3305,32 @@ async function openFriendChat(
     let data={};
 
     try{
-      data=JSON.parse(text);
+      data =
+        JSON.parse(text);
     }catch{}
 
     const users =
       data.users ||
       data.results ||
-      (Array.isArray(data)
-        ? data
-        : []);
+      (
+        Array.isArray(data)
+          ? data
+          : []
+      );
 
     const user =
       users.find(
         x =>
-          x.username === username
+          x.username ===
+          username
       ) ||
       users[0];
 
     if(user){
 
       currentChatPhone =
-        user.phone || "";
+        user.phone ||
+        "";
 
       $("chatName")
         .textContent =
@@ -2933,15 +3410,17 @@ function loadMessages(){
         ) || "[]"
       );
 
-    messages.forEach(msg=>{
+    messages.forEach(
+      msg=>{
 
-      addMessage(
-        msg.text,
-        msg.me,
-        false
-      );
+        addMessage(
+          msg.text,
+          msg.me,
+          false
+        );
 
-    });
+      }
+    );
 
   }catch{}
 
@@ -2968,10 +3447,13 @@ function saveMessage(
   messages.push({
     text,
     me,
-    time:Date.now()
+    time:
+      Date.now()
   });
 
-  if(messages.length > 200){
+  if(
+    messages.length > 200
+  ){
 
     messages =
       messages.slice(-200);
@@ -3012,7 +3494,9 @@ function addMessage(
   div.textContent =
     text;
 
-  box.appendChild(div);
+  box.appendChild(
+    div
+  );
 
   box.scrollTop =
     box.scrollHeight;
@@ -3027,10 +3511,6 @@ function addMessage(
   }
 
 }
-
-/* =========================
-   SEND MESSAGE
-========================= */
 
 function sendMessage(){
 
@@ -3184,10 +3664,6 @@ async function makeCall(
 
 }
 
-/* =========================
-   PEER
-========================= */
-
 async function createPeerConnection(){
 
   if(peerConnection){
@@ -3243,17 +3719,6 @@ async function createPeerConnection(){
           stream;
 
       }
-
-    };
-
-  peerConnection.onconnectionstatechange =
-    ()=>{
-
-      console.log(
-        "Connection:",
-        peerConnection
-          .connectionState
-      );
 
     };
 
@@ -3432,9 +3897,9 @@ function rejectCall(){
       "show"
     );
 
-  pendingOffer=null;
+  pendingOffer = null;
 
-  incomingCaller=null;
+  incomingCaller = null;
 
 }
 
@@ -3449,9 +3914,7 @@ async function handleAnswer(
   try{
 
     if(!peerConnection){
-
       return;
-
     }
 
     await peerConnection
@@ -3529,7 +3992,7 @@ async function flushIceCandidates(){
   const queue =
     [...pendingIceCandidates];
 
-  pendingIceCandidates=[];
+  pendingIceCandidates = [];
 
   for(
     const candidate
@@ -3592,7 +4055,7 @@ function closePeer(){
 
   }
 
-  peerConnection=null;
+  peerConnection = null;
 
   if(localStream){
 
@@ -3605,15 +4068,15 @@ function closePeer(){
 
   }
 
-  localStream=null;
+  localStream = null;
 
   $("localVideo")
-    .srcObject=null;
+    .srcObject = null;
 
   $("remoteVideo")
-    .srcObject=null;
+    .srcObject = null;
 
-  pendingIceCandidates=[];
+  pendingIceCandidates = [];
 
 }
 
@@ -3640,10 +4103,6 @@ function endCall(){
 
 }
 
-/* =========================
-   MIC
-========================= */
-
 function toggleMic(){
 
   if(!localStream)return;
@@ -3668,10 +4127,6 @@ function toggleMic(){
       : "🔇";
 
 }
-
-/* =========================
-   CAMERA
-========================= */
 
 function toggleCamera(){
 
@@ -3699,30 +4154,51 @@ function toggleCamera(){
 }
 
 /* =========================
-   SECURITY / HTML
+   ESCAPE
 ========================= */
 
 function escapeHtml(value){
 
   return String(value || "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
 
 }
 
 function escapeAttr(value){
 
   return String(value || "")
-    .replaceAll("\\","\\\\")
-    .replaceAll("'","\\'");
+    .replaceAll(
+      "\\",
+      "\\\\"
+    )
+    .replaceAll(
+      "'",
+      "\\'"
+    );
 
 }
 
 /* =========================
-   STARTUP
+   START
 ========================= */
 
 window.addEventListener(
