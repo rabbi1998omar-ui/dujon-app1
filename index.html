@@ -2,7 +2,7 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#090912">
 
 <link rel="manifest" href="/manifest.json">
@@ -14,40 +14,24 @@
 <style>
 *{
   box-sizing:border-box;
-  margin:0;
-  padding:0;
   -webkit-tap-highlight-color:transparent;
 }
 
-:root{
-  --bg:#07070d;
-  --card:rgba(255,255,255,.075);
-  --border:rgba(255,255,255,.12);
-  --text:#fff;
-  --muted:#aaa9b8;
-  --pink:#ff3d78;
-  --purple:#8b5cf6;
-  --green:#34d399;
+html,body{
+  margin:0;
+  padding:0;
+  width:100%;
+  min-height:100%;
+  font-family:Arial,"Noto Sans Bengali",sans-serif;
+  background:#07070d;
+  color:#fff;
 }
 
 body{
-  min-height:100vh;
-  background:
-    radial-gradient(circle at 20% 10%,rgba(255,61,120,.18),transparent 30%),
-    radial-gradient(circle at 85% 30%,rgba(139,92,246,.18),transparent 30%),
-    #07070d;
-  color:var(--text);
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
   overflow-x:hidden;
 }
 
-button,
-input{
+button,input{
   font:inherit;
 }
 
@@ -56,41 +40,69 @@ button{
   cursor:pointer;
 }
 
-.hidden{
-  display:none!important;
+.page{
+  display:none;
+  min-height:100vh;
+  padding:20px;
+  padding-bottom:95px;
 }
 
-/* ================= BACKGROUND ================= */
+.page.active{
+  display:block;
+  animation:pageIn .45s ease;
+}
 
-.bg-orb{
+@keyframes pageIn{
+  from{
+    opacity:0;
+    transform:translateY(18px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* Background */
+
+.bg{
   position:fixed;
-  width:220px;
-  height:220px;
+  inset:0;
+  z-index:-10;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 20% 10%,rgba(255,45,115,.15),transparent 35%),
+    radial-gradient(circle at 85% 25%,rgba(139,92,246,.15),transparent 35%),
+    #07070d;
+}
+
+.orb{
+  position:absolute;
+  width:240px;
+  height:240px;
   border-radius:50%;
-  filter:blur(70px);
-  opacity:.22;
-  pointer-events:none;
-  z-index:-1;
-  animation:orbMove 10s ease-in-out infinite alternate;
+  filter:blur(65px);
+  opacity:.35;
+  animation:orbMove 9s infinite alternate ease-in-out;
 }
 
-.orb1{
-  background:#ff2f70;
-  top:5%;
-  left:-80px;
+.orb.one{
+  background:#ff2775;
+  left:-90px;
+  top:10%;
 }
 
-.orb2{
+.orb.two{
   background:#7c3aed;
-  right:-90px;
-  top:35%;
+  right:-100px;
+  top:45%;
   animation-delay:2s;
 }
 
-.orb3{
+.orb.three{
   background:#ec4899;
-  bottom:-100px;
-  left:30%;
+  left:25%;
+  bottom:-130px;
   animation-delay:4s;
 }
 
@@ -99,36 +111,22 @@ button{
     transform:translate(0,0) scale(1);
   }
   to{
-    transform:translate(40px,-30px) scale(1.2);
+    transform:translate(35px,-25px) scale(1.15);
   }
 }
 
-/* ================= PAGES ================= */
+/* Glass */
 
-.page{
-  min-height:100vh;
-  padding:24px 16px 95px;
-  animation:pageIn .45s ease;
+.card{
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.09);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-radius:24px;
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
 }
 
-@keyframes pageIn{
-  from{
-    opacity:0;
-    transform:translateY(12px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-.container{
-  width:100%;
-  max-width:620px;
-  margin:auto;
-}
-
-/* ================= AUTH ================= */
+/* Auth */
 
 .auth{
   min-height:100vh;
@@ -140,282 +138,247 @@ button{
 
 .auth-card{
   width:100%;
-  max-width:430px;
+  max-width:420px;
   padding:30px 22px;
-  border:1px solid var(--border);
-  border-radius:30px;
-  background:rgba(255,255,255,.055);
-  backdrop-filter:blur(25px);
-  box-shadow:
-    0 25px 80px rgba(0,0,0,.45),
-    inset 0 1px rgba(255,255,255,.08);
-  animation:cardIn .7s ease;
-}
-
-@keyframes cardIn{
-  from{
-    opacity:0;
-    transform:scale(.94) translateY(20px);
-  }
-  to{
-    opacity:1;
-    transform:scale(1) translateY(0);
-  }
+  text-align:center;
 }
 
 .logo{
-  text-align:center;
-  margin-bottom:28px;
-}
-
-.logo-heart{
-  width:75px;
-  height:75px;
-  margin:auto;
+  width:82px;
+  height:82px;
+  border-radius:27px;
+  margin:0 auto 18px;
   display:flex;
   align-items:center;
   justify-content:center;
-  border-radius:25px;
   font-size:38px;
   background:linear-gradient(135deg,#ff3d78,#8b5cf6);
-  box-shadow:0 0 45px rgba(255,61,120,.35);
-  animation:heartPulse 2.2s infinite;
+  box-shadow:0 0 45px rgba(255,61,120,.3);
+  animation:logoPulse 2.8s infinite;
 }
 
-@keyframes heartPulse{
-  0%,100%{
-    transform:scale(1);
-  }
-  50%{
-    transform:scale(1.06);
-  }
+@keyframes logoPulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.06)}
 }
 
-.logo h1{
-  margin-top:14px;
+.auth-title{
   font-size:30px;
+  margin:0 0 8px;
 }
 
-.logo p{
-  margin-top:6px;
-  color:var(--muted);
-  font-size:14px;
-}
-
-.field{
-  margin-bottom:14px;
-}
-
-.field label{
-  display:block;
-  margin-bottom:7px;
-  color:#c9c7d4;
-  font-size:13px;
+.auth-sub{
+  color:#aaa;
+  margin:0 0 25px;
+  line-height:1.6;
 }
 
 .input{
   width:100%;
-  padding:14px 15px;
-  border:1px solid var(--border);
-  border-radius:16px;
+  padding:15px 16px;
+  margin-bottom:12px;
+  border-radius:15px;
+  border:1px solid rgba(255,255,255,.1);
   outline:none;
-  color:white;
-  background:rgba(255,255,255,.055);
-  transition:.25s;
+  color:#fff;
+  background:rgba(255,255,255,.06);
 }
 
 .input:focus{
-  border-color:rgba(255,61,120,.7);
-  box-shadow:0 0 0 4px rgba(255,61,120,.08);
+  border-color:#ff3d78;
+  box-shadow:0 0 0 3px rgba(255,61,120,.1);
 }
 
-.primary-btn{
+.primary{
   width:100%;
-  padding:14px;
-  margin-top:8px;
-  border-radius:17px;
-  color:white;
-  font-weight:700;
+  padding:15px;
+  border-radius:15px;
+  color:#fff;
+  font-weight:bold;
   background:linear-gradient(135deg,#ff3d78,#8b5cf6);
   box-shadow:0 12px 30px rgba(255,61,120,.2);
   transition:.25s;
 }
 
-.primary-btn:active{
+.primary:active{
   transform:scale(.97);
 }
 
+.secondary{
+  width:100%;
+  padding:14px;
+  margin-top:10px;
+  border-radius:15px;
+  color:#fff;
+  background:rgba(255,255,255,.07);
+}
+
 .switch{
-  text-align:center;
-  margin-top:18px;
-  color:var(--muted);
+  margin-top:20px;
+  color:#aaa;
   font-size:14px;
 }
 
 .switch span{
-  color:#ff6b97;
-  font-weight:700;
+  color:#ff6b9a;
   cursor:pointer;
+  font-weight:bold;
 }
 
-/* ================= TOP BAR ================= */
+/* Header */
 
 .topbar{
+  max-width:700px;
+  margin:0 auto 20px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  margin-bottom:22px;
 }
 
-.topbar-title{
-  font-size:24px;
+.top-title{
+  font-size:25px;
   font-weight:800;
 }
 
 .icon-btn{
-  width:43px;
-  height:43px;
-  border:1px solid var(--border);
-  border-radius:14px;
-  color:white;
-  background:var(--card);
-  backdrop-filter:blur(15px);
-  transition:.2s;
+  width:44px;
+  height:44px;
+  border-radius:15px;
+  background:rgba(255,255,255,.07);
+  color:#fff;
+  font-size:20px;
 }
 
-.icon-btn:active{
-  transform:scale(.92);
-}
-
-/* ================= HOME HERO ================= */
+/* Home identity */
 
 .home-hero{
   position:relative;
-  min-height:500px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
+  max-width:700px;
+  margin:10px auto 20px;
+  padding:34px 20px 32px;
   text-align:center;
   overflow:hidden;
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:34px;
-  background:
-    radial-gradient(circle at 50% 30%,rgba(255,61,120,.14),transparent 38%),
-    rgba(255,255,255,.035);
-  backdrop-filter:blur(20px);
-  box-shadow:
-    0 30px 80px rgba(0,0,0,.35),
-    inset 0 1px rgba(255,255,255,.07);
 }
 
 .home-hero::before{
   content:"";
   position:absolute;
-  width:280px;
-  height:280px;
-  border-radius:50%;
-  border:1px solid rgba(255,61,120,.15);
-  animation:heroRing 8s linear infinite;
+  inset:-2px;
+  border-radius:28px;
+  padding:1px;
+  background:linear-gradient(
+    120deg,
+    rgba(255,61,120,.5),
+    transparent,
+    rgba(139,92,246,.5)
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  pointer-events:none;
 }
 
-@keyframes heroRing{
-  from{
-    transform:rotate(0deg) scale(.8);
-    opacity:.3;
-  }
-  50%{
-    transform:rotate(180deg) scale(1.1);
-    opacity:.7;
-  }
-  to{
-    transform:rotate(360deg) scale(.8);
-    opacity:.3;
-  }
-}
-
-.identity-wrap{
+.profile-orbit{
   position:relative;
-  z-index:2;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
+  width:150px;
+  height:150px;
+  margin:5px auto 22px;
 }
 
-.profile-glow{
-  position:relative;
-  width:142px;
-  height:142px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin-bottom:20px;
-}
-
-.profile-glow::before,
-.profile-glow::after{
+.profile-orbit::before,
+.profile-orbit::after{
   content:"";
   position:absolute;
-  inset:-8px;
+  inset:-9px;
   border-radius:50%;
-  border:1px solid rgba(255,61,120,.5);
-  animation:profileRing 2.8s ease-in-out infinite;
+  border:1px solid rgba(255,61,120,.35);
+  animation:orbit 3s linear infinite;
 }
 
-.profile-glow::after{
-  inset:-16px;
-  border-color:rgba(139,92,246,.35);
-  animation-delay:1s;
+.profile-orbit::after{
+  inset:-17px;
+  border-color:rgba(139,92,246,.25);
+  animation-duration:5s;
+  animation-direction:reverse;
 }
 
-@keyframes profileRing{
-  0%,100%{
-    transform:scale(.95);
-    opacity:.4;
-  }
-  50%{
-    transform:scale(1.06);
-    opacity:1;
+@keyframes orbit{
+  to{
+    transform:rotate(360deg);
   }
 }
 
 .home-profile-photo{
-  width:125px;
-  height:125px;
-  object-fit:cover;
-  border-radius:50%;
-  border:4px solid rgba(255,255,255,.9);
-  background:#191923;
-  box-shadow:
-    0 0 25px rgba(255,61,120,.4),
-    0 0 70px rgba(139,92,246,.25);
   position:relative;
   z-index:2;
+  width:150px;
+  height:150px;
+  object-fit:cover;
+  border-radius:50%;
+  border:4px solid rgba(255,255,255,.15);
+  box-shadow:
+    0 0 25px rgba(255,61,120,.35),
+    0 0 70px rgba(139,92,246,.2);
+  animation:photoFloat 3.5s ease-in-out infinite;
+}
+
+@keyframes photoFloat{
+  0%,100%{
+    transform:translateY(0);
+  }
+  50%{
+    transform:translateY(-7px);
+  }
+}
+
+.verified-dot{
+  position:absolute;
+  z-index:4;
+  right:2px;
+  bottom:7px;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#ff3d78,#8b5cf6);
+  border:4px solid #101018;
+  font-size:14px;
 }
 
 .home-name{
+  margin:0;
   font-size:29px;
   font-weight:800;
-  letter-spacing:-.5px;
-  margin-top:5px;
 }
 
 .home-username{
-  margin-top:5px;
-  color:#aaa8b8;
+  margin-top:7px;
+  color:#ff78a7;
   font-size:15px;
 }
 
-.connection{
-  display:flex;
+.home-caption{
+  margin:18px auto 0;
+  max-width:420px;
+  color:#aaa;
+  line-height:1.7;
+  font-size:14px;
+}
+
+.online-pill{
+  display:inline-flex;
   align-items:center;
   gap:8px;
-  margin-top:20px;
+  margin-top:18px;
   padding:9px 14px;
-  border:1px solid rgba(52,211,153,.18);
-  border-radius:50px;
-  color:#b6f5dc;
-  background:rgba(52,211,153,.07);
+  border-radius:30px;
+  background:rgba(34,197,94,.08);
+  border:1px solid rgba(34,197,94,.15);
+  color:#b8f7cb;
   font-size:12px;
 }
 
@@ -423,224 +386,216 @@ button{
   width:8px;
   height:8px;
   border-radius:50%;
-  background:#34d399;
-  box-shadow:0 0 12px #34d399;
+  background:#22c55e;
+  box-shadow:0 0 12px #22c55e;
   animation:onlinePulse 1.5s infinite;
 }
 
 @keyframes onlinePulse{
-  0%,100%{
-    opacity:1;
-  }
   50%{
-    opacity:.4;
+    transform:scale(1.5);
+    opacity:.5;
   }
 }
 
-/* floating hearts */
+/* Floating hearts */
 
-.floating-heart{
+.heart{
   position:absolute;
   bottom:-30px;
-  font-size:20px;
+  font-size:18px;
   opacity:0;
-  animation:floatHeart linear infinite;
+  animation:heartFloat 6s linear infinite;
   pointer-events:none;
 }
 
-@keyframes floatHeart{
+.h1{left:10%;animation-delay:0s}
+.h2{left:25%;animation-delay:2s}
+.h3{left:72%;animation-delay:1s}
+.h4{left:88%;animation-delay:3s}
+.h5{left:48%;animation-delay:4s}
+
+@keyframes heartFloat{
   0%{
-    transform:translateY(0) scale(.7) rotate(0);
+    transform:translateY(0) scale(.6) rotate(0);
     opacity:0;
   }
   15%{
     opacity:.7;
   }
   80%{
-    opacity:.35;
+    opacity:.3;
   }
   100%{
-    transform:translateY(-520px) scale(1.2) rotate(25deg);
+    transform:translateY(-330px) scale(1.2) rotate(25deg);
     opacity:0;
   }
 }
 
-.h1{
-  animation-duration:7s;
-  left:10%;
+/* Feature cards */
+
+.feature-grid{
+  max-width:700px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
 }
 
-.h2{
-  animation-duration:9s;
-  left:28%;
-  animation-delay:2s;
+.feature{
+  padding:20px;
+  min-height:125px;
+  transition:.3s;
 }
 
-.h3{
-  animation-duration:8s;
-  left:55%;
-  animation-delay:1s;
+.feature:active{
+  transform:scale(.97);
 }
 
-.h4{
-  animation-duration:10s;
-  left:80%;
-  animation-delay:3s;
+.feature-icon{
+  font-size:28px;
+  margin-bottom:12px;
 }
 
-.h5{
-  animation-duration:7.5s;
-  left:68%;
-  animation-delay:4s;
+.feature h3{
+  margin:0 0 6px;
+  font-size:16px;
 }
 
-.home-sub{
-  margin-top:25px;
-  padding:0 25px;
-  color:#aaa9b8;
-  font-size:14px;
-  line-height:1.7;
-  position:relative;
-  z-index:2;
+.feature p{
+  margin:0;
+  color:#999;
+  font-size:12px;
+  line-height:1.5;
 }
 
-/* ================= CARDS ================= */
+/* Friends */
 
-.card{
-  padding:18px;
-  margin-top:16px;
-  border:1px solid var(--border);
-  border-radius:22px;
-  background:var(--card);
-  backdrop-filter:blur(20px);
-  box-shadow:0 15px 45px rgba(0,0,0,.18);
-  transition:.25s;
+.section{
+  max-width:700px;
+  margin:0 auto;
 }
 
-.card:active{
-  transform:scale(.985);
+.section-title{
+  font-size:23px;
+  margin:10px 0 16px;
 }
-
-.card-title{
-  font-weight:800;
-  margin-bottom:5px;
-}
-
-.card-text{
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.6;
-}
-
-/* ================= FRIENDS ================= */
 
 .search-row{
   display:flex;
   gap:8px;
+  margin-bottom:16px;
 }
 
 .search-row .input{
+  margin:0;
+}
+
+.search-btn{
+  width:52px;
+  border-radius:15px;
+  color:#fff;
+  background:linear-gradient(135deg,#ff3d78,#8b5cf6);
+}
+
+.user-card,
+.friend-card{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:14px;
+  margin-bottom:10px;
+}
+
+.avatar{
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  object-fit:cover;
+  flex-shrink:0;
+}
+
+.user-info{
   flex:1;
+  min-width:0;
+}
+
+.user-info strong{
+  display:block;
+  font-size:15px;
+}
+
+.user-info span{
+  display:block;
+  color:#999;
+  font-size:12px;
+  margin-top:4px;
 }
 
 .small-btn{
-  padding:0 16px;
-  border-radius:15px;
-  color:white;
+  padding:9px 12px;
+  border-radius:12px;
+  color:#fff;
   background:linear-gradient(135deg,#ff3d78,#8b5cf6);
-  font-weight:700;
+  font-size:12px;
 }
 
-.friend{
+.danger-btn{
+  background:rgba(239,68,68,.12);
+  color:#ff8a8a;
+}
+
+/* Chat */
+
+.chat-wrap{
+  max-width:700px;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  min-height:calc(100vh - 120px);
+}
+
+.chat-header{
   display:flex;
   align-items:center;
   gap:12px;
-  padding:14px 0;
-  border-bottom:1px solid rgba(255,255,255,.07);
+  padding:12px;
+  margin-bottom:12px;
 }
 
-.friend:last-child{
-  border-bottom:0;
-}
-
-.friend-avatar{
-  width:48px;
-  height:48px;
-  border-radius:50%;
-  object-fit:cover;
-  background:#20202b;
-}
-
-.friend-info{
-  flex:1;
-}
-
-.friend-name{
-  font-weight:700;
-}
-
-.friend-user{
-  color:#9694a4;
-  font-size:12px;
-  margin-top:3px;
-}
-
-.friend-action{
-  padding:9px 12px;
-  border-radius:12px;
-  color:white;
-  background:rgba(255,61,120,.16);
-  border:1px solid rgba(255,61,120,.25);
-}
-
-/* ================= CHAT ================= */
-
-.chat-head{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-bottom:15px;
-}
-
-.chat-avatar{
-  width:43px;
-  height:43px;
-  border-radius:50%;
-  object-fit:cover;
-}
-
-.chat-info{
-  flex:1;
-}
-
-.chat-name{
-  font-weight:700;
-}
-
-.chat-user{
-  color:#9997a7;
-  font-size:11px;
+.chat-header .avatar{
+  width:45px;
+  height:45px;
 }
 
 .chat-actions{
+  margin-left:auto;
   display:flex;
   gap:6px;
 }
 
+.chat-actions button{
+  width:40px;
+  height:40px;
+  border-radius:13px;
+  color:#fff;
+  background:rgba(255,255,255,.07);
+}
+
 .messages{
-  min-height:55vh;
-  max-height:62vh;
+  flex:1;
   overflow-y:auto;
-  padding:8px 2px;
+  padding:10px 3px 15px;
 }
 
 .msg{
   max-width:78%;
-  margin:8px 0;
   padding:11px 14px;
   border-radius:18px;
-  line-height:1.5;
+  margin:7px 0;
   font-size:14px;
+  line-height:1.5;
+  word-break:break-word;
 }
 
 .msg.me{
@@ -649,143 +604,257 @@ button{
   border-bottom-right-radius:5px;
 }
 
-.msg.them{
+.msg.other{
   margin-right:auto;
   background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.07);
   border-bottom-left-radius:5px;
 }
 
-.chat-input{
-  position:fixed;
-  bottom:75px;
-  left:50%;
-  transform:translateX(-50%);
-  width:calc(100% - 30px);
-  max-width:590px;
+.chat-input-row{
   display:flex;
   gap:8px;
-  padding:8px;
-  border:1px solid var(--border);
+  padding:10px;
   border-radius:20px;
-  background:rgba(15,15,24,.88);
-  backdrop-filter:blur(20px);
-  z-index:50;
+  background:rgba(255,255,255,.06);
+  backdrop-filter:blur(15px);
 }
 
-.chat-input input{
+.chat-input{
   flex:1;
-  border:0;
-  outline:0;
-  color:white;
   background:transparent;
-  padding:8px;
+  border:0;
+  outline:none;
+  color:#fff;
+  padding:10px;
 }
 
 .send-btn{
-  width:42px;
-  height:42px;
-  border-radius:14px;
-  color:white;
+  width:48px;
+  height:48px;
+  border-radius:15px;
   background:linear-gradient(135deg,#ff3d78,#8b5cf6);
+  color:#fff;
 }
 
-/* ================= PROFILE ================= */
+/* Profile */
 
 .profile-card{
+  max-width:600px;
+  margin:auto;
+  padding:25px;
+}
+
+.profile-center{
   text-align:center;
+  margin-bottom:25px;
 }
 
 .profile-big{
-  width:115px;
-  height:115px;
+  width:110px;
+  height:110px;
   border-radius:50%;
   object-fit:cover;
-  border:4px solid rgba(255,255,255,.9);
-  margin:10px auto 15px;
+  border:3px solid rgba(255,61,120,.5);
   box-shadow:0 0 35px rgba(255,61,120,.25);
 }
 
-.profile-title{
-  font-size:24px;
-  font-weight:800;
+.profile-center h2{
+  margin:13px 0 5px;
 }
 
-.profile-username{
-  color:#9997a7;
-  margin-top:4px;
+.profile-center p{
+  color:#999;
+  margin:0;
 }
 
-/* ================= BOTTOM NAV ================= */
+.label{
+  display:block;
+  color:#aaa;
+  font-size:13px;
+  margin:12px 0 7px;
+}
+
+/* Bottom nav */
 
 .bottom-nav{
   position:fixed;
-  bottom:10px;
+  z-index:50;
   left:50%;
+  bottom:12px;
   transform:translateX(-50%);
   width:calc(100% - 24px);
-  max-width:620px;
-  height:62px;
+  max-width:650px;
+  height:66px;
+  padding:7px;
   display:flex;
-  align-items:center;
-  justify-content:space-around;
-  padding:5px;
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:23px;
-  background:rgba(15,15,24,.84);
-  backdrop-filter:blur(25px);
-  box-shadow:0 15px 45px rgba(0,0,0,.4);
-  z-index:100;
+  gap:5px;
+  border-radius:22px;
+  background:rgba(15,15,24,.88);
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  box-shadow:0 15px 50px rgba(0,0,0,.45);
 }
 
 .nav-btn{
   flex:1;
-  height:50px;
   border-radius:17px;
-  color:#777585;
+  color:#888;
   background:transparent;
+  font-size:11px;
   transition:.25s;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:2px;
-  font-size:10px;
 }
 
-.nav-btn .nav-icon{
-  font-size:20px;
+.nav-btn span{
+  display:block;
+  font-size:21px;
+  margin-bottom:2px;
 }
 
 .nav-btn.active{
-  color:white;
+  color:#fff;
   background:linear-gradient(
     135deg,
-    rgba(255,61,120,.22),
-    rgba(139,92,246,.22)
+    rgba(255,61,120,.25),
+    rgba(139,92,246,.25)
   );
 }
 
-/* ================= TOAST ================= */
+/* Modal */
+
+.modal{
+  display:none;
+  position:fixed;
+  z-index:100;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-card{
+  width:100%;
+  max-width:390px;
+  padding:28px;
+  text-align:center;
+}
+
+.call-avatar{
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid #ff3d78;
+  animation:callPulse 1.5s infinite;
+}
+
+@keyframes callPulse{
+  50%{
+    box-shadow:0 0 0 15px rgba(255,61,120,.08);
+  }
+}
+
+.call-buttons{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin-top:22px;
+}
+
+.call-btn{
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  color:#fff;
+  font-size:22px;
+}
+
+.accept{
+  background:#22c55e;
+}
+
+.reject{
+  background:#ef4444;
+}
+
+/* Call screen */
+
+.call-screen{
+  display:none;
+  position:fixed;
+  z-index:200;
+  inset:0;
+  background:#050509;
+}
+
+.call-screen.show{
+  display:block;
+}
+
+#remoteVideo{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  background:#050509;
+}
+
+#localVideo{
+  position:absolute;
+  right:15px;
+  top:15px;
+  width:110px;
+  height:155px;
+  object-fit:cover;
+  border-radius:17px;
+  border:1px solid rgba(255,255,255,.2);
+  background:#111;
+}
+
+.call-control{
+  position:absolute;
+  left:50%;
+  bottom:35px;
+  transform:translateX(-50%);
+  display:flex;
+  gap:13px;
+}
+
+.call-control button{
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  color:#fff;
+  background:rgba(255,255,255,.12);
+  backdrop-filter:blur(10px);
+}
+
+.call-control .end{
+  background:#ef4444;
+}
+
+/* Toast */
 
 .toast{
   position:fixed;
+  z-index:500;
   left:50%;
-  bottom:90px;
+  bottom:92px;
   transform:translate(-50%,20px);
-  min-width:220px;
-  max-width:90%;
-  padding:12px 16px;
-  border:1px solid var(--border);
-  border-radius:15px;
-  color:white;
-  background:rgba(25,25,35,.95);
-  backdrop-filter:blur(20px);
-  text-align:center;
+  background:rgba(20,20,30,.95);
+  border:1px solid rgba(255,255,255,.1);
+  padding:12px 17px;
+  border-radius:14px;
+  color:#fff;
+  font-size:13px;
   opacity:0;
   pointer-events:none;
   transition:.3s;
-  z-index:999;
+  white-space:nowrap;
 }
 
 .toast.show{
@@ -793,165 +862,35 @@ button{
   transform:translate(-50%,0);
 }
 
-/* ================= CALL MODAL ================= */
+/* Empty */
 
-.modal{
-  position:fixed;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:rgba(0,0,0,.72);
-  backdrop-filter:blur(15px);
-  z-index:500;
-}
-
-.modal-card{
-  width:100%;
-  max-width:360px;
-  padding:28px 20px;
-  border:1px solid var(--border);
-  border-radius:28px;
-  background:#14141f;
+.empty{
   text-align:center;
-  box-shadow:0 30px 90px rgba(0,0,0,.55);
-  animation:cardIn .35s ease;
+  padding:45px 20px;
+  color:#888;
 }
 
-.modal-avatar{
-  width:90px;
-  height:90px;
-  border-radius:50%;
-  object-fit:cover;
-  margin-bottom:14px;
+.empty-icon{
+  font-size:45px;
+  margin-bottom:10px;
 }
 
-.modal-name{
-  font-size:22px;
-  font-weight:800;
-}
-
-.modal-type{
-  color:#9997a7;
-  margin-top:5px;
-  font-size:13px;
-}
-
-.modal-actions{
-  display:flex;
-  gap:10px;
-  margin-top:24px;
-}
-
-.accept-btn,
-.reject-btn{
-  flex:1;
-  padding:13px;
-  border-radius:15px;
-  color:white;
-  font-weight:700;
-}
-
-.accept-btn{
-  background:#22c55e;
-}
-
-.reject-btn{
-  background:#ef4444;
-}
-
-/* ================= CALL SCREEN ================= */
-
-.call-screen{
-  position:fixed;
-  inset:0;
-  background:#050509;
-  z-index:1000;
-  display:flex;
-  flex-direction:column;
-}
-
-.remote-video{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  background:#101018;
-}
-
-.local-video{
-  position:absolute;
-  right:15px;
-  top:15px;
-  width:105px;
-  height:145px;
-  object-fit:cover;
-  border-radius:18px;
-  border:2px solid rgba(255,255,255,.3);
-  background:#111;
-}
-
-.call-top{
-  position:absolute;
-  top:20px;
-  left:20px;
-  right:20px;
-  display:flex;
-  justify-content:space-between;
-  z-index:2;
-}
-
-.call-label{
-  padding:9px 13px;
-  border-radius:50px;
-  background:rgba(0,0,0,.4);
-  backdrop-filter:blur(10px);
-  font-size:12px;
-}
-
-.call-controls{
-  position:absolute;
-  bottom:30px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  gap:13px;
-  z-index:2;
-}
-
-.call-control{
-  width:55px;
-  height:55px;
-  border-radius:50%;
-  color:white;
-  background:rgba(255,255,255,.13);
-  backdrop-filter:blur(15px);
-  font-size:20px;
-}
-
-.call-control.end{
-  background:#ef4444;
-}
-
-/* ================= RESPONSIVE ================= */
-
-@media(max-width:380px){
-  .home-hero{
-    min-height:470px;
-  }
-
-  .home-profile-photo{
-    width:110px;
-    height:110px;
-  }
-
-  .profile-glow{
-    width:127px;
-    height:127px;
+@media(max-width:420px){
+  .page{
+    padding:15px;
+    padding-bottom:95px;
   }
 
   .home-name{
     font-size:25px;
+  }
+
+  .feature{
+    padding:16px;
+  }
+
+  .feature-grid{
+    gap:9px;
   }
 }
 </style>
@@ -959,403 +898,524 @@ button{
 
 <body>
 
-<div class="bg-orb orb1"></div>
-<div class="bg-orb orb2"></div>
-<div class="bg-orb orb3"></div>
+<div class="bg">
+  <div class="orb one"></div>
+  <div class="orb two"></div>
+  <div class="orb three"></div>
+</div>
 
-<!-- ================= LOGIN ================= -->
+<!-- LOGIN -->
+<section id="loginPage" class="page active">
+  <div class="auth">
+    <div class="auth-card card">
 
-<section id="loginPage" class="auth">
-  <div class="auth-card">
+      <div class="logo">❤️</div>
 
-    <div class="logo">
-      <div class="logo-heart">❤️</div>
-      <h1>দুজন</h1>
-      <p>দুজনের জন্য ছোট্ট একটা পৃথিবী</p>
-    </div>
+      <h1 class="auth-title">দুজন</h1>
 
-    <div class="field">
-      <label>মোবাইল নাম্বার</label>
+      <p class="auth-sub">
+        শুধু তোমাদের দুজনের জন্য<br>
+        ভালোবাসার ছোট্ট একটা জায়গা।
+      </p>
+
       <input
         id="loginPhone"
         class="input"
         type="tel"
-        placeholder="01XXXXXXXXX">
-    </div>
+        placeholder="মোবাইল নাম্বার"
+      >
 
-    <div class="field">
-      <label>PIN</label>
       <input
         id="loginPin"
         class="input"
         type="password"
-        placeholder="PIN লিখুন">
+        inputmode="numeric"
+        placeholder="PIN"
+      >
+
+      <button class="primary" onclick="login()">
+        প্রবেশ করুন ❤️
+      </button>
+
+      <div class="switch">
+        নতুন এখানে?
+        <span onclick="showPage('registerPage')">
+          একাউন্ট তৈরি করুন
+        </span>
+      </div>
+
     </div>
-
-    <button class="primary-btn" onclick="login()">
-      লগইন ❤️
-    </button>
-
-    <div class="switch">
-      একাউন্ট নেই?
-      <span onclick="showPage('registerPage')">
-        নতুন একাউন্ট
-      </span>
-    </div>
-
   </div>
 </section>
 
-<!-- ================= REGISTER ================= -->
+<!-- REGISTER -->
+<section id="registerPage" class="page">
+  <div class="auth">
+    <div class="auth-card card">
 
-<section id="registerPage" class="auth hidden">
-  <div class="auth-card">
+      <div class="logo">💞</div>
 
-    <div class="logo">
-      <div class="logo-heart">💞</div>
-      <h1>নতুন একাউন্ট</h1>
-      <p>তোমাদের গল্প এখান থেকেই শুরু হোক</p>
-    </div>
+      <h1 class="auth-title">নতুন একাউন্ট</h1>
 
-    <div class="field">
-      <label>নাম</label>
+      <p class="auth-sub">
+        দুজনের গল্পটা এখান থেকেই শুরু হোক।
+      </p>
+
       <input
         id="registerName"
         class="input"
         type="text"
-        placeholder="আপনার নাম">
-    </div>
+        placeholder="আপনার নাম"
+      >
 
-    <div class="field">
-      <label>Username</label>
       <input
         id="registerUsername"
         class="input"
         type="text"
-        placeholder="username">
-    </div>
+        placeholder="Username"
+      >
 
-    <div class="field">
-      <label>মোবাইল নাম্বার</label>
       <input
         id="registerPhone"
         class="input"
         type="tel"
-        placeholder="01XXXXXXXXX">
-    </div>
+        placeholder="মোবাইল নাম্বার"
+      >
 
-    <div class="field">
-      <label>PIN</label>
       <input
         id="registerPin"
         class="input"
         type="password"
-        placeholder="একটি PIN দিন">
+        inputmode="numeric"
+        placeholder="৪-৬ সংখ্যার PIN"
+      >
+
+      <button class="primary" onclick="register()">
+        একাউন্ট তৈরি করুন 💗
+      </button>
+
+      <button
+        class="secondary"
+        onclick="showPage('loginPage')"
+      >
+        Login
+      </button>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOME -->
+<section id="homePage" class="page">
+
+  <div class="topbar">
+    <div class="top-title">Home</div>
+
+    <button
+      class="icon-btn"
+      onclick="showPage('profilePage')"
+    >
+      ⚙️
+    </button>
+  </div>
+
+  <div class="home-hero card">
+
+    <div class="heart h1">❤️</div>
+    <div class="heart h2">💗</div>
+    <div class="heart h3">💕</div>
+    <div class="heart h4">💖</div>
+    <div class="heart h5">💞</div>
+
+    <div class="profile-orbit">
+
+      <img
+        id="homeProfilePhoto"
+        class="home-profile-photo"
+        src=""
+        alt="Profile"
+      >
+
+      <div class="verified-dot">♥</div>
+
     </div>
 
-    <button class="primary-btn" onclick="register()">
-      একাউন্ট তৈরি করুন ❤️
-    </button>
+    <h2
+      id="homeName"
+      class="home-name"
+    >
+      আমি
+    </h2>
 
-    <div class="switch">
-      আগে থেকেই একাউন্ট আছে?
-      <span onclick="showPage('loginPage')">
-        লগইন
+    <div
+      id="homeUsername"
+      class="home-username"
+    >
+      @username
+    </div>
+
+    <p class="home-caption">
+      তোমার নিজের একটা ছোট্ট জায়গা,
+      যেখানে কথা, অনুভূতি আর স্মৃতিগুলো
+      একসাথে থাকবে। ❤️
+    </p>
+
+    <div class="online-pill">
+      <span class="online-dot"></span>
+      <span id="presenceText">
+        Connection ready
       </span>
     </div>
 
   </div>
-</section>
 
-<!-- ================= HOME ================= -->
+  <div class="feature-grid">
 
-<section id="homePage" class="page hidden">
-  <div class="container">
-
-    <div class="topbar">
-      <div class="topbar-title">Home</div>
-      <button class="icon-btn" onclick="showPage('profilePage')">
-        ⚙️
-      </button>
+    <div
+      class="feature card"
+      onclick="showPage('friendsPage')"
+    >
+      <div class="feature-icon">👥</div>
+      <h3>Friends</h3>
+      <p>
+        বন্ধু খুঁজুন এবং connection তৈরি করুন।
+      </p>
     </div>
 
-    <div class="home-hero">
-
-      <div class="floating-heart h1">❤️</div>
-      <div class="floating-heart h2">💗</div>
-      <div class="floating-heart h3">💕</div>
-      <div class="floating-heart h4">💖</div>
-      <div class="floating-heart h5">❤️</div>
-
-      <div class="identity-wrap">
-
-        <div class="profile-glow">
-          <img
-            id="homeProfilePhoto"
-            class="home-profile-photo"
-            src=""
-            alt="Profile">
-        </div>
-
-        <div id="homeName" class="home-name">
-          আমি
-        </div>
-
-        <div id="homeUsername" class="home-username">
-          @username
-        </div>
-
-        <div class="connection">
-          <span class="online-dot"></span>
-          <span id="presenceText">
-            দুজনের connection ready
-          </span>
-        </div>
-
-      </div>
-
-      <div class="home-sub">
-        তোমাদের কথা, স্মৃতি, অনুভূতি আর ভালোবাসা—
-        সবকিছু এক জায়গায়। ❤️
-      </div>
-
+    <div
+      class="feature card"
+      onclick="showPage('profilePage')"
+    >
+      <div class="feature-icon">💗</div>
+      <h3>My Profile</h3>
+      <p>
+        নাম ও profile information আপডেট করুন।
+      </p>
     </div>
 
-    <div class="card">
-      <div class="card-title">
-        তোমাদের ছোট্ট পৃথিবী 💕
-      </div>
-      <div class="card-text">
-        বন্ধুদের সাথে যুক্ত হও, কথা বলো,
-        মেসেজ পাঠাও এবং সরাসরি অডিও/ভিডিও কলে কথা বলো।
-      </div>
+    <div
+      class="feature card"
+      onclick="showPage('friendsPage')"
+    >
+      <div class="feature-icon">💬</div>
+      <h3>Private Chat</h3>
+      <p>
+        নিজের মানুষটির সাথে সরাসরি কথা বলুন।
+      </p>
+    </div>
+
+    <div
+      class="feature card"
+      onclick="showPage('couplePage')"
+    >
+      <div class="feature-icon">🥰</div>
+      <h3>Our Space</h3>
+      <p>
+        দুজনের জন্য আরও সুন্দর স্মৃতি।
+      </p>
     </div>
 
   </div>
+
 </section>
 
-<!-- ================= FRIENDS ================= -->
+<!-- FRIENDS -->
+<section id="friendsPage" class="page">
 
-<section id="friendsPage" class="page hidden">
-  <div class="container">
-
-    <div class="topbar">
-      <div class="topbar-title">Friends ❤️</div>
-    </div>
-
-    <div class="card">
-
-      <div class="search-row">
-        <input
-          id="searchInput"
-          class="input"
-          placeholder="@username">
-        <button class="small-btn" onclick="searchUser()">
-          খুঁজুন
-        </button>
-      </div>
-
-      <div id="searchResult"></div>
-
-    </div>
-
-    <div class="card">
-      <div class="card-title">আমার Friends</div>
-      <div id="friendsList"></div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">Friend Requests</div>
-      <div id="requestsList"></div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ================= CHAT ================= -->
-
-<section id="chatPage" class="page hidden">
-
-  <div class="container">
-
-    <div class="chat-head">
-
-      <button class="icon-btn" onclick="showPage('friendsPage')">
-        ←
-      </button>
-
-      <img
-        id="chatAvatar"
-        class="chat-avatar"
-        src="">
-
-      <div class="chat-info">
-        <div id="chatName" class="chat-name">
-          Chat
-        </div>
-        <div id="chatUsername" class="chat-user">
-          @username
-        </div>
-      </div>
-
-      <div class="chat-actions">
-        <button
-          class="icon-btn"
-          onclick="makeCall('audio')">
-          📞
-        </button>
-
-        <button
-          class="icon-btn"
-          onclick="makeCall('video')">
-          📹
-        </button>
-      </div>
-
-    </div>
-
-    <div id="messages" class="messages"></div>
-
-  </div>
-
-  <div class="chat-input">
-    <input
-      id="messageInput"
-      placeholder="একটা মেসেজ লিখুন..."
-      onkeydown="if(event.key==='Enter')sendMessage()">
+  <div class="topbar">
+    <div class="top-title">Friends</div>
 
     <button
-      class="send-btn"
-      onclick="sendMessage()">
-      ➤
+      class="icon-btn"
+      onclick="showPage('homePage')"
+    >
+      🏠
     </button>
   </div>
 
-</section>
+  <div class="section">
 
-<!-- ================= PROFILE ================= -->
+    <div class="search-row">
 
-<section id="profilePage" class="page hidden">
-  <div class="container">
+      <input
+        id="friendSearch"
+        class="input"
+        placeholder="Username / Phone"
+        onkeydown="if(event.key==='Enter')searchUser()"
+      >
 
-    <div class="topbar">
-      <button class="icon-btn" onclick="showPage('homePage')">
-        ←
+      <button
+        class="search-btn"
+        onclick="searchUser()"
+      >
+        🔍
       </button>
 
-      <div class="topbar-title">
-        Profile
-      </div>
-
-      <button class="icon-btn" onclick="logout()">
-        🚪
-      </button>
     </div>
 
-    <div class="card profile-card">
+    <div id="searchResults"></div>
+
+    <h2 class="section-title">
+      My Friends ❤️
+    </h2>
+
+    <div id="friendsList"></div>
+
+  </div>
+
+</section>
+
+<!-- CHAT -->
+<section id="chatPage" class="page">
+
+  <div class="chat-wrap">
+
+    <div class="chat-header card">
+
+      <button
+        class="icon-btn"
+        onclick="showPage('friendsPage')"
+      >
+        ‹
+      </button>
+
+      <img
+        id="chatPhoto"
+        class="avatar"
+        src=""
+        alt=""
+      >
+
+      <div class="user-info">
+        <strong id="chatName">Chat</strong>
+        <span id="chatUsername">@username</span>
+      </div>
+
+      <div class="chat-actions">
+
+        <button onclick="makeCall('audio')">
+          📞
+        </button>
+
+        <button onclick="makeCall('video')">
+          📹
+        </button>
+
+      </div>
+
+    </div>
+
+    <div
+      id="messages"
+      class="messages"
+    ></div>
+
+    <div class="chat-input-row">
+
+      <input
+        id="messageInput"
+        class="chat-input"
+        placeholder="একটা মেসেজ লিখুন..."
+        onkeydown="if(event.key==='Enter')sendMessage()"
+      >
+
+      <button
+        class="send-btn"
+        onclick="sendMessage()"
+      >
+        ➤
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- COUPLE -->
+<section id="couplePage" class="page">
+
+  <div class="topbar">
+    <div class="top-title">Our Space ❤️</div>
+
+    <button
+      class="icon-btn"
+      onclick="showPage('homePage')"
+    >
+      🏠
+    </button>
+  </div>
+
+  <div class="section">
+
+    <div class="card" style="padding:25px;text-align:center">
+
+      <div style="font-size:55px">
+        🥰
+      </div>
+
+      <h2>
+        শুধু দুজনের জন্য
+      </h2>
+
+      <p style="color:#999;line-height:1.7">
+        এখানে তোমাদের ভালোবাসার
+        গল্প, স্মৃতি আর বিশেষ মুহূর্তগুলো
+        ধীরে ধীরে সাজানো যাবে।
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- PROFILE -->
+<section id="profilePage" class="page">
+
+  <div class="topbar">
+    <div class="top-title">My Profile</div>
+
+    <button
+      class="icon-btn"
+      onclick="showPage('homePage')"
+    >
+      🏠
+    </button>
+  </div>
+
+  <div class="profile-card card">
+
+    <div class="profile-center">
 
       <img
         id="profilePhoto"
         class="profile-big"
-        src="">
+        src=""
+        alt="Profile"
+      >
 
-      <div id="profileTitle" class="profile-title">
+      <h2 id="profileTitle">
         আমি
-      </div>
+      </h2>
 
-      <div id="profileUsername" class="profile-username">
+      <p id="profileUsername">
         @username
-      </div>
+      </p>
 
     </div>
 
-    <div class="card">
+    <label class="label">
+      নাম
+    </label>
 
-      <div class="field">
-        <label>নাম</label>
+    <input
+      id="profileName"
+      class="input"
+      placeholder="আপনার নাম"
+    >
 
-        <input
-          id="profileName"
-          class="input"
-          type="text"
-          placeholder="আপনার নাম">
-      </div>
+    <button
+      class="primary"
+      onclick="saveProfile()"
+    >
+      Profile Save ❤️
+    </button>
 
-      <button
-        class="primary-btn"
-        onclick="saveProfile()">
-        Profile Save ❤️
-      </button>
-
-    </div>
+    <button
+      class="secondary"
+      onclick="logout()"
+    >
+      Logout
+    </button>
 
   </div>
+
 </section>
 
-<!-- ================= NAV ================= -->
-
-<nav id="bottomNav" class="bottom-nav hidden">
+<!-- BOTTOM NAV -->
+<nav
+  id="bottomNav"
+  class="bottom-nav"
+>
 
   <button
     id="navHome"
     class="nav-btn active"
-    onclick="showPage('homePage')">
-    <span class="nav-icon">🏠</span>
+    onclick="showPage('homePage')"
+  >
+    <span>🏠</span>
     Home
   </button>
 
   <button
     id="navFriends"
     class="nav-btn"
-    onclick="showPage('friendsPage')">
-    <span class="nav-icon">👥</span>
+    onclick="showPage('friendsPage')"
+  >
+    <span>👥</span>
     Friends
+  </button>
+
+  <button
+    id="navCouple"
+    class="nav-btn"
+    onclick="showPage('couplePage')"
+  >
+    <span>❤️</span>
+    Us
   </button>
 
   <button
     id="navProfile"
     class="nav-btn"
-    onclick="showPage('profilePage')">
-    <span class="nav-icon">👤</span>
+    onclick="showPage('profilePage')"
+  >
+    <span>👤</span>
     Profile
   </button>
 
 </nav>
 
-<!-- ================= INCOMING CALL ================= -->
+<!-- INCOMING CALL -->
+<div
+  id="incomingModal"
+  class="modal"
+>
 
-<div id="callModal" class="modal hidden">
-
-  <div class="modal-card">
+  <div class="modal-card card">
 
     <img
-      id="callerAvatar"
-      class="modal-avatar"
-      src="">
+      id="incomingPhoto"
+      class="call-avatar"
+      src=""
+      alt=""
+    >
 
-    <div
-      id="callerName"
-      class="modal-name">
+    <h2 id="incomingName">
       Incoming Call
-    </div>
+    </h2>
 
-    <div
-      id="callerType"
-      class="modal-type">
-      আপনাকে কল করছে
-    </div>
+    <p
+      id="incomingType"
+      style="color:#999"
+    >
+      আপনাকে কল করা হচ্ছে...
+    </p>
 
-    <div class="modal-actions">
+    <div class="call-buttons">
 
       <button
-        class="reject-btn"
-        onclick="rejectCall()">
+        class="call-btn reject"
+        onclick="rejectCall()"
+      >
         ✕
       </button>
 
       <button
-        class="accept-btn"
-        onclick="acceptCall()">
+        class="call-btn accept"
+        onclick="acceptCall()"
+      >
         ✓
       </button>
 
@@ -1365,60 +1425,39 @@ button{
 
 </div>
 
-<!-- ================= CALL SCREEN ================= -->
-
-<div id="callScreen" class="call-screen hidden">
+<!-- CALL SCREEN -->
+<div
+  id="callScreen"
+  class="call-screen"
+>
 
   <video
     id="remoteVideo"
-    class="remote-video"
     autoplay
-    playsinline>
-  </video>
+    playsinline
+  ></video>
 
   <video
     id="localVideo"
-    class="local-video"
     autoplay
     muted
-    playsinline>
-  </video>
+    playsinline
+  ></video>
 
-  <div class="call-top">
+  <div class="call-control">
 
-    <div
-      id="callPeerName"
-      class="call-label">
-      Call
-    </div>
-
-    <div
-      id="callStatus"
-      class="call-label">
-      Connecting...
-    </div>
-
-  </div>
-
-  <div class="call-controls">
-
-    <button
-      id="micBtn"
-      class="call-control"
-      onclick="toggleMic()">
-      🎙️
+    <button onclick="toggleMic()" id="micBtn">
+      🎤
     </button>
 
-    <button
-      id="cameraBtn"
-      class="call-control"
-      onclick="toggleCamera()">
+    <button onclick="toggleCamera()" id="cameraBtn">
       📹
     </button>
 
     <button
-      class="call-control end"
-      onclick="endCall()">
+      class="end"
+      onclick="endCall()"
+    >
       ☎
     </button>
 
@@ -1426,29 +1465,30 @@ button{
 
 </div>
 
-<div id="toast" class="toast"></div>
+<div
+  id="toast"
+  class="toast"
+></div>
 
 <script>
 
-/* =====================================================
-   SERVER
-===================================================== */
+const API_URL =
+  "https://dujon-app1.onrender.com";
 
-const API_URL = "https://dujon-app1.onrender.com";
-const WS_URL  = "wss://dujon-app1.onrender.com";
-
-/* =====================================================
-   STATE
-===================================================== */
+const WS_URL =
+  "wss://dujon-app1.onrender.com";
 
 let ws = null;
+
 let peerConnection = null;
 let localStream = null;
 
 let currentCallType = "video";
+
 let pendingOffer = null;
 
 let currentRoom = null;
+
 let currentPage = "loginPage";
 
 let currentChatUsername = "";
@@ -1462,6 +1502,7 @@ let micEnabled = true;
 let cameraEnabled = true;
 
 const ICE_SERVERS = {
+
   iceServers:[
     {
       urls:"stun:stun.l.google.com:19302"
@@ -1470,45 +1511,87 @@ const ICE_SERVERS = {
       urls:"stun:stun1.l.google.com:19302"
     }
   ]
+
 };
 
-/* =====================================================
+/* =========================
    HELPERS
-===================================================== */
+========================= */
+
+function $(id){
+  return document.getElementById(id);
+}
+
+function toast(message){
+
+  const el = $("toast");
+
+  if(!el)return;
+
+  el.textContent = message;
+
+  el.classList.add("show");
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer =
+    setTimeout(()=>{
+      el.classList.remove("show");
+    },2500);
+
+}
 
 function getAccount(){
+
   try{
+
     return JSON.parse(
-      localStorage.getItem("dujon_account") || "null"
+      localStorage.getItem(
+        "dujon_account"
+      ) || "null"
     );
+
   }catch{
+
     return null;
+
   }
+
 }
 
 function getProfile(){
+
   try{
+
     return JSON.parse(
-      localStorage.getItem("dujon_profile") || "null"
+      localStorage.getItem(
+        "dujon_profile"
+      ) || "null"
     ) || {};
+
   }catch{
+
     return {};
+
   }
+
 }
 
 function saveLocalProfile(profile){
+
   localStorage.setItem(
     "dujon_profile",
     JSON.stringify(profile)
   );
+
 }
 
 function avatarData(text){
 
   const letter =
     String(text || "❤️")
-    .charAt(0)
-    .toUpperCase();
+      .charAt(0)
+      .toUpperCase();
 
   const svg = `
   <svg xmlns="http://www.w3.org/2000/svg"
@@ -1516,28 +1599,35 @@ function avatarData(text){
        height="120">
 
     <defs>
-      <linearGradient id="g"
+
+      <linearGradient
+        id="g"
         x1="0"
         x2="1"
         y1="0"
-        y2="1">
+        y2="1"
+      >
 
         <stop
           offset="0"
-          stop-color="#ff3d78"/>
+          stop-color="#ff3d78"
+        />
 
         <stop
           offset="1"
-          stop-color="#8b5cf6"/>
+          stop-color="#8b5cf6"
+        />
 
       </linearGradient>
+
     </defs>
 
     <rect
       width="120"
       height="120"
       rx="60"
-      fill="url(#g)"/>
+      fill="url(#g)"
+    />
 
     <text
       x="60"
@@ -1545,70 +1635,56 @@ function avatarData(text){
       text-anchor="middle"
       font-size="48"
       fill="white"
-      font-family="Arial">
+      font-family="Arial"
+    >
       ${letter}
     </text>
 
-  </svg>`;
+  </svg>
+  `;
 
-  return "data:image/svg+xml;charset=UTF-8,"+
-    encodeURIComponent(svg);
+  return (
+    "data:image/svg+xml;charset=UTF-8," +
+    encodeURIComponent(svg)
+  );
+
 }
 
-/* =====================================================
-   TOAST
-===================================================== */
-
-let toastTimer;
-
-function toast(message){
-
-  const el =
-    document.getElementById("toast");
-
-  el.textContent = message;
-
-  el.classList.add("show");
-
-  clearTimeout(toastTimer);
-
-  toastTimer = setTimeout(()=>{
-    el.classList.remove("show");
-  },2500);
-}
-
-/* =====================================================
+/* =========================
    PAGE
-===================================================== */
+========================= */
 
-function showPage(id){
+function showPage(pageId){
 
   document
-    .querySelectorAll(".page,.auth")
-    .forEach(el=>{
-      el.classList.add("hidden");
+    .querySelectorAll(".page")
+    .forEach(page=>{
+      page.classList.remove("active");
     });
 
-  const page =
-    document.getElementById(id);
+  const page = $(pageId);
 
   if(page){
-    page.classList.remove("hidden");
+    page.classList.add("active");
   }
 
-  currentPage = id;
+  currentPage = pageId;
 
   const nav =
-    document.getElementById("bottomNav");
+    $("bottomNav");
 
   if(
-    id === "homePage" ||
-    id === "friendsPage" ||
-    id === "profilePage"
+    pageId === "loginPage" ||
+    pageId === "registerPage" ||
+    pageId === "chatPage"
   ){
-    nav.classList.remove("hidden");
+
+    nav.style.display = "none";
+
   }else{
-    nav.classList.add("hidden");
+
+    nav.style.display = "flex";
+
   }
 
   document
@@ -1617,63 +1693,152 @@ function showPage(id){
       btn.classList.remove("active");
     });
 
-  if(id === "homePage"){
-    document
-      .getElementById("navHome")
-      ?.classList.add("active");
+  if(pageId === "homePage"){
+    $("navHome")?.classList.add("active");
   }
 
-  if(id === "friendsPage"){
-    document
-      .getElementById("navFriends")
-      ?.classList.add("active");
-
+  if(pageId === "friendsPage"){
+    $("navFriends")?.classList.add("active");
     loadFriends();
   }
 
-  if(id === "profilePage"){
-    document
-      .getElementById("navProfile")
-      ?.classList.add("active");
+  if(pageId === "couplePage"){
+    $("navCouple")?.classList.add("active");
+  }
 
+  if(pageId === "profilePage"){
+    $("navProfile")?.classList.add("active");
     loadProfileToUI();
   }
 
-  if(id === "homePage"){
-    loadProfileToUI();
-  }
 }
 
-/* =====================================================
+/* =========================
+   PROFILE UI
+========================= */
+
+function loadProfileToUI(){
+
+  const account =
+    getAccount();
+
+  const profile =
+    getProfile();
+
+  if(!account)return;
+
+  const name =
+    profile.name ||
+    account.name ||
+    "আমি";
+
+  const username =
+    profile.username ||
+    account.username ||
+    "";
+
+  const photo =
+    profile.photo || "";
+
+  const avatar =
+    photo || avatarData(name);
+
+  const nameEl =
+    $("profileTitle");
+
+  const userEl =
+    $("profileUsername");
+
+  const input =
+    $("profileName");
+
+  const img =
+    $("profilePhoto");
+
+  const homeImg =
+    $("homeProfilePhoto");
+
+  const homeName =
+    $("homeName");
+
+  const homeUsername =
+    $("homeUsername");
+
+  if(nameEl){
+    nameEl.textContent = name;
+  }
+
+  if(userEl){
+    userEl.textContent =
+      username
+      ? "@" + username
+      : "";
+  }
+
+  if(input){
+    input.value = name;
+  }
+
+  if(img){
+    img.src = avatar;
+  }
+
+  if(homeImg){
+    homeImg.src = avatar;
+  }
+
+  if(homeName){
+    homeName.textContent = name;
+  }
+
+  if(homeUsername){
+
+    homeUsername.textContent =
+      username
+      ? "@" + username
+      : "@username";
+
+  }
+
+}
+
+/* =========================
    REGISTER
-===================================================== */
+========================= */
 
 async function register(){
 
   const name =
-    document
-      .getElementById("registerName")
-      .value.trim();
+    $("registerName").value.trim();
 
   const username =
-    document
-      .getElementById("registerUsername")
-      .value.trim()
-      .replace(/^@/,"")
-      .toLowerCase();
+    $("registerUsername").value
+      .trim()
+      .replace(/^@/,"");
 
   const phone =
-    document
-      .getElementById("registerPhone")
-      .value.trim();
+    $("registerPhone").value.trim();
 
   const pin =
-    document
-      .getElementById("registerPin")
-      .value.trim();
+    $("registerPin").value.trim();
 
-  if(!name || !username || !phone || !pin){
-    toast("সব তথ্য পূরণ করুন");
+  if(!name){
+    toast("নাম লিখুন");
+    return;
+  }
+
+  if(!username){
+    toast("Username লিখুন");
+    return;
+  }
+
+  if(!phone){
+    toast("মোবাইল নাম্বার লিখুন");
+    return;
+  }
+
+  if(!pin){
+    toast("PIN লিখুন");
     return;
   }
 
@@ -1681,7 +1846,7 @@ async function register(){
 
     const response =
       await fetch(
-        API_URL+"/api/register",
+        API_URL + "/api/register",
         {
           method:"POST",
           headers:{
@@ -1700,18 +1865,21 @@ async function register(){
     const text =
       await response.text();
 
-    let data = {};
+    let data={};
 
     try{
-      data = JSON.parse(text);
+      data=JSON.parse(text);
     }catch{}
 
     if(!response.ok){
+
       toast(
         data.message ||
-        "Account তৈরি হয়নি"
+        "Registration failed"
       );
+
       return;
+
     }
 
     const account = {
@@ -1732,41 +1900,47 @@ async function register(){
       photo:""
     });
 
-    toast("Account তৈরি হয়েছে ❤️");
-
-    connectWS();
+    toast(
+      "Account তৈরি হয়েছে ❤️"
+    );
 
     setTimeout(()=>{
-      loadProfileToUI();
       showPage("homePage");
+      loadProfileToUI();
+      connectWS();
     },500);
 
   }catch(error){
 
     console.log(error);
 
-    toast("Server-এর সাথে যোগাযোগ হচ্ছে না");
+    toast(
+      "Server connection failed"
+    );
+
   }
+
 }
 
-/* =====================================================
+/* =========================
    LOGIN
-===================================================== */
+========================= */
 
 async function login(){
 
   const phone =
-    document
-      .getElementById("loginPhone")
-      .value.trim();
+    $("loginPhone").value.trim();
 
   const pin =
-    document
-      .getElementById("loginPin")
-      .value.trim();
+    $("loginPin").value.trim();
 
-  if(!phone || !pin){
-    toast("Phone ও PIN দিন");
+  if(!phone){
+    toast("মোবাইল নাম্বার লিখুন");
+    return;
+  }
+
+  if(!pin){
+    toast("PIN লিখুন");
     return;
   }
 
@@ -1774,7 +1948,7 @@ async function login(){
 
     const response =
       await fetch(
-        API_URL+"/api/social",
+        API_URL + "/api/social",
         {
           method:"POST",
           headers:{
@@ -1798,11 +1972,14 @@ async function login(){
     }catch{}
 
     if(!response.ok){
+
       toast(
         data.message ||
-        "Login হয়নি"
+        "Login failed"
       );
+
       return;
+
     }
 
     const user =
@@ -1811,14 +1988,14 @@ async function login(){
       data;
 
     const account = {
+
       name:
         user.name ||
-        data.name ||
+        user.displayName ||
         "আমি",
 
       username:
         user.username ||
-        data.username ||
         "",
 
       phone:
@@ -1826,6 +2003,7 @@ async function login(){
         phone,
 
       pin
+
     };
 
     localStorage.setItem(
@@ -1834,87 +2012,1748 @@ async function login(){
     );
 
     saveLocalProfile({
-      ...getProfile(),
+
       name:account.name,
+
       username:account.username,
+
       photo:
         user.photo ||
-        getProfile().photo ||
         ""
+
     });
 
-    connectWS();
+    toast("Login successful ❤️");
 
-    loadProfileToUI();
+    setTimeout(()=>{
 
-    showPage("homePage");
+      showPage("homePage");
 
-    toast("স্বাগতম ❤️");
+      loadProfileToUI();
+
+      connectWS();
+
+    },300);
 
   }catch(error){
 
     console.log(error);
 
-    toast("Server-এর সাথে যোগাযোগ হচ্ছে না");
+    toast(
+      "Server connection failed"
+    );
+
   }
+
 }
 
-/* =====================================================
-   PROFILE UI
-===================================================== */
+/* =========================
+   PROFILE SAVE
+========================= */
 
-function loadProfileToUI(){
+async function saveProfile(){
 
-  const account = getAccount();
-  const profile = getProfile();
+  const account =
+    getAccount();
 
   if(!account)return;
 
   const name =
-    profile.name ||
-    account.name ||
-    "আমি";
+    $("profileName")
+      .value
+      .trim();
+
+  if(!name){
+
+    toast("নাম লিখুন");
+
+    return;
+
+  }
+
+  const oldProfile =
+    getProfile();
+
+  const profile = {
+    ...oldProfile,
+    name
+  };
+
+  saveLocalProfile(profile);
+
+  try{
+
+    const response =
+      await fetch(
+        API_URL + "/api/profile",
+        {
+          method:"POST",
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+          body:JSON.stringify({
+
+            phone:
+              account.phone,
+
+            pin:
+              account.pin,
+
+            name:
+              profile.name,
+
+            username:
+              profile.username ||
+              account.username ||
+              "",
+
+            photo:
+              profile.photo ||
+              ""
+
+          })
+        }
+      );
+
+    const text =
+      await response.text();
+
+    let data={};
+
+    try{
+      data=JSON.parse(text);
+    }catch{}
+
+    if(!response.ok){
+
+      toast(
+        data.message ||
+        "Profile save হয়নি"
+      );
+
+      return;
+
+    }
+
+    loadProfileToUI();
+
+    toast("Profile saved ❤️");
+
+  }catch(error){
+
+    console.log(
+      "Profile Error:",
+      error
+    );
+
+    toast(
+      "Profile local-এ save হয়েছে"
+    );
+
+  }
+
+}
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logout(){
+
+  try{
+
+    if(ws){
+      ws.close();
+    }
+
+  }catch{}
+
+  ws=null;
+
+  localStorage.removeItem(
+    "dujon_account"
+  );
+
+  localStorage.removeItem(
+    "dujon_profile"
+  );
+
+  showPage("loginPage");
+
+  toast("Logout হয়েছে");
+
+}
+
+/* =========================
+   WEBSOCKET
+========================= */
+
+function connectWS(){
+
+  const account =
+    getAccount();
+
+  if(!account)return;
+
+  try{
+
+    if(ws){
+
+      try{
+        ws.close();
+      }catch{}
+
+    }
+
+    ws =
+      new WebSocket(
+        WS_URL
+      );
+
+    ws.onopen = ()=>{
+
+      console.log(
+        "WebSocket connected"
+      );
+
+      sendWS({
+
+        type:"join",
+
+        phone:
+          account.phone,
+
+        username:
+          account.username,
+
+        pin:
+          account.pin
+
+      });
+
+      const presence =
+        $("presenceText");
+
+      if(presence){
+        presence.textContent =
+          "Connection ready";
+      }
+
+    };
+
+    ws.onmessage = event=>{
+
+      try{
+
+        const data =
+          JSON.parse(
+            event.data
+          );
+
+        handleWSMessage(data);
+
+      }catch(error){
+
+        console.log(
+          "WS parse error",
+          error
+        );
+
+      }
+
+    };
+
+    ws.onclose = ()=>{
+
+      console.log(
+        "WebSocket disconnected"
+      );
+
+      setTimeout(()=>{
+
+        if(
+          getAccount()
+        ){
+          connectWS();
+        }
+
+      },3000);
+
+    };
+
+    ws.onerror = error=>{
+
+      console.log(
+        "WebSocket error",
+        error
+      );
+
+    };
+
+  }catch(error){
+
+    console.log(error);
+
+  }
+
+}
+
+function sendWS(data){
+
+  if(
+    ws &&
+    ws.readyState === WebSocket.OPEN
+  ){
+
+    ws.send(
+      JSON.stringify(data)
+    );
+
+  }
+
+}
+
+/* =========================
+   WS MESSAGE
+========================= */
+
+function handleWSMessage(data){
+
+  console.log(
+    "WS:",
+    data
+  );
+
+  if(
+    data.type === "chat"
+  ){
+
+    const fromUsername =
+      data.fromUsername ||
+      data.sender ||
+      data.from ||
+      "";
+
+    const text =
+      data.message ||
+      "";
+
+    if(
+      fromUsername &&
+      fromUsername ===
+      currentChatUsername
+    ){
+
+      addMessage(
+        text,
+        false
+      );
+
+    }else{
+
+      toast(
+        "💬 নতুন মেসেজ এসেছে"
+      );
+
+    }
+
+    return;
+
+  }
+
+  if(
+    data.type === "video-call" ||
+    data.type === "audio-call"
+  ){
+
+    if(
+      data.action === "offer"
+    ){
+
+      incomingCaller = {
+
+        username:
+          data.fromUsername ||
+          data.from ||
+          "",
+
+        phone:
+          data.fromPhone ||
+          "",
+
+        profile:
+          data.profile ||
+          {}
+
+      };
+
+      pendingOffer =
+        data.offer;
+
+      currentCallType =
+        data.type ===
+        "video-call"
+          ? "video"
+          : "audio";
+
+      showIncomingCall();
+
+      return;
+
+    }
+
+    if(
+      data.action === "answer"
+    ){
+
+      handleAnswer(
+        data.answer
+      );
+
+      return;
+
+    }
+
+    if(
+      data.action === "reject"
+    ){
+
+      toast(
+        "Call rejected"
+      );
+
+      closeCallScreen();
+
+      return;
+
+    }
+
+    if(
+      data.action === "end"
+    ){
+
+      closeCallScreen();
+
+      return;
+
+    }
+
+  }
+
+  if(
+    data.type ===
+    "ice-candidate"
+  ){
+
+    handleIceCandidate(
+      data.candidate
+    );
+
+  }
+
+}
+
+/* =========================
+   FRIEND SEARCH
+========================= */
+
+async function searchUser(){
+
+  const query =
+    $("friendSearch")
+      .value
+      .trim();
+
+  if(!query){
+
+    toast(
+      "Username বা Phone লিখুন"
+    );
+
+    return;
+
+  }
+
+  try{
+
+    const response =
+      await fetch(
+        API_URL +
+        "/api/search?q=" +
+        encodeURIComponent(query)
+      );
+
+    const text =
+      await response.text();
+
+    let data={};
+
+    try{
+      data=JSON.parse(text);
+    }catch{}
+
+    const users =
+      data.users ||
+      data.results ||
+      (Array.isArray(data)
+        ? data
+        : []);
+
+    const box =
+      $("searchResults");
+
+    box.innerHTML = "";
+
+    if(!users.length){
+
+      box.innerHTML = `
+        <div class="empty">
+          <div class="empty-icon">🔍</div>
+          কাউকে পাওয়া যায়নি
+        </div>
+      `;
+
+      return;
+
+    }
+
+    users.forEach(user=>{
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+      div.className =
+        "user-card card";
+
+      const name =
+        user.name ||
+        user.username ||
+        "User";
+
+      const username =
+        user.username ||
+        "";
+
+      const photo =
+        user.photo ||
+        avatarData(name);
+
+      div.innerHTML = `
+
+        <img
+          class="avatar"
+          src="${photo}"
+        >
+
+        <div class="user-info">
+
+          <strong>
+            ${escapeHtml(name)}
+          </strong>
+
+          <span>
+            @${escapeHtml(username)}
+          </span>
+
+        </div>
+
+        <button
+          class="small-btn"
+          onclick="sendFriendRequest('${escapeAttr(username)}')"
+        >
+          Add
+        </button>
+
+      `;
+
+      box.appendChild(div);
+
+    });
+
+  }catch(error){
+
+    console.log(error);
+
+    toast(
+      "Search failed"
+    );
+
+  }
+
+}
+
+/* =========================
+   FRIEND REQUEST
+========================= */
+
+async function sendFriendRequest(
+  username
+){
+
+  const account =
+    getAccount();
+
+  if(!account)return;
+
+  try{
+
+    const response =
+      await fetch(
+        API_URL +
+        "/api/friend-request",
+        {
+          method:"POST",
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+          body:JSON.stringify({
+
+            phone:
+              account.phone,
+
+            pin:
+              account.pin,
+
+            username
+
+          })
+        }
+      );
+
+    const text =
+      await response.text();
+
+    let data={};
+
+    try{
+      data=JSON.parse(text);
+    }catch{}
+
+    if(!response.ok){
+
+      toast(
+        data.message ||
+        "Request failed"
+      );
+
+      return;
+
+    }
+
+    toast(
+      "Friend request sent ❤️"
+    );
+
+  }catch(error){
+
+    console.log(error);
+
+    toast(
+      "Server error"
+    );
+
+  }
+
+}
+
+/* =========================
+   LOAD FRIENDS
+========================= */
+
+async function loadFriends(){
+
+  const account =
+    getAccount();
+
+  if(!account)return;
+
+  try{
+
+    const response =
+      await fetch(
+        API_URL +
+        "/api/social",
+        {
+          method:"POST",
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+          body:JSON.stringify({
+
+            phone:
+              account.phone,
+
+            pin:
+              account.pin
+
+          })
+        }
+      );
+
+    const text =
+      await response.text();
+
+    let data={};
+
+    try{
+      data=JSON.parse(text);
+    }catch{}
+
+    const friends =
+      data.friends ||
+      data.user?.friends ||
+      [];
+
+    const list =
+      $("friendsList");
+
+    list.innerHTML = "";
+
+    if(!friends.length){
+
+      list.innerHTML = `
+
+        <div class="empty">
+
+          <div class="empty-icon">
+            💕
+          </div>
+
+          এখনো কোনো friend নেই।
+
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+    friends.forEach(friend=>{
+
+      const username =
+        typeof friend === "string"
+          ? friend
+          : friend.username;
+
+      const name =
+        typeof friend === "string"
+          ? friend
+          : (
+              friend.name ||
+              friend.username
+            );
+
+      const photo =
+        typeof friend === "object"
+          ? (
+              friend.photo ||
+              avatarData(name)
+            )
+          : avatarData(name);
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+      div.className =
+        "friend-card card";
+
+      div.innerHTML = `
+
+        <img
+          class="avatar"
+          src="${photo}"
+        >
+
+        <div class="user-info">
+
+          <strong>
+            ${escapeHtml(name)}
+          </strong>
+
+          <span>
+            @${escapeHtml(username)}
+          </span>
+
+        </div>
+
+        <button
+          class="small-btn"
+          onclick="openFriendChat('${escapeAttr(username)}')"
+        >
+          Chat
+        </button>
+
+      `;
+
+      list.appendChild(div);
+
+    });
+
+  }catch(error){
+
+    console.log(error);
+
+  }
+
+}
+
+/* =========================
+   OPEN CHAT
+========================= */
+
+async function openFriendChat(
+  username
+){
+
+  currentChatUsername =
+    username;
+
+  currentChatPhone = "";
+
+  try{
+
+    const response =
+      await fetch(
+        API_URL +
+        "/api/search?q=" +
+        encodeURIComponent(username)
+      );
+
+    const text =
+      await response.text();
+
+    let data={};
+
+    try{
+      data=JSON.parse(text);
+    }catch{}
+
+    const users =
+      data.users ||
+      data.results ||
+      (Array.isArray(data)
+        ? data
+        : []);
+
+    const user =
+      users.find(
+        x =>
+          x.username === username
+      ) ||
+      users[0];
+
+    if(user){
+
+      currentChatPhone =
+        user.phone || "";
+
+      $("chatName")
+        .textContent =
+        user.name ||
+        username;
+
+      $("chatUsername")
+        .textContent =
+        "@" + username;
+
+      $("chatPhoto")
+        .src =
+        user.photo ||
+        avatarData(
+          user.name ||
+          username
+        );
+
+    }
+
+  }catch(error){
+
+    console.log(error);
+
+    $("chatName")
+      .textContent =
+      username;
+
+    $("chatUsername")
+      .textContent =
+      "@" + username;
+
+    $("chatPhoto")
+      .src =
+      avatarData(username);
+
+  }
+
+  loadMessages();
+
+  showPage(
+    "chatPage"
+  );
+
+}
+
+/* =========================
+   CHAT STORAGE
+========================= */
+
+function chatStorageKey(){
 
   const username =
-    profile.username ||
-    account.username ||
-    "";
+    currentChatUsername ||
+    "general";
 
-  const photo =
-    profile.photo ||
-    "";
+  return (
+    "dujon_messages_" +
+    username
+  );
 
-  const nameEl =
-    document.getElementById(
-      "profileTitle"
+}
+
+function loadMessages(){
+
+  const box =
+    $("messages");
+
+  box.innerHTML = "";
+
+  try{
+
+    const messages =
+      JSON.parse(
+        localStorage.getItem(
+          chatStorageKey()
+        ) || "[]"
+      );
+
+    messages.forEach(msg=>{
+
+      addMessage(
+        msg.text,
+        msg.me,
+        false
+      );
+
+    });
+
+  }catch{}
+
+}
+
+function saveMessage(
+  text,
+  me
+){
+
+  let messages=[];
+
+  try{
+
+    messages =
+      JSON.parse(
+        localStorage.getItem(
+          chatStorageKey()
+        ) || "[]"
+      );
+
+  }catch{}
+
+  messages.push({
+    text,
+    me,
+    time:Date.now()
+  });
+
+  if(messages.length > 200){
+
+    messages =
+      messages.slice(-200);
+
+  }
+
+  localStorage.setItem(
+    chatStorageKey(),
+    JSON.stringify(messages)
+  );
+
+}
+
+function addMessage(
+  text,
+  me,
+  save=true
+){
+
+  const box =
+    $("messages");
+
+  if(!box)return;
+
+  const div =
+    document.createElement(
+      "div"
     );
 
-  const userEl =
-    document.getElementById(
-      "profileUsername"
+  div.className =
+    "msg " +
+    (
+      me
+        ? "me"
+        : "other"
     );
+
+  div.textContent =
+    text;
+
+  box.appendChild(div);
+
+  box.scrollTop =
+    box.scrollHeight;
+
+  if(save){
+
+    saveMessage(
+      text,
+      me
+    );
+
+  }
+
+}
+
+/* =========================
+   SEND MESSAGE
+========================= */
+
+function sendMessage(){
 
   const input =
-    document.getElementById(
-      "profileName"
+    $("messageInput");
+
+  const text =
+    input.value.trim();
+
+  if(!text)return;
+
+  if(!currentChatUsername){
+
+    toast(
+      "আগে একজন friend নির্বাচন করুন"
     );
 
-  const img =
-    document.getElementById(
-      "profilePhoto"
+    return;
+
+  }
+
+  addMessage(
+    text,
+    true
+  );
+
+  input.value = "";
+
+  sendWS({
+
+    type:"chat",
+
+    toUsername:
+      currentChatUsername,
+
+    toPhone:
+      currentChatPhone,
+
+    message:text
+
+  });
+
+}
+
+/* =========================
+   CALL
+========================= */
+
+async function makeCall(
+  type
+){
+
+  if(!currentChatUsername){
+
+    toast(
+      "আগে friend নির্বাচন করুন"
     );
 
-  const homeImg =
-    document.getElementById(
-      "homeProfilePhoto"
+    return;
+
+  }
+
+  currentCallType =
+    type;
+
+  try{
+
+    await createPeerConnection();
+
+    const constraints =
+      type === "video"
+        ? {
+            audio:true,
+            video:true
+          }
+        : {
+            audio:true,
+            video:false
+          };
+
+    localStream =
+      await navigator.mediaDevices
+        .getUserMedia(
+          constraints
+        );
+
+    localStream
+      .getTracks()
+      .forEach(
+        track =>
+          peerConnection
+            .addTrack(
+              track,
+              localStream
+            )
+      );
+
+    $("localVideo")
+      .srcObject =
+      localStream;
+
+    const offer =
+      await peerConnection
+        .createOffer();
+
+    await peerConnection
+      .setLocalDescription(
+        offer
+      );
+
+    const profile =
+      getProfile();
+
+    sendWS({
+
+      type:
+        type === "video"
+          ? "video-call"
+          : "audio-call",
+
+      action:"offer",
+
+      offer,
+
+      toUsername:
+        currentChatUsername,
+
+      toPhone:
+        currentChatPhone,
+
+      profile
+
+    });
+
+    showCallScreen();
+
+  }catch(error){
+
+    console.log(
+      "Call error:",
+      error
     );
 
-  const homeName =
-    document.getElementById(
-      "homeName"
+    toast(
+      "Camera/Microphone permission দিন"
     );
 
-  const homeUsername =
-    document.getElementById(
-      "homeUsername"
+    closePeer();
+
+  }
+
+}
+
+/* =========================
+   PEER
+========================= */
+
+async function createPeerConnection(){
+
+  if(peerConnection){
+
+    return peerConnection;
+
+  }
+
+  peerConnection =
+    new RTCPeerConnection(
+      ICE_SERVERS
     );
+
+  peerConnection.onicecandidate =
+    event=>{
+
+      if(
+        event.candidate
+      ){
+
+        sendWS({
+
+          type:
+            "ice-candidate",
+
+          candidate:
+            event.candidate,
+
+          toUsername:
+            incomingCaller?.username ||
+            currentChatUsername,
+
+          toPhone:
+            incomingCaller?.phone ||
+            currentChatPhone
+
+        });
+
+      }
+
+    };
+
+  peerConnection.ontrack =
+    event=>{
+
+      const stream =
+        event.streams[0];
+
+      if(stream){
+
+        $("remoteVideo")
+          .srcObject =
+          stream;
+
+      }
+
+    };
+
+  peerConnection.onconnectionstatechange =
+    ()=>{
+
+      console.log(
+        "Connection:",
+        peerConnection
+          .connectionState
+      );
+
+    };
+
+  return peerConnection;
+
+}
+
+/* =========================
+   INCOMING CALL
+========================= */
+
+function showIncomingCall(){
+
+  const modal =
+    $("incomingModal");
+
+  const profile =
+    incomingCaller?.profile ||
+    {};
+
+  const name =
+    profile.name ||
+    incomingCaller?.username ||
+    "Someone";
+
+  $("incomingName")
+    .textContent =
+    name;
+
+  $("incomingType")
+    .textContent =
+    currentCallType === "video"
+      ? "ভিডিও কল আসছে..."
+      : "অডিও কল আসছে...";
+
+  $("incomingPhoto")
+    .src =
+    profile.photo ||
+    avatarData(name);
+
+  modal.classList.add(
+    "show"
+  );
+
+}
+
+async function acceptCall(){
+
+  $("incomingModal")
+    .classList.remove(
+      "show"
+    );
+
+  try{
+
+    await createPeerConnection();
+
+    const constraints =
+      currentCallType === "video"
+        ? {
+            audio:true,
+            video:true
+          }
+        : {
+            audio:true,
+            video:false
+          };
+
+    localStream =
+      await navigator.mediaDevices
+        .getUserMedia(
+          constraints
+        );
+
+    localStream
+      .getTracks()
+      .forEach(
+        track =>
+          peerConnection
+            .addTrack(
+              track,
+              localStream
+            )
+      );
+
+    $("localVideo")
+      .srcObject =
+      localStream;
+
+    await peerConnection
+      .setRemoteDescription(
+        new RTCSessionDescription(
+          pendingOffer
+        )
+      );
+
+    await flushIceCandidates();
+
+    const answer =
+      await peerConnection
+        .createAnswer();
+
+    await peerConnection
+      .setLocalDescription(
+        answer
+      );
+
+    currentChatUsername =
+      incomingCaller?.username ||
+      "";
+
+    currentChatPhone =
+      incomingCaller?.phone ||
+      "";
+
+    sendWS({
+
+      type:
+        currentCallType === "video"
+          ? "video-call"
+          : "audio-call",
+
+      action:"answer",
+
+      answer,
+
+      toUsername:
+        currentChatUsername,
+
+      toPhone:
+        currentChatPhone
+
+    });
+
+    showCallScreen();
+
+  }catch(error){
+
+    console.log(
+      error
+    );
+
+    toast(
+      "Call accept করা যায়নি"
+    );
+
+    closePeer();
+
+  }
+
+}
+
+function rejectCall(){
+
+  sendWS({
+
+    type:
+      currentCallType === "video"
+        ? "video-call"
+        : "audio-call",
+
+    action:"reject",
+
+    toUsername:
+      incomingCaller?.username ||
+      "",
+
+    toPhone:
+      incomingCaller?.phone ||
+      ""
+
+  });
+
+  $("incomingModal")
+    .classList.remove(
+      "show"
+    );
+
+  pendingOffer=null;
+
+  incomingCaller=null;
+
+}
+
+/* =========================
+   ANSWER
+========================= */
+
+async function handleAnswer(
+  answer
+){
+
+  try{
+
+    if(!peerConnection){
+
+      return;
+
+    }
+
+    await peerConnection
+      .setRemoteDescription(
+        new RTCSessionDescription(
+          answer
+        )
+      );
+
+    await flushIceCandidates();
+
+  }catch(error){
+
+    console.log(
+      error
+    );
+
+  }
+
+}
+
+/* =========================
+   ICE
+========================= */
+
+async function handleIceCandidate(
+  candidate
+){
+
+  if(!candidate)return;
+
+  if(
+    peerConnection &&
+    peerConnection.remoteDescription
+  ){
+
+    try{
+
+      await peerConnection
+        .addIceCandidate(
+          new RTCIceCandidate(
+            candidate
+          )
+        );
+
+    }catch(error){
+
+      console.log(
+        "ICE error",
+        error
+      );
+
+    }
+
+  }else{
+
+    pendingIceCandidates
+      .push(candidate);
+
+  }
+
+}
+
+async function flushIceCandidates(){
+
+  if(
+    !peerConnection ||
+    !peerConnection.remoteDescription
+  ){
+
+    return;
+
+  }
+
+  const queue =
+    [...pendingIceCandidates];
+
+  pendingIceCandidates=[];
+
+  for(
+    const candidate
+    of queue
+  ){
+
+    try{
+
+      await peerConnection
+        .addIceCandidate(
+          new RTCIceCandidate(
+            candidate
+          )
+        );
+
+    }catch(error){
+
+      console.log(
+        "ICE queue error",
+        error
+      );
+
+    }
+
+  }
+
+}
+
+/* =========================
+   CALL UI
+========================= */
+
+function showCallScreen(){
+
+  $("callScreen")
+    .classList.add(
+      "show"
+    );
+
+}
+
+function closeCallScreen(){
+
+  $("callScreen")
+    .classList.remove(
+      "show"
+    );
+
+  closePeer();
+
+}
+
+function closePeer(){
+
+  if(peerConnection){
+
+    try{
+      peerConnection.close();
+    }catch{}
+
+  }
+
+  peerConnection=null;
+
+  if(localStream){
+
+    localStream
+      .getTracks()
+      .forEach(
+        track =>
+          track.stop()
+      );
+
+  }
+
+  localStream=null;
+
+  $("localVideo")
+    .srcObject=null;
+
+  $("remoteVideo")
+    .srcObject=null;
+
+  pendingIceCandidates=[];
+
+}
+
+function endCall(){
+
+  sendWS({
+
+    type:
+      currentCallType === "video"
+        ? "video-call"
+        : "audio-call",
+
+    action:"end",
+
+    toUsername:
+      currentChatUsername,
+
+    toPhone:
+      currentChatPhone
+
+  });
+
+  closeCallScreen();
+
+}
+
+/* =========================
+   MIC
+========================= */
+
+function toggleMic(){
+
+  if(!localStream)return;
+
+  const tracks =
+    localStream.getAudioTracks();
+
+  micEnabled =
+    !micEnabled;
+
+  tracks.forEach(
+    track=>{
+      track.enabled =
+        micEnabled;
+    }
+  );
+
+  $("micBtn")
+    .textContent =
+    micEnabled
+      ? "🎤"
+      : "🔇";
+
+}
+
+/* =========================
+   CAMERA
+========================= */
+
+function toggleCamera(){
+
+  if(!localStream)return;
+
+  const tracks =
+    localStream.getVideoTracks();
+
+  cameraEnabled =
+    !cameraEnabled;
+
+  tracks.forEach(
+    track=>{
+      track.enabled =
+        cameraEnabled;
+    }
+  );
+
+  $("cameraBtn")
+    .textContent =
+    cameraEnabled
+      ? "📹"
+      : "🚫";
+
+}
+
+/* =========================
+   SECURITY / HTML
+========================= */
+
+function escapeHtml(value){
+
+  return String(value || "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+function escapeAttr(value){
+
+  return String(value || "")
+    .replaceAll("\\","\\\\")
+    .replaceAll("'","\\'");
+
+}
+
+/* =========================
+   STARTUP
+========================= */
+
+window.addEventListener(
+  "load",
+  ()=>{
+
+    const account =
+      getAccount();
+
+    if(account){
+
+      loadProfileToUI();
+
+      showPage(
+        "homePage"
+      );
+
+      connectWS();
+
+    }else{
+
+      showPage(
+        "loginPage"
+      );
+
+    }
+
+  }
+);
+
+</script>
+
+</body>
+</html>
