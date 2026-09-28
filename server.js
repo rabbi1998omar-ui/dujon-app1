@@ -10,6 +10,11 @@ const DB_FILE = path.join(__dirname, "users.json");
 
 let users = {};
 
+
+/* =========================================
+   LOAD DATABASE
+========================================= */
+
 if (fs.existsSync(DB_FILE)) {
   try {
     users = JSON.parse(
@@ -20,12 +25,29 @@ if (fs.existsSync(DB_FILE)) {
   }
 }
 
+
+/* =========================================
+   SAVE DATABASE
+========================================= */
+
 function saveUsers() {
-  fs.writeFileSync(
-    DB_FILE,
-    JSON.stringify(users, null, 2)
-  );
+  try {
+    fs.writeFileSync(
+      DB_FILE,
+      JSON.stringify(users, null, 2)
+    );
+  } catch (error) {
+    console.log(
+      "Database save error:",
+      error
+    );
+  }
 }
+
+
+/* =========================================
+   HASH PIN
+========================================= */
 
 function hashPin(pin) {
   return crypto
@@ -34,87 +56,229 @@ function hashPin(pin) {
     .digest("hex");
 }
 
+
+/* =========================================
+   JSON RESPONSE
+========================================= */
+
 function json(res, status, data) {
+
   res.writeHead(status, {
-    "Content-Type": "application/json; charset=utf-8",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "Content-Type",
+    "Content-Type":
+      "application/json; charset=utf-8",
+
+    "Access-Control-Allow-Origin":
+      "*",
+
+    "Access-Control-Allow-Headers":
+      "Content-Type",
+
     "Access-Control-Allow-Methods":
       "GET,POST,OPTIONS"
   });
 
-  res.end(JSON.stringify(data));
+  res.end(
+    JSON.stringify(data)
+  );
 }
+
+
+/* =========================================
+   READ REQUEST BODY
+========================================= */
 
 function body(req) {
-  return new Promise((resolve, reject) => {
-    let data = "";
 
-    req.on("data", chunk => {
-      data += chunk;
-    });
+  return new Promise(
+    (resolve, reject) => {
 
-    req.on("end", () => {
-      try {
-        resolve(
-          data ? JSON.parse(data) : {}
-        );
-      } catch {
-        resolve({});
-      }
-    });
+      let data = "";
 
-    req.on("error", reject);
-  });
+      req.on(
+        "data",
+        chunk => {
+          data += chunk;
+        }
+      );
+
+      req.on(
+        "end",
+        () => {
+
+          try {
+
+            resolve(
+              data
+                ? JSON.parse(data)
+                : {}
+            );
+
+          } catch {
+
+            resolve({});
+
+          }
+
+        }
+      );
+
+      req.on(
+        "error",
+        reject
+      );
+
+    }
+  );
+
 }
 
-function findUserByUsername(username) {
-  if (!username) return null;
+
+/* =========================================
+   FIND USER BY USERNAME
+========================================= */
+
+function findUserByUsername(
+  username
+) {
+
+  if (!username) {
+    return null;
+  }
 
   const wanted =
     String(username)
       .replace(/^@/, "")
+      .trim()
       .toLowerCase();
 
-  return Object.values(users).find(
-    user =>
-      String(user.username || "")
-        .toLowerCase() === wanted
-  ) || null;
+  return (
+    Object.values(users)
+      .find(
+        user =>
+          String(
+            user.username || ""
+          )
+            .toLowerCase() ===
+          wanted
+      ) || null
+  );
+
 }
 
-function findUserPhoneByUsername(username) {
+
+/* =========================================
+   FIND PHONE BY USERNAME
+========================================= */
+
+function findUserPhoneByUsername(
+  username
+) {
+
   const user =
-    findUserByUsername(username);
+    findUserByUsername(
+      username
+    );
 
   return user?.phone || null;
+
 }
+
+
+/* =========================================
+   PUBLIC USER
+========================================= */
 
 function publicUser(user) {
-  if (!user) return null;
 
-  return {
-    username: user.username || "",
-    name: user.name || user.username || "",
-    photo: user.photo || "",
-    friends: Array.isArray(user.friends)
-      ? user.friends
-      : []
-  };
-}
-
-function authenticate(phone, pin) {
-  const user = users[String(phone)];
-
-  if (!user) return null;
-
-  if (
-    user.pinHash !== hashPin(pin)
-  ) {
+  if (!user) {
     return null;
   }
 
+  return {
+
+    username:
+      user.username || "",
+
+    name:
+      user.name ||
+      user.username ||
+      "",
+
+    photo:
+      user.photo || "",
+
+    friends:
+      Array.isArray(user.friends)
+        ? user.friends
+        : []
+
+  };
+
+}
+
+
+/* =========================================
+   AUTHENTICATE
+========================================= */
+
+function authenticate(
+  phone,
+  pin
+) {
+
+  const user =
+    users[
+      String(phone || "")
+    ];
+
+  if (!user) {
+    return null;
+  }
+
+  if (
+    user.pinHash !==
+    hashPin(pin)
+  ) {
+
+    return null;
+
+  }
+
   return user;
+
+}
+
+
+/* =========================================
+   NORMALIZE USER
+========================================= */
+
+function normalizeUser(user) {
+
+  if (!user) {
+    return;
+  }
+
+  if (
+    !Array.isArray(
+      user.friends
+    )
+  ) {
+
+    user.friends = [];
+
+  }
+
+  if (
+    !Array.isArray(
+      user.requests
+    )
+  ) {
+
+    user.requests = [];
+
+  }
+
 }
 
 
@@ -122,690 +286,1114 @@ function authenticate(phone, pin) {
    HTTP SERVER
 ========================================= */
 
-const server = http.createServer(
-  async (req, res) => {
+const server =
+  http.createServer(
+    async (req, res) => {
 
-    if (req.method === "OPTIONS") {
-      res.writeHead(204, {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers":
-          "Content-Type",
-        "Access-Control-Allow-Methods":
-          "GET,POST,OPTIONS"
-      });
-
-      res.end();
-      return;
-    }
-
-    const url =
-      new URL(
-        req.url,
-        `http://${req.headers.host}`
-      );
-
-    const pathname = url.pathname;
-
-
-    /* ================================
-       REGISTER
-    ================================= */
-
-    if (
-      pathname === "/api/register" &&
-      req.method === "POST"
-    ) {
-
-      const data = await body(req);
-
-      const phone =
-        String(data.phone || "").trim();
-
-      const pin =
-        String(data.pin || "").trim();
-
-      const username =
-        String(data.username || "")
-          .trim()
-          .toLowerCase();
-
-      const name =
-        String(data.name || "আমি").trim();
-
-      const photo =
-        String(data.photo || "");
-
-      if (!phone) {
-        return json(res, 400, {
-          ok: false,
-          message:
-            "মোবাইল নম্বর দিন"
-        });
-      }
+      /* ================================
+         OPTIONS
+      ================================= */
 
       if (
-        !/^[0-9]{4,6}$/.test(pin)
+        req.method ===
+        "OPTIONS"
       ) {
-        return json(res, 400, {
-          ok: false,
-          message:
-            "PIN ৪-৬ সংখ্যার হতে হবে"
-        });
+
+        res.writeHead(
+          204,
+          {
+            "Access-Control-Allow-Origin":
+              "*",
+
+            "Access-Control-Allow-Headers":
+              "Content-Type",
+
+            "Access-Control-Allow-Methods":
+              "GET,POST,OPTIONS"
+          }
+        );
+
+        res.end();
+
+        return;
+
       }
+
+
+      const url =
+        new URL(
+          req.url,
+          `http://${req.headers.host}`
+        );
+
+
+      const pathname =
+        url.pathname;
+
+
+      /* ================================
+         REGISTER
+      ================================= */
 
       if (
-        !/^[a-z0-9_]{3,20}$/.test(username)
+        pathname ===
+          "/api/register" &&
+        req.method === "POST"
       ) {
-        return json(res, 400, {
-          ok: false,
-          message:
-            "Username 3-20 অক্ষরের হতে হবে"
-        });
-      }
 
-      if (users[phone]) {
-        return json(res, 409, {
-          ok: false,
-          message:
-            "এই মোবাইল নম্বর দিয়ে Account আছে"
-        });
-      }
-
-      const existing =
-        findUserByUsername(username);
-
-      if (existing) {
-        return json(res, 409, {
-          ok: false,
-          message:
-            "এই Username ইতিমধ্যে ব্যবহার হয়েছে"
-        });
-      }
-
-      users[phone] = {
-        phone,
-        pinHash: hashPin(pin),
-        username,
-        name: name || "আমি",
-        photo: photo || "",
-        friends: [],
-        requests: [],
-        createdAt: Date.now()
-      };
-
-      saveUsers();
-
-      return json(res, 200, {
-        ok: true,
-        message:
-          "Account তৈরি হয়েছে ❤️",
-        user:
-          publicUser(users[phone])
-      });
-    }
+        const data =
+          await body(req);
 
 
-    /* ================================
-       PROFILE
-       এই endpoint /api/profile
-       অপরিবর্তিত রাখা হয়েছে।
-    ================================= */
+        const phone =
+          String(
+            data.phone || ""
+          ).trim();
 
-    if (
-      pathname === "/api/profile" &&
-      req.method === "POST"
-    ) {
 
-      const data = await body(req);
+        const pin =
+          String(
+            data.pin || ""
+          ).trim();
 
-      const phone =
-        String(data.phone || "").trim();
-
-      const pin =
-        String(data.pin || "").trim();
-
-      const user =
-        authenticate(phone, pin);
-
-      if (!user) {
-        return json(res, 401, {
-          ok: false,
-          message:
-            "Authentication failed"
-        });
-      }
-
-      if (data.name !== undefined) {
-        user.name =
-          String(data.name).trim();
-      }
-
-      if (data.username !== undefined) {
 
         const username =
-          String(data.username)
+          String(
+            data.username || ""
+          )
             .trim()
             .toLowerCase();
 
-        if (
-          username &&
-          username !== user.username
-        ) {
 
-          const other =
-            findUserByUsername(username);
+        const name =
+          String(
+            data.name || "আমি"
+          ).trim();
 
-          if (
-            other &&
-            other.phone !== phone
-          ) {
-            return json(res, 409, {
+
+        const photo =
+          String(
+            data.photo || ""
+          );
+
+
+        if (!phone) {
+
+          return json(
+            res,
+            400,
+            {
               ok: false,
               message:
-                "Username already exists"
-            });
-          }
+                "মোবাইল নম্বর দিন"
+            }
+          );
 
-          user.username = username;
         }
-      }
-
-      if (data.photo !== undefined) {
-        user.photo =
-          String(data.photo || "");
-      }
-
-      saveUsers();
-
-      return json(res, 200, {
-        ok: true,
-        message:
-          "Profile saved ❤️",
-        user:
-          publicUser(user)
-      });
-    }
 
 
-    /* ================================
-       SOCIAL
-    ================================= */
+        if (
+          !/^[0-9]{4,6}$/.test(pin)
+        ) {
 
-    if (
-      pathname === "/api/social" &&
-      req.method === "POST"
-    ) {
+          return json(
+            res,
+            400,
+            {
+              ok: false,
+              message:
+                "PIN ৪-৬ সংখ্যার হতে হবে"
+            }
+          );
 
-      const data = await body(req);
+        }
 
-      const user =
-        authenticate(
-          data.phone,
-          data.pin
+
+        if (
+          !/^[a-z0-9_]{3,20}$/
+            .test(username)
+        ) {
+
+          return json(
+            res,
+            400,
+            {
+              ok: false,
+              message:
+                "Username 3-20 অক্ষরের হতে হবে"
+            }
+          );
+
+        }
+
+
+        if (
+          users[phone]
+        ) {
+
+          return json(
+            res,
+            409,
+            {
+              ok: false,
+              message:
+                "এই মোবাইল নম্বর দিয়ে Account আছে"
+            }
+          );
+
+        }
+
+
+        const existing =
+          findUserByUsername(
+            username
+          );
+
+
+        if (existing) {
+
+          return json(
+            res,
+            409,
+            {
+              ok: false,
+              message:
+                "এই Username ইতিমধ্যে ব্যবহার হয়েছে"
+            }
+          );
+
+        }
+
+
+        users[phone] = {
+
+          phone,
+
+          pinHash:
+            hashPin(pin),
+
+          username,
+
+          name:
+            name || "আমি",
+
+          photo:
+            photo || "",
+
+          friends: [],
+
+          requests: [],
+
+          createdAt:
+            Date.now()
+
+        };
+
+
+        saveUsers();
+
+
+        return json(
+          res,
+          200,
+          {
+            ok: true,
+
+            message:
+              "Account তৈরি হয়েছে ❤️",
+
+            user:
+              publicUser(
+                users[phone]
+              )
+          }
         );
 
-      if (!user) {
-        return json(res, 401, {
-          ok: false,
-          message:
-            "Authentication failed"
-        });
       }
 
-      return json(res, 200, {
-        ok: true,
-        user: {
-          username: user.username,
-          name: user.name,
-          photo: user.photo,
-          friends:
-            user.friends || [],
-          requests:
-            user.requests || []
-        },
-        friends:
-          user.friends || [],
-        requests:
-          user.requests || []
-      });
-    }
 
+      /* ================================
+         PROFILE
+         /api/profile অপরিবর্তিত
+      ================================= */
 
-    /* ================================
-       SEARCH
-    ================================= */
-
-    if (
-      pathname === "/api/search" &&
-      (
-        req.method === "GET" ||
+      if (
+        pathname ===
+          "/api/profile" &&
         req.method === "POST"
-      )
-    ) {
+      ) {
 
-      let username = "";
+        const data =
+          await body(req);
 
-      if (req.method === "GET") {
 
-        username =
-          url.searchParams
-            .get("username") || "";
+        const phone =
+          String(
+            data.phone || ""
+          ).trim();
+
+
+        const pin =
+          String(
+            data.pin || ""
+          ).trim();
+
+
+        const user =
+          authenticate(
+            phone,
+            pin
+          );
+
+
+        if (!user) {
+
+          return json(
+            res,
+            401,
+            {
+              ok: false,
+              message:
+                "Authentication failed"
+            }
+          );
+
+        }
+
+
+        normalizeUser(user);
+
+
+        if (
+          data.name !==
+          undefined
+        ) {
+
+          user.name =
+            String(
+              data.name
+            ).trim();
+
+        }
+
+
+        if (
+          data.username !==
+          undefined
+        ) {
+
+          const username =
+            String(
+              data.username
+            )
+              .trim()
+              .toLowerCase();
+
+
+          if (
+            username &&
+            username !==
+              user.username
+          ) {
+
+            const other =
+              findUserByUsername(
+                username
+              );
+
+
+            if (
+              other &&
+              other.phone !==
+                phone
+            ) {
+
+              return json(
+                res,
+                409,
+                {
+                  ok: false,
+                  message:
+                    "Username already exists"
+                }
+              );
+
+            }
+
+
+            user.username =
+              username;
+
+          }
+
+        }
+
+
+        if (
+          data.photo !==
+          undefined
+        ) {
+
+          user.photo =
+            String(
+              data.photo || ""
+            );
+
+        }
+
+
+        saveUsers();
+
+
+        return json(
+          res,
+          200,
+          {
+            ok: true,
+
+            message:
+              "Profile saved ❤️",
+
+            user:
+              publicUser(user)
+          }
+        );
+
+      }
+
+
+      /* ================================
+         SOCIAL
+      ================================= */
+
+      if (
+        pathname ===
+          "/api/social" &&
+        req.method === "POST"
+      ) {
+
+        const data =
+          await body(req);
+
+
+        const user =
+          authenticate(
+            data.phone,
+            data.pin
+          );
+
+
+        if (!user) {
+
+          return json(
+            res,
+            401,
+            {
+              ok: false,
+              message:
+                "Authentication failed"
+            }
+          );
+
+        }
+
+
+        normalizeUser(user);
+
+
+        return json(
+          res,
+          200,
+          {
+
+            ok: true,
+
+            user: {
+
+              username:
+                user.username,
+
+              name:
+                user.name,
+
+              photo:
+                user.photo,
+
+              friends:
+                user.friends,
+
+              requests:
+                user.requests
+
+            },
+
+            friends:
+              user.friends,
+
+            requests:
+              user.requests
+
+          }
+        );
+
+      }
+
+
+      /* ================================
+         SEARCH
+      ================================= */
+
+      if (
+        pathname ===
+          "/api/search" &&
+        (
+          req.method === "GET" ||
+          req.method === "POST"
+        )
+      ) {
+
+        let username = "";
+
+
+        if (
+          req.method ===
+          "GET"
+        ) {
+
+          username =
+            url.searchParams
+              .get("username") ||
+            "";
+
+        } else {
+
+          const data =
+            await body(req);
+
+          username =
+            data.username || "";
+
+        }
+
+
+        const user =
+          findUserByUsername(
+            username
+          );
+
+
+        if (!user) {
+
+          return json(
+            res,
+            404,
+            {
+              ok: false,
+              message:
+                "User পাওয়া যায়নি"
+            }
+          );
+
+        }
+
+
+        return json(
+          res,
+          200,
+          {
+            ok: true,
+            user:
+              publicUser(user)
+          }
+        );
+
+      }
+
+
+      /* ================================
+         FRIEND REQUEST
+      ================================= */
+
+      if (
+        pathname ===
+          "/api/friend-request" &&
+        req.method === "POST"
+      ) {
+
+        const data =
+          await body(req);
+
+
+        const sender =
+          authenticate(
+            data.phone,
+            data.pin
+          );
+
+
+        if (!sender) {
+
+          return json(
+            res,
+            401,
+            {
+              ok: false,
+              message:
+                "Authentication failed"
+            }
+          );
+
+        }
+
+
+        const target =
+          findUserByUsername(
+            data.username
+          );
+
+
+        if (!target) {
+
+          return json(
+            res,
+            404,
+            {
+              ok: false,
+              message:
+                "User পাওয়া যায়নি"
+            }
+          );
+
+        }
+
+
+        if (
+          target.phone ===
+          sender.phone
+        ) {
+
+          return json(
+            res,
+            400,
+            {
+              ok: false,
+              message:
+                "নিজেকে Friend করা যাবে না"
+            }
+          );
+
+        }
+
+
+        normalizeUser(
+          sender
+        );
+
+        normalizeUser(
+          target
+        );
+
+
+        if (
+          sender.friends.includes(
+            target.username
+          )
+        ) {
+
+          return json(
+            res,
+            400,
+            {
+              ok: false,
+              message:
+                "তোমরা ইতিমধ্যে Friend"
+            }
+          );
+
+        }
+
+
+        if (
+          target.requests.includes(
+            sender.username
+          )
+        ) {
+
+          return json(
+            res,
+            400,
+            {
+              ok: false,
+              message:
+                "Friend Request আগেই পাঠানো হয়েছে"
+            }
+          );
+
+        }
+
+
+        target.requests.push(
+          sender.username
+        );
+
+
+        saveUsers();
+
+
+        sendToUser(
+          target.phone,
+          {
+            type:
+              "friend-request",
+
+            from:
+              publicUser(
+                sender
+              )
+          }
+        );
+
+
+        return json(
+          res,
+          200,
+          {
+            ok: true,
+            message:
+              "Friend Request পাঠানো হয়েছে ❤️"
+          }
+        );
+
+      }
+
+
+      /* ================================
+         FRIEND ACCEPT
+      ================================= */
+
+      if (
+        pathname ===
+          "/api/friend-accept" &&
+        req.method === "POST"
+      ) {
+
+        const data =
+          await body(req);
+
+
+        const receiver =
+          authenticate(
+            data.phone,
+            data.pin
+          );
+
+
+        if (!receiver) {
+
+          return json(
+            res,
+            401,
+            {
+              ok: false,
+              message:
+                "Authentication failed"
+            }
+          );
+
+        }
+
+
+        const requester =
+          findUserByUsername(
+            data.username
+          );
+
+
+        if (!requester) {
+
+          return json(
+            res,
+            404,
+            {
+              ok: false,
+              message:
+                "Requester পাওয়া যায়নি"
+            }
+          );
+
+        }
+
+
+        normalizeUser(
+          receiver
+        );
+
+        normalizeUser(
+          requester
+        );
+
+
+        const index =
+          receiver.requests
+            .indexOf(
+              requester.username
+            );
+
+
+        if (
+          index === -1
+        ) {
+
+          return json(
+            res,
+            400,
+            {
+              ok: false,
+              message:
+                "Friend Request পাওয়া যায়নি"
+            }
+          );
+
+        }
+
+
+        receiver.requests
+          .splice(
+            index,
+            1
+          );
+
+
+        if (
+          !receiver.friends
+            .includes(
+              requester.username
+            )
+        ) {
+
+          receiver.friends
+            .push(
+              requester.username
+            );
+
+        }
+
+
+        if (
+          !requester.friends
+            .includes(
+              receiver.username
+            )
+        ) {
+
+          requester.friends
+            .push(
+              receiver.username
+            );
+
+        }
+
+
+        requester.requests =
+          requester.requests
+            .filter(
+              item =>
+                item !==
+                receiver.username
+            );
+
+
+        saveUsers();
+
+
+        sendToUser(
+          requester.phone,
+          {
+            type:
+              "friend-accepted",
+
+            username:
+              receiver.username,
+
+            name:
+              receiver.name ||
+              receiver.username
+          }
+        );
+
+
+        return json(
+          res,
+          200,
+          {
+
+            ok: true,
+
+            message:
+              "Friend request accepted ❤️",
+
+            user: {
+
+              username:
+                receiver.username,
+
+              friends:
+                receiver.friends,
+
+              requests:
+                receiver.requests
+
+            },
+
+            friends:
+              receiver.friends,
+
+            requests:
+              receiver.requests
+
+          }
+        );
+
+      }
+
+
+      /* ================================
+         FRIEND REJECT
+      ================================= */
+
+      if (
+        pathname ===
+          "/api/friend-reject" &&
+        req.method === "POST"
+      ) {
+
+        const data =
+          await body(req);
+
+
+        const receiver =
+          authenticate(
+            data.phone,
+            data.pin
+          );
+
+
+        if (!receiver) {
+
+          return json(
+            res,
+            401,
+            {
+              ok: false,
+              message:
+                "Authentication failed"
+            }
+          );
+
+        }
+
+
+        normalizeUser(
+          receiver
+        );
+
+
+        const requester =
+          findUserByUsername(
+            data.username
+          );
+
+
+        if (requester) {
+
+          receiver.requests =
+            receiver.requests
+              .filter(
+                item =>
+                  item !==
+                  requester.username
+              );
+
+        }
+
+
+        saveUsers();
+
+
+        return json(
+          res,
+          200,
+          {
+
+            ok: true,
+
+            message:
+              "Request rejected",
+
+            friends:
+              receiver.friends,
+
+            requests:
+              receiver.requests
+
+          }
+        );
+
+      }
+
+
+      /* ================================
+         STATIC FILES
+      ================================= */
+
+      let filePath;
+
+
+      if (
+        pathname === "/"
+      ) {
+
+        filePath =
+          path.join(
+            __dirname,
+            "index.html"
+          );
 
       } else {
 
-        const data = await body(req);
+        /*
+         Query string বাদ দিয়ে
+         শুধু pathname ব্যবহার হচ্ছে।
+        */
 
-        username =
-          data.username || "";
+        const cleanPath =
+          pathname
+            .replace(/^\/+/, "");
+
+
+        filePath =
+          path.join(
+            __dirname,
+            cleanPath
+          );
 
       }
 
-      const user =
-        findUserByUsername(username);
 
-      if (!user) {
-        return json(res, 404, {
-          ok: false,
-          message:
-            "User পাওয়া যায়নি"
-        });
-      }
-
-      return json(res, 200, {
-        ok: true,
-        user: publicUser(user)
-      });
-    }
-
-
-    /* ================================
-       FRIEND REQUEST
-    ================================= */
-
-    if (
-      pathname === "/api/friend-request" &&
-      req.method === "POST"
-    ) {
-
-      const data = await body(req);
-
-      const sender =
-        authenticate(
-          data.phone,
-          data.pin
+      const normalizedPath =
+        path.normalize(
+          filePath
         );
 
-      if (!sender) {
-        return json(res, 401, {
-          ok: false,
-          message:
-            "Authentication failed"
-        });
-      }
 
-      const target =
-        findUserByUsername(
-          data.username
+      if (
+        !normalizedPath
+          .startsWith(
+            __dirname
+          )
+      ) {
+
+        res.writeHead(
+          403
         );
 
-      if (!target) {
-        return json(res, 404, {
-          ok: false,
-          message:
-            "User পাওয়া যায়নি"
-        });
+        res.end(
+          "Forbidden"
+        );
+
+        return;
+
       }
 
-      if (
-        target.phone === sender.phone
-      ) {
-        return json(res, 400, {
-          ok: false,
-          message:
-            "নিজেকে Friend করা যাবে না"
-        });
-      }
 
-      sender.friends =
-        Array.isArray(sender.friends)
-          ? sender.friends
-          : [];
+      fs.readFile(
+        normalizedPath,
+        (err, file) => {
 
-      sender.requests =
-        Array.isArray(sender.requests)
-          ? sender.requests
-          : [];
+          if (err) {
 
-      target.friends =
-        Array.isArray(target.friends)
-          ? target.friends
-          : [];
+            res.writeHead(
+              404,
+              {
+                "Content-Type":
+                  "text/plain; charset=utf-8"
+              }
+            );
 
-      target.requests =
-        Array.isArray(target.requests)
-          ? target.requests
-          : [];
+            res.end(
+              "Not Found"
+            );
 
-      if (
-        sender.friends.includes(
-          target.username
-        )
-      ) {
-        return json(res, 400, {
-          ok: false,
-          message:
-            "তোমরা ইতিমধ্যে Friend"
-        });
-      }
+            return;
 
-      if (
-        target.requests.includes(
-          sender.username
-        )
-      ) {
-        return json(res, 400, {
-          ok: false,
-          message:
-            "Friend Request আগেই পাঠানো হয়েছে"
-        });
-      }
+          }
 
-      target.requests.push(
-        sender.username
-      );
 
-      saveUsers();
+          const ext =
+            path.extname(
+              normalizedPath
+            )
+              .toLowerCase();
 
-      sendToUser(
-        target.phone,
-        {
-          type: "friend-request",
-          from: publicUser(sender)
+
+          const types = {
+
+            ".html":
+              "text/html; charset=utf-8",
+
+            ".js":
+              "application/javascript; charset=utf-8",
+
+            ".css":
+              "text/css; charset=utf-8",
+
+            ".json":
+              "application/json; charset=utf-8",
+
+            ".png":
+              "image/png",
+
+            ".jpg":
+              "image/jpeg",
+
+            ".jpeg":
+              "image/jpeg",
+
+            ".svg":
+              "image/svg+xml",
+
+            ".webp":
+              "image/webp",
+
+            ".ico":
+              "image/x-icon"
+
+          };
+
+
+          res.writeHead(
+            200,
+            {
+              "Content-Type":
+                types[ext] ||
+                "application/octet-stream"
+            }
+          );
+
+
+          res.end(
+            file
+          );
+
         }
       );
 
-      return json(res, 200, {
-        ok: true,
-        message:
-          "Friend Request পাঠানো হয়েছে ❤️"
-      });
     }
-
-
-    /* ================================
-       FRIEND ACCEPT
-    ================================= */
-
-    if (
-      pathname === "/api/friend-accept" &&
-      req.method === "POST"
-    ) {
-
-      const data = await body(req);
-
-      const receiver =
-        authenticate(
-          data.phone,
-          data.pin
-        );
-
-      if (!receiver) {
-        return json(res, 401, {
-          ok: false,
-          message:
-            "Authentication failed"
-        });
-      }
-
-      const requester =
-        findUserByUsername(
-          data.username
-        );
-
-      if (!requester) {
-        return json(res, 404, {
-          ok: false,
-          message:
-            "Requester পাওয়া যায়নি"
-        });
-      }
-
-      receiver.requests =
-        Array.isArray(receiver.requests)
-          ? receiver.requests
-          : [];
-
-      receiver.friends =
-        Array.isArray(receiver.friends)
-          ? receiver.friends
-          : [];
-
-      requester.friends =
-        Array.isArray(requester.friends)
-          ? requester.friends
-          : [];
-
-      requester.requests =
-        Array.isArray(requester.requests)
-          ? requester.requests
-          : [];
-
-      const index =
-        receiver.requests.indexOf(
-          requester.username
-        );
-
-      if (index === -1) {
-        return json(res, 400, {
-          ok: false,
-          message:
-            "Friend Request পাওয়া যায়নি"
-        });
-      }
-
-      receiver.requests.splice(
-        index,
-        1
-      );
-
-      if (
-        !receiver.friends.includes(
-          requester.username
-        )
-      ) {
-        receiver.friends.push(
-          requester.username
-        );
-      }
-
-      if (
-        !requester.friends.includes(
-          receiver.username
-        )
-      ) {
-        requester.friends.push(
-          receiver.username
-        );
-      }
-
-      requester.requests =
-        requester.requests.filter(
-          item =>
-            item !== receiver.username
-        );
-
-      saveUsers();
-
-      sendToUser(
-        requester.phone,
-        {
-          type: "friend-accepted",
-          username:
-            receiver.username,
-          name:
-            receiver.name ||
-            receiver.username
-        }
-      );
-
-      return json(res, 200, {
-        ok: true,
-        message:
-          "Friend request accepted ❤️",
-        user: {
-          username:
-            receiver.username,
-          friends:
-            receiver.friends,
-          requests:
-            receiver.requests
-        },
-        friends:
-          receiver.friends,
-        requests:
-          receiver.requests
-      });
-    }
-
-
-    /* ================================
-       FRIEND REJECT
-    ================================= */
-
-    if (
-      pathname === "/api/friend-reject" &&
-      req.method === "POST"
-    ) {
-
-      const data = await body(req);
-
-      const receiver =
-        authenticate(
-          data.phone,
-          data.pin
-        );
-
-      if (!receiver) {
-        return json(res, 401, {
-          ok: false,
-          message:
-            "Authentication failed"
-        });
-      }
-
-      const requester =
-        findUserByUsername(
-          data.username
-        );
-
-      receiver.requests =
-        Array.isArray(receiver.requests)
-          ? receiver.requests
-          : [];
-
-      receiver.requests =
-        receiver.requests.filter(
-          item =>
-            item !==
-            requester?.username
-        );
-
-      saveUsers();
-
-      return json(res, 200, {
-        ok: true,
-        message:
-          "Request rejected",
-        friends:
-          receiver.friends || [],
-        requests:
-          receiver.requests
-      });
-    }
-
-
-    /* ================================
-       STATIC FILES
-    ================================= */
-
-    let filePath;
-
-    if (pathname === "/") {
-      filePath =
-        path.join(
-          __dirname,
-          "index.html"
-        );
-    } else {
-      filePath =
-        path.join(
-          __dirname,
-          pathname.replace(/^\/+/, "")
-        );
-    }
-
-    if (!filePath.startsWith(__dirname)) {
-      res.writeHead(403);
-      res.end("Forbidden");
-      return;
-    }
-
-    fs.readFile(
-      filePath,
-      (err, file) => {
-
-        if (err) {
-          res.writeHead(404, {
-            "Content-Type":
-              "text/plain; charset=utf-8"
-          });
-
-          res.end("Not Found");
-          return;
-        }
-
-        const ext =
-          path.extname(filePath)
-            .toLowerCase();
-
-        const types = {
-          ".html":
-            "text/html; charset=utf-8",
-          ".js":
-            "application/javascript; charset=utf-8",
-          ".css":
-            "text/css; charset=utf-8",
-          ".json":
-            "application/json; charset=utf-8",
-          ".png":
-            "image/png",
-          ".jpg":
-            "image/jpeg",
-          ".jpeg":
-            "image/jpeg",
-          ".svg":
-            "image/svg+xml",
-          ".webp":
-            "image/webp",
-          ".ico":
-            "image/x-icon"
-        };
-
-        res.writeHead(200, {
-          "Content-Type":
-            types[ext] ||
-            "application/octet-stream"
-        });
-
-        res.end(file);
-      }
-    );
-  }
-);
+  );
 
 
 /* =========================================
-   WEBSOCKET
+   WEBSOCKET SERVER
 ========================================= */
 
 const wss =
@@ -813,24 +1401,49 @@ const wss =
     server
   });
 
-const onlineUsers = new Map();
-const rooms = new Map();
 
+/*
+  phone -> WebSocket
+*/
+const onlineUsers =
+  new Map();
+
+
+/*
+  roomCode -> Set<WebSocket>
+*/
+const rooms =
+  new Map();
+
+
+/* =========================================
+   SOCKET HELPERS
+========================================= */
 
 function isOpen(socket) {
+
   return (
     socket &&
     socket.readyState ===
       WebSocket.OPEN
   );
+
 }
 
 
-function sendSocket(socket, data) {
+function sendSocket(
+  socket,
+  data
+) {
 
-  if (!isOpen(socket)) {
+  if (
+    !isOpen(socket)
+  ) {
+
     return false;
+
   }
+
 
   try {
 
@@ -843,182 +1456,145 @@ function sendSocket(socket, data) {
   } catch {
 
     return false;
+
   }
+
 }
 
 
-function sendToUser(phone, data) {
+/* =========================================
+   SEND TO USER
+========================================= */
+
+function sendToUser(
+  phone,
+  data
+) {
 
   const socket =
     onlineUsers.get(
-      String(phone)
+      String(phone || "")
     );
+
 
   return sendSocket(
     socket,
     data
   );
+
 }
 
 
-function leaveRoom(ws) {
+/* =========================================
+   FIND TARGET SOCKET
+========================================= */
 
-  if (!ws.room) {
-    return;
-  }
-
-  const room =
-    rooms.get(ws.room);
-
-  if (room) {
-
-    room.delete(ws);
-
-    for (const peer of room) {
-
-      sendSocket(
-        peer,
-        {
-          type: "peer-left"
-        }
-      );
-
-    }
-
-    if (room.size === 0) {
-      rooms.delete(ws.room);
-    }
-  }
-
-  ws.room = null;
-}
-
-
-function joinRoom(ws, roomCode) {
-
-  leaveRoom(ws);
-
-  const room =
-    String(roomCode || "")
-      .trim()
-      .toUpperCase();
-
-  if (!room) return;
-
-  if (!rooms.has(room)) {
-    rooms.set(
-      room,
-      new Set()
-    );
-  }
-
-  const set =
-    rooms.get(room);
-
-  for (const peer of set) {
-
-    sendSocket(
-      peer,
-      {
-        type: "peer-joined"
-      }
-    );
-  }
-
-  set.add(ws);
-
-  ws.room = room;
-
-  sendSocket(
-    ws,
-    {
-      type: "joined",
-      room
-    }
-  );
-}
-
-
-function findTargetSocket(ws, data) {
+function findTargetSocket(
+  ws,
+  data
+) {
 
   let targetPhone =
-    data.toPhone ||
-    data.targetPhone ||
-    "";
+    String(
+      data.toPhone ||
+      data.targetPhone ||
+      ""
+    ).trim();
+
 
   let targetUsername =
-    data.toUsername ||
-    data.targetUsername ||
-    "";
+    String(
+      data.toUsername ||
+      data.targetUsername ||
+      ""
+    )
+      .replace(/^@/, "")
+      .trim()
+      .toLowerCase();
 
 
   /*
-   Call response-এ target না থাকলেও
-   offer পাঠানোর সময় server call peer
-   মনে রাখবে।
+    Username থাকলে
+    username → phone
+  */
+
+  if (
+    targetUsername
+  ) {
+
+    const foundPhone =
+      findUserPhoneByUsername(
+        targetUsername
+      );
+
+
+    if (foundPhone) {
+
+      targetPhone =
+        String(foundPhone);
+
+    }
+
+  }
+
+
+  /*
+    Call response-এর জন্য
+    saved peer
   */
 
   if (
     !targetPhone &&
-    !targetUsername &&
     ws.callPeerPhone
   ) {
 
     targetPhone =
-      ws.callPeerPhone;
-  }
-
-
-  if (targetUsername) {
-
-    targetPhone =
-      findUserPhoneByUsername(
-        targetUsername
-      ) || targetPhone;
-  }
-
-
-  if (targetPhone) {
-
-    const target =
-      onlineUsers.get(
-        String(targetPhone)
+      String(
+        ws.callPeerPhone
       );
 
-    if (
-      target &&
-      target !== ws
-    ) {
-      return target;
-    }
   }
 
 
-  /*
-   দুজনের app:
-   target না দিলে অন্য online user-কে
-   target হিসেবে নেওয়া হবে।
-  */
+  if (
+    !targetPhone
+  ) {
 
-  for (const [
-    phone,
-    socket
-  ] of onlineUsers) {
+    return null;
 
-    if (
-      socket !== ws &&
-      isOpen(socket)
-    ) {
-
-      return socket;
-    }
   }
 
-  return null;
+
+  const target =
+    onlineUsers.get(
+      targetPhone
+    );
+
+
+  if (
+    !target ||
+    target === ws ||
+    !isOpen(target)
+  ) {
+
+    return null;
+
+  }
+
+
+  return target;
+
 }
 
 
-function directRelay(ws, data) {
+/* =========================================
+   DIRECT RELAY
+========================================= */
+
+function directRelay(
+  ws,
+  data
+) {
 
   const target =
     findTargetSocket(
@@ -1026,110 +1602,361 @@ function directRelay(ws, data) {
       data
     );
 
+
   if (!target) {
 
     sendSocket(
       ws,
       {
-        type: "delivery-failed",
+
+        type:
+          "delivery-failed",
+
         originalType:
           data.type,
+
         message:
           "অন্য user এখন Offline"
+
       }
     );
 
+
     return false;
+
   }
 
 
   /*
-   Call হলে দুই পাশে peer link মনে রাখি।
+    Offer পাঠানোর সময়
+    দুই socket-এর মধ্যে
+    call relationship save করি।
   */
 
   if (
-    data.type === "video-call" ||
-    data.type === "audio-call"
+    (
+      data.type ===
+        "video-call" ||
+      data.type ===
+        "audio-call"
+    ) &&
+    data.action ===
+      "offer"
+  ) {
+
+    ws.callPeerPhone =
+      target.phone;
+
+    ws.callPeerUsername =
+      target.username;
+
+
+    target.callPeerPhone =
+      ws.phone;
+
+    target.callPeerUsername =
+      ws.username;
+
+  }
+
+
+  /*
+    Answer এও relationship নিশ্চিত করি
+  */
+
+  if (
+    (
+      data.type ===
+        "video-call" ||
+      data.type ===
+        "audio-call"
+    ) &&
+    data.action ===
+      "answer"
   ) {
 
     if (
-      data.action === "offer"
+      !ws.callPeerPhone
     ) {
 
       ws.callPeerPhone =
         target.phone;
 
-      target.callPeerPhone =
-        ws.phone;
+    }
+
+
+    if (
+      !ws.callPeerUsername
+    ) {
+
+      ws.callPeerUsername =
+        target.username;
 
     }
+
   }
 
 
+  /*
+    ICE candidate-এর জন্য
+    sender information
+  */
+
   const outgoing = {
+
     ...data,
+
     fromPhone:
       ws.phone || "",
+
     fromUsername:
       ws.username || "",
+
     sender:
       ws.username || ""
+
   };
 
 
-  sendSocket(
-    target,
-    outgoing
-  );
+  const delivered =
+    sendSocket(
+      target,
+      outgoing
+    );
 
 
   /*
-   Call শেষ হলে peer relation পরিষ্কার।
+    Reject / End হলে
+    call relationship clear
   */
 
   if (
     (
-      data.type === "video-call" ||
-      data.type === "audio-call"
+      data.type ===
+        "video-call" ||
+      data.type ===
+        "audio-call"
     ) &&
     (
-      data.action === "end" ||
-      data.action === "reject"
+      data.action ===
+        "end" ||
+      data.action ===
+        "reject"
     )
   ) {
 
-    ws.callPeerPhone = null;
-    target.callPeerPhone = null;
+    ws.callPeerPhone =
+      null;
+
+    ws.callPeerUsername =
+      null;
+
+
+    target.callPeerPhone =
+      null;
+
+    target.callPeerUsername =
+      null;
+
   }
 
 
-  return true;
+  return delivered;
+
 }
 
 
+/* =========================================
+   ROOM
+========================================= */
+
+function leaveRoom(ws) {
+
+  if (!ws.room) {
+    return;
+  }
+
+
+  const room =
+    rooms.get(
+      ws.room
+    );
+
+
+  if (room) {
+
+    room.delete(
+      ws
+    );
+
+
+    for (
+      const peer of room
+    ) {
+
+      sendSocket(
+        peer,
+        {
+          type:
+            "peer-left"
+        }
+      );
+
+    }
+
+
+    if (
+      room.size === 0
+    ) {
+
+      rooms.delete(
+        ws.room
+      );
+
+    }
+
+  }
+
+
+  ws.room =
+    null;
+
+}
+
+
+function joinRoom(
+  ws,
+  roomCode
+) {
+
+  leaveRoom(
+    ws
+  );
+
+
+  const room =
+    String(
+      roomCode || ""
+    )
+      .trim()
+      .toUpperCase();
+
+
+  if (!room) {
+    return;
+  }
+
+
+  if (
+    !rooms.has(room)
+  ) {
+
+    rooms.set(
+      room,
+      new Set()
+    );
+
+  }
+
+
+  const set =
+    rooms.get(
+      room
+    );
+
+
+  for (
+    const peer of set
+  ) {
+
+    sendSocket(
+      peer,
+      {
+        type:
+          "peer-joined"
+      }
+    );
+
+  }
+
+
+  set.add(
+    ws
+  );
+
+
+  ws.room =
+    room;
+
+
+  sendSocket(
+    ws,
+    {
+      type:
+        "joined",
+
+      room
+    }
+  );
+
+}
+
+
+/* =========================================
+   DIRECT TYPES
+========================================= */
+
 const DIRECT_TYPES =
   new Set([
+
     "chat",
+
     "feeling",
+
     "love-note",
+
     "couple-date",
+
     "our-story",
+
     "memory",
+
     "favorite",
+
     "video-call",
+
     "audio-call"
+
   ]);
 
+
+/* =========================================
+   WEBSOCKET CONNECTION
+========================================= */
 
 wss.on(
   "connection",
   ws => {
 
-    ws.phone = null;
-    ws.username = null;
-    ws.room = null;
-    ws.callPeerPhone = null;
+    ws.phone =
+      null;
 
+    ws.username =
+      null;
+
+    ws.room =
+      null;
+
+    ws.callPeerPhone =
+      null;
+
+    ws.callPeerUsername =
+      null;
+
+
+    /* ================================
+       MESSAGE
+    ================================= */
 
     ws.on(
       "message",
@@ -1137,19 +1964,24 @@ wss.on(
 
         let data;
 
+
         try {
+
           data =
             JSON.parse(
               raw.toString()
             );
+
         } catch {
+
           return;
+
         }
 
 
-        /* ==========================
+        /* ================================
            AUTH / JOIN
-        ========================== */
+        ================================= */
 
         if (
           data.type === "join" ||
@@ -1162,27 +1994,48 @@ wss.on(
               data.pin
             );
 
+
           if (!user) {
 
             sendSocket(
               ws,
               {
-                type: "auth-error",
+
+                type:
+                  "auth-error",
+
                 message:
                   "Login authentication failed"
+
               }
             );
 
             return;
+
           }
 
 
-          const phone =
-            String(user.phone);
+          normalizeUser(
+            user
+          );
 
+
+          const phone =
+            String(
+              user.phone
+            );
+
+
+          /*
+            একই account অন্য device/socket
+            থেকে connected থাকলে পুরোনো socket
+            বন্ধ করা হবে।
+          */
 
           const oldSocket =
-            onlineUsers.get(phone);
+            onlineUsers.get(
+              phone
+            );
 
 
           if (
@@ -1191,13 +2044,17 @@ wss.on(
           ) {
 
             try {
+
               oldSocket.close();
+
             } catch {}
 
           }
 
 
-          ws.phone = phone;
+          ws.phone =
+            phone;
+
           ws.username =
             user.username;
 
@@ -1211,30 +2068,38 @@ wss.on(
           sendSocket(
             ws,
             {
-              type: "joined",
+
+              type:
+                "joined",
+
               username:
                 user.username
+
             }
           );
 
 
           /*
-           নিজের profile পাঠানো
+            নিজের profile
           */
 
           sendSocket(
             ws,
             {
-              type: "profile",
+
+              type:
+                "profile",
+
               profile:
                 publicUser(user)
+
             }
           );
 
 
           /*
-           অন্য online users-কে
-           এই user-এর presence/profile জানানো।
+            অন্য online users-কে
+            presence জানানো
           */
 
           for (
@@ -1249,62 +2114,96 @@ wss.on(
               isOpen(otherSocket)
             ) {
 
+              /*
+                অন্য user-কে
+                নতুন user online
+              */
+
               sendSocket(
                 otherSocket,
                 {
-                  type: "presence",
-                  online: true,
+
+                  type:
+                    "presence",
+
+                  online:
+                    true,
+
                   username:
                     user.username,
-                  phone
+
+                  phone:
+                    phone
+
                 }
               );
+
+
+              /*
+                নতুন user-কে
+                অন্য user online
+              */
 
               sendSocket(
                 ws,
                 {
-                  type: "presence",
-                  online: true,
+
+                  type:
+                    "presence",
+
+                  online:
+                    true,
+
                   username:
                     otherSocket.username,
+
                   phone:
                     otherPhone
+
                 }
               );
+
             }
+
           }
 
 
           return;
+
         }
 
 
-        /*
-         Authentication ছাড়া
-         অন্য operation নয়।
-        */
+        /* ================================
+           AUTH CHECK
+        ================================= */
 
         if (!ws.phone) {
 
           sendSocket(
             ws,
             {
-              type: "auth-error",
+
+              type:
+                "auth-error",
+
               message:
                 "WebSocket authenticated নয়"
+
             }
           );
 
           return;
+
         }
 
 
-        /* ==========================
+        /* ================================
            ROOM CREATE
-        ========================== */
+        ================================= */
 
         if (
-          data.type === "room-create"
+          data.type ===
+          "room-create"
         ) {
 
           let room =
@@ -1322,7 +2221,8 @@ wss.on(
                 100000 +
                 Math.random() *
                 900000
-              ).toString();
+              )
+              .toString();
 
           }
 
@@ -1332,24 +2232,32 @@ wss.on(
             room
           );
 
+
           sendSocket(
             ws,
             {
-              type: "room-created",
+
+              type:
+                "room-created",
+
               room
+
             }
           );
 
+
           return;
+
         }
 
 
-        /* ==========================
+        /* ================================
            ROOM JOIN
-        ========================== */
+        ================================= */
 
         if (
-          data.type === "room-join"
+          data.type ===
+          "room-join"
         ) {
 
           joinRoom(
@@ -1358,21 +2266,24 @@ wss.on(
           );
 
           return;
+
         }
 
 
-        /* ==========================
-           ROOM CHAT / SIGNAL
-        ========================== */
+        /* ================================
+           ROOM MESSAGE
+        ================================= */
 
         if (
-          data.type === "room-message"
+          data.type ===
+          "room-message"
         ) {
 
           const room =
             rooms.get(
               ws.room
             );
+
 
           if (room) {
 
@@ -1387,26 +2298,40 @@ wss.on(
                 sendSocket(
                   peer,
                   {
+
                     ...data,
+
                     from:
+                      ws.username,
+
+                    fromPhone:
+                      ws.phone,
+
+                    fromUsername:
                       ws.username
+
                   }
                 );
 
               }
+
             }
+
           }
 
+
           return;
+
         }
 
 
-        /* ==========================
+        /* ================================
            PRESENCE
-        ========================== */
+        ================================= */
 
         if (
-          data.type === "presence"
+          data.type ===
+          "presence"
         ) {
 
           for (
@@ -1424,26 +2349,35 @@ wss.on(
               sendSocket(
                 socket,
                 {
-                  type: "presence",
+
+                  type:
+                    "presence",
+
                   online:
                     data.online !== false,
+
                   username:
                     ws.username,
+
                   phone:
                     ws.phone
+
                 }
               );
 
             }
+
           }
 
+
           return;
+
         }
 
 
-        /* ==========================
-           DIRECT MESSAGES / CALLS
-        ========================== */
+        /* ================================
+           DIRECT CHAT / CALL
+        ================================= */
 
         if (
           DIRECT_TYPES.has(
@@ -1457,41 +2391,45 @@ wss.on(
           );
 
           return;
+
         }
 
 
-        /* ==========================
+        /* ================================
            ICE CANDIDATE
-        ========================== */
+        ================================= */
 
         if (
           data.type ===
           "ice-candidate"
         ) {
 
+          /*
+            ICE-এর target:
+            toUsername থাকলে সেটা,
+            না থাকলে callPeerPhone
+          */
+
           directRelay(
             ws,
             {
+
               ...data,
-              type:
-                ws.callPeerPhone
-                  ? (
-                    "video-call"
-                  )
-                  : "video-call",
+
               action:
                 "ice-candidate"
+
             }
           );
 
           return;
+
         }
 
 
-        /*
-         যদি frontend অন্য কোনো WebRTC
-         signal type ব্যবহার করে।
-        */
+        /* ================================
+           OTHER DIRECT SIGNAL
+        ================================= */
 
         if (
           data.toPhone ||
@@ -1506,15 +2444,25 @@ wss.on(
           );
 
           return;
+
         }
 
       }
     );
 
 
+    /* ================================
+       CLOSE
+    ================================= */
+
     ws.on(
       "close",
       () => {
+
+        /*
+          শুধু নিজের socket হলে
+          onlineUsers থেকে remove করি।
+        */
 
         if (
           ws.phone &&
@@ -1530,11 +2478,13 @@ wss.on(
         }
 
 
-        leaveRoom(ws);
+        leaveRoom(
+          ws
+        );
 
 
         /*
-         অন্য users-কে offline জানানো।
+          Offline presence
         */
 
         for (
@@ -1547,28 +2497,47 @@ wss.on(
           sendSocket(
             socket,
             {
-              type: "presence",
-              online: false,
+
+              type:
+                "presence",
+
+              online:
+                false,
+
               username:
                 ws.username || "",
+
               phone:
                 ws.phone || ""
+
             }
           );
 
         }
+
       }
     );
 
 
     ws.on(
       "error",
-      () => {}
+      error => {
+
+        console.log(
+          "WebSocket error:",
+          error?.message || ""
+        );
+
+      }
     );
 
   }
 );
 
+
+/* =========================================
+   START SERVER
+========================================= */
 
 server.listen(
   PORT,
