@@ -692,12 +692,7 @@ textarea.input{
    <div class="title">Welcome Back ❤️</div>
    <div class="muted">তোমার অ্যাকাউন্টে প্রবেশ করো</div>
 
-   <input
-    id="loginPhone"
-    class="input"
-    type="tel"
-    placeholder="মোবাইল নম্বর"
-   >
+   <input id="loginPhone" class="input" type="tel" placeholder="মোবাইল নম্বর">
 
    <input
     id="loginPin"
@@ -712,10 +707,7 @@ textarea.input{
    </button>
 
    <div class="center">
-    <button
-     class="link-btn"
-     onclick="showPage('registerPage')"
-    >
+    <button class="link-btn" onclick="showPage('registerPage')">
      নতুন Account তৈরি করুন
     </button>
    </div>
@@ -729,12 +721,10 @@ textarea.input{
  <div class="container">
 
   <div class="header">
-   <button
-    class="icon-btn"
-    onclick="showPage('loginPage')"
-   >←</button>
+   <button class="icon-btn" onclick="showPage('loginPage')">←</button>
 
    <div class="title">নতুন Account</div>
+
    <div style="width:42px"></div>
   </div>
 
@@ -766,10 +756,7 @@ textarea.input{
     placeholder="Username (যেমন: rabbi123)"
    >
 
-   <button
-    class="btn"
-    onclick="registerUser()"
-   >
+   <button class="btn" onclick="registerUser()">
     Account তৈরি করুন ❤️
    </button>
 
@@ -784,18 +771,23 @@ textarea.input{
 
   <div class="header">
    <div class="header-left">
-    <div id="homeAvatar" class="avatar">আমি</div>
+
+    <div id="homeAvatar" class="avatar">
+     আমি
+    </div>
 
     <div>
      <div id="homeName" class="user-name">আমি</div>
      <div class="muted">দুজন ❤️</div>
     </div>
+
    </div>
 
    <button
     class="icon-btn"
     onclick="showPage('profilePage')"
    >⚙️</button>
+
   </div>
 
 
@@ -814,9 +806,14 @@ textarea.input{
    </div>
 
    <div class="partner-box">
+
     <div style="text-align:center">
      <div class="muted">একসাথে</div>
-     <div id="togetherDays" style="font-size:28px;font-weight:900">
+
+     <div
+      id="togetherDays"
+      style="font-size:28px;font-weight:900"
+     >
       0 দিন
      </div>
     </div>
@@ -825,10 +822,15 @@ textarea.input{
 
     <div style="text-align:center">
      <div class="muted">স্ট্যাটাস</div>
-     <div id="onlineStatus" style="font-weight:800">
+
+     <div
+      id="onlineStatus"
+      style="font-weight:800"
+     >
       Offline
      </div>
     </div>
+
    </div>
 
    <button
@@ -842,7 +844,10 @@ textarea.input{
 
 
   <div class="card">
-   <div class="section-title">Quick Actions</div>
+
+   <div class="section-title">
+    Quick Actions
+   </div>
 
    <div class="quick-grid">
 
@@ -851,28 +856,51 @@ textarea.input{
      Chat
     </button>
 
-    <button class="quick" onclick="startVideoFromHome()">
+    <button
+     class="quick"
+     onclick="startVideoFromHome()"
+    >
      <span class="emoji">📹</span>
      Video Call
     </button>
 
-    <button class="quick" onclick="startAudioFromHome()">
+    <button
+     class="quick"
+     onclick="startAudioFromHome()"
+    >
      <span class="emoji">📞</span>
      Audio Call
     </button>
 
-    <button class="quick" onclick="showPage('roomPage')">
+    <button
+     class="quick"
+     onclick="showPage('roomPage')"
+    >
      <span class="emoji">🔐</span>
      Private Room
     </button>
 
-    <button class="quick" onclick="showPage('friendsPage')">
+    <button
+     class="quick"
+     onclick="showPage('friendsPage')"
+    >
      <span class="emoji">👥</span>
      Friends
-     <span id="friendBadge" class="badge" style="display:none">0</span>
+
+     <span
+      id="friendBadge"
+      class="badge"
+      style="display:none"
+     >
+      0
+     </span>
+
     </button>
 
-    <button class="quick" onclick="showPage('couplePage')">
+    <button
+     class="quick"
+     onclick="showPage('couplePage')"
+    >
      <span class="emoji">💑</span>
      Couple Space
     </button>
@@ -882,21 +910,50 @@ textarea.input{
 
 
   <div class="card">
+
    <div class="section-title">
     আজ তোমার অনুভূতি কেমন? ❤️
    </div>
 
    <div class="feeling-grid">
-    <button class="feeling" onclick="sendFeeling('🥰')">🥰<br>ভালোবাসা</button>
-    <button class="feeling" onclick="sendFeeling('😍')">😍<br>মুগ্ধ</button>
-    <button class="feeling" onclick="sendFeeling('😘')">😘<br>চুমু</button>
-    <button class="feeling" onclick="sendFeeling('😔')">😔<br>মিস করছি</button>
+
+    <button
+     class="feeling"
+     onclick="sendFeeling('🥰')"
+    >
+     🥰<br>ভালোবাসা
+    </button>
+
+    <button
+     class="feeling"
+     onclick="sendFeeling('😍')"
+    >
+     😍<br>মুগ্ধ
+    </button>
+
+    <button
+     class="feeling"
+     onclick="sendFeeling('😘')"
+    >
+     😘<br>চুমু
+    </button>
+
+    <button
+     class="feeling"
+     onclick="sendFeeling('😔')"
+    >
+     😔<br>মিস করছি
+    </button>
+
    </div>
   </div>
 
 
   <div class="card">
-   <div class="section-title">💌 Love Note</div>
+
+   <div class="section-title">
+    💌 Love Note
+   </div>
 
    <textarea
     id="loveNoteInput"
@@ -916,6 +973,7 @@ textarea.input{
     class="note"
     style="display:none;margin-top:12px"
    ></div>
+
   </div>
 
  </div>
@@ -927,20 +985,28 @@ textarea.input{
  <div class="container">
 
   <div class="header">
+
    <button
     class="icon-btn"
     onclick="showPage('homePage')"
-   >←</button>
+   >
+    ←
+   </button>
 
-   <div class="title">Friends 👥</div>
+   <div class="title">
+    Friends 👥
+   </div>
 
    <div style="width:42px"></div>
+
   </div>
 
 
   <div class="card">
 
-   <div class="section-title">বন্ধু খুঁজুন</div>
+   <div class="section-title">
+    বন্ধু খুঁজুন
+   </div>
 
    <div class="search-row">
 
@@ -967,8 +1033,16 @@ textarea.input{
   <div class="card">
 
    <div class="section-title">
+
     Friend Requests
-    <span id="requestCount" class="badge">0</span>
+
+    <span
+     id="requestCount"
+     class="badge"
+    >
+     0
+    </span>
+
    </div>
 
    <div id="friendRequests"></div>
@@ -995,19 +1069,28 @@ textarea.input{
  <div class="container">
 
   <div class="header">
+
    <button
     class="icon-btn"
     onclick="showPage('homePage')"
-   >←</button>
+   >
+    ←
+   </button>
 
-   <div class="title">Couple Space 💑</div>
+   <div class="title">
+    Couple Space 💑
+   </div>
 
    <div style="width:42px"></div>
+
   </div>
 
 
   <div class="card">
-   <div class="section-title">📖 Our Story</div>
+
+   <div class="section-title">
+    📖 Our Story
+   </div>
 
    <textarea
     id="ourStoryInput"
@@ -1027,6 +1110,7 @@ textarea.input{
     class="note"
     style="margin-top:12px"
    ></div>
+
   </div>
 
 
@@ -1094,21 +1178,30 @@ textarea.input{
  <div class="container">
 
   <div class="header">
+
    <button
     class="icon-btn"
     onclick="showPage('homePage')"
-   >←</button>
+   >
+    ←
+   </button>
 
-   <div class="title">Private Room 🔐</div>
+   <div class="title">
+    Private Room 🔐
+   </div>
 
    <div style="width:42px"></div>
+
   </div>
 
 
   <div class="card">
 
    <div class="center">
-    <div style="font-size:55px">🔐</div>
+
+    <div style="font-size:55px">
+     🔐
+    </div>
 
     <div class="title">
      Private Room
@@ -1117,6 +1210,7 @@ textarea.input{
     <div class="muted">
      একই Room Code দিয়ে দুজন যুক্ত হও
     </div>
+
    </div>
 
 
@@ -1190,22 +1284,35 @@ textarea.input{
    <button
     class="icon-btn"
     onclick="showPage('homePage')"
-   >←</button>
+   >
+    ←
+   </button>
 
    <div class="header-left">
 
-    <div id="chatAvatar" class="avatar">
+    <div
+     id="chatAvatar"
+     class="avatar"
+    >
      ❤️
     </div>
 
     <div>
-     <div id="chatName" class="user-name">
+
+     <div
+      id="chatName"
+      class="user-name"
+     >
       আমাদের দুজন
      </div>
 
-     <div id="chatStatus" class="muted">
+     <div
+      id="chatStatus"
+      class="muted"
+     >
       Offline
      </div>
+
     </div>
 
    </div>
@@ -1222,7 +1329,10 @@ textarea.input{
 
   <div class="card">
 
-   <div id="chatBox" class="chat-box"></div>
+   <div
+    id="chatBox"
+    class="chat-box"
+   ></div>
 
    <div class="chat-input-row">
 
@@ -1257,9 +1367,13 @@ textarea.input{
    <button
     class="icon-btn"
     onclick="showPage('homePage')"
-   >←</button>
+   >
+    ←
+   </button>
 
-   <div class="title">Profile</div>
+   <div class="title">
+    Profile
+   </div>
 
    <div style="width:42px"></div>
 
@@ -1464,7 +1578,10 @@ textarea.input{
  class="message-notification"
  onclick="openChat()"
 >
- <div style="font-weight:800">
+ <div
+  id="notificationTitle"
+  style="font-weight:800"
+ >
   💬 নতুন মেসেজ
  </div>
 
@@ -1596,6 +1713,7 @@ function getProfile(){
   );
 
  }catch{
+
   return {};
 
  }
@@ -1613,6 +1731,10 @@ function saveLocalProfile(profile){
 }
 
 
+/* =========================
+   PAGE
+========================= */
+
 function showPage(pageId){
 
  document
@@ -1625,17 +1747,23 @@ function showPage(pageId){
   document.getElementById(pageId);
 
  if(page){
+
   page.classList.add("active");
+
   currentPage=pageId;
+
  }
+
 
  const logged=
   localStorage.getItem(
    "dujon_logged_in"
   )==="true";
 
+
  const nav=
   document.getElementById("bottomNav");
+
 
  if(nav){
 
@@ -1647,32 +1775,65 @@ function showPage(pageId){
 
  }
 
+
  document
   .querySelectorAll(".nav-btn")
   .forEach(btn=>{
    btn.classList.remove("active");
   });
 
+
  if(pageId==="homePage"){
-  document.getElementById("navHome")?.classList.add("active");
+
+  document
+   .getElementById("navHome")
+   ?.classList.add("active");
+
  }
+
 
  if(pageId==="friendsPage"){
-  document.getElementById("navFriends")?.classList.add("active");
+
+  document
+   .getElementById("navFriends")
+   ?.classList.add("active");
+
+  /*
+   Friends page খুললেই server থেকে
+   latest request/friends নেওয়া হবে।
+  */
+
+  loadSocialData();
+
  }
+
 
  if(pageId==="chatPage"){
-  document.getElementById("navChat")?.classList.add("active");
+
+  document
+   .getElementById("navChat")
+   ?.classList.add("active");
+
  }
 
+
  if(pageId==="profilePage"){
-  document.getElementById("navProfile")?.classList.add("active");
+
+  document
+   .getElementById("navProfile")
+   ?.classList.add("active");
+
  }
+
 
  window.scrollTo(0,0);
 
 }
 
+
+/* =========================
+   REGISTER
+========================= */
 
 async function registerUser(){
 
@@ -1682,11 +1843,13 @@ async function registerUser(){
    .value
    .trim();
 
+
  const pin=
   document
    .getElementById("regPin")
    .value
    .trim();
+
 
  const username=
   document
@@ -1699,6 +1862,7 @@ async function registerUser(){
  if(!phone){
 
   toast("মোবাইল নম্বর দাও");
+
   return;
 
  }
@@ -1706,7 +1870,10 @@ async function registerUser(){
 
  if(!/^[0-9]{4,6}$/.test(pin)){
 
-  toast("PIN ৪-৬ সংখ্যার হতে হবে");
+  toast(
+   "PIN ৪-৬ সংখ্যার হতে হবে"
+  );
+
   return;
 
  }
@@ -1749,6 +1916,7 @@ async function registerUser(){
 
   const text=
    await response.text();
+
 
   let data;
 
@@ -1833,6 +2001,10 @@ async function registerUser(){
 }
 
 
+/* =========================
+   LOGIN
+========================= */
+
 function login(){
 
  const phone=
@@ -1840,6 +2012,7 @@ function login(){
    .getElementById("loginPhone")
    .value
    .trim();
+
 
  const pin=
   document
@@ -1898,11 +2071,16 @@ function login(){
 }
 
 
+/* =========================
+   LOGOUT
+========================= */
+
 function logout(){
 
  localStorage.removeItem(
   "dujon_logged_in"
  );
+
 
  if(ws){
 
@@ -1913,6 +2091,7 @@ function logout(){
   ws=null;
 
  }
+
 
  if(localStream){
 
@@ -1926,27 +2105,36 @@ function logout(){
 
  }
 
+
  showPage("loginPage");
 
 }
 
 
+/* =========================
+   PROFILE
+========================= */
+
 function loadProfileToUI(){
 
  const profile=getProfile();
+
 
  const name=
   profile.name||
   "আমি";
 
+
  const photo=
   profile.photo||
   "";
+
 
  const avatar=
   document.getElementById(
    "homeAvatar"
   );
+
 
  if(avatar){
 
@@ -1970,8 +2158,11 @@ function loadProfileToUI(){
    "homeName"
   );
 
+
  if(homeName){
+
   homeName.textContent=name;
+
  }
 
 
@@ -1979,6 +2170,7 @@ function loadProfileToUI(){
   document.getElementById(
    "profileAvatarLarge"
   );
+
 
  if(large){
 
@@ -2002,8 +2194,11 @@ function loadProfileToUI(){
    "profileName"
   );
 
+
  if(nameInput){
+
   nameInput.value=name;
+
  }
 
 
@@ -2011,6 +2206,7 @@ function loadProfileToUI(){
   document.getElementById(
    "profileUsername"
   );
+
 
  if(usernameInput){
 
@@ -2027,6 +2223,7 @@ function loadProfileToUI(){
    "profilePhone"
   );
 
+
  if(phoneInput){
 
   phoneInput.value=
@@ -2038,6 +2235,11 @@ function loadProfileToUI(){
 
 }
 
+
+/*
+ Profile Save-এর /api/profile অংশ
+ পরিবর্তন করা হয়নি।
+*/
 
 async function saveProfile(){
 
@@ -2056,12 +2258,14 @@ async function saveProfile(){
  if(!name){
 
   toast("নাম লিখুন");
+
   return;
 
  }
 
 
  const oldProfile=getProfile();
+
 
  const profile={
   ...oldProfile,
@@ -2071,11 +2275,6 @@ async function saveProfile(){
 
  saveLocalProfile(profile);
 
-
- /*
-  Profile Save-এর endpoint
-  ইচ্ছাকৃতভাবে /api/profile রাখা হয়েছে।
- */
 
  try{
 
@@ -2109,10 +2308,14 @@ async function saveProfile(){
   const text=
    await response.text();
 
+
   let data={};
 
+
   try{
+
    data=JSON.parse(text);
+
   }catch{}
 
 
@@ -2154,6 +2357,7 @@ function handlePhoto(event){
  const file=
   event.target.files?.[0];
 
+
  if(!file)return;
 
 
@@ -2179,11 +2383,14 @@ function handlePhoto(event){
   profile.photo=
    reader.result;
 
+
   saveLocalProfile(profile);
 
   loadProfileToUI();
 
-  toast("ছবি পরিবর্তন হয়েছে ❤️");
+  toast(
+   "ছবি পরিবর্তন হয়েছে ❤️"
+  );
 
  };
 
@@ -2199,6 +2406,7 @@ function removePhoto(){
 
  profile.photo="";
 
+
  saveLocalProfile(profile);
 
  loadProfileToUI();
@@ -2208,12 +2416,17 @@ function removePhoto(){
 }
 
 
+/* =========================
+   TOGETHER
+========================= */
+
 function setTogetherDate(){
 
  const date=
   prompt(
    "তোমাদের সম্পর্কের শুরু তারিখ লিখুন (YYYY-MM-DD)"
   );
+
 
  if(!date)return;
 
@@ -2225,6 +2438,7 @@ function setTogetherDate(){
  if(isNaN(parsed.getTime())){
 
   toast("তারিখ সঠিক নয়");
+
   return;
 
  }
@@ -2238,13 +2452,16 @@ function setTogetherDate(){
 
  loadTogetherDays();
 
+
  sendWS({
   type:"couple-date",
   date
  });
 
 
- toast("তারিখ সংরক্ষণ হয়েছে ❤️");
+ toast(
+  "তারিখ সংরক্ষণ হয়েছে ❤️"
+ );
 
 }
 
@@ -2256,10 +2473,12 @@ function loadTogetherDays(){
    "dujon_together_date"
   );
 
+
  const el=
   document.getElementById(
    "togetherDays"
   );
+
 
  if(!el)return;
 
@@ -2267,6 +2486,7 @@ function loadTogetherDays(){
  if(!date){
 
   el.textContent="0 দিন";
+
   return;
 
  }
@@ -2275,8 +2495,10 @@ function loadTogetherDays(){
  const start=
   new Date(date);
 
+
  const now=
   new Date();
+
 
  const diff=
   Math.max(
@@ -2297,6 +2519,10 @@ function loadTogetherDays(){
 }
 
 
+/* =========================
+   WEBSOCKET
+========================= */
+
 function connectRoom(){
 
  if(ws){
@@ -2305,8 +2531,11 @@ function connectRoom(){
    ws.readyState===
    WebSocket.OPEN
   ){
+
    return;
+
   }
+
 
   try{
    ws.close();
@@ -2329,8 +2558,10 @@ function connectRoom(){
     "WebSocket connected"
    );
 
+
    const account=
     getAccount();
+
 
    if(account){
 
@@ -2345,6 +2576,7 @@ function connectRoom(){
 
    }
 
+
    setPresence(true);
 
   };
@@ -2358,7 +2590,9 @@ function connectRoom(){
      const data=
       JSON.parse(event.data);
 
+
      await handleWSMessage(data);
+
 
     }catch(error){
 
@@ -2377,6 +2611,7 @@ function connectRoom(){
    console.log(
     "WebSocket disconnected"
    );
+
 
    setPresence(false);
 
@@ -2422,29 +2657,9 @@ function sendWS(data){
 }
 
 
-function setPresence(online){
-
- sendWS({
-  type:"presence",
-  online
- });
-
- const status=
-  document.getElementById(
-   "onlineStatus"
-  );
-
- if(status){
-
-  status.textContent=
-   online?
-   "Online":
-   "Offline";
-
- }
-
-}
-
+/* =========================
+   WEBSOCKET MESSAGE
+========================= */
 
 async function handleWSMessage(data){
 
@@ -2453,8 +2668,11 @@ async function handleWSMessage(data){
   case"joined":
 
    if(data.room){
+
     currentRoom=data.room;
+
    }
+
 
    setRoomStatus(
     "Connected ❤️"
@@ -2512,10 +2730,12 @@ async function handleWSMessage(data){
     false
    );
 
+
    if(currentPage!=="chatPage"){
 
     showMessageNotification(
-     data.message
+     data.message,
+     "💬 নতুন মেসেজ"
     );
 
    }
@@ -2602,6 +2822,67 @@ async function handleWSMessage(data){
    break;
 
 
+  /*
+   =================================
+   FRIEND REQUEST REAL-TIME
+   =================================
+  */
+
+  case"friend-request":
+
+   /*
+    Server থেকে Friend Request আসার
+    সঙ্গে সঙ্গে latest social data
+    আবার নেওয়া হচ্ছে।
+   */
+
+   await loadSocialData();
+
+
+   const requestName=
+    data.from?.name||
+    data.from?.username||
+    "কেউ";
+
+
+   showFriendRequestNotification(
+    requestName+
+    " তোমাকে Friend Request পাঠিয়েছে ❤️"
+   );
+
+
+   toast(
+    "নতুন Friend Request এসেছে ❤️"
+   );
+
+
+   break;
+
+
+  /*
+   =================================
+   FRIEND ACCEPTED REAL-TIME
+   =================================
+  */
+
+  case"friend-accepted":
+
+   await loadSocialData();
+
+
+   toast(
+    (
+     data.name||
+     data.username||
+     "বন্ধু"
+    )+
+    " তোমার Friend Request Accept করেছে ❤️"
+   );
+
+
+   break;
+
+
   case"video-call":
 
    await handleCallSignal(
@@ -2619,6 +2900,35 @@ async function handleWSMessage(data){
 
    break;
 
+ }
+
+}
+
+
+/* =========================
+   PRESENCE
+========================= */
+
+function setPresence(online){
+
+ sendWS({
+  type:"presence",
+  online
+ });
+
+
+ const status=
+  document.getElementById(
+   "onlineStatus"
+  );
+
+
+ if(status){
+
+  status.textContent=
+   online?
+   "Online":
+   "Offline";
 
  }
 
@@ -2632,14 +2942,17 @@ function updatePartnerProfile(profile){
   profile.username||
   "আমাদের দুজন";
 
+
  const photo=
   profile.photo||
   "";
+
 
  const avatar=
   document.getElementById(
    "partnerAvatar"
   );
+
 
  if(avatar){
 
@@ -2663,8 +2976,11 @@ function updatePartnerProfile(profile){
    "partnerName"
   );
 
+
  if(partnerName){
+
   partnerName.textContent=name;
+
  }
 
 
@@ -2673,8 +2989,11 @@ function updatePartnerProfile(profile){
    "chatName"
   );
 
+
  if(chatName){
+
   chatName.textContent=name;
+
  }
 
 
@@ -2682,6 +3001,7 @@ function updatePartnerProfile(profile){
   document.getElementById(
    "chatAvatar"
   );
+
 
  if(chatAvatar){
 
@@ -2707,10 +3027,12 @@ function updatePartnerPresence(data){
  const online=
   !!data.online;
 
+
  const status=
   document.getElementById(
    "partnerStatus"
   );
+
 
  if(status){
 
@@ -2718,6 +3040,7 @@ function updatePartnerPresence(data){
    online?
    "এখন Online ❤️":
    "এখন Offline";
+
 
   status.style.color=
    online?
@@ -2732,6 +3055,7 @@ function updatePartnerPresence(data){
    "chatStatus"
   );
 
+
  if(chatStatus){
 
   chatStatus.textContent=
@@ -2743,6 +3067,10 @@ function updatePartnerPresence(data){
 
 }
 
+
+/* =========================
+   ROOM
+========================= */
 
 function setRoomStatus(text){
 
@@ -2766,12 +3094,15 @@ async function createRoom(){
 
  currentRoom=code;
 
+
  const codeEl=
   document.getElementById(
    "roomCode"
   );
 
+
  codeEl.textContent=code;
+
  codeEl.style.display="block";
 
 
@@ -2779,6 +3110,7 @@ async function createRoom(){
   document.getElementById(
    "copyRoomBtn"
   );
+
 
  copyBtn.style.display="block";
 
@@ -2805,6 +3137,7 @@ async function createRoom(){
  setRoomStatus(
   "Room তৈরি হয়েছে ❤️"
  );
+
 
  toast(
   "Room Code তৈরি হয়েছে"
@@ -2837,6 +3170,7 @@ function joinRoom(){
 
 
  currentRoom=code;
+
 
  localStorage.setItem(
   "dujon_room",
@@ -2879,18 +3213,26 @@ function copyRoom(){
  navigator.clipboard
   ?.writeText(code)
   .then(()=>{
+
    toast(
     "Room Code Copy হয়েছে"
    );
+
   })
   .catch(()=>{
+
    toast(
     "Code: "+code
    );
+
   });
 
 }
 
+
+/* =========================
+   CHAT
+========================= */
 
 function openChat(){
 
@@ -2898,10 +3240,12 @@ function openChat(){
 
  loadMessages();
 
+
  const input=
   document.getElementById(
    "chatInput"
   );
+
 
  setTimeout(()=>{
   input?.focus();
@@ -2920,14 +3264,18 @@ function loadMessages(){
    "[]"
   );
 
+
  const box=
   document.getElementById(
    "chatBox"
   );
 
+
  if(!box)return;
 
+
  box.innerHTML="";
+
 
  messages.forEach(message=>{
 
@@ -2960,8 +3308,10 @@ function sendMessage(){
    "chatInput"
   );
 
+
  const text=
   input.value.trim();
+
 
  if(!text)return;
 
@@ -3000,11 +3350,13 @@ function addMessage(
    "chatBox"
   );
 
+
  if(!box)return;
 
 
  const msg=
   document.createElement("div");
+
 
  msg.className=
   "msg "+
@@ -3019,13 +3371,16 @@ function addMessage(
  const content=
   document.createElement("div");
 
+
  content.textContent=text;
 
 
  const time=
   document.createElement("div");
 
+
  time.className="msg-time";
+
 
  time.textContent=
   new Date()
@@ -3039,9 +3394,11 @@ function addMessage(
 
 
  msg.appendChild(content);
+
  msg.appendChild(time);
 
  box.appendChild(msg);
+
 
  box.scrollTop=
   box.scrollHeight;
@@ -3057,6 +3414,7 @@ function addMessage(
     "[]"
    );
 
+
   messages.push({
    text,
    sender:
@@ -3067,9 +3425,13 @@ function addMessage(
     Date.now()
   });
 
+
   if(messages.length>200){
+
    messages.shift();
+
   }
+
 
   saveMessages(messages);
 
@@ -3078,28 +3440,107 @@ function addMessage(
 }
 
 
-function showMessageNotification(text){
+/* =========================
+   NOTIFICATIONS
+========================= */
+
+function showMessageNotification(
+ text,
+ title="💬 নতুন মেসেজ"
+){
 
  const el=
   document.getElementById(
    "messageNotification"
   );
 
+
  const txt=
   document.getElementById(
    "notificationText"
   );
 
+
+ const titleEl=
+  document.getElementById(
+   "notificationTitle"
+  );
+
+
+ if(!el || !txt)return;
+
+
+ if(titleEl){
+
+  titleEl.textContent=title;
+
+ }
+
+
  txt.textContent=text;
+
 
  el.classList.add("active");
 
+
  setTimeout(()=>{
+
   el.classList.remove("active");
+
  },4000);
 
 }
 
+
+function showFriendRequestNotification(text){
+
+ const el=
+  document.getElementById(
+   "messageNotification"
+  );
+
+
+ const txt=
+  document.getElementById(
+   "notificationText"
+  );
+
+
+ const titleEl=
+  document.getElementById(
+   "notificationTitle"
+  );
+
+
+ if(!el || !txt)return;
+
+
+ if(titleEl){
+
+  titleEl.textContent=
+   "👥 নতুন Friend Request";
+
+ }
+
+
+ txt.textContent=text;
+
+
+ el.classList.add("active");
+
+
+ setTimeout(()=>{
+
+  el.classList.remove("active");
+
+ },5000);
+
+}
+
+
+/* =========================
+   FEELING / LOVE NOTE
+========================= */
 
 function sendFeeling(feeling){
 
@@ -3107,6 +3548,7 @@ function sendFeeling(feeling){
   type:"feeling",
   feeling
  });
+
 
  toast(
   "তোমার অনুভূতি পাঠানো হয়েছে "+feeling
@@ -3122,8 +3564,10 @@ function sendLoveNote(){
    "loveNoteInput"
   );
 
+
  const note=
   input.value.trim();
+
 
  if(!note){
 
@@ -3138,12 +3582,15 @@ function sendLoveNote(){
 
  showLoveNote(note);
 
+
  sendWS({
   type:"love-note",
   note
  });
 
+
  input.value="";
+
 
  toast(
   "Love Note পাঠানো হয়েছে ❤️"
@@ -3159,11 +3606,17 @@ function showLoveNote(note){
    "loveNoteDisplay"
   );
 
+
  display.textContent=note;
+
  display.style.display="block";
 
 }
 
+
+/* =========================
+   COUPLE SPACE
+========================= */
 
 function saveOurStory(){
 
@@ -3172,12 +3625,15 @@ function saveOurStory(){
    "ourStoryInput"
   );
 
+
  const story=
   input.value.trim();
+
 
  if(!story){
 
   toast("Story লিখুন");
+
   return;
 
  }
@@ -3218,10 +3674,12 @@ function loadOurStory(){
   )||
   "";
 
+
  document
   .getElementById(
    "ourStoryInput"
   ).value=story;
+
 
  document
   .getElementById(
@@ -3238,8 +3696,10 @@ function saveMemory(){
    "memoryInput"
   );
 
+
  const memory=
   input.value.trim();
+
 
  if(!memory){
 
@@ -3275,6 +3735,7 @@ function saveMemory(){
 
  renderMemories();
 
+
  sendWS({
   type:"memory",
   memory
@@ -3282,6 +3743,7 @@ function saveMemory(){
 
 
  input.value="";
+
 
  toast(
   "Memory যোগ হয়েছে ❤️"
@@ -3297,21 +3759,27 @@ function renderMemory(memory){
    "memoryGrid"
   );
 
+
  if(!grid)return;
 
 
  const div=
   document.createElement("div");
 
+
  div.className="memory";
+
 
  const text=
   document.createElement("div");
 
+
  text.className=
   "memory-text";
 
+
  text.textContent=memory;
+
 
  div.appendChild(text);
 
@@ -3327,7 +3795,9 @@ function renderMemories(){
    "memoryGrid"
   );
 
+
  if(!grid)return;
+
 
  grid.innerHTML="";
 
@@ -3372,8 +3842,10 @@ function saveFavorite(){
    "favoriteInput"
   );
 
+
  const favorite=
   input.value.trim();
+
 
  if(!favorite){
 
@@ -3408,6 +3880,7 @@ function saveFavorite(){
 
  input.value="";
 
+
  toast(
   "Favorite Moment saved ⭐"
  );
@@ -3423,11 +3896,13 @@ function loadFavorite(){
   )||
   "";
 
+
  document
   .getElementById(
    "favoriteInput"
   ).value=
    favorite;
+
 
  document
   .getElementById(
@@ -3438,12 +3913,17 @@ function loadFavorite(){
 }
 
 
+/* =========================
+   FRIEND SEARCH
+========================= */
+
 async function searchUser(){
 
  const input=
   document.getElementById(
    "friendSearchInput"
   );
+
 
  const username=
   input.value
@@ -3468,6 +3948,7 @@ async function searchUser(){
    "searchResult"
   );
 
+
  result.innerHTML=
   `<div class="empty">
    খোঁজা হচ্ছে...
@@ -3487,10 +3968,14 @@ async function searchUser(){
   const text=
    await response.text();
 
+
   let data={};
 
+
   try{
+
    data=JSON.parse(text);
+
   }catch{}
 
 
@@ -3559,6 +4044,7 @@ async function searchUser(){
      </div>
 
      <div>
+
       <div class="user-name">
        ${escapeHtml(
         user.name||
@@ -3571,6 +4057,7 @@ async function searchUser(){
         user.username
        )}
       </div>
+
      </div>
 
     </div>
@@ -3593,6 +4080,7 @@ async function searchUser(){
    error
   );
 
+
   result.innerHTML=
    `<div class="empty">
     Server-এর সাথে সংযোগ হয়নি
@@ -3603,10 +4091,15 @@ async function searchUser(){
 }
 
 
+/* =========================
+   SEND FRIEND REQUEST
+========================= */
+
 async function sendFriendRequest(username){
 
  const account=
   getAccount();
+
 
  if(!account)return;
 
@@ -3636,14 +4129,21 @@ async function sendFriendRequest(username){
   const text=
    await response.text();
 
+
   let data={};
 
+
   try{
+
    data=JSON.parse(text);
+
   }catch{}
 
 
-  if(!response.ok || data.ok===false){
+  if(
+   !response.ok ||
+   data.ok===false
+  ){
 
    toast(
     data.message||
@@ -3667,6 +4167,7 @@ async function sendFriendRequest(username){
    error
   );
 
+
   toast(
    "Server-এর সাথে সংযোগ হয়নি"
   );
@@ -3676,16 +4177,23 @@ async function sendFriendRequest(username){
 }
 
 
+/* =========================
+   SOCIAL DATA
+========================= */
+
 async function loadSocialData(){
 
  const account=
   getAccount();
 
+
  if(
   !account?.phone||
   !account?.pin
  ){
+
   return;
+
  }
 
 
@@ -3713,12 +4221,18 @@ async function loadSocialData(){
   const text=
    await response.text();
 
+
   let data={};
 
+
   try{
+
    data=JSON.parse(text);
+
   }catch{
+
    return;
+
   }
 
 
@@ -3751,6 +4265,7 @@ async function loadSocialData(){
    requests
   );
 
+
   renderFriends(
    friends
   );
@@ -3765,14 +4280,16 @@ async function loadSocialData(){
     "friendBadge"
    );
 
+
   if(badge){
 
    badge.textContent=count;
 
+
    badge.style.display=
-    count>0?
-    "inline-flex":
-    "none";
+    count>0
+     ? "inline-flex"
+     : "none";
 
   }
 
@@ -3782,8 +4299,11 @@ async function loadSocialData(){
     "requestCount"
    );
 
+
   if(requestCount){
+
    requestCount.textContent=count;
+
   }
 
 
@@ -3799,6 +4319,10 @@ async function loadSocialData(){
 }
 
 
+/* =========================
+   RENDER REQUESTS
+========================= */
+
 function renderFriendRequests(requests){
 
  const container=
@@ -3806,7 +4330,9 @@ function renderFriendRequests(requests){
    "friendRequests"
   );
 
+
  if(!container)return;
+
 
  container.innerHTML="";
 
@@ -3852,6 +4378,7 @@ function renderFriendRequests(requests){
   const div=
    document.createElement("div");
 
+
   div.className="request-user";
 
 
@@ -3869,6 +4396,7 @@ function renderFriendRequests(requests){
     </div>
 
     <div>
+
      <div class="user-name">
       ${escapeHtml(name)}
      </div>
@@ -3876,6 +4404,7 @@ function renderFriendRequests(requests){
      <div class="username">
       @${escapeHtml(username)}
      </div>
+
     </div>
 
    </div>
@@ -3907,6 +4436,10 @@ function renderFriendRequests(requests){
 }
 
 
+/* =========================
+   RENDER FRIENDS
+========================= */
+
 function renderFriends(friends){
 
  const container=
@@ -3914,7 +4447,9 @@ function renderFriends(friends){
    "friendsList"
   );
 
+
  if(!container)return;
+
 
  container.innerHTML="";
 
@@ -3959,6 +4494,7 @@ function renderFriends(friends){
   const div=
    document.createElement("div");
 
+
   div.className="friend-user";
 
 
@@ -3976,6 +4512,7 @@ function renderFriends(friends){
     </div>
 
     <div>
+
      <div class="user-name">
       ${escapeHtml(name)}
      </div>
@@ -3983,6 +4520,7 @@ function renderFriends(friends){
      <div class="username">
       @${escapeHtml(username)}
      </div>
+
     </div>
 
    </div>
@@ -4003,10 +4541,15 @@ function renderFriends(friends){
 }
 
 
+/* =========================
+   ACCEPT FRIEND
+========================= */
+
 async function acceptFriend(username){
 
  const account=
   getAccount();
+
 
  if(!account)return;
 
@@ -4036,14 +4579,21 @@ async function acceptFriend(username){
   const text=
    await response.text();
 
+
   let data={};
 
+
   try{
+
    data=JSON.parse(text);
+
   }catch{}
 
 
-  if(!response.ok || data.ok===false){
+  if(
+   !response.ok ||
+   data.ok===false
+  ){
 
    toast(
     data.message||
@@ -4055,11 +4605,6 @@ async function acceptFriend(username){
   }
 
 
-  /*
-   Server যদি updated friends পাঠায়,
-   তাহলে সঙ্গে সঙ্গে UI update হবে।
-  */
-
   const friends=
    data.friends||
    data.user?.friends;
@@ -4069,10 +4614,13 @@ async function acceptFriend(username){
 
    renderFriends(friends);
 
+
    const profile=
     getProfile();
 
+
    profile.friends=friends;
+
 
    saveLocalProfile(profile);
 
@@ -4084,11 +4632,6 @@ async function acceptFriend(username){
   );
 
 
-  /*
-   Server থেকে latest social data
-   আবার নিয়ে আসা হচ্ছে।
-  */
-
   await loadSocialData();
 
 
@@ -4099,6 +4642,7 @@ async function acceptFriend(username){
    error
   );
 
+
   toast(
    "Server-এর সাথে সংযোগ হয়নি"
   );
@@ -4108,10 +4652,15 @@ async function acceptFriend(username){
 }
 
 
+/* =========================
+   REJECT FRIEND
+========================= */
+
 async function rejectFriend(username){
 
  const account=
   getAccount();
+
 
  if(!account)return;
 
@@ -4141,14 +4690,21 @@ async function rejectFriend(username){
   const text=
    await response.text();
 
+
   let data={};
 
+
   try{
+
    data=JSON.parse(text);
+
   }catch{}
 
 
-  if(!response.ok || data.ok===false){
+  if(
+   !response.ok ||
+   data.ok===false
+  ){
 
    toast(
     data.message||
@@ -4175,6 +4731,7 @@ async function rejectFriend(username){
    error
   );
 
+
   toast(
    "Server-এর সাথে সংযোগ হয়নি"
   );
@@ -4183,6 +4740,10 @@ async function rejectFriend(username){
 
 }
 
+
+/* =========================
+   SECURITY HELPERS
+========================= */
 
 function escapeHtml(value){
 
@@ -4211,7 +4772,6 @@ function escapeJs(value){
 /* =========================
    WEBRTC
 ========================= */
-
 
 async function getLocalMedia(type){
 
@@ -4244,6 +4804,7 @@ async function getLocalMedia(type){
     "localVideo"
    );
 
+
   localVideo.srcObject=
    localStream;
 
@@ -4258,9 +4819,11 @@ async function getLocalMedia(type){
    error
   );
 
+
   toast(
    "Camera/Microphone permission দিন"
   );
+
 
   return null;
 
@@ -4301,6 +4864,7 @@ function createPeerConnection(){
      "remoteVideo"
     );
 
+
    if(
     event.streams &&
     event.streams[0]
@@ -4334,6 +4898,7 @@ function createPeerConnection(){
   ()=>{
 
    if(!peerConnection)return;
+
 
    if(
     peerConnection.connectionState===
@@ -4374,6 +4939,7 @@ async function makeCall(type){
  const stream=
   await getLocalMedia(type);
 
+
  if(!stream)return;
 
 
@@ -4382,6 +4948,7 @@ async function makeCall(type){
 
  const offer=
   await peerConnection.createOffer();
+
 
  await peerConnection.setLocalDescription(
   offer
@@ -4410,6 +4977,7 @@ async function makeCall(type){
    "",
 
   profile:getProfile()
+
  });
 
 }
@@ -4437,6 +5005,7 @@ async function handleCallSignal(data){
 
   pendingOffer=data;
 
+
   currentCallType=
    data.type==="audio-call"
     ? "audio"
@@ -4453,6 +5022,7 @@ async function handleCallSignal(data){
     "incomingName"
    );
 
+
   incomingName.textContent=
    profile.name||
    profile.username||
@@ -4463,6 +5033,7 @@ async function handleCallSignal(data){
    document.getElementById(
     "incomingType"
    );
+
 
   type.textContent=
    currentCallType==="video"
@@ -4539,6 +5110,7 @@ async function handleCallSignal(data){
    "Call rejected"
   );
 
+
   endCall(false);
 
   return;
@@ -4564,6 +5136,7 @@ async function acceptCall(){
  const data=
   pendingOffer;
 
+
  if(!data)return;
 
 
@@ -4578,6 +5151,7 @@ async function acceptCall(){
   await getLocalMedia(
    currentCallType
   );
+
 
  if(!stream){
 
@@ -4633,6 +5207,7 @@ async function acceptCall(){
    "Accept call error:",
    error
   );
+
 
   toast(
    "Call গ্রহণ করা যায়নি"
@@ -4701,7 +5276,9 @@ async function addIceCandidate(candidate){
   !peerConnection||
   !candidate
  ){
+
   return;
+
  }
 
 
@@ -4732,6 +5309,7 @@ function showCallScreen(
   document.getElementById(
    "callScreen"
   );
+
 
  screen.classList.add("active");
 
@@ -4893,6 +5471,7 @@ function endCall(sendSignal=true){
    "remoteVideo"
   );
 
+
  const local=
   document.getElementById(
    "localVideo"
@@ -4900,6 +5479,7 @@ function endCall(sendSignal=true){
 
 
  remote.srcObject=null;
+
  local.srcObject=null;
 
 
@@ -4922,18 +5502,20 @@ function endCall(sendSignal=true){
 }
 
 
+/* =========================
+   BEFORE UNLOAD
+========================= */
+
 window.addEventListener(
  "beforeunload",
  ()=>{
   setPresence(false);
- }
-);
+ });
 
 
 /* =========================
    INITIAL LOAD
 ========================= */
-
 
 document.addEventListener(
  "DOMContentLoaded",
@@ -4972,7 +5554,9 @@ document.addEventListener(
  });
 
 
-/* Service Worker */
+/* =========================
+   SERVICE WORKER
+========================= */
 
 if(
  "serviceWorker" in navigator
@@ -4981,14 +5565,18 @@ if(
  window.addEventListener(
   "load",
   ()=>{
+
    navigator.serviceWorker
     .register("/sw.js")
     .catch(error=>{
+
      console.log(
       "SW error:",
       error
      );
+
     });
+
   }
  );
 
