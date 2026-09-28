@@ -2,1382 +2,806 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
-const { WebSocketServer } = require("ws");
+const WebSocket = require("ws");
 
 const PORT = process.env.PORT || 10000;
 
-const DATA_FILE = path.join(__dirname, "users.json");
+const DB_FILE = path.join(__dirname, "users.json");
 
 let users = {};
 
-function loadUsers() {
+if (fs.existsSync(DB_FILE)) {
   try {
-    if (fs.existsSync(DATA_FILE)) {
-      users = JSON.parse(
-        fs.readFileSync(DATA_FILE, "utf8")
-      );
-    } else {
-      users = {};
-      saveUsers();
-    }
-  } catch (error) {
-    console.log("Load users error:", error);
+    users = JSON.parse(
+      fs.readFileSync(DB_FILE, "utf8")
+    );
+  } catch {
     users = {};
   }
 }
 
 function saveUsers() {
-  try {
-    fs.writeFileSync(
-      DATA_FILE,
-      JSON.stringify(users, null, 2)
-    );
-  } catch (error) {
-    console.log("Save users error:", error);
-  }
+  fs.writeFileSync(
+    DB_FILE,
+    JSON.stringify(users, null, 2)
+  );
 }
 
-loadUsers();
-
-function hashPIN(pin) {
+function hashPin(pin) {
   return crypto
     .createHash("sha256")
     .update(String(pin))
     .digest("hex");
 }
 
-function cleanUsername(username) {
-  return String(username || "")
-    .trim()
-    .toLowerCase();
+function json(res, status, data) {
+  res.writeHead(status, {
+    "Content-Type": "application/json; charset=utf-8",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Methods":
+      "GET,POST,OPTIONS"
+  });
+
+  res.end(JSON.stringify(data));
 }
 
-function ensureArrays(user) {
-  if (!Array.isArray(user.friends)) {
-    user.friends = [];
-  }
+function body(req) {
+  return new Promise((resolve, reject) => {
+    let data = "";
 
-  if (!Array.isArray(user.requests)) {
-    user.requests = [];
-  }
+    req.on("data", chunk => {
+      data += chunk;
+    });
 
-  return user;
+    req.on("end", () => {
+      try {
+        resolve(
+          data ? JSON.parse(data) : {}
+        );
+      } catch {
+        resolve({});
+      }
+    });
+
+    req.on("error", reject);
+  });
 }
 
 function findUserByUsername(username) {
-  const target =
-    cleanUsername(username);
+  if (!username) return null;
 
-  for (const phone of Object.keys(users)) {
-    const user = users[phone];
+  const wanted =
+    String(username)
+      .replace(/^@/, "")
+      .toLowerCase();
 
-    if (
-      cleanUsername(user.username) ===
-      target
-    ) {
-      return user;
-    }
-  }
-
-  return null;
+  return Object.values(users).find(
+    user =>
+      String(user.username || "")
+        .toLowerCase() === wanted
+  ) || null;
 }
 
-function findPhoneByUsername(username) {
-  const target =
-    cleanUsername(username);
+function findUserPhoneByUsername(username) {
+  const user =
+    findUserByUsername(username);
 
-  for (const phone of Object.keys(users)) {
-    const user = users[phone];
-
-    if (
-      cleanUsername(user.username) ===
-      target
-    ) {
-      return phone;
-    }
-  }
-
-  return null;
+  return user?.phone || null;
 }
 
 function publicUser(user) {
   if (!user) return null;
 
   return {
-    phone: user.phone || "",
     username: user.username || "",
-    name: user.name || "",
+    name: user.name || user.username || "",
     photo: user.photo || "",
     friends: Array.isArray(user.friends)
       ? user.friends
-      : [],
-    requests: Array.isArray(user.requests)
-      ? user.requests
       : []
   };
 }
 
-function sendJSON(res, status, data) {
-  const body =
-    JSON.stringify(data);
+function authenticate(phone, pin) {
+  const user = users[String(phone)];
 
-  res.writeHead(
-    status,
-    {
-      "Content-Type":
-        "application/json; charset=utf-8",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods":
-        "GET,POST,OPTIONS",
-      "Access-Control-Allow-Headers":
-        "Content-Type"
-    }
-  );
+  if (!user) return null;
 
-  res.end(body);
+  if (
+    user.pinHash !== hashPin(pin)
+  ) {
+    return null;
+  }
+
+  return user;
 }
-
-function readBody(req) {
-  return new Promise(
-    (resolve, reject) => {
-
-      let body = "";
-
-      req.on("data", chunk => {
-        body += chunk;
-      });
-
-      req.on("end", () => {
-        try {
-          resolve(
-            body
-              ? JSON.parse(body)
-              : {}
-          );
-        } catch (error) {
-          reject(error);
-        }
-      });
-
-      req.on("error", reject);
-    }
-  );
-}
-
-
-/* =========================================
-   ONLINE USERS
-========================================= */
-
-const onlineUsers =
-  new Map();
 
 
 /* =========================================
    HTTP SERVER
 ========================================= */
 
-const server =
-  http.createServer(
-    async (req, res) => {
+const server = http.createServer(
+  async (req, res) => {
 
-      if (req.method === "OPTIONS") {
-        res.writeHead(
-          204,
-          {
-            "Access-Control-Allow-Origin":
-              "*",
-            "Access-Control-Allow-Methods":
-              "GET,POST,OPTIONS",
-            "Access-Control-Allow-Headers":
-              "Content-Type"
+    if (req.method === "OPTIONS") {
+      res.writeHead(204, {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers":
+          "Content-Type",
+        "Access-Control-Allow-Methods":
+          "GET,POST,OPTIONS"
+      });
+
+      res.end();
+      return;
+    }
+
+    const url =
+      new URL(
+        req.url,
+        `http://${req.headers.host}`
+      );
+
+    const pathname = url.pathname;
+
+
+    /* ================================
+       REGISTER
+    ================================= */
+
+    if (
+      pathname === "/api/register" &&
+      req.method === "POST"
+    ) {
+
+      const data = await body(req);
+
+      const phone =
+        String(data.phone || "").trim();
+
+      const pin =
+        String(data.pin || "").trim();
+
+      const username =
+        String(data.username || "")
+          .trim()
+          .toLowerCase();
+
+      const name =
+        String(data.name || "আমি").trim();
+
+      const photo =
+        String(data.photo || "");
+
+      if (!phone) {
+        return json(res, 400, {
+          ok: false,
+          message:
+            "মোবাইল নম্বর দিন"
+        });
+      }
+
+      if (
+        !/^[0-9]{4,6}$/.test(pin)
+      ) {
+        return json(res, 400, {
+          ok: false,
+          message:
+            "PIN ৪-৬ সংখ্যার হতে হবে"
+        });
+      }
+
+      if (
+        !/^[a-z0-9_]{3,20}$/.test(username)
+      ) {
+        return json(res, 400, {
+          ok: false,
+          message:
+            "Username 3-20 অক্ষরের হতে হবে"
+        });
+      }
+
+      if (users[phone]) {
+        return json(res, 409, {
+          ok: false,
+          message:
+            "এই মোবাইল নম্বর দিয়ে Account আছে"
+        });
+      }
+
+      const existing =
+        findUserByUsername(username);
+
+      if (existing) {
+        return json(res, 409, {
+          ok: false,
+          message:
+            "এই Username ইতিমধ্যে ব্যবহার হয়েছে"
+        });
+      }
+
+      users[phone] = {
+        phone,
+        pinHash: hashPin(pin),
+        username,
+        name: name || "আমি",
+        photo: photo || "",
+        friends: [],
+        requests: [],
+        createdAt: Date.now()
+      };
+
+      saveUsers();
+
+      return json(res, 200, {
+        ok: true,
+        message:
+          "Account তৈরি হয়েছে ❤️",
+        user:
+          publicUser(users[phone])
+      });
+    }
+
+
+    /* ================================
+       PROFILE
+       এই endpoint /api/profile
+       অপরিবর্তিত রাখা হয়েছে।
+    ================================= */
+
+    if (
+      pathname === "/api/profile" &&
+      req.method === "POST"
+    ) {
+
+      const data = await body(req);
+
+      const phone =
+        String(data.phone || "").trim();
+
+      const pin =
+        String(data.pin || "").trim();
+
+      const user =
+        authenticate(phone, pin);
+
+      if (!user) {
+        return json(res, 401, {
+          ok: false,
+          message:
+            "Authentication failed"
+        });
+      }
+
+      if (data.name !== undefined) {
+        user.name =
+          String(data.name).trim();
+      }
+
+      if (data.username !== undefined) {
+
+        const username =
+          String(data.username)
+            .trim()
+            .toLowerCase();
+
+        if (
+          username &&
+          username !== user.username
+        ) {
+
+          const other =
+            findUserByUsername(username);
+
+          if (
+            other &&
+            other.phone !== phone
+          ) {
+            return json(res, 409, {
+              ok: false,
+              message:
+                "Username already exists"
+            });
           }
+
+          user.username = username;
+        }
+      }
+
+      if (data.photo !== undefined) {
+        user.photo =
+          String(data.photo || "");
+      }
+
+      saveUsers();
+
+      return json(res, 200, {
+        ok: true,
+        message:
+          "Profile saved ❤️",
+        user:
+          publicUser(user)
+      });
+    }
+
+
+    /* ================================
+       SOCIAL
+    ================================= */
+
+    if (
+      pathname === "/api/social" &&
+      req.method === "POST"
+    ) {
+
+      const data = await body(req);
+
+      const user =
+        authenticate(
+          data.phone,
+          data.pin
         );
 
-        res.end();
-        return;
+      if (!user) {
+        return json(res, 401, {
+          ok: false,
+          message:
+            "Authentication failed"
+        });
       }
 
-
-      /* ===============================
-         REGISTER
-      =============================== */
-
-      if (
-        req.method === "POST" &&
-        req.url === "/api/register"
-      ) {
-
-        try {
-
-          const body =
-            await readBody(req);
-
-          const phone =
-            String(
-              body.phone || ""
-            ).trim();
-
-          const pin =
-            String(
-              body.pin || ""
-            ).trim();
-
-          const username =
-            cleanUsername(
-              body.username
-            );
-
-          const name =
-            String(
-              body.name || "আমি"
-            ).trim();
-
-          const photo =
-            String(
-              body.photo || ""
-            );
-
-          if (!phone) {
-            return sendJSON(
-              res,
-              400,
-              {
-                ok: false,
-                message:
-                  "মোবাইল নম্বর দিন"
-              }
-            );
-          }
-
-          if (
-            !/^[0-9]{4,6}$/.test(pin)
-          ) {
-            return sendJSON(
-              res,
-              400,
-              {
-                ok: false,
-                message:
-                  "PIN ৪-৬ সংখ্যার হতে হবে"
-              }
-            );
-          }
-
-          if (
-            !/^[a-z0-9_]{3,20}$/.test(
-              username
-            )
-          ) {
-            return sendJSON(
-              res,
-              400,
-              {
-                ok: false,
-                message:
-                  "Username 3-20 অক্ষরের হতে হবে"
-              }
-            );
-          }
+      return json(res, 200, {
+        ok: true,
+        user: {
+          username: user.username,
+          name: user.name,
+          photo: user.photo,
+          friends:
+            user.friends || [],
+          requests:
+            user.requests || []
+        },
+        friends:
+          user.friends || [],
+        requests:
+          user.requests || []
+      });
+    }
 
 
-          if (users[phone]) {
-            return sendJSON(
-              res,
-              409,
-              {
-                ok: false,
-                message:
-                  "এই মোবাইল নম্বরে Account আগে থেকেই আছে"
-              }
-            );
-          }
+    /* ================================
+       SEARCH
+    ================================= */
 
+    if (
+      pathname === "/api/search" &&
+      (
+        req.method === "GET" ||
+        req.method === "POST"
+      )
+    ) {
 
-          if (
-            findUserByUsername(
-              username
-            )
-          ) {
-            return sendJSON(
-              res,
-              409,
-              {
-                ok: false,
-                message:
-                  "এই Username আগে থেকেই ব্যবহার হয়েছে"
-              }
-            );
-          }
+      let username = "";
 
+      if (req.method === "GET") {
 
-          users[phone] = {
-            phone,
-            pin: hashPIN(pin),
-            username,
-            name,
-            photo,
-            friends: [],
-            requests: [],
-            createdAt:
-              new Date().toISOString()
-          };
+        username =
+          url.searchParams
+            .get("username") || "";
 
-          saveUsers();
+      } else {
 
-          return sendJSON(
-            res,
-            200,
-            {
-              ok: true,
-              message:
-                "Account তৈরি হয়েছে ❤️",
-              user:
-                publicUser(
-                  users[phone]
-                )
-            }
-          );
+        const data = await body(req);
 
-        } catch (error) {
+        username =
+          data.username || "";
 
-          console.log(
-            "Register error:",
-            error
-          );
-
-          return sendJSON(
-            res,
-            500,
-            {
-              ok: false,
-              message:
-                "Server error"
-            }
-          );
-        }
       }
 
+      const user =
+        findUserByUsername(username);
 
-      /* ===============================
-         SOCIAL DATA
-      =============================== */
-
-      if (
-        req.method === "POST" &&
-        req.url === "/api/social"
-      ) {
-
-        try {
-
-          const body =
-            await readBody(req);
-
-          const phone =
-            String(
-              body.phone || ""
-            ).trim();
-
-          const pin =
-            String(
-              body.pin || ""
-            ).trim();
-
-          const user =
-            users[phone];
-
-          if (!user) {
-            return sendJSON(
-              res,
-              401,
-              {
-                ok: false,
-                message:
-                  "Account পাওয়া যায়নি"
-              }
-            );
-          }
-
-          if (
-            user.pin !==
-            hashPIN(pin)
-          ) {
-            return sendJSON(
-              res,
-              401,
-              {
-                ok: false,
-                message:
-                  "PIN ভুল"
-              }
-            );
-          }
-
-          ensureArrays(user);
-
-          return sendJSON(
-            res,
-            200,
-            {
-              ok: true,
-              user:
-                publicUser(user),
-              friends:
-                user.friends,
-              requests:
-                user.requests
-            }
-          );
-
-        } catch (error) {
-
-          console.log(
-            "Social error:",
-            error
-          );
-
-          return sendJSON(
-            res,
-            500,
-            {
-              ok: false,
-              message:
-                "Server error"
-            }
-          );
-        }
+      if (!user) {
+        return json(res, 404, {
+          ok: false,
+          message:
+            "User পাওয়া যায়নি"
+        });
       }
 
-
-      /* ===============================
-         PROFILE
-         DO NOT CHANGE
-      =============================== */
-
-      if (
-        req.method === "POST" &&
-        req.url === "/api/profile"
-      ) {
-
-        try {
-
-          const body =
-            await readBody(req);
-
-          const phone =
-            String(
-              body.phone || ""
-            ).trim();
-
-          const pin =
-            String(
-              body.pin || ""
-            ).trim();
-
-          const user =
-            users[phone];
-
-          if (!user) {
-            return sendJSON(
-              res,
-              401,
-              {
-                ok: false,
-                message:
-                  "Account পাওয়া যায়নি"
-              }
-            );
-          }
-
-          if (
-            user.pin !==
-            hashPIN(pin)
-          ) {
-            return sendJSON(
-              res,
-              401,
-              {
-                ok: false,
-                message:
-                  "PIN ভুল"
-              }
-            );
-          }
-
-          if (
-            typeof body.name ===
-            "string"
-          ) {
-            user.name =
-              body.name.trim();
-          }
-
-          if (
-            typeof body.username ===
-            "string" &&
-            body.username.trim()
-          ) {
-
-            const newUsername =
-              cleanUsername(
-                body.username
-              );
-
-            const currentUsername =
-              cleanUsername(
-                user.username
-              );
-
-            if (
-              newUsername !==
-              currentUsername
-            ) {
-
-              const another =
-                findUserByUsername(
-                  newUsername
-                );
-
-              if (
-                another &&
-                another.phone !==
-                  phone
-              ) {
-                return sendJSON(
-                  res,
-                  409,
-                  {
-                    ok: false,
-                    message:
-                      "এই Username ব্যবহার করা হয়েছে"
-                  }
-                );
-              }
-
-              user.username =
-                newUsername;
-            }
-          }
-
-          if (
-            typeof body.photo ===
-            "string"
-          ) {
-            user.photo =
-              body.photo;
-          }
-
-          ensureArrays(user);
-
-          saveUsers();
-
-          return sendJSON(
-            res,
-            200,
-            {
-              ok: true,
-              message:
-                "Profile saved ❤️",
-              user:
-                publicUser(user)
-            }
-          );
-
-        } catch (error) {
-
-          console.log(
-            "Profile error:",
-            error
-          );
-
-          return sendJSON(
-            res,
-            500,
-            {
-              ok: false,
-              message:
-                "Server error"
-            }
-          );
-        }
-      }
-
-
-      /* ===============================
-         SEARCH USER
-      =============================== */
-
-      if (
-        req.method === "GET" &&
-        req.url.startsWith(
-          "/api/search"
-        )
-      ) {
-
-        try {
-
-          const url =
-            new URL(
-              req.url,
-              "http://localhost"
-            );
-
-          const username =
-            cleanUsername(
-              url.searchParams.get(
-                "username"
-              )
-            );
-
-          if (!username) {
-            return sendJSON(
-              res,
-              400,
-              {
-                ok: false,
-                message:
-                  "Username দিন"
-              }
-            );
-          }
-
-          const user =
-            findUserByUsername(
-              username
-            );
-
-          if (!user) {
-            return sendJSON(
-              res,
-              404,
-              {
-                ok: false,
-                message:
-                  "User পাওয়া যায়নি"
-              }
-            );
-          }
-
-          return sendJSON(
-            res,
-            200,
-            {
-              ok: true,
-              user:
-                publicUser(user)
-            }
-          );
-
-        } catch (error) {
-
-          return sendJSON(
-            res,
-            500,
-            {
-              ok: false,
-              message:
-                "Server error"
-            }
-          );
-        }
-      }
-
-
-      if (
-        req.method === "POST" &&
-        req.url === "/api/search"
-      ) {
-
-        try {
-
-          const body =
-            await readBody(req);
-
-          const username =
-            cleanUsername(
-              body.username
-            );
-
-          const user =
-            findUserByUsername(
-              username
-            );
-
-          if (!user) {
-            return sendJSON(
-              res,
-              404,
-              {
-                ok: false,
-                message:
-                  "User পাওয়া যায়নি"
-              }
-            );
-          }
-
-          return sendJSON(
-            res,
-            200,
-            {
-              ok: true,
-              user:
-                publicUser(user)
-            }
-          );
-
-        } catch (error) {
-
-          return sendJSON(
-            res,
-            500,
-            {
-              ok: false,
-              message:
-                "Server error"
-            }
-          );
-        }
-      }
-
-
-      /* ===============================
-         FRIEND REQUEST
-      =============================== */
-
-      if (
-        req.method === "POST" &&
-        req.url === "/api/friend-request"
-      ) {
-
-        try {
-
-          const body =
-            await readBody(req);
-
-          const phone =
-            String(
-              body.phone || ""
-            ).trim();
-
-          const pin =
-            String(
-              body.pin || ""
-            ).trim();
-
-          const targetUsername =
-            cleanUsername(
-              body.username
-            );
-
-          const sender =
-            users[phone];
-
-          if (!sender) {
-            return sendJSON(
-              res,
-              401,
-              {
-                ok: false,
-                message:
-                  "Account পাওয়া যায়নি"
-              }
-            );
-          }
-
-          if (
-            sender.pin !==
-            hashPIN(pin)
-          ) {
-            return sendJSON(
-              res,
-              401,
-              {
-                ok: false,
-                message:
-                  "PIN ভুল"
-              }
-            );
-          }
-
-          ensureArrays(sender);
-
-          const targetPhone =
-            findPhoneByUsername(
-              targetUsername
-            );
-
-          if (!targetPhone) {
-            return sendJSON(
-              res,
-              404,
-              {
-                ok: false,
-                message:
-                  "এই Username পাওয়া যায়নি"
-              }
-            );
-          }
-
-          if (
-            targetPhone ===
-            sender.phone
-          ) {
-            return sendJSON(
-              res,
-              400,
-              {
-                ok: false,
-                message:
-                  "নিজেকে Friend Request পাঠানো যাবে না"
-              }
-            );
-          }
-
-          const target =
-            users[targetPhone];
-
-          ensureArrays(target);
-
-
-          if (
-            target.friends.includes(
-              sender.username
-            )
-          ) {
-            return sendJSON(
-              res,
-              400,
-              {
-                ok: false,
-                message:
-                  "তোমরা আগে থেকেই Friends"
-              }
-            );
-          }
-
-
-          if (
-            target.requests.includes(
-              sender.username
-            )
-          ) {
-
-            return sendJSON(
-              res,
-              400,
-              {
-                ok: false,
-                message:
-                  "Friend Request আগেই পাঠানো হয়েছে"
-              }
-            );
-          }
-
-
-          target.requests.push(
-            sender.username
-          );
-
-          saveUsers();
-
-
-          /* ===============================
-             REAL-TIME NOTIFICATION
-          =============================== */
-
-          const targetSocket =
-            onlineUsers.get(
-              target.phone
-            );
-
-          if (
-            targetSocket &&
-            targetSocket.readyState ===
-              1
-          ) {
-
-            try {
-
-              targetSocket.send(
-                JSON.stringify({
-                  type:
-                    "friend-request",
-
-                  from: {
-                    username:
-                      sender.username ||
-                      "",
-                    name:
-                      sender.name ||
-                      sender.username ||
-                      "কেউ",
-                    photo:
-                      sender.photo ||
-                      ""
-                  }
-                })
-              );
-
-            } catch (error) {
-
-              console.log(
-                "Friend notification error:",
-                error
-              );
-            }
-          }
-
-
-          return sendJSON(
-            res,
-            200,
-            {
-              ok: true,
-              message:
-                "Friend Request পাঠানো হয়েছে ❤️"
-            }
-          );
-
-        } catch (error) {
-
-          console.log(
-            "Friend request error:",
-            error
-          );
-
-          return sendJSON(
-            res,
-            500,
-            {
-              ok: false,
-              message:
-                "Server error"
-            }
-          );
-        }
-      }
-
-
-      /* ===============================
-         FRIEND ACCEPT
-      =============================== */
-
-      if (
-        req.method === "POST" &&
-        req.url === "/api/friend-accept"
-      ) {
-
-        try {
-
-          const body =
-            await readBody(req);
-
-          const phone =
-            String(
-              body.phone || ""
-            ).trim();
-
-          const pin =
-            String(
-              body.pin || ""
-            ).trim();
-
-          const requesterUsername =
-            cleanUsername(
-              body.username
-            );
-
-          const receiver =
-            users[phone];
-
-          if (!receiver) {
-            return sendJSON(
-              res,
-              401,
-              {
-                ok: false,
-                message:
-                  "Account পাওয়া যায়নি"
-              }
-            );
-          }
-
-          if (
-            receiver.pin !==
-            hashPIN(pin)
-          ) {
-            return sendJSON(
-              res,
-              401,
-              {
-                ok: false,
-                message:
-                  "PIN ভুল"
-              }
-            );
-          }
-
-          ensureArrays(receiver);
-
-          const requesterPhone =
-            findPhoneByUsername(
-              requesterUsername
-            );
-
-          if (!requesterPhone) {
-            return sendJSON(
-              res,
-              404,
-              {
-                ok: false,
-                message:
-                  "Requester পাওয়া যায়নি"
-              }
-            );
-          }
-
-          const requester =
-            users[requesterPhone];
-
-          ensureArrays(requester);
-
-          const requestIndex =
-            receiver.requests.findIndex(
-              item =>
-                cleanUsername(item) ===
-                requesterUsername
-            );
-
-          if (
-            requestIndex === -1
-          ) {
-            return sendJSON(
-              res,
-              400,
-              {
-                ok: false,
-                message:
-                  "Friend Request পাওয়া যায়নি"
-              }
-            );
-          }
-
-
-          receiver.requests.splice(
-            requestIndex,
-            1
-          );
-
-
-          if (
-            !receiver.friends.includes(
-              requester.username
-            )
-          ) {
-            receiver.friends.push(
-              requester.username
-            );
-          }
-
-
-          if (
-            !requester.friends.includes(
-              receiver.username
-            )
-          ) {
-            requester.friends.push(
-              receiver.username
-            );
-          }
-
-
-          requester.requests =
-            requester.requests.filter(
-              item =>
-                cleanUsername(item) !==
-                cleanUsername(
-                  receiver.username
-                )
-            );
-
-
-          saveUsers();
-
-
-          /* Notify requester that request
-             was accepted */
-
-          const requesterSocket =
-            onlineUsers.get(
-              requester.phone
-            );
-
-          if (
-            requesterSocket &&
-            requesterSocket.readyState ===
-              1
-          ) {
-
-            try {
-
-              requesterSocket.send(
-                JSON.stringify({
-                  type:
-                    "friend-accepted",
-
-                  username:
-                    receiver.username,
-
-                  name:
-                    receiver.name ||
-                    receiver.username ||
-                    "বন্ধু"
-                })
-              );
-
-            } catch (error) {
-
-              console.log(
-                "Accept notification error:",
-                error
-              );
-            }
-          }
-
-
-          return sendJSON(
-            res,
-            200,
-            {
-              ok: true,
-              message:
-                "Friend Request accepted ❤️",
-
-              user:
-                publicUser(receiver),
-
-              friends:
-                receiver.friends,
-
-              requests:
-                receiver.requests
-            }
-          );
-
-        } catch (error) {
-
-          console.log(
-            "Friend accept error:",
-            error
-          );
-
-          return sendJSON(
-            res,
-            500,
-            {
-              ok: false,
-              message:
-                "Server error"
-            }
-          );
-        }
-      }
-
-
-      /* ===============================
-         FRIEND REJECT
-      =============================== */
-
-      if (
-        req.method === "POST" &&
-        req.url === "/api/friend-reject"
-      ) {
-
-        try {
-
-          const body =
-            await readBody(req);
-
-          const phone =
-            String(
-              body.phone || ""
-            ).trim();
-
-          const pin =
-            String(
-              body.pin || ""
-            ).trim();
-
-          const requesterUsername =
-            cleanUsername(
-              body.username
-            );
-
-          const receiver =
-            users[phone];
-
-          if (!receiver) {
-            return sendJSON(
-              res,
-              401,
-              {
-                ok: false,
-                message:
-                  "Account পাওয়া যায়নি"
-              }
-            );
-          }
-
-          if (
-            receiver.pin !==
-            hashPIN(pin)
-          ) {
-            return sendJSON(
-              res,
-              401,
-              {
-                ok: false,
-                message:
-                  "PIN ভুল"
-              }
-            );
-          }
-
-          ensureArrays(receiver);
-
-          receiver.requests =
-            receiver.requests.filter(
-              item =>
-                cleanUsername(item) !==
-                requesterUsername
-            );
-
-          saveUsers();
-
-          return sendJSON(
-            res,
-            200,
-            {
-              ok: true,
-              message:
-                "Friend Request rejected"
-            }
-          );
-
-        } catch (error) {
-
-          console.log(
-            "Friend reject error:",
-            error
-          );
-
-          return sendJSON(
-            res,
-            500,
-            {
-              ok: false,
-              message:
-                "Server error"
-            }
-          );
-        }
-      }
-
-
-      /* ===============================
-         STATIC FILES
-      =============================== */
-
-      let filePath =
-        req.url.split("?")[0];
-
-      if (
-        filePath === "/" ||
-        filePath === ""
-      ) {
-        filePath =
-          "/index.html";
-      }
-
-      const safePath =
-        path.normalize(
-          path.join(
-            __dirname,
-            filePath
-          )
+      return json(res, 200, {
+        ok: true,
+        user: publicUser(user)
+      });
+    }
+
+
+    /* ================================
+       FRIEND REQUEST
+    ================================= */
+
+    if (
+      pathname === "/api/friend-request" &&
+      req.method === "POST"
+    ) {
+
+      const data = await body(req);
+
+      const sender =
+        authenticate(
+          data.phone,
+          data.pin
         );
 
-      if (
-        !safePath.startsWith(
-          path.normalize(__dirname)
-        )
-      ) {
-        res.writeHead(403);
-        res.end("Forbidden");
-        return;
+      if (!sender) {
+        return json(res, 401, {
+          ok: false,
+          message:
+            "Authentication failed"
+        });
       }
 
-      fs.readFile(
-        safePath,
-        (error, data) => {
+      const target =
+        findUserByUsername(
+          data.username
+        );
 
-          if (error) {
+      if (!target) {
+        return json(res, 404, {
+          ok: false,
+          message:
+            "User পাওয়া যায়নি"
+        });
+      }
 
-            sendJSON(
-              res,
-              404,
-              {
-                ok: false,
-                message:
-                  "Not Found"
-              }
-            );
+      if (
+        target.phone === sender.phone
+      ) {
+        return json(res, 400, {
+          ok: false,
+          message:
+            "নিজেকে Friend করা যাবে না"
+        });
+      }
 
-            return;
-          }
+      sender.friends =
+        Array.isArray(sender.friends)
+          ? sender.friends
+          : [];
 
-          const ext =
-            path.extname(
-              safePath
-            ).toLowerCase();
+      sender.requests =
+        Array.isArray(sender.requests)
+          ? sender.requests
+          : [];
 
-          const types = {
-            ".html":
-              "text/html; charset=utf-8",
-            ".js":
-              "application/javascript; charset=utf-8",
-            ".css":
-              "text/css; charset=utf-8",
-            ".json":
-              "application/json; charset=utf-8",
-            ".png":
-              "image/png",
-            ".jpg":
-              "image/jpeg",
-            ".jpeg":
-              "image/jpeg",
-            ".svg":
-              "image/svg+xml",
-            ".ico":
-              "image/x-icon",
-            ".webp":
-              "image/webp"
-          };
+      target.friends =
+        Array.isArray(target.friends)
+          ? target.friends
+          : [];
 
-          res.writeHead(
-            200,
-            {
-              "Content-Type":
-                types[ext] ||
-                "application/octet-stream"
-            }
-          );
+      target.requests =
+        Array.isArray(target.requests)
+          ? target.requests
+          : [];
 
-          res.end(data);
+      if (
+        sender.friends.includes(
+          target.username
+        )
+      ) {
+        return json(res, 400, {
+          ok: false,
+          message:
+            "তোমরা ইতিমধ্যে Friend"
+        });
+      }
+
+      if (
+        target.requests.includes(
+          sender.username
+        )
+      ) {
+        return json(res, 400, {
+          ok: false,
+          message:
+            "Friend Request আগেই পাঠানো হয়েছে"
+        });
+      }
+
+      target.requests.push(
+        sender.username
+      );
+
+      saveUsers();
+
+      sendToUser(
+        target.phone,
+        {
+          type: "friend-request",
+          from: publicUser(sender)
         }
       );
+
+      return json(res, 200, {
+        ok: true,
+        message:
+          "Friend Request পাঠানো হয়েছে ❤️"
+      });
     }
-  );
+
+
+    /* ================================
+       FRIEND ACCEPT
+    ================================= */
+
+    if (
+      pathname === "/api/friend-accept" &&
+      req.method === "POST"
+    ) {
+
+      const data = await body(req);
+
+      const receiver =
+        authenticate(
+          data.phone,
+          data.pin
+        );
+
+      if (!receiver) {
+        return json(res, 401, {
+          ok: false,
+          message:
+            "Authentication failed"
+        });
+      }
+
+      const requester =
+        findUserByUsername(
+          data.username
+        );
+
+      if (!requester) {
+        return json(res, 404, {
+          ok: false,
+          message:
+            "Requester পাওয়া যায়নি"
+        });
+      }
+
+      receiver.requests =
+        Array.isArray(receiver.requests)
+          ? receiver.requests
+          : [];
+
+      receiver.friends =
+        Array.isArray(receiver.friends)
+          ? receiver.friends
+          : [];
+
+      requester.friends =
+        Array.isArray(requester.friends)
+          ? requester.friends
+          : [];
+
+      requester.requests =
+        Array.isArray(requester.requests)
+          ? requester.requests
+          : [];
+
+      const index =
+        receiver.requests.indexOf(
+          requester.username
+        );
+
+      if (index === -1) {
+        return json(res, 400, {
+          ok: false,
+          message:
+            "Friend Request পাওয়া যায়নি"
+        });
+      }
+
+      receiver.requests.splice(
+        index,
+        1
+      );
+
+      if (
+        !receiver.friends.includes(
+          requester.username
+        )
+      ) {
+        receiver.friends.push(
+          requester.username
+        );
+      }
+
+      if (
+        !requester.friends.includes(
+          receiver.username
+        )
+      ) {
+        requester.friends.push(
+          receiver.username
+        );
+      }
+
+      requester.requests =
+        requester.requests.filter(
+          item =>
+            item !== receiver.username
+        );
+
+      saveUsers();
+
+      sendToUser(
+        requester.phone,
+        {
+          type: "friend-accepted",
+          username:
+            receiver.username,
+          name:
+            receiver.name ||
+            receiver.username
+        }
+      );
+
+      return json(res, 200, {
+        ok: true,
+        message:
+          "Friend request accepted ❤️",
+        user: {
+          username:
+            receiver.username,
+          friends:
+            receiver.friends,
+          requests:
+            receiver.requests
+        },
+        friends:
+          receiver.friends,
+        requests:
+          receiver.requests
+      });
+    }
+
+
+    /* ================================
+       FRIEND REJECT
+    ================================= */
+
+    if (
+      pathname === "/api/friend-reject" &&
+      req.method === "POST"
+    ) {
+
+      const data = await body(req);
+
+      const receiver =
+        authenticate(
+          data.phone,
+          data.pin
+        );
+
+      if (!receiver) {
+        return json(res, 401, {
+          ok: false,
+          message:
+            "Authentication failed"
+        });
+      }
+
+      const requester =
+        findUserByUsername(
+          data.username
+        );
+
+      receiver.requests =
+        Array.isArray(receiver.requests)
+          ? receiver.requests
+          : [];
+
+      receiver.requests =
+        receiver.requests.filter(
+          item =>
+            item !==
+            requester?.username
+        );
+
+      saveUsers();
+
+      return json(res, 200, {
+        ok: true,
+        message:
+          "Request rejected",
+        friends:
+          receiver.friends || [],
+        requests:
+          receiver.requests
+      });
+    }
+
+
+    /* ================================
+       STATIC FILES
+    ================================= */
+
+    let filePath;
+
+    if (pathname === "/") {
+      filePath =
+        path.join(
+          __dirname,
+          "index.html"
+        );
+    } else {
+      filePath =
+        path.join(
+          __dirname,
+          pathname.replace(/^\/+/, "")
+        );
+    }
+
+    if (!filePath.startsWith(__dirname)) {
+      res.writeHead(403);
+      res.end("Forbidden");
+      return;
+    }
+
+    fs.readFile(
+      filePath,
+      (err, file) => {
+
+        if (err) {
+          res.writeHead(404, {
+            "Content-Type":
+              "text/plain; charset=utf-8"
+          });
+
+          res.end("Not Found");
+          return;
+        }
+
+        const ext =
+          path.extname(filePath)
+            .toLowerCase();
+
+        const types = {
+          ".html":
+            "text/html; charset=utf-8",
+          ".js":
+            "application/javascript; charset=utf-8",
+          ".css":
+            "text/css; charset=utf-8",
+          ".json":
+            "application/json; charset=utf-8",
+          ".png":
+            "image/png",
+          ".jpg":
+            "image/jpeg",
+          ".jpeg":
+            "image/jpeg",
+          ".svg":
+            "image/svg+xml",
+          ".webp":
+            "image/webp",
+          ".ico":
+            "image/x-icon"
+        };
+
+        res.writeHead(200, {
+          "Content-Type":
+            types[ext] ||
+            "application/octet-stream"
+        });
+
+        res.end(file);
+      }
+    );
+  }
+);
 
 
 /* =========================================
@@ -1385,167 +809,367 @@ const server =
 ========================================= */
 
 const wss =
-  new WebSocketServer({
+  new WebSocket.Server({
     server
   });
 
-const rooms =
-  new Map();
+const onlineUsers = new Map();
+const rooms = new Map();
 
 
-function sendWS(ws, data) {
+function isOpen(socket) {
+  return (
+    socket &&
+    socket.readyState ===
+      WebSocket.OPEN
+  );
+}
 
-  if (
-    ws &&
-    ws.readyState === 1
-  ) {
 
-    try {
-      ws.send(
-        JSON.stringify(data)
-      );
-    } catch (error) {
-      console.log(
-        "WS send error:",
-        error
-      );
-    }
+function sendSocket(socket, data) {
+
+  if (!isOpen(socket)) {
+    return false;
+  }
+
+  try {
+
+    socket.send(
+      JSON.stringify(data)
+    );
+
+    return true;
+
+  } catch {
+
+    return false;
   }
 }
 
 
-function broadcastRoom(
-  roomCode,
-  sender,
-  data
-) {
+function sendToUser(phone, data) {
 
-  if (!roomCode) return;
+  const socket =
+    onlineUsers.get(
+      String(phone)
+    );
+
+  return sendSocket(
+    socket,
+    data
+  );
+}
+
+
+function leaveRoom(ws) {
+
+  if (!ws.room) {
+    return;
+  }
 
   const room =
-    rooms.get(roomCode);
+    rooms.get(ws.room);
+
+  if (room) {
+
+    room.delete(ws);
+
+    for (const peer of room) {
+
+      sendSocket(
+        peer,
+        {
+          type: "peer-left"
+        }
+      );
+
+    }
+
+    if (room.size === 0) {
+      rooms.delete(ws.room);
+    }
+  }
+
+  ws.room = null;
+}
+
+
+function joinRoom(ws, roomCode) {
+
+  leaveRoom(ws);
+
+  const room =
+    String(roomCode || "")
+      .trim()
+      .toUpperCase();
 
   if (!room) return;
 
-  for (const peer of room) {
+  if (!rooms.has(room)) {
+    rooms.set(
+      room,
+      new Set()
+    );
+  }
+
+  const set =
+    rooms.get(room);
+
+  for (const peer of set) {
+
+    sendSocket(
+      peer,
+      {
+        type: "peer-joined"
+      }
+    );
+  }
+
+  set.add(ws);
+
+  ws.room = room;
+
+  sendSocket(
+    ws,
+    {
+      type: "joined",
+      room
+    }
+  );
+}
+
+
+function findTargetSocket(ws, data) {
+
+  let targetPhone =
+    data.toPhone ||
+    data.targetPhone ||
+    "";
+
+  let targetUsername =
+    data.toUsername ||
+    data.targetUsername ||
+    "";
+
+
+  /*
+   Call response-এ target না থাকলেও
+   offer পাঠানোর সময় server call peer
+   মনে রাখবে।
+  */
+
+  if (
+    !targetPhone &&
+    !targetUsername &&
+    ws.callPeerPhone
+  ) {
+
+    targetPhone =
+      ws.callPeerPhone;
+  }
+
+
+  if (targetUsername) {
+
+    targetPhone =
+      findUserPhoneByUsername(
+        targetUsername
+      ) || targetPhone;
+  }
+
+
+  if (targetPhone) {
+
+    const target =
+      onlineUsers.get(
+        String(targetPhone)
+      );
 
     if (
-      peer !== sender &&
-      peer.readyState === 1
+      target &&
+      target !== ws
     ) {
-
-      sendWS(
-        peer,
-        data
-      );
+      return target;
     }
   }
+
+
+  /*
+   দুজনের app:
+   target না দিলে অন্য online user-কে
+   target হিসেবে নেওয়া হবে।
+  */
+
+  for (const [
+    phone,
+    socket
+  ] of onlineUsers) {
+
+    if (
+      socket !== ws &&
+      isOpen(socket)
+    ) {
+
+      return socket;
+    }
+  }
+
+  return null;
 }
+
+
+function directRelay(ws, data) {
+
+  const target =
+    findTargetSocket(
+      ws,
+      data
+    );
+
+  if (!target) {
+
+    sendSocket(
+      ws,
+      {
+        type: "delivery-failed",
+        originalType:
+          data.type,
+        message:
+          "অন্য user এখন Offline"
+      }
+    );
+
+    return false;
+  }
+
+
+  /*
+   Call হলে দুই পাশে peer link মনে রাখি।
+  */
+
+  if (
+    data.type === "video-call" ||
+    data.type === "audio-call"
+  ) {
+
+    if (
+      data.action === "offer"
+    ) {
+
+      ws.callPeerPhone =
+        target.phone;
+
+      target.callPeerPhone =
+        ws.phone;
+
+    }
+  }
+
+
+  const outgoing = {
+    ...data,
+    fromPhone:
+      ws.phone || "",
+    fromUsername:
+      ws.username || "",
+    sender:
+      ws.username || ""
+  };
+
+
+  sendSocket(
+    target,
+    outgoing
+  );
+
+
+  /*
+   Call শেষ হলে peer relation পরিষ্কার।
+  */
+
+  if (
+    (
+      data.type === "video-call" ||
+      data.type === "audio-call"
+    ) &&
+    (
+      data.action === "end" ||
+      data.action === "reject"
+    )
+  ) {
+
+    ws.callPeerPhone = null;
+    target.callPeerPhone = null;
+  }
+
+
+  return true;
+}
+
+
+const DIRECT_TYPES =
+  new Set([
+    "chat",
+    "feeling",
+    "love-note",
+    "couple-date",
+    "our-story",
+    "memory",
+    "favorite",
+    "video-call",
+    "audio-call"
+  ]);
 
 
 wss.on(
   "connection",
   ws => {
 
-    ws.roomCode = null;
     ws.phone = null;
     ws.username = null;
+    ws.room = null;
+    ws.callPeerPhone = null;
 
 
     ws.on(
       "message",
       raw => {
 
-        try {
+        let data;
 
-          const data =
+        try {
+          data =
             JSON.parse(
               raw.toString()
             );
+        } catch {
+          return;
+        }
 
 
-          /* =========================
-             ACCOUNT AUTH
-          ========================= */
+        /* ==========================
+           AUTH / JOIN
+        ========================== */
 
-          if (
-            data.type === "join" ||
-            data.type === "auth"
-          ) {
+        if (
+          data.type === "join" ||
+          data.type === "auth"
+        ) {
 
-            const phone =
-              String(
-                data.phone || ""
-              ).trim();
-
-            const pin =
-              String(
-                data.pin || ""
-              ).trim();
-
-            const user =
-              users[phone];
-
-            if (
-              !user ||
-              user.pin !==
-                hashPIN(pin)
-            ) {
-
-              sendWS(
-                ws,
-                {
-                  type:
-                    "auth-error",
-                  message:
-                    "Account authentication failed"
-                }
-              );
-
-              return;
-            }
-
-
-            /* Remove old socket
-               for same account */
-
-            const oldSocket =
-              onlineUsers.get(
-                phone
-              );
-
-            if (
-              oldSocket &&
-              oldSocket !== ws
-            ) {
-
-              try {
-                oldSocket.close();
-              } catch {}
-            }
-
-
-            ws.phone =
-              phone;
-
-            ws.username =
-              user.username || "";
-
-
-            onlineUsers.set(
-              phone,
-              ws
+          const user =
+            authenticate(
+              data.phone,
+              data.pin
             );
 
+          if (!user) {
 
-            sendWS(
+            sendSocket(
               ws,
               {
-                type:
-                  "joined",
-                username:
-                  user.username ||
-                  ""
+                type: "auth-error",
+                message:
+                  "Login authentication failed"
               }
             );
 
@@ -1553,192 +1177,337 @@ wss.on(
           }
 
 
-          /* =========================
-             CREATE ROOM
-          ========================= */
+          const phone =
+            String(user.phone);
+
+
+          const oldSocket =
+            onlineUsers.get(phone);
+
 
           if (
-            data.type ===
-            "room-create"
+            oldSocket &&
+            oldSocket !== ws
           ) {
 
-            let code = "";
+            try {
+              oldSocket.close();
+            } catch {}
 
-            do {
-
-              code =
-                Math.floor(
-                  100000 +
-                  Math.random() *
-                    900000
-                ).toString();
-
-            } while (
-              rooms.has(code)
-            );
-
-
-            rooms.set(
-              code,
-              new Set([
-                ws
-              ])
-            );
-
-            ws.roomCode =
-              code;
-
-
-            sendWS(
-              ws,
-              {
-                type:
-                  "room-created",
-                roomCode:
-                  code
-              }
-            );
-
-            return;
           }
 
 
-          /* =========================
-             JOIN ROOM
-          ========================= */
-
-          if (
-            data.type ===
-            "room-join"
-          ) {
-
-            const code =
-              String(
-                data.roomCode || ""
-              ).trim();
-
-            if (!code) {
-
-              sendWS(
-                ws,
-                {
-                  type:
-                    "room-error",
-                  message:
-                    "Room Code দিন"
-                }
-              );
-
-              return;
-            }
+          ws.phone = phone;
+          ws.username =
+            user.username;
 
 
-            const room =
-              rooms.get(code);
-
-            if (!room) {
-
-              sendWS(
-                ws,
-                {
-                  type:
-                    "room-error",
-                  message:
-                    "Room পাওয়া যায়নি"
-                }
-              );
-
-              return;
-            }
+          onlineUsers.set(
+            phone,
+            ws
+          );
 
 
-            if (
-              room.size >= 2
-            ) {
-
-              sendWS(
-                ws,
-                {
-                  type:
-                    "room-error",
-                  message:
-                    "Room পূর্ণ"
-                }
-              );
-
-              return;
-            }
-
-
-            room.add(ws);
-
-            ws.roomCode =
-              code;
-
-
-            sendWS(
-              ws,
-              {
-                type:
-                  "room-joined",
-                roomCode:
-                  code
-              }
-            );
-
-
-            broadcastRoom(
-              code,
-              ws,
-              {
-                type:
-                  "peer-joined"
-              }
-            );
-
-            return;
-          }
-
-
-          /* =========================
-             ROOM MESSAGE RELAY
-          ========================= */
-
-          if (
-            ws.roomCode
-          ) {
-
-            broadcastRoom(
-              ws.roomCode,
-              ws,
-              data
-            );
-
-            return;
-          }
-
-
-          /* =========================
-             OTHER MESSAGE
-          ========================= */
-
-          sendWS(
+          sendSocket(
             ws,
             {
-              type:
-                "server-info",
-              message:
-                "WebSocket connected"
+              type: "joined",
+              username:
+                user.username
             }
           );
 
-        } catch (error) {
 
-          console.log(
-            "WS message error:",
-            error
+          /*
+           নিজের profile পাঠানো
+          */
+
+          sendSocket(
+            ws,
+            {
+              type: "profile",
+              profile:
+                publicUser(user)
+            }
           );
+
+
+          /*
+           অন্য online users-কে
+           এই user-এর presence/profile জানানো।
+          */
+
+          for (
+            const [
+              otherPhone,
+              otherSocket
+            ] of onlineUsers
+          ) {
+
+            if (
+              otherSocket !== ws &&
+              isOpen(otherSocket)
+            ) {
+
+              sendSocket(
+                otherSocket,
+                {
+                  type: "presence",
+                  online: true,
+                  username:
+                    user.username,
+                  phone
+                }
+              );
+
+              sendSocket(
+                ws,
+                {
+                  type: "presence",
+                  online: true,
+                  username:
+                    otherSocket.username,
+                  phone:
+                    otherPhone
+                }
+              );
+            }
+          }
+
+
+          return;
         }
+
+
+        /*
+         Authentication ছাড়া
+         অন্য operation নয়।
+        */
+
+        if (!ws.phone) {
+
+          sendSocket(
+            ws,
+            {
+              type: "auth-error",
+              message:
+                "WebSocket authenticated নয়"
+            }
+          );
+
+          return;
+        }
+
+
+        /* ==========================
+           ROOM CREATE
+        ========================== */
+
+        if (
+          data.type === "room-create"
+        ) {
+
+          let room =
+            String(
+              data.room || ""
+            )
+              .trim()
+              .toUpperCase();
+
+
+          if (!room) {
+
+            room =
+              Math.floor(
+                100000 +
+                Math.random() *
+                900000
+              ).toString();
+
+          }
+
+
+          joinRoom(
+            ws,
+            room
+          );
+
+          sendSocket(
+            ws,
+            {
+              type: "room-created",
+              room
+            }
+          );
+
+          return;
+        }
+
+
+        /* ==========================
+           ROOM JOIN
+        ========================== */
+
+        if (
+          data.type === "room-join"
+        ) {
+
+          joinRoom(
+            ws,
+            data.room
+          );
+
+          return;
+        }
+
+
+        /* ==========================
+           ROOM CHAT / SIGNAL
+        ========================== */
+
+        if (
+          data.type === "room-message"
+        ) {
+
+          const room =
+            rooms.get(
+              ws.room
+            );
+
+          if (room) {
+
+            for (
+              const peer of room
+            ) {
+
+              if (
+                peer !== ws
+              ) {
+
+                sendSocket(
+                  peer,
+                  {
+                    ...data,
+                    from:
+                      ws.username
+                  }
+                );
+
+              }
+            }
+          }
+
+          return;
+        }
+
+
+        /* ==========================
+           PRESENCE
+        ========================== */
+
+        if (
+          data.type === "presence"
+        ) {
+
+          for (
+            const [
+              phone,
+              socket
+            ] of onlineUsers
+          ) {
+
+            if (
+              socket !== ws &&
+              isOpen(socket)
+            ) {
+
+              sendSocket(
+                socket,
+                {
+                  type: "presence",
+                  online:
+                    data.online !== false,
+                  username:
+                    ws.username,
+                  phone:
+                    ws.phone
+                }
+              );
+
+            }
+          }
+
+          return;
+        }
+
+
+        /* ==========================
+           DIRECT MESSAGES / CALLS
+        ========================== */
+
+        if (
+          DIRECT_TYPES.has(
+            data.type
+          )
+        ) {
+
+          directRelay(
+            ws,
+            data
+          );
+
+          return;
+        }
+
+
+        /* ==========================
+           ICE CANDIDATE
+        ========================== */
+
+        if (
+          data.type ===
+          "ice-candidate"
+        ) {
+
+          directRelay(
+            ws,
+            {
+              ...data,
+              type:
+                ws.callPeerPhone
+                  ? (
+                    "video-call"
+                  )
+                  : "video-call",
+              action:
+                "ice-candidate"
+            }
+          );
+
+          return;
+        }
+
+
+        /*
+         যদি frontend অন্য কোনো WebRTC
+         signal type ব্যবহার করে।
+        */
+
+        if (
+          data.toPhone ||
+          data.toUsername ||
+          data.targetPhone ||
+          data.targetUsername
+        ) {
+
+          directRelay(
+            ws,
+            data
+          );
+
+          return;
+        }
+
       }
     );
 
@@ -1757,45 +1526,36 @@ wss.on(
           onlineUsers.delete(
             ws.phone
           );
+
         }
 
 
-        if (
-          ws.roomCode
+        leaveRoom(ws);
+
+
+        /*
+         অন্য users-কে offline জানানো।
+        */
+
+        for (
+          const [
+            phone,
+            socket
+          ] of onlineUsers
         ) {
 
-          const roomCode =
-            ws.roomCode;
-
-          const room =
-            rooms.get(
-              roomCode
-            );
-
-          if (room) {
-
-            room.delete(ws);
-
-
-            broadcastRoom(
-              roomCode,
-              ws,
-              {
-                type:
-                  "peer-left"
-              }
-            );
-
-
-            if (
-              room.size === 0
-            ) {
-
-              rooms.delete(
-                roomCode
-              );
+          sendSocket(
+            socket,
+            {
+              type: "presence",
+              online: false,
+              username:
+                ws.username || "",
+              phone:
+                ws.phone || ""
             }
-          }
+          );
+
         }
       }
     );
@@ -1803,13 +1563,7 @@ wss.on(
 
     ws.on(
       "error",
-      error => {
-
-        console.log(
-          "WebSocket error:",
-          error
-        );
-      }
+      () => {}
     );
 
   }
@@ -1818,7 +1572,6 @@ wss.on(
 
 server.listen(
   PORT,
-  "0.0.0.0",
   () => {
 
     console.log(
