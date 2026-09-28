@@ -51,38 +51,64 @@ function hashPin(pin) {
 
 function sendJSON(res, status, data) {
   res.writeHead(status, {
-    "Content-Type": "application/json; charset=utf-8",
+    "Content-Type":
+      "application/json; charset=utf-8",
     "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type"
+    "Access-Control-Allow-Methods":
+      "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers":
+      "Content-Type"
   });
 
-  res.end(JSON.stringify(data));
+  res.end(
+    JSON.stringify(data)
+  );
 }
 
 function readBody(req) {
   return new Promise((resolve, reject) => {
+
     let body = "";
 
     req.on("data", chunk => {
+
       body += chunk.toString();
 
-      if (body.length > 1024 * 1024) {
-        reject(new Error("Request too large"));
+      if (
+        body.length >
+        1024 * 1024
+      ) {
+
+        reject(
+          new Error(
+            "Request too large"
+          )
+        );
+
         req.destroy();
       }
     });
 
     req.on("end", () => {
+
       if (!body) {
         resolve({});
         return;
       }
 
       try {
-        resolve(JSON.parse(body));
+
+        resolve(
+          JSON.parse(body)
+        );
+
       } catch {
-        reject(new Error("Invalid JSON"));
+
+        reject(
+          new Error(
+            "Invalid JSON"
+          )
+        );
       }
     });
 
@@ -90,21 +116,72 @@ function readBody(req) {
   });
 }
 
-function getUserByPhone(data, phone) {
-  return Object.values(data.users).find(
-    user => String(user.phone) === String(phone)
+function getUserByPhone(
+  data,
+  phone
+) {
+
+  return Object.values(
+    data.users
+  ).find(
+    user =>
+      String(user.phone) ===
+      String(phone)
+  );
+}
+
+function findUserByUsername(
+  data,
+  username
+) {
+
+  const target =
+    String(
+      username || ""
+    )
+      .trim()
+      .toLowerCase();
+
+  return Object.values(
+    data.users
+  ).find(
+    user =>
+      String(
+        user.username || ""
+      )
+        .trim()
+        .toLowerCase() ===
+      target
   );
 }
 
 function publicUser(user) {
-  if (!user) return null;
+
+  if (!user) {
+    return null;
+  }
 
   return {
-    username: user.username || "",
-    name: user.name || "",
-    photo: user.photo || "",
-    friends: user.friends || [],
-    requests: user.requests || []
+
+    username:
+      user.username || "",
+
+    name:
+      user.name || "",
+
+    photo:
+      user.photo || "",
+
+    friends:
+      Array.isArray(user.friends)
+        ? user.friends
+        : [],
+
+    requests:
+      Array.isArray(user.requests)
+        ? user.requests
+        : []
+
   };
 }
 
@@ -113,775 +190,1227 @@ function publicUser(user) {
 ========================= */
 
 const mimeTypes = {
-  ".html": "text/html; charset=utf-8",
-  ".js": "application/javascript; charset=utf-8",
-  ".css": "text/css; charset=utf-8",
-  ".json": "application/json; charset=utf-8",
-  ".png": "image/png",
-  ".jpg": "image/jpeg",
-  ".jpeg": "image/jpeg",
-  ".webp": "image/webp",
-  ".svg": "image/svg+xml",
-  ".ico": "image/x-icon",
-  ".txt": "text/plain; charset=utf-8"
+
+  ".html":
+    "text/html; charset=utf-8",
+
+  ".js":
+    "application/javascript; charset=utf-8",
+
+  ".css":
+    "text/css; charset=utf-8",
+
+  ".json":
+    "application/json; charset=utf-8",
+
+  ".png":
+    "image/png",
+
+  ".jpg":
+    "image/jpeg",
+
+  ".jpeg":
+    "image/jpeg",
+
+  ".webp":
+    "image/webp",
+
+  ".svg":
+    "image/svg+xml",
+
+  ".ico":
+    "image/x-icon",
+
+  ".txt":
+    "text/plain; charset=utf-8"
+
 };
 
 /* =========================
    HTTP SERVER
 ========================= */
 
-const httpServer = http.createServer(async (req, res) => {
+const httpServer =
+  http.createServer(
+    async (req, res) => {
 
-  const url = new URL(
-    req.url,
-    "http://localhost"
-  );
+      const url =
+        new URL(
+          req.url,
+          "http://localhost"
+        );
 
-  /* =========================
-     CORS
-  ========================= */
-
-  if (req.method === "OPTIONS") {
-
-    res.writeHead(204, {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods":
-        "GET, POST, OPTIONS",
-      "Access-Control-Allow-Headers":
-        "Content-Type"
-    });
-
-    res.end();
-    return;
-  }
-
-  /* =========================
-     HEALTH
-  ========================= */
-
-  if (url.pathname === "/health") {
-
-    sendJSON(res, 200, {
-      ok: true,
-      server: "Dujon",
-      message: "Dujon Server OK"
-    });
-
-    return;
-  }
-
-  /* =========================
-     PROFILE
-  ========================= */
-
-  if (
-    url.pathname === "/api/profile" &&
-    req.method === "POST"
-  ) {
-
-    try {
-
-      const body = await readBody(req);
-      const data = loadDB();
-
-      const phone =
-        String(body.phone || "").trim();
-
-      const pin =
-        String(body.pin || "").trim();
-
-      const username =
-        String(body.username || "")
-          .trim()
-          .toLowerCase();
-
-      const name =
-        String(body.name || "").trim();
-
-      const photo =
-        String(body.photo || "").trim();
+      /* =========================
+         CORS
+      ========================= */
 
       if (
-        !phone ||
-        !pin ||
-        !username
+        req.method ===
+        "OPTIONS"
       ) {
 
-        sendJSON(res, 400, {
-          ok: false,
-          message:
-            "Phone, PIN এবং Username প্রয়োজন।"
+        res.writeHead(204, {
+
+          "Access-Control-Allow-Origin":
+            "*",
+
+          "Access-Control-Allow-Methods":
+            "GET, POST, OPTIONS",
+
+          "Access-Control-Allow-Headers":
+            "Content-Type"
+
         });
+
+        res.end();
 
         return;
       }
 
+      /* =========================
+         HEALTH
+      ========================= */
+
       if (
-        !/^[a-z0-9_]{3,20}$/.test(username)
+        url.pathname ===
+        "/health"
       ) {
 
-        sendJSON(res, 400, {
-          ok: false,
-          message:
-            "Username 3-20 অক্ষরের হবে। শুধু a-z, 0-9 এবং _ ব্যবহার করুন।"
-        });
+        sendJSON(
+          res,
+          200,
+          {
+
+            ok: true,
+
+            server:
+              "Dujon",
+
+            message:
+              "Dujon Server OK"
+
+          }
+        );
 
         return;
       }
 
-      const oldUser =
-        getUserByPhone(data, phone);
-
-      const usernameOwner =
-        data.users[username];
+      /* =========================
+         PROFILE
+      ========================= */
 
       if (
-        usernameOwner &&
-        (!oldUser ||
-          usernameOwner.phone !== phone)
+        url.pathname ===
+          "/api/profile" &&
+        req.method === "POST"
       ) {
 
-        sendJSON(res, 409, {
-          ok: false,
-          message:
-            "এই Username ইতিমধ্যে নেওয়া হয়েছে।"
-        });
+        try {
 
-        return;
-      }
+          const body =
+            await readBody(req);
 
-      if (
-        oldUser &&
-        oldUser.username !== username
-      ) {
+          const data =
+            loadDB();
 
-        const oldUsername =
-          oldUser.username;
+          const phone =
+            String(
+              body.phone || ""
+            ).trim();
 
-        delete data.users[oldUsername];
+          const pin =
+            String(
+              body.pin || ""
+            ).trim();
 
-        Object.values(data.users).forEach(user => {
+          const username =
+            String(
+              body.username || ""
+            )
+              .trim()
+              .toLowerCase();
 
-          if (user.friends) {
-            user.friends =
-              user.friends.map(item =>
-                item === oldUsername
-                  ? username
-                  : item
-              );
+          const name =
+            String(
+              body.name || ""
+            ).trim();
+
+          const photo =
+            String(
+              body.photo || ""
+            ).trim();
+
+          if (
+            !phone ||
+            !pin ||
+            !username
+          ) {
+
+            sendJSON(
+              res,
+              400,
+              {
+
+                ok: false,
+
+                message:
+                  "Phone, PIN এবং Username প্রয়োজন।"
+
+              }
+            );
+
+            return;
           }
 
-          if (user.requests) {
-            user.requests =
-              user.requests.map(item =>
-                item === oldUsername
-                  ? username
-                  : item
-              );
+          if (
+            !/^[a-z0-9_]{3,20}$/
+              .test(username)
+          ) {
+
+            sendJSON(
+              res,
+              400,
+              {
+
+                ok: false,
+
+                message:
+                  "Username 3-20 অক্ষরের হবে। শুধু a-z, 0-9 এবং _ ব্যবহার করুন।"
+
+              }
+            );
+
+            return;
           }
 
-        });
+          const oldUser =
+            getUserByPhone(
+              data,
+              phone
+            );
+
+          const usernameOwner =
+            findUserByUsername(
+              data,
+              username
+            );
+
+          if (
+            usernameOwner &&
+            (
+              !oldUser ||
+              String(
+                usernameOwner.phone
+              ) !== String(phone)
+            )
+          ) {
+
+            sendJSON(
+              res,
+              409,
+              {
+
+                ok: false,
+
+                message:
+                  "এই Username ইতিমধ্যে নেওয়া হয়েছে।"
+
+              }
+            );
+
+            return;
+          }
+
+          /* =========================
+             USERNAME CHANGE
+          ========================= */
+
+          if (
+            oldUser &&
+            oldUser.username !==
+              username
+          ) {
+
+            const oldUsername =
+              oldUser.username;
+
+            delete data.users[
+              oldUsername
+            ];
+
+            Object.values(
+              data.users
+            ).forEach(user => {
+
+              if (
+                Array.isArray(
+                  user.friends
+                )
+              ) {
+
+                user.friends =
+                  user.friends.map(
+                    item =>
+                      item ===
+                      oldUsername
+                        ? username
+                        : item
+                  );
+
+              }
+
+              if (
+                Array.isArray(
+                  user.requests
+                )
+              ) {
+
+                user.requests =
+                  user.requests.map(
+                    item =>
+                      item ===
+                      oldUsername
+                        ? username
+                        : item
+                  );
+
+              }
+
+            });
+
+          }
+
+          data.users[
+            username
+          ] = {
+
+            username,
+
+            phone,
+
+            pinHash:
+              oldUser?.pinHash ||
+              hashPin(pin),
+
+            name:
+              name ||
+              oldUser?.name ||
+              "আমি",
+
+            photo:
+              photo ||
+              oldUser?.photo ||
+              "",
+
+            friends:
+              Array.isArray(
+                oldUser?.friends
+              )
+                ? oldUser.friends
+                : [],
+
+            requests:
+              Array.isArray(
+                oldUser?.requests
+              )
+                ? oldUser.requests
+                : []
+
+          };
+
+          saveDB(data);
+
+          sendJSON(
+            res,
+            200,
+            {
+
+              ok: true,
+
+              user:
+                publicUser(
+                  data.users[
+                    username
+                  ]
+                )
+
+            }
+          );
+
+          return;
+
+        } catch (error) {
+
+          sendJSON(
+            res,
+            400,
+            {
+
+              ok: false,
+
+              message:
+                error.message
+
+            }
+          );
+
+          return;
+        }
       }
 
-      data.users[username] = {
-        username,
-        phone,
-        pinHash:
-          oldUser?.pinHash ||
-          hashPin(pin),
-        name:
-          name ||
-          oldUser?.name ||
-          "আমি",
-        photo:
-          photo ||
-          oldUser?.photo ||
-          "",
-        friends:
-          oldUser?.friends ||
-          [],
-        requests:
-          oldUser?.requests ||
-          []
-      };
+      /* =========================
+         SEARCH USER
+      ========================= */
 
-      saveDB(data);
+      if (
+        url.pathname ===
+          "/api/search" &&
+        req.method === "GET"
+      ) {
 
-      sendJSON(res, 200, {
-        ok: true,
-        user:
-          publicUser(
-            data.users[username]
+        const username =
+          String(
+            url.searchParams.get(
+              "username"
+            ) || ""
           )
-      });
+            .trim()
+            .toLowerCase();
 
-      return;
+        const data =
+          loadDB();
 
-    } catch (error) {
+        const user =
+          findUserByUsername(
+            data,
+            username
+          );
 
-      sendJSON(res, 400, {
-        ok: false,
-        message: error.message
-      });
+        if (!user) {
 
-      return;
-    }
-  }
+          sendJSON(
+            res,
+            404,
+            {
 
-  /* =========================
-     SEARCH USER
-  ========================= */
+              ok: false,
 
-  if (
-    url.pathname === "/api/search" &&
-    req.method === "GET"
-  ) {
+              message:
+                "User পাওয়া যায়নি।"
 
-    const username =
-      String(
-        url.searchParams.get(
-          "username"
-        ) || ""
-      )
-        .trim()
-        .toLowerCase();
+            }
+          );
 
-    const data = loadDB();
+          return;
+        }
 
-    const user =
-      data.users[username];
+        sendJSON(
+          res,
+          200,
+          {
 
-    if (!user) {
+            ok: true,
 
-      sendJSON(res, 404, {
-        ok: false,
-        message:
-          "User পাওয়া যায়নি।"
-      });
+            user: {
 
-      return;
-    }
+              username:
+                user.username,
 
-    sendJSON(res, 200, {
-      ok: true,
-      user: {
-        username:
-          user.username,
-        name:
-          user.name || "",
-        photo:
-          user.photo || ""
-      }
-    });
+              name:
+                user.name || "",
 
-    return;
-  }
+              photo:
+                user.photo || ""
 
-  /* =========================
-     SOCIAL
-  ========================= */
+            }
 
-  if (
-    url.pathname === "/api/social" &&
-    req.method === "POST"
-  ) {
-
-    try {
-
-      const body =
-        await readBody(req);
-
-      const data =
-        loadDB();
-
-      const phone =
-        String(
-          body.phone || ""
-        ).trim();
-
-      const pin =
-        String(
-          body.pin || ""
-        ).trim();
-
-      const user =
-        getUserByPhone(
-          data,
-          phone
+          }
         );
-
-      if (
-        !user ||
-        user.pinHash !==
-          hashPin(pin)
-      ) {
-
-        sendJSON(res, 401, {
-          ok: false,
-          message:
-            "Login তথ্য সঠিক নয়।"
-        });
 
         return;
       }
 
-      sendJSON(res, 200, {
-        ok: true,
-        user:
-          publicUser(user)
-      });
+      /* =========================
+         SOCIAL
+      ========================= */
 
-      return;
+      if (
+        url.pathname ===
+          "/api/social" &&
+        req.method === "POST"
+      ) {
 
-    } catch (error) {
+        try {
 
-      sendJSON(res, 400, {
-        ok: false,
-        message:
-          error.message
-      });
+          const body =
+            await readBody(req);
 
-      return;
-    }
-  }
+          const data =
+            loadDB();
 
-  /* =========================
-     FRIEND REQUEST
-  ========================= */
+          const phone =
+            String(
+              body.phone || ""
+            ).trim();
 
-  if (
-    url.pathname ===
-      "/api/friend-request" &&
-    req.method === "POST"
-  ) {
+          const pin =
+            String(
+              body.pin || ""
+            ).trim();
 
-    try {
+          const user =
+            getUserByPhone(
+              data,
+              phone
+            );
 
-      const body =
-        await readBody(req);
+          if (
+            !user ||
+            user.pinHash !==
+              hashPin(pin)
+          ) {
 
-      const data =
-        loadDB();
+            sendJSON(
+              res,
+              401,
+              {
 
-      const phone =
-        String(
-          body.phone || ""
-        ).trim();
+                ok: false,
 
-      const pin =
-        String(
-          body.pin || ""
-        ).trim();
+                message:
+                  "Login তথ্য সঠিক নয়।"
 
-      const targetUsername =
-        String(
-          body.username || ""
+              }
+            );
+
+            return;
+          }
+
+          sendJSON(
+            res,
+            200,
+            {
+
+              ok: true,
+
+              user:
+                publicUser(user)
+
+            }
+          );
+
+          return;
+
+        } catch (error) {
+
+          sendJSON(
+            res,
+            400,
+            {
+
+              ok: false,
+
+              message:
+                error.message
+
+            }
+          );
+
+          return;
+        }
+      }
+
+      /* =========================
+         FRIEND REQUEST
+      ========================= */
+
+      if (
+        url.pathname ===
+          "/api/friend-request" &&
+        req.method === "POST"
+      ) {
+
+        try {
+
+          const body =
+            await readBody(req);
+
+          const data =
+            loadDB();
+
+          const phone =
+            String(
+              body.phone || ""
+            ).trim();
+
+          const pin =
+            String(
+              body.pin || ""
+            ).trim();
+
+          const targetUsername =
+            String(
+              body.username || ""
+            )
+              .trim()
+              .toLowerCase();
+
+          const sender =
+            getUserByPhone(
+              data,
+              phone
+            );
+
+          const target =
+            findUserByUsername(
+              data,
+              targetUsername
+            );
+
+          if (
+            !sender ||
+            sender.pinHash !==
+              hashPin(pin)
+          ) {
+
+            sendJSON(
+              res,
+              401,
+              {
+
+                ok: false,
+
+                message:
+                  "Login তথ্য সঠিক নয়।"
+
+              }
+            );
+
+            return;
+          }
+
+          if (!target) {
+
+            sendJSON(
+              res,
+              404,
+              {
+
+                ok: false,
+
+                message:
+                  "User পাওয়া যায়নি।"
+
+              }
+            );
+
+            return;
+          }
+
+          if (
+            String(
+              sender.username
+            ).toLowerCase() ===
+            String(
+              target.username
+            ).toLowerCase()
+          ) {
+
+            sendJSON(
+              res,
+              400,
+              {
+
+                ok: false,
+
+                message:
+                  "নিজেকে Friend করা যাবে না।"
+
+              }
+            );
+
+            return;
+          }
+
+          sender.friends =
+            Array.isArray(
+              sender.friends
+            )
+              ? sender.friends
+              : [];
+
+          target.friends =
+            Array.isArray(
+              target.friends
+            )
+              ? target.friends
+              : [];
+
+          target.requests =
+            Array.isArray(
+              target.requests
+            )
+              ? target.requests
+              : [];
+
+          if (
+            sender.friends.some(
+              name =>
+                String(name)
+                  .toLowerCase() ===
+                String(
+                  target.username
+                ).toLowerCase()
+            )
+          ) {
+
+            sendJSON(
+              res,
+              400,
+              {
+
+                ok: false,
+
+                message:
+                  "আপনারা ইতিমধ্যে Friends।"
+
+              }
+            );
+
+            return;
+          }
+
+          if (
+            target.requests.some(
+              name =>
+                String(name)
+                  .toLowerCase() ===
+                String(
+                  sender.username
+                ).toLowerCase()
+            )
+          ) {
+
+            sendJSON(
+              res,
+              400,
+              {
+
+                ok: false,
+
+                message:
+                  "Friend request আগে থেকেই পাঠানো হয়েছে।"
+
+              }
+            );
+
+            return;
+          }
+
+          target.requests.push(
+            sender.username
+          );
+
+          saveDB(data);
+
+          sendJSON(
+            res,
+            200,
+            {
+
+              ok: true,
+
+              message:
+                "Friend request পাঠানো হয়েছে।"
+
+            }
+          );
+
+          return;
+
+        } catch (error) {
+
+          sendJSON(
+            res,
+            400,
+            {
+
+              ok: false,
+
+              message:
+                error.message
+
+            }
+          );
+
+          return;
+        }
+      }
+
+      /* =========================
+         ACCEPT FRIEND
+      ========================= */
+
+      if (
+        url.pathname ===
+          "/api/friend-accept" &&
+        req.method === "POST"
+      ) {
+
+        try {
+
+          const body =
+            await readBody(req);
+
+          const data =
+            loadDB();
+
+          const phone =
+            String(
+              body.phone || ""
+            ).trim();
+
+          const pin =
+            String(
+              body.pin || ""
+            ).trim();
+
+          const requesterUsername =
+            String(
+              body.username || ""
+            )
+              .trim()
+              .toLowerCase();
+
+          /* =========================
+             FIND RECEIVER
+          ========================= */
+
+          const receiver =
+            getUserByPhone(
+              data,
+              phone
+            );
+
+          if (
+            !receiver ||
+            receiver.pinHash !==
+              hashPin(pin)
+          ) {
+
+            sendJSON(
+              res,
+              401,
+              {
+
+                ok: false,
+
+                message:
+                  "Login তথ্য সঠিক নয়।"
+
+              }
+            );
+
+            return;
+          }
+
+          /* =========================
+             FIND REQUESTER
+          ========================= */
+
+          const requester =
+            findUserByUsername(
+              data,
+              requesterUsername
+            );
+
+          if (!requester) {
+
+            sendJSON(
+              res,
+              404,
+              {
+
+                ok: false,
+
+                message:
+                  "Friend request পাঠানো User পাওয়া যায়নি।"
+
+              }
+            );
+
+            return;
+          }
+
+          /* =========================
+             PREPARE ARRAYS
+          ========================= */
+
+          receiver.friends =
+            Array.isArray(
+              receiver.friends
+            )
+              ? receiver.friends
+              : [];
+
+          receiver.requests =
+            Array.isArray(
+              receiver.requests
+            )
+              ? receiver.requests
+              : [];
+
+          requester.friends =
+            Array.isArray(
+              requester.friends
+            )
+              ? requester.friends
+              : [];
+
+          /* =========================
+             CHECK REQUEST
+          ========================= */
+
+          const hasRequest =
+            receiver.requests.some(
+              name =>
+                String(name)
+                  .trim()
+                  .toLowerCase() ===
+                requesterUsername
+            );
+
+          if (!hasRequest) {
+
+            sendJSON(
+              res,
+              400,
+              {
+
+                ok: false,
+
+                message:
+                  "এই Friend request আর পাওয়া যাচ্ছে না।"
+
+              }
+            );
+
+            return;
+          }
+
+          /* =========================
+             REMOVE REQUEST
+          ========================= */
+
+          receiver.requests =
+            receiver.requests.filter(
+              name =>
+                String(name)
+                  .trim()
+                  .toLowerCase() !==
+                requesterUsername
+            );
+
+          /* =========================
+             ADD FRIEND TO RECEIVER
+          ========================= */
+
+          const requesterAlreadyFriend =
+            receiver.friends.some(
+              name =>
+                String(name)
+                  .trim()
+                  .toLowerCase() ===
+                String(
+                  requester.username
+                )
+                  .trim()
+                  .toLowerCase()
+            );
+
+          if (
+            !requesterAlreadyFriend
+          ) {
+
+            receiver.friends.push(
+              requester.username
+            );
+
+          }
+
+          /* =========================
+             ADD FRIEND TO REQUESTER
+          ========================= */
+
+          const receiverAlreadyFriend =
+            requester.friends.some(
+              name =>
+                String(name)
+                  .trim()
+                  .toLowerCase() ===
+                String(
+                  receiver.username
+                )
+                  .trim()
+                  .toLowerCase()
+            );
+
+          if (
+            !receiverAlreadyFriend
+          ) {
+
+            requester.friends.push(
+              receiver.username
+            );
+
+          }
+
+          /* =========================
+             SAVE DATABASE
+          ========================= */
+
+          saveDB(data);
+
+          sendJSON(
+            res,
+            200,
+            {
+
+              ok: true,
+
+              message:
+                "Friend হয়েছে ❤️",
+
+              user:
+                publicUser(
+                  receiver
+                )
+
+            }
+          );
+
+          return;
+
+        } catch (error) {
+
+          console.log(
+            "Friend accept error:",
+            error
+          );
+
+          sendJSON(
+            res,
+            500,
+            {
+
+              ok: false,
+
+              message:
+                "Friend accept করতে সমস্যা হয়েছে।"
+
+            }
+          );
+
+          return;
+        }
+      }
+
+      /* =========================
+         REJECT FRIEND
+      ========================= */
+
+      if (
+        url.pathname ===
+          "/api/friend-reject" &&
+        req.method === "POST"
+      ) {
+
+        try {
+
+          const body =
+            await readBody(req);
+
+          const data =
+            loadDB();
+
+          const phone =
+            String(
+              body.phone || ""
+            ).trim();
+
+          const pin =
+            String(
+              body.pin || ""
+            ).trim();
+
+          const requesterUsername =
+            String(
+              body.username || ""
+            )
+              .trim()
+              .toLowerCase();
+
+          const receiver =
+            getUserByPhone(
+              data,
+              phone
+            );
+
+          if (
+            !receiver ||
+            receiver.pinHash !==
+              hashPin(pin)
+          ) {
+
+            sendJSON(
+              res,
+              401,
+              {
+
+                ok: false,
+
+                message:
+                  "Login তথ্য সঠিক নয়।"
+
+              }
+            );
+
+            return;
+          }
+
+          receiver.requests =
+            Array.isArray(
+              receiver.requests
+            )
+              ? receiver.requests
+              : [];
+
+          receiver.requests =
+            receiver.requests.filter(
+              name =>
+                String(name)
+                  .trim()
+                  .toLowerCase() !==
+                requesterUsername
+            );
+
+          saveDB(data);
+
+          sendJSON(
+            res,
+            200,
+            {
+
+              ok: true,
+
+              message:
+                "Friend request rejected।",
+
+              user:
+                publicUser(
+                  receiver
+                )
+
+            }
+          );
+
+          return;
+
+        } catch (error) {
+
+          sendJSON(
+            res,
+            400,
+            {
+
+              ok: false,
+
+              message:
+                error.message
+
+            }
+          );
+
+          return;
+        }
+      }
+
+      /* =========================
+         STATIC FILES
+      ========================= */
+
+      let filePath;
+
+      try {
+
+        let requestedPath =
+          decodeURIComponent(
+            url.pathname
+          );
+
+        if (
+          requestedPath === "/"
+        ) {
+
+          requestedPath =
+            "/index.html";
+
+        }
+
+        filePath =
+          path.resolve(
+            ROOT,
+            "." + requestedPath
+          );
+
+      } catch {
+
+        res.writeHead(400);
+
+        res.end(
+          "Bad Request"
+        );
+
+        return;
+      }
+
+      if (
+        filePath !== ROOT &&
+        !filePath.startsWith(
+          ROOT + path.sep
         )
-          .trim()
-          .toLowerCase();
+      ) {
 
-      const sender =
-        getUserByPhone(
-          data,
-          phone
+        res.writeHead(403);
+
+        res.end(
+          "Forbidden"
         );
 
-      const target =
-        data.users[
-          targetUsername
-        ];
-
-      if (
-        !sender ||
-        sender.pinHash !==
-          hashPin(pin)
-      ) {
-
-        sendJSON(res, 401, {
-          ok: false,
-          message:
-            "Login তথ্য সঠিক নয়।"
-        });
-
         return;
       }
 
-      if (!target) {
-
-        sendJSON(res, 404, {
-          ok: false,
-          message:
-            "User পাওয়া যায়নি।"
-        });
-
-        return;
-      }
-
-      if (
-        sender.username ===
-        target.username
-      ) {
-
-        sendJSON(res, 400, {
-          ok: false,
-          message:
-            "নিজেকে Friend করা যাবে না।"
-        });
-
-        return;
-      }
-
-      sender.friends =
-        sender.friends || [];
-
-      target.friends =
-        target.friends || [];
-
-      target.requests =
-        target.requests || [];
-
-      if (
-        sender.friends.includes(
-          target.username
-        )
-      ) {
-
-        sendJSON(res, 400, {
-          ok: false,
-          message:
-            "আপনারা ইতিমধ্যে Friends।"
-        });
-
-        return;
-      }
-
-      if (
-        target.requests.includes(
-          sender.username
-        )
-      ) {
-
-        sendJSON(res, 400, {
-          ok: false,
-          message:
-            "Friend request আগে থেকেই পাঠানো হয়েছে।"
-        });
-
-        return;
-      }
-
-      target.requests.push(
-        sender.username
-      );
-
-      saveDB(data);
-
-      sendJSON(res, 200, {
-        ok: true,
-        message:
-          "Friend request পাঠানো হয়েছে।"
-      });
-
-      return;
-
-    } catch (error) {
-
-      sendJSON(res, 400, {
-        ok: false,
-        message:
-          error.message
-      });
-
-      return;
-    }
-  }
-
-  /* =========================
-     ACCEPT FRIEND
-  ========================= */
-
-  if (
-    url.pathname ===
-      "/api/friend-accept" &&
-    req.method === "POST"
-  ) {
-
-    try {
-
-      const body =
-        await readBody(req);
-
-      const data =
-        loadDB();
-
-      const phone =
-        String(
-          body.phone || ""
-        ).trim();
-
-      const pin =
-        String(
-          body.pin || ""
-        ).trim();
-
-      const requesterUsername =
-        String(
-          body.username || ""
-        )
-          .trim()
-          .toLowerCase();
-
-      const receiver =
-        getUserByPhone(
-          data,
-          phone
-        );
-
-      const requester =
-        data.users[
-          requesterUsername
-        ];
-
-      if (
-        !receiver ||
-        receiver.pinHash !==
-          hashPin(pin)
-      ) {
-
-        sendJSON(res, 401, {
-          ok: false,
-          message:
-            "Login তথ্য সঠিক নয়।"
-        });
-
-        return;
-      }
-
-      if (!requester) {
-
-        sendJSON(res, 404, {
-          ok: false,
-          message:
-            "User পাওয়া যায়নি।"
-        });
-
-        return;
-      }
-
-      receiver.friends =
-        receiver.friends || [];
-
-      receiver.requests =
-        receiver.requests || [];
-
-      requester.friends =
-        requester.friends || [];
-
-      receiver.requests =
-        receiver.requests.filter(
-          name =>
-            name !==
-            requester.username
-        );
-
-      if (
-        !receiver.friends.includes(
-          requester.username
-        )
-      ) {
-
-        receiver.friends.push(
-          requester.username
-        );
-      }
-
-      if (
-        !requester.friends.includes(
-          receiver.username
-        )
-      ) {
-
-        requester.friends.push(
-          receiver.username
-        );
-      }
-
-      saveDB(data);
-
-      sendJSON(res, 200, {
-        ok: true,
-        message:
-          "Friend request accepted।"
-      });
-
-      return;
-
-    } catch (error) {
-
-      sendJSON(res, 400, {
-        ok: false,
-        message:
-          error.message
-      });
-
-      return;
-    }
-  }
-
-  /* =========================
-     REJECT FRIEND
-  ========================= */
-
-  if (
-    url.pathname ===
-      "/api/friend-reject" &&
-    req.method === "POST"
-  ) {
-
-    try {
-
-      const body =
-        await readBody(req);
-
-      const data =
-        loadDB();
-
-      const phone =
-        String(
-          body.phone || ""
-        ).trim();
-
-      const pin =
-        String(
-          body.pin || ""
-        ).trim();
-
-      const requesterUsername =
-        String(
-          body.username || ""
-        )
-          .trim()
-          .toLowerCase();
-
-      const receiver =
-        getUserByPhone(
-          data,
-          phone
-        );
-
-      if (
-        !receiver ||
-        receiver.pinHash !==
-          hashPin(pin)
-      ) {
-
-        sendJSON(res, 401, {
-          ok: false,
-          message:
-            "Login তথ্য সঠিক নয়।"
-        });
-
-        return;
-      }
-
-      receiver.requests =
-        receiver.requests || [];
-
-      receiver.requests =
-        receiver.requests.filter(
-          name =>
-            name !==
-            requesterUsername
-        );
-
-      saveDB(data);
-
-      sendJSON(res, 200, {
-        ok: true,
-        message:
-          "Friend request rejected।"
-      });
-
-      return;
-
-    } catch (error) {
-
-      sendJSON(res, 400, {
-        ok: false,
-        message:
-          error.message
-      });
-
-      return;
-    }
-  }
-
-  /* =========================
-     STATIC FILES
-  ========================= */
-
-  let filePath;
-
-  try {
-
-    let requestedPath =
-      decodeURIComponent(
-        url.pathname
-      );
-
-    if (
-      requestedPath === "/"
-    ) {
-      requestedPath =
-        "/index.html";
-    }
-
-    filePath =
-      path.resolve(
-        ROOT,
-        "." + requestedPath
-      );
-
-  } catch {
-
-    res.writeHead(400);
-    res.end(
-      "Bad Request"
-    );
-
-    return;
-  }
-
-  if (
-    filePath !== ROOT &&
-    !filePath.startsWith(
-      ROOT + path.sep
-    )
-  ) {
-
-    res.writeHead(403);
-    res.end(
-      "Forbidden"
-    );
-
-    return;
-  }
-
-  fs.stat(
-    filePath,
-    (statError, stats) => {
-
-      if (
-        statError ||
-        !stats.isFile()
-      ) {
-
-        res.writeHead(404, {
-          "Content-Type":
-            "text/html; charset=utf-8"
-        });
-
-        res.end(`
+      fs.stat(
+        filePath,
+        (
+          statError,
+          stats
+        ) => {
+
+          if (
+            statError ||
+            !stats.isFile()
+          ) {
+
+            res.writeHead(
+              404,
+              {
+                "Content-Type":
+                  "text/html; charset=utf-8"
+              }
+            );
+
+            res.end(`
 <!DOCTYPE html>
 <html>
 <head>
@@ -893,46 +1422,58 @@ const httpServer = http.createServer(async (req, res) => {
 <p>Dujon server is running.</p>
 </body>
 </html>
-        `);
-
-        return;
-      }
-
-      fs.readFile(
-        filePath,
-        (error, data) => {
-
-          if (error) {
-
-            res.writeHead(500, {
-              "Content-Type":
-                "text/plain; charset=utf-8"
-            });
-
-            res.end(
-              "Server Error"
-            );
+            `);
 
             return;
           }
 
-          const ext =
-            path.extname(
-              filePath
-            ).toLowerCase();
+          fs.readFile(
+            filePath,
+            (
+              error,
+              fileData
+            ) => {
 
-          res.writeHead(200, {
-            "Content-Type":
-              mimeTypes[ext] ||
-              "application/octet-stream"
-          });
+              if (error) {
 
-          res.end(data);
+                res.writeHead(
+                  500,
+                  {
+                    "Content-Type":
+                      "text/plain; charset=utf-8"
+                  }
+                );
+
+                res.end(
+                  "Server Error"
+                );
+
+                return;
+              }
+
+              const ext =
+                path.extname(
+                  filePath
+                ).toLowerCase();
+
+              res.writeHead(
+                200,
+                {
+                  "Content-Type":
+                    mimeTypes[ext] ||
+                    "application/octet-stream"
+                }
+              );
+
+              res.end(
+                fileData
+              );
+            }
+          );
         }
       );
     }
   );
-});
 
 /* =========================
    WEBSOCKET
@@ -954,7 +1495,9 @@ console.log(
    REMOVE ROOM
 ========================= */
 
-function removeFromRoom(socket) {
+function removeFromRoom(
+  socket
+) {
 
   const room =
     socket.room;
@@ -967,11 +1510,16 @@ function removeFromRoom(socket) {
     rooms.get(room);
 
   if (!clients) {
-    socket.room = null;
+
+    socket.room =
+      null;
+
     return;
   }
 
-  clients.delete(socket);
+  clients.delete(
+    socket
+  );
 
   clients.forEach(
     client => {
@@ -987,7 +1535,9 @@ function removeFromRoom(socket) {
               "peer-left"
           })
         );
+
       }
+
     }
   );
 
@@ -995,10 +1545,14 @@ function removeFromRoom(socket) {
     clients.size === 0
   ) {
 
-    rooms.delete(room);
+    rooms.delete(
+      room
+    );
+
   }
 
-  socket.room = null;
+  socket.room =
+    null;
 }
 
 /* =========================
@@ -1024,13 +1578,17 @@ function sendToOthers(
       if (
         client !== sender &&
         client.readyState ===
-        WebSocket.OPEN
+          WebSocket.OPEN
       ) {
 
         client.send(
-          JSON.stringify(message)
+          JSON.stringify(
+            message
+          )
         );
+
       }
+
     }
   );
 }
@@ -1047,7 +1605,8 @@ wsServer.on(
       "Phone connected"
     );
 
-    socket.room = null;
+    socket.room =
+      null;
 
     socket.on(
       "message",
@@ -1066,7 +1625,8 @@ wsServer.on(
 
           socket.send(
             JSON.stringify({
-              type: "error",
+              type:
+                "error",
               message:
                 "Invalid message"
             })
@@ -1091,28 +1651,40 @@ wsServer.on(
             ).trim();
 
           if (
-            !/^\d{6}$/.test(room)
+            !/^\d{6}$/.test(
+              room
+            )
           ) {
 
             socket.send(
               JSON.stringify({
-                type: "error",
+
+                type:
+                  "error",
+
                 message:
                   "ভুল Room Code"
+
               })
             );
 
             return;
           }
 
-          if (socket.room) {
+          if (
+            socket.room
+          ) {
+
             removeFromRoom(
               socket
             );
+
           }
 
           let clients =
-            rooms.get(room);
+            rooms.get(
+              room
+            );
 
           if (!clients) {
 
@@ -1123,6 +1695,7 @@ wsServer.on(
               room,
               clients
             );
+
           }
 
           if (
@@ -1131,9 +1704,13 @@ wsServer.on(
 
             socket.send(
               JSON.stringify({
-                type: "error",
+
+                type:
+                  "error",
+
                 message:
                   "এই Room ইতিমধ্যে পূর্ণ।"
+
               })
             );
 
@@ -1149,9 +1726,12 @@ wsServer.on(
 
           socket.send(
             JSON.stringify({
+
               type:
                 "joined",
+
               room
+
             })
           );
 
@@ -1166,11 +1746,15 @@ wsServer.on(
 
                 client.send(
                   JSON.stringify({
+
                     type:
                       "peer-joined"
+
                   })
                 );
+
               }
+
             }
           );
 
@@ -1188,7 +1772,9 @@ wsServer.on(
           !room ||
           !rooms.has(room)
         ) {
+
           return;
+
         }
 
         sendToOthers(
@@ -1210,6 +1796,7 @@ wsServer.on(
             "Chat:",
             room
           );
+
         }
 
         if (
@@ -1224,6 +1811,7 @@ wsServer.on(
             room,
             message.action
           );
+
         }
 
         if (
@@ -1235,6 +1823,7 @@ wsServer.on(
             "Couple date:",
             room
           );
+
         }
 
         if (
@@ -1246,6 +1835,7 @@ wsServer.on(
             "Our Story:",
             room
           );
+
         }
 
         if (
@@ -1257,6 +1847,7 @@ wsServer.on(
             "Memory:",
             room
           );
+
         }
 
         if (
@@ -1268,7 +1859,9 @@ wsServer.on(
             "Favorite:",
             room
           );
+
         }
+
       }
     );
 
@@ -1283,6 +1876,7 @@ wsServer.on(
         removeFromRoom(
           socket
         );
+
       }
     );
 
@@ -1298,13 +1892,15 @@ wsServer.on(
         removeFromRoom(
           socket
         );
+
       }
     );
+
   }
 );
 
 /* =========================
-   START
+   START SERVER
 ========================= */
 
 httpServer.listen(
@@ -1321,5 +1917,6 @@ httpServer.listen(
       "Server listening on port " +
       PORT
     );
+
   }
 );
