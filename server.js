@@ -4,8 +4,42 @@ const path = require("path");
 const WebSocket = require("ws");
 
 const PORT = process.env.PORT || 8080;
-
 const ROOT = __dirname;
+
+const DATA_FILE = path.join(ROOT, "users.json");
+
+/* =========================
+   DATA STORAGE
+========================= */
+
+let users = {};
+
+function loadUsers() {
+  try {
+    if (fs.existsSync(DATA_FILE)) {
+      users = JSON.parse(
+        fs.readFileSync(DATA_FILE, "utf8")
+      );
+    }
+  } catch (error) {
+    console.log("Could not load users:", error.message);
+    users = {};
+  }
+}
+
+function saveUsers() {
+  try {
+    fs.writeFileSync(
+      DATA_FILE,
+      JSON.stringify(users, null, 2),
+      "utf8"
+    );
+  } catch (error) {
+    console.log("Could not save users:", error.message);
+  }
+}
+
+loadUsers();
 
 /* =========================
    MIME TYPES
@@ -25,457 +59,481 @@ const contentTypes = {
   ".txt": "text/plain; charset=utf-8"
 };
 
+/* =========================
+   HTTP HELPERS
+========================= */
+
+function sendJSON(res, status, data) {
+  res.writeHead(status, {
+    "Content-Type": "application/json; charset=utf-8",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS"
+  });
+
+  res.end(JSON.stringify(data));
+}
+
+function readBody(req) {
+  return new Promise((resolve, reject) => {
+    let body = "";
+
+    req.on("data", chunk => {
+      body += chunk;
+    });
+
+    req.on("end", () => {
+      try {
+        resolve(body ? JSON.parse(body) : {});
+      } catch {
+        reject(new Error("Invalid JSON"));
+      }
+    });
+
+    req.on("error", reject);
+  });
+}
 
 /* =========================
    HTTP SERVER
 ========================= */
 
-const httpServer = http.createServer((req, res) => {
+const httpServer = http.createServer(async (req, res) => {
 
   let requestPath = req.url.split("?")[0];
 
-  if (requestPath === "/") {
-    requestPath = "/index.html";
-  }
-
-  const filePath = path.join(
-    ROOT,
-    decodeURIComponent(requestPath)
-  );
-
-  /* Security check */
-  if (!filePath.startsWith(ROOT)) {
-    res.writeHead(403);
-    res.end("Forbidden");
-    return;
-  }
-
-  fs.stat(filePath, (statError, stats) => {
-
-    if (statError || !stats.isFile()) {
-
-      /* Browser/API health check */
-      if (requestPath === "/health") {
-
-        res.writeHead(200, {
-          "Content-Type": "text/plain; charset=utf-8"
-        });
-
-        res.end("Dujon Server OK");
-        return;
-      }
-
-      res.writeHead(404, {
-        "Content-Type": "text/html; charset=utf-8"
-      });
-
-      res.end(`
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <meta charset="UTF-8">
-          <title>Dujon</title>
-        </head>
-        <body>
-          <h1>Not Found</h1>
-          <p>Dujon server is running.</p>
-        </body>
-        </html>
-      `);
-
-      return;
-    }
-
-    fs.readFile(filePath, (error, data) => {
-
-      if (error) {
-
-        res.writeHead(500, {
-          "Content-Type": "text/plain; charset=utf-8"
-        });
-
-        res.end("Server Error");
-        return;
-      }
-
-      const ext = path.extname(filePath).toLowerCase();
-
-      res.writeHead(200, {
-        "Content-Type":
-          contentTypes[ext] ||
-          "application/octet-stream"
-      });
-
-      res.end(data);
-
+  /* OPTIONS */
+  if (req.method === "OPTIONS") {
+    res.writeHead(204, {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS"
     });
 
-  });
-
-});
-
-
-/* =========================
-   WEBSOCKET SERVER
-========================= */
-
-const wsServer = new WebSocket.Server({
-  server: httpServer
-});
-
-const rooms = new Map();
-
-console.log("Dujon server starting...");
-
-
-/* =========================
-   REMOVE FROM ROOM
-========================= */
-
-function removeFromRoom(socket) {
-
-  const room = socket.room;
-
-  if (!room) return;
-
-  const clients = rooms.get(room);
-
-  if (!clients) {
-    socket.room = null;
+    res.end();
     return;
   }
 
-  clients.delete(socket);
+  /* =========================
+     HEALTH
+  ========================= */
 
-  console.log(
-    "Phone left room:",
-    room,
-    "Users:",
-    clients.size
-  );
+  if (requestPath === "/health") {
+    sendJSON(res, 200, {
+      ok: true,
+      server: "Dujon Server",
+      users: Object.keys(users).length
+    });
 
-  clients.forEach(client => {
-
-    if (client.readyState === WebSocket.OPEN) {
-
-      client.send(JSON.stringify({
-        type: "peer-left"
-      }));
-
-    }
-
-  });
-
-  if (clients.size === 0) {
-
-    rooms.delete(room);
-
-    console.log(
-      "Room deleted:",
-      room
-    );
-
+    return;
   }
 
-  socket.room = null;
-}
+  /* =========================
+     CREATE USER
+  ========================= */
 
-
-/* =========================
-   SEND TO OTHER PHONE
-========================= */
-
-function sendToOthers(room, sender, message) {
-
-  const clients = rooms.get(room);
-
-  if (!clients) return;
-
-  clients.forEach(client => {
-
-    if (
-      client !== sender &&
-      client.readyState === WebSocket.OPEN
-    ) {
-
-      client.send(
-        JSON.stringify(message)
-      );
-
-    }
-
-  });
-
-}
-
-
-/* =========================
-   WEBSOCKET CONNECTION
-========================= */
-
-wsServer.on("connection", socket => {
-
-  console.log("New phone connected");
-
-  socket.room = null;
-
-
-  socket.on("message", rawData => {
-
-    let message;
+  if (
+    requestPath === "/api/user/create" &&
+    req.method === "POST"
+  ) {
 
     try {
 
-      message = JSON.parse(
-        rawData.toString()
+      const body = await readBody(req);
+
+      const userId = String(
+        body.userId || ""
+      ).trim();
+
+      const username = String(
+        body.username || ""
+      )
+        .trim()
+        .toLowerCase()
+        .replace(/^@/, "");
+
+      const name = String(
+        body.name || ""
+      ).trim();
+
+      if (!userId) {
+        sendJSON(res, 400, {
+          ok: false,
+          message: "User ID required"
+        });
+
+        return;
+      }
+
+      if (!/^[a-z0-9_.]{3,20}$/.test(username)) {
+        sendJSON(res, 400, {
+          ok: false,
+          message:
+            "Username 3-20 characters হতে হবে"
+        });
+
+        return;
+      }
+
+      /* Username already used? */
+
+      for (const id in users) {
+
+        if (
+          id !== userId &&
+          users[id].username === username
+        ) {
+
+          sendJSON(res, 409, {
+            ok: false,
+            message: "এই Username ইতিমধ্যে নেওয়া হয়েছে"
+          });
+
+          return;
+        }
+      }
+
+      if (!users[userId]) {
+
+        users[userId] = {
+          userId,
+          username,
+          name: name || username,
+          photo: "",
+          friends: [],
+          incomingRequests: [],
+          outgoingRequests: [],
+          createdAt: Date.now()
+        };
+
+      } else {
+
+        users[userId].username = username;
+
+        if (name) {
+          users[userId].name = name;
+        }
+
+      }
+
+      saveUsers();
+
+      sendJSON(res, 200, {
+        ok: true,
+        user: users[userId]
+      });
+
+      console.log(
+        "User created:",
+        username
       );
+
+      return;
 
     } catch (error) {
 
-      console.log("Invalid JSON message");
+      sendJSON(res, 400, {
+        ok: false,
+        message: "Invalid request"
+      });
 
       return;
     }
+  }
 
+  /* =========================
+     SEARCH USER
+  ========================= */
 
-    /* =========================
-       JOIN ROOM
-    ========================= */
+  if (
+    requestPath === "/api/user/search" &&
+    req.method === "GET"
+  ) {
 
-    if (message.type === "join") {
+    const url = new URL(
+      req.url,
+      `http://${req.headers.host}`
+    );
 
-      const room = String(
-        message.room || ""
-      ).trim();
+    const username = String(
+      url.searchParams.get("username") || ""
+    )
+      .trim()
+      .toLowerCase()
+      .replace(/^@/, "");
 
+    const currentUserId =
+      url.searchParams.get("userId") || "";
 
-      if (!/^\d{6}$/.test(room)) {
+    let found = null;
 
-        socket.send(JSON.stringify({
-          type: "error",
-          message: "ভুল Room Code"
-        }));
+    for (const id in users) {
 
-        return;
-      }
+      if (
+        users[id].username === username
+      ) {
 
+        if (id === currentUserId) {
+          found = null;
+        } else {
 
-      if (socket.room) {
-        removeFromRoom(socket);
-      }
-
-
-      let clients = rooms.get(room);
-
-
-      if (!clients) {
-
-        clients = new Set();
-
-        rooms.set(
-          room,
-          clients
-        );
-
-      }
-
-
-      if (clients.size >= 2) {
-
-        socket.send(JSON.stringify({
-          type: "error",
-          message: "এই Room ইতিমধ্যে পূর্ণ।"
-        }));
-
-        return;
-      }
-
-
-      clients.add(socket);
-
-      socket.room = room;
-
-
-      console.log(
-        "Phone joined room:",
-        room,
-        "Users:",
-        clients.size
-      );
-
-
-      socket.send(JSON.stringify({
-        type: "joined",
-        room: room
-      }));
-
-
-      /* দ্বিতীয় ফোন ঢুকলে প্রথম ফোনকে জানানো */
-
-      clients.forEach(client => {
-
-        if (
-          client !== socket &&
-          client.readyState === WebSocket.OPEN
-        ) {
-
-          client.send(JSON.stringify({
-            type: "peer-joined"
-          }));
+          found = {
+            userId: users[id].userId,
+            username: users[id].username,
+            name: users[id].name,
+            photo: users[id].photo || ""
+          };
 
         }
 
+        break;
+      }
+    }
+
+    if (!found) {
+
+      sendJSON(res, 404, {
+        ok: false,
+        message: "User পাওয়া যায়নি"
       });
 
       return;
     }
 
+    sendJSON(res, 200, {
+      ok: true,
+      user: found
+    });
 
-    /* =========================
-       ROOM CHECK
-    ========================= */
+    return;
+  }
 
-    const room = socket.room;
+  /* =========================
+     SEND FRIEND REQUEST
+  ========================= */
 
-    if (
-      !room ||
-      !rooms.has(room)
-    ) {
+  if (
+    requestPath === "/api/friend/request" &&
+    req.method === "POST"
+  ) {
+
+    try {
+
+      const body = await readBody(req);
+
+      const fromId =
+        String(body.fromId || "").trim();
+
+      const toId =
+        String(body.toId || "").trim();
+
+      if (
+        !fromId ||
+        !toId ||
+        !users[fromId] ||
+        !users[toId]
+      ) {
+
+        sendJSON(res, 400, {
+          ok: false,
+          message: "User পাওয়া যায়নি"
+        });
+
+        return;
+      }
+
+      if (fromId === toId) {
+
+        sendJSON(res, 400, {
+          ok: false,
+          message: "নিজেকে Friend করা যাবে না"
+        });
+
+        return;
+      }
+
+      const fromUser = users[fromId];
+      const toUser = users[toId];
+
+      if (
+        fromUser.friends.includes(toId)
+      ) {
+
+        sendJSON(res, 400, {
+          ok: false,
+          message: "তোমরা ইতিমধ্যে Friend"
+        });
+
+        return;
+      }
+
+      if (
+        fromUser.outgoingRequests.includes(toId)
+      ) {
+
+        sendJSON(res, 400, {
+          ok: false,
+          message: "Friend Request আগেই পাঠানো হয়েছে"
+        });
+
+        return;
+      }
+
+      if (
+        toUser.incomingRequests.includes(fromId)
+      ) {
+
+        sendJSON(res, 400, {
+          ok: false,
+          message: "Friend Request আগেই পাঠানো হয়েছে"
+        });
+
+        return;
+      }
+
+      fromUser.outgoingRequests.push(toId);
+      toUser.incomingRequests.push(fromId);
+
+      saveUsers();
+
+      sendJSON(res, 200, {
+        ok: true,
+        message: "Friend Request পাঠানো হয়েছে"
+      });
+
+      console.log(
+        "Friend request:",
+        fromUser.username,
+        "->",
+        toUser.username
+      );
+
+      return;
+
+    } catch {
+
+      sendJSON(res, 400, {
+        ok: false,
+        message: "Invalid request"
+      });
 
       return;
     }
-
-
-    /* =========================
-       RELAY MESSAGE
-    ========================= */
-
-    sendToOthers(
-      room,
-      socket,
-      message
-    );
-
-
-    /* =========================
-       LOGS
-    ========================= */
-
-    if (message.type === "chat") {
-
-      console.log(
-        "Chat:",
-        room,
-        message.message
-      );
-
-    }
-
-
-    if (
-      message.type === "video-call" ||
-      message.type === "audio-call"
-    ) {
-
-      console.log(
-        "Call:",
-        room,
-        message.action
-      );
-
-    }
-
-
-    if (message.type === "couple-date") {
-
-      console.log(
-        "Couple date:",
-        room,
-        message.date
-      );
-
-    }
-
-
-    if (message.type === "our-story") {
-
-      console.log(
-        "Our Story updated:",
-        room
-      );
-
-    }
-
-
-    if (message.type === "memory") {
-
-      console.log(
-        "Memory added:",
-        room
-      );
-
-    }
-
-
-    if (message.type === "favorite") {
-
-      console.log(
-        "Favorite moment:",
-        room
-      );
-
-    }
-
-  });
-
-
-  /* =========================
-     CLOSE
-  ========================= */
-
-  socket.on("close", () => {
-
-    console.log("Phone disconnected");
-
-    removeFromRoom(socket);
-
-  });
-
-
-  /* =========================
-     ERROR
-  ========================= */
-
-  socket.on("error", error => {
-
-    console.log(
-      "Socket error:",
-      error.message
-    );
-
-    removeFromRoom(socket);
-
-  });
-
-});
-
-
-/* =========================
-   START SERVER
-========================= */
-
-httpServer.listen(
-  PORT,
-  "0.0.0.0",
-  () => {
-
-    console.log(
-      "Dujon server started on port " + PORT
-    );
-
-    console.log(
-      "Server listening on port " + PORT
-    );
-
   }
-);
+
+  /* =========================
+     ACCEPT FRIEND REQUEST
+  ========================= */
+
+  if (
+    requestPath === "/api/friend/accept" &&
+    req.method === "POST"
+  ) {
+
+    try {
+
+      const body = await readBody(req);
+
+      const userId =
+        String(body.userId || "").trim();
+
+      const requesterId =
+        String(body.requesterId || "").trim();
+
+      if (
+        !users[userId] ||
+        !users[requesterId]
+      ) {
+
+        sendJSON(res, 400, {
+          ok: false,
+          message: "User পাওয়া যায়নি"
+        });
+
+        return;
+      }
+
+      const user = users[userId];
+      const requester = users[requesterId];
+
+      if (
+        !user.incomingRequests.includes(
+          requesterId
+        )
+      ) {
+
+        sendJSON(res, 400, {
+          ok: false,
+          message: "Friend Request পাওয়া যায়নি"
+        });
+
+        return;
+      }
+
+      user.incomingRequests =
+        user.incomingRequests.filter(
+          id => id !== requesterId
+        );
+
+      requester.outgoingRequests =
+        requester.outgoingRequests.filter(
+          id => id !== userId
+        );
+
+      if (!user.friends.includes(requesterId)) {
+        user.friends.push(requesterId);
+      }
+
+      if (!requester.friends.includes(userId)) {
+        requester.friends.push(userId);
+      }
+
+      saveUsers();
+
+      sendJSON(res, 200, {
+        ok: true,
+        message: "Friend Request Accept হয়েছে"
+      });
+
+      console.log(
+        "Friend accepted:",
+        user.username,
+        "<->",
+        requester.username
+      );
+
+      return;
+
+    } catch {
+
+      sendJSON(res, 400, {
+        ok: false,
+        message: "Invalid request"
+      });
+
+      return;
+    }
+  }
+
+  /* =========================
+     REJECT FRIEND REQUEST
+  ========================= */
+
+  if (
+    requestPath === "/api/friend/reject" &&
+    req.method === "POST"
+  ) {
+
+    try {
+
+      const body = await readBody(req);
+
+      const userId =
+        String(body.userId || "").trim();
+
+      const requesterId =
+        String(body.requesterId || "").trim();
+
+      if (
+        !users[userId] ||
+        !users[requesterId]
