@@ -2,12 +2,12 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#090912">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
 
 <link rel="manifest" href="/manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
 
 <title>দুজন ❤️</title>
 
@@ -20,26 +20,22 @@
 }
 
 :root{
-  --bg:#080810;
-  --card:rgba(255,255,255,.065);
-  --card2:rgba(255,255,255,.095);
-  --border:rgba(255,255,255,.10);
+  --bg:#07070d;
+  --card:rgba(255,255,255,.075);
+  --border:rgba(255,255,255,.12);
   --text:#fff;
-  --muted:#aaa8b7;
-  --pink:#ff4f91;
-  --pink2:#ff79ae;
+  --muted:#aaa9b8;
+  --pink:#ff3d78;
   --purple:#8b5cf6;
-  --red:#ff416c;
-  --green:#31d58a;
+  --green:#34d399;
 }
 
-html,body{
-  width:100%;
-  min-height:100%;
+body{
+  min-height:100vh;
   background:
-    radial-gradient(circle at 15% 10%,rgba(255,65,108,.18),transparent 30%),
-    radial-gradient(circle at 85% 20%,rgba(139,92,246,.18),transparent 30%),
-    linear-gradient(145deg,#07070d,#100914 55%,#080810);
+    radial-gradient(circle at 20% 10%,rgba(255,61,120,.18),transparent 30%),
+    radial-gradient(circle at 85% 30%,rgba(139,92,246,.18),transparent 30%),
+    #07070d;
   color:var(--text);
   font-family:
     system-ui,
@@ -47,9 +43,6 @@ html,body{
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-}
-
-body{
   overflow-x:hidden;
 }
 
@@ -67,9 +60,7 @@ button{
   display:none!important;
 }
 
-/* ================================
-   BACKGROUND
-================================ */
+/* ================= BACKGROUND ================= */
 
 .bg-orb{
   position:fixed;
@@ -77,56 +68,74 @@ button{
   height:220px;
   border-radius:50%;
   filter:blur(70px);
-  opacity:.18;
+  opacity:.22;
   pointer-events:none;
-  z-index:0;
+  z-index:-1;
+  animation:orbMove 10s ease-in-out infinite alternate;
 }
 
 .orb1{
-  background:#ff3d81;
-  top:-90px;
+  background:#ff2f70;
+  top:5%;
   left:-80px;
 }
 
 .orb2{
   background:#7c3aed;
   right:-90px;
-  top:30%;
+  top:35%;
+  animation-delay:2s;
 }
 
 .orb3{
-  background:#ff5b8f;
+  background:#ec4899;
   bottom:-100px;
   left:30%;
+  animation-delay:4s;
 }
 
-/* ================================
-   PAGE
-================================ */
+@keyframes orbMove{
+  from{
+    transform:translate(0,0) scale(1);
+  }
+  to{
+    transform:translate(40px,-30px) scale(1.2);
+  }
+}
+
+/* ================= PAGES ================= */
 
 .page{
-  position:relative;
-  z-index:2;
-  width:100%;
   min-height:100vh;
-  padding-bottom:90px;
+  padding:24px 16px 95px;
+  animation:pageIn .45s ease;
 }
 
-.screen{
-  width:100%;
-  min-height:100vh;
+@keyframes pageIn{
+  from{
+    opacity:0;
+    transform:translateY(12px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
-/* ================================
-   LOGIN / REGISTER
-================================ */
+.container{
+  width:100%;
+  max-width:620px;
+  margin:auto;
+}
+
+/* ================= AUTH ================= */
 
 .auth{
   min-height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:25px 18px;
+  padding:20px;
 }
 
 .auth-card{
@@ -135,11 +144,23 @@ button{
   padding:30px 22px;
   border:1px solid var(--border);
   border-radius:30px;
-  background:rgba(13,12,22,.78);
+  background:rgba(255,255,255,.055);
   backdrop-filter:blur(25px);
   box-shadow:
     0 25px 80px rgba(0,0,0,.45),
-    inset 0 1px 0 rgba(255,255,255,.07);
+    inset 0 1px rgba(255,255,255,.08);
+  animation:cardIn .7s ease;
+}
+
+@keyframes cardIn{
+  from{
+    opacity:0;
+    transform:scale(.94) translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform:scale(1) translateY(0);
+  }
 }
 
 .logo{
@@ -154,17 +175,25 @@ button{
   display:flex;
   align-items:center;
   justify-content:center;
-  border-radius:26px;
+  border-radius:25px;
   font-size:38px;
   background:linear-gradient(135deg,#ff3d78,#8b5cf6);
-  box-shadow:0 12px 40px rgba(255,65,108,.35);
-  animation:heartBeat 2.5s infinite;
+  box-shadow:0 0 45px rgba(255,61,120,.35);
+  animation:heartPulse 2.2s infinite;
+}
+
+@keyframes heartPulse{
+  0%,100%{
+    transform:scale(1);
+  }
+  50%{
+    transform:scale(1.06);
+  }
 }
 
 .logo h1{
-  margin-top:15px;
-  font-size:32px;
-  letter-spacing:-1px;
+  margin-top:14px;
+  font-size:30px;
 }
 
 .logo p{
@@ -173,791 +202,590 @@ button{
   font-size:14px;
 }
 
-.input-group{
+.field{
   margin-bottom:14px;
 }
 
-.input-group label{
+.field label{
   display:block;
-  color:#d7d3df;
+  margin-bottom:7px;
+  color:#c9c7d4;
   font-size:13px;
-  margin:0 0 7px 4px;
 }
 
-.input-wrap{
-  position:relative;
-}
-
-.input-wrap span{
-  position:absolute;
-  left:15px;
-  top:50%;
-  transform:translateY(-50%);
-  opacity:.7;
-}
-
-.input-wrap input{
+.input{
   width:100%;
-  height:54px;
-  border-radius:17px;
+  padding:14px 15px;
   border:1px solid var(--border);
+  border-radius:16px;
   outline:none;
-  color:#fff;
+  color:white;
   background:rgba(255,255,255,.055);
-  padding:0 15px 0 45px;
-  transition:.2s;
+  transition:.25s;
 }
 
-.input-wrap input:focus{
-  border-color:rgba(255,79,145,.65);
-  box-shadow:0 0 0 4px rgba(255,79,145,.08);
+.input:focus{
+  border-color:rgba(255,61,120,.7);
+  box-shadow:0 0 0 4px rgba(255,61,120,.08);
 }
 
 .primary-btn{
   width:100%;
-  height:55px;
-  border-radius:18px;
+  padding:14px;
+  margin-top:8px;
+  border-radius:17px;
   color:white;
   font-weight:700;
-  background:linear-gradient(135deg,#ff3d78,#b13cff);
-  box-shadow:0 12px 30px rgba(255,61,120,.22);
-  transition:.2s;
+  background:linear-gradient(135deg,#ff3d78,#8b5cf6);
+  box-shadow:0 12px 30px rgba(255,61,120,.2);
+  transition:.25s;
 }
 
 .primary-btn:active{
   transform:scale(.97);
 }
 
-.secondary-btn{
-  width:100%;
-  height:50px;
-  margin-top:11px;
-  border-radius:17px;
-  color:#fff;
-  background:rgba(255,255,255,.07);
-  border:1px solid var(--border);
-}
-
-.auth-switch{
+.switch{
   text-align:center;
-  margin-top:20px;
+  margin-top:18px;
   color:var(--muted);
   font-size:14px;
 }
 
-.auth-switch button{
-  background:none;
-  color:#ff75aa;
+.switch span{
+  color:#ff6b97;
   font-weight:700;
+  cursor:pointer;
 }
 
-/* ================================
-   HEADER
-================================ */
+/* ================= TOP BAR ================= */
 
 .topbar{
-  position:sticky;
-  top:0;
-  z-index:30;
-  height:72px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 18px;
-  background:rgba(8,8,16,.72);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(255,255,255,.06);
+  margin-bottom:22px;
 }
 
-.brand{
-  display:flex;
-  align-items:center;
-  gap:11px;
-}
-
-.brand-icon{
-  width:43px;
-  height:43px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:15px;
-  background:linear-gradient(135deg,#ff3d78,#873bff);
-  box-shadow:0 8px 25px rgba(255,61,120,.25);
-}
-
-.brand strong{
-  font-size:19px;
-}
-
-.brand small{
-  display:block;
-  color:var(--muted);
-  font-size:10px;
-  margin-top:1px;
-}
-
-.header-actions{
-  display:flex;
-  gap:8px;
+.topbar-title{
+  font-size:24px;
+  font-weight:800;
 }
 
 .icon-btn{
-  width:42px;
-  height:42px;
+  width:43px;
+  height:43px;
+  border:1px solid var(--border);
   border-radius:14px;
   color:white;
-  background:rgba(255,255,255,.07);
-  border:1px solid var(--border);
+  background:var(--card);
+  backdrop-filter:blur(15px);
+  transition:.2s;
 }
 
-/* ================================
-   CONTENT
-================================ */
-
-.content{
-  padding:20px 16px;
-  max-width:700px;
-  margin:auto;
+.icon-btn:active{
+  transform:scale(.92);
 }
 
-.hero{
+/* ================= HOME HERO ================= */
+
+.home-hero{
   position:relative;
-  overflow:hidden;
-  padding:24px;
-  min-height:205px;
-  border-radius:28px;
-  background:
-    linear-gradient(135deg,
-      rgba(255,61,120,.22),
-      rgba(139,92,246,.17)),
-    rgba(255,255,255,.045);
-  border:1px solid var(--border);
-  box-shadow:0 20px 55px rgba(0,0,0,.25);
-}
-
-.hero:after{
-  content:"❤️";
-  position:absolute;
-  right:-12px;
-  bottom:-25px;
-  font-size:130px;
-  opacity:.06;
-  transform:rotate(-15deg);
-}
-
-.hero .eyebrow{
-  color:#ff8ab6;
-  font-size:13px;
-  font-weight:700;
-}
-
-.hero h2{
-  margin-top:9px;
-  font-size:29px;
-  line-height:1.15;
-}
-
-.hero p{
-  margin-top:10px;
-  color:#bdb8c7;
-  font-size:14px;
-  max-width:410px;
-  line-height:1.6;
-}
-
-.online-pill{
-  display:inline-flex;
+  min-height:500px;
+  display:flex;
+  flex-direction:column;
   align-items:center;
-  gap:6px;
-  margin-top:17px;
-  padding:7px 11px;
-  border-radius:20px;
-  background:rgba(49,213,138,.10);
-  color:#7af1ba;
+  justify-content:center;
+  text-align:center;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:34px;
+  background:
+    radial-gradient(circle at 50% 30%,rgba(255,61,120,.14),transparent 38%),
+    rgba(255,255,255,.035);
+  backdrop-filter:blur(20px);
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.35),
+    inset 0 1px rgba(255,255,255,.07);
+}
+
+.home-hero::before{
+  content:"";
+  position:absolute;
+  width:280px;
+  height:280px;
+  border-radius:50%;
+  border:1px solid rgba(255,61,120,.15);
+  animation:heroRing 8s linear infinite;
+}
+
+@keyframes heroRing{
+  from{
+    transform:rotate(0deg) scale(.8);
+    opacity:.3;
+  }
+  50%{
+    transform:rotate(180deg) scale(1.1);
+    opacity:.7;
+  }
+  to{
+    transform:rotate(360deg) scale(.8);
+    opacity:.3;
+  }
+}
+
+.identity-wrap{
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.profile-glow{
+  position:relative;
+  width:142px;
+  height:142px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:20px;
+}
+
+.profile-glow::before,
+.profile-glow::after{
+  content:"";
+  position:absolute;
+  inset:-8px;
+  border-radius:50%;
+  border:1px solid rgba(255,61,120,.5);
+  animation:profileRing 2.8s ease-in-out infinite;
+}
+
+.profile-glow::after{
+  inset:-16px;
+  border-color:rgba(139,92,246,.35);
+  animation-delay:1s;
+}
+
+@keyframes profileRing{
+  0%,100%{
+    transform:scale(.95);
+    opacity:.4;
+  }
+  50%{
+    transform:scale(1.06);
+    opacity:1;
+  }
+}
+
+.home-profile-photo{
+  width:125px;
+  height:125px;
+  object-fit:cover;
+  border-radius:50%;
+  border:4px solid rgba(255,255,255,.9);
+  background:#191923;
+  box-shadow:
+    0 0 25px rgba(255,61,120,.4),
+    0 0 70px rgba(139,92,246,.25);
+  position:relative;
+  z-index:2;
+}
+
+.home-name{
+  font-size:29px;
+  font-weight:800;
+  letter-spacing:-.5px;
+  margin-top:5px;
+}
+
+.home-username{
+  margin-top:5px;
+  color:#aaa8b8;
+  font-size:15px;
+}
+
+.connection{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:20px;
+  padding:9px 14px;
+  border:1px solid rgba(52,211,153,.18);
+  border-radius:50px;
+  color:#b6f5dc;
+  background:rgba(52,211,153,.07);
   font-size:12px;
 }
 
 .online-dot{
-  width:7px;
-  height:7px;
+  width:8px;
+  height:8px;
   border-radius:50%;
-  background:#31d58a;
-  box-shadow:0 0 10px #31d58a;
+  background:#34d399;
+  box-shadow:0 0 12px #34d399;
+  animation:onlinePulse 1.5s infinite;
 }
 
-/* ================================
-   SECTION
-================================ */
-
-.section{
-  margin-top:23px;
+@keyframes onlinePulse{
+  0%,100%{
+    opacity:1;
+  }
+  50%{
+    opacity:.4;
+  }
 }
 
-.section-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:11px;
-}
+/* floating hearts */
 
-.section-head h3{
-  font-size:17px;
-}
-
-.section-head button{
-  background:none;
-  color:#ff77aa;
-  font-size:12px;
-}
-
-/* ================================
-   QUICK ACTIONS
-================================ */
-
-.quick-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:11px;
-}
-
-.quick{
-  min-height:105px;
-  padding:17px;
-  border-radius:22px;
-  text-align:left;
-  color:#fff;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.055);
-  transition:.2s;
-}
-
-.quick:active{
-  transform:scale(.97);
-}
-
-.quick-icon{
-  font-size:25px;
-}
-
-.quick strong{
-  display:block;
-  margin-top:9px;
-  font-size:14px;
-}
-
-.quick small{
-  display:block;
-  color:var(--muted);
-  margin-top:4px;
-  font-size:11px;
-}
-
-/* ================================
-   COUPLE CARD
-================================ */
-
-.couple-card{
-  padding:20px;
-  border-radius:25px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.045);
-  text-align:center;
-}
-
-.avatars{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin-bottom:12px;
-}
-
-.avatar{
-  width:64px;
-  height:64px;
-  border-radius:50%;
-  border:3px solid #17121e;
-  object-fit:cover;
-  background:linear-gradient(135deg,#ff3d78,#8b5cf6);
-}
-
-.avatar + .avatar{
-  margin-left:-13px;
-}
-
-.love-between{
-  margin:0 -2px;
-  z-index:2;
+.floating-heart{
+  position:absolute;
+  bottom:-30px;
   font-size:20px;
-  animation:heartBeat 2s infinite;
+  opacity:0;
+  animation:floatHeart linear infinite;
+  pointer-events:none;
 }
 
-.couple-card h3{
-  font-size:18px;
+@keyframes floatHeart{
+  0%{
+    transform:translateY(0) scale(.7) rotate(0);
+    opacity:0;
+  }
+  15%{
+    opacity:.7;
+  }
+  80%{
+    opacity:.35;
+  }
+  100%{
+    transform:translateY(-520px) scale(1.2) rotate(25deg);
+    opacity:0;
+  }
 }
 
-.couple-card p{
+.h1{
+  animation-duration:7s;
+  left:10%;
+}
+
+.h2{
+  animation-duration:9s;
+  left:28%;
+  animation-delay:2s;
+}
+
+.h3{
+  animation-duration:8s;
+  left:55%;
+  animation-delay:1s;
+}
+
+.h4{
+  animation-duration:10s;
+  left:80%;
+  animation-delay:3s;
+}
+
+.h5{
+  animation-duration:7.5s;
+  left:68%;
+  animation-delay:4s;
+}
+
+.home-sub{
+  margin-top:25px;
+  padding:0 25px;
+  color:#aaa9b8;
+  font-size:14px;
+  line-height:1.7;
+  position:relative;
+  z-index:2;
+}
+
+/* ================= CARDS ================= */
+
+.card{
+  padding:18px;
+  margin-top:16px;
+  border:1px solid var(--border);
+  border-radius:22px;
+  background:var(--card);
+  backdrop-filter:blur(20px);
+  box-shadow:0 15px 45px rgba(0,0,0,.18);
+  transition:.25s;
+}
+
+.card:active{
+  transform:scale(.985);
+}
+
+.card-title{
+  font-weight:800;
+  margin-bottom:5px;
+}
+
+.card-text{
   color:var(--muted);
-  font-size:12px;
-  margin-top:5px;
+  font-size:13px;
+  line-height:1.6;
 }
 
-/* ================================
-   FRIENDS
-================================ */
+/* ================= FRIENDS ================= */
 
-.search-box{
+.search-row{
   display:flex;
   gap:8px;
 }
 
-.search-box input{
+.search-row .input{
   flex:1;
-  height:50px;
-  border-radius:16px;
-  border:1px solid var(--border);
-  outline:none;
-  background:rgba(255,255,255,.055);
-  color:#fff;
-  padding:0 15px;
 }
 
-.search-box button{
-  width:52px;
-  border-radius:16px;
-  background:linear-gradient(135deg,#ff3d78,#8b5cf6);
+.small-btn{
+  padding:0 16px;
+  border-radius:15px;
   color:white;
-}
-
-.friend-list{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
+  background:linear-gradient(135deg,#ff3d78,#8b5cf6);
+  font-weight:700;
 }
 
 .friend{
   display:flex;
   align-items:center;
   gap:12px;
-  padding:13px;
-  border-radius:21px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.045);
+  padding:14px 0;
+  border-bottom:1px solid rgba(255,255,255,.07);
 }
 
-.friend-photo{
-  width:49px;
-  height:49px;
-  border-radius:17px;
+.friend:last-child{
+  border-bottom:0;
+}
+
+.friend-avatar{
+  width:48px;
+  height:48px;
+  border-radius:50%;
   object-fit:cover;
-  background:linear-gradient(135deg,#ff3d78,#8b5cf6);
+  background:#20202b;
 }
 
 .friend-info{
   flex:1;
-  min-width:0;
 }
 
-.friend-info strong{
-  display:block;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+.friend-name{
+  font-weight:700;
 }
 
-.friend-info small{
-  display:block;
-  color:var(--muted);
+.friend-user{
+  color:#9694a4;
+  font-size:12px;
   margin-top:3px;
 }
 
-.small-btn{
+.friend-action{
   padding:9px 12px;
   border-radius:12px;
-  color:#fff;
-  background:rgba(255,255,255,.09);
-  border:1px solid var(--border);
-  font-size:12px;
+  color:white;
+  background:rgba(255,61,120,.16);
+  border:1px solid rgba(255,61,120,.25);
 }
 
-.small-btn.pink{
-  background:linear-gradient(135deg,#ff3d78,#b13cff);
-}
-
-/* ================================
-   CHAT
-================================ */
-
-.chat-page{
-  min-height:calc(100vh - 72px);
-  display:flex;
-  flex-direction:column;
-}
+/* ================= CHAT ================= */
 
 .chat-head{
   display:flex;
   align-items:center;
-  gap:12px;
-  padding:12px 16px;
-  border-bottom:1px solid var(--border);
-  background:rgba(8,8,16,.55);
+  gap:10px;
+  margin-bottom:15px;
 }
 
-.chat-head .back{
-  width:39px;
-  height:39px;
-  border-radius:13px;
-  color:#fff;
-  background:rgba(255,255,255,.07);
-}
-
-.chat-user-photo{
-  width:42px;
-  height:42px;
-  border-radius:15px;
+.chat-avatar{
+  width:43px;
+  height:43px;
+  border-radius:50%;
   object-fit:cover;
 }
 
-.chat-user-info{
+.chat-info{
   flex:1;
 }
 
-.chat-user-info strong{
-  display:block;
+.chat-name{
+  font-weight:700;
 }
 
-.chat-user-info small{
-  color:#6ee7ad;
+.chat-user{
+  color:#9997a7;
   font-size:11px;
 }
 
-.call-actions{
+.chat-actions{
   display:flex;
   gap:6px;
 }
 
-.call-actions button{
-  width:39px;
-  height:39px;
-  border-radius:13px;
-  background:rgba(255,255,255,.07);
-  color:#fff;
-}
-
-.chat-box{
-  flex:1;
-  padding:18px 15px;
+.messages{
+  min-height:55vh;
+  max-height:62vh;
   overflow-y:auto;
-  min-height:calc(100vh - 215px);
+  padding:8px 2px;
 }
 
-.message-row{
-  display:flex;
-  margin-bottom:9px;
-}
-
-.message-row.me{
-  justify-content:flex-end;
-}
-
-.message{
+.msg{
   max-width:78%;
+  margin:8px 0;
   padding:11px 14px;
-  border-radius:19px;
+  border-radius:18px;
+  line-height:1.5;
   font-size:14px;
-  line-height:1.45;
-  background:rgba(255,255,255,.075);
-  border:1px solid var(--border);
 }
 
-.message-row.me .message{
-  background:linear-gradient(135deg,#ff3d78,#9d3dff);
-  border-bottom-right-radius:6px;
+.msg.me{
+  margin-left:auto;
+  background:linear-gradient(135deg,#ff3d78,#8b5cf6);
+  border-bottom-right-radius:5px;
 }
 
-.message-row:not(.me) .message{
-  border-bottom-left-radius:6px;
+.msg.them{
+  margin-right:auto;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.07);
+  border-bottom-left-radius:5px;
 }
 
-.chat-input-wrap{
-  position:sticky;
-  bottom:0;
+.chat-input{
+  position:fixed;
+  bottom:75px;
+  left:50%;
+  transform:translateX(-50%);
+  width:calc(100% - 30px);
+  max-width:590px;
   display:flex;
   gap:8px;
-  padding:11px 12px;
-  background:rgba(8,8,16,.88);
+  padding:8px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  background:rgba(15,15,24,.88);
   backdrop-filter:blur(20px);
-  border-top:1px solid var(--border);
+  z-index:50;
 }
 
-.chat-input-wrap input{
+.chat-input input{
   flex:1;
-  height:48px;
-  border-radius:17px;
-  border:1px solid var(--border);
-  outline:none;
-  background:rgba(255,255,255,.06);
-  color:#fff;
-  padding:0 14px;
+  border:0;
+  outline:0;
+  color:white;
+  background:transparent;
+  padding:8px;
 }
 
 .send-btn{
-  width:49px;
-  border-radius:16px;
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  color:white;
   background:linear-gradient(135deg,#ff3d78,#8b5cf6);
-  color:#fff;
 }
 
-/* ================================
-   PROFILE
-================================ */
+/* ================= PROFILE ================= */
 
 .profile-card{
   text-align:center;
-  padding:25px 18px;
-  border-radius:27px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.05);
 }
 
-.profile-photo-wrap{
-  position:relative;
-  width:105px;
-  height:105px;
-  margin:0 auto 15px;
-}
-
-.profile-photo{
-  width:105px;
-  height:105px;
+.profile-big{
+  width:115px;
+  height:115px;
+  border-radius:50%;
   object-fit:cover;
-  border-radius:50%;
-  border:3px solid #ff5b96;
-  background:linear-gradient(135deg,#ff3d78,#8b5cf6);
-  box-shadow:0 0 35px rgba(255,65,108,.22);
+  border:4px solid rgba(255,255,255,.9);
+  margin:10px auto 15px;
+  box-shadow:0 0 35px rgba(255,61,120,.25);
 }
 
-.profile-edit{
-  position:absolute;
-  right:0;
-  bottom:0;
-  width:31px;
-  height:31px;
-  border-radius:50%;
-  background:#ff3d78;
-  color:#fff;
-  border:3px solid #100b14;
+.profile-title{
+  font-size:24px;
+  font-weight:800;
 }
 
-.form-card{
-  margin-top:15px;
-  padding:17px;
-  border-radius:23px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.045);
+.profile-username{
+  color:#9997a7;
+  margin-top:4px;
 }
 
-/* ================================
-   BOTTOM NAV
-================================ */
+/* ================= BOTTOM NAV ================= */
 
 .bottom-nav{
   position:fixed;
-  z-index:50;
-  left:50%;
   bottom:10px;
+  left:50%;
   transform:translateX(-50%);
-  width:calc(100% - 20px);
-  max-width:650px;
-  height:68px;
+  width:calc(100% - 24px);
+  max-width:620px;
+  height:62px;
   display:flex;
   align-items:center;
   justify-content:space-around;
-  border-radius:24px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(16,13,24,.88);
-  backdrop-filter:blur(22px);
-  box-shadow:0 18px 50px rgba(0,0,0,.45);
+  padding:5px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:23px;
+  background:rgba(15,15,24,.84);
+  backdrop-filter:blur(25px);
+  box-shadow:0 15px 45px rgba(0,0,0,.4);
+  z-index:100;
 }
 
 .nav-btn{
-  min-width:60px;
-  height:54px;
-  border-radius:18px;
+  flex:1;
+  height:50px;
+  border-radius:17px;
+  color:#777585;
+  background:transparent;
+  transition:.25s;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   gap:2px;
-  color:#85808f;
-  background:none;
+  font-size:10px;
+}
+
+.nav-btn .nav-icon{
   font-size:20px;
 }
 
-.nav-btn span{
-  font-size:9px;
-}
-
 .nav-btn.active{
-  color:#ff70a8;
-  background:rgba(255,79,145,.09);
-}
-
-/* ================================
-   MODAL
-================================ */
-
-.modal{
-  position:fixed;
-  inset:0;
-  z-index:100;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:18px;
-  background:rgba(0,0,0,.68);
-  backdrop-filter:blur(13px);
-}
-
-.modal-card{
-  width:100%;
-  max-width:390px;
-  padding:24px;
-  border-radius:29px;
-  border:1px solid var(--border);
-  background:#15111d;
-  box-shadow:0 30px 90px rgba(0,0,0,.55);
-  text-align:center;
-}
-
-.modal-card h3{
-  font-size:22px;
-}
-
-.modal-card p{
-  color:var(--muted);
-  font-size:13px;
-  margin-top:7px;
-  line-height:1.5;
-}
-
-.modal-actions{
-  display:flex;
-  gap:9px;
-  margin-top:20px;
-}
-
-.modal-actions button{
-  flex:1;
-  height:48px;
-  border-radius:15px;
-  color:#fff;
-  background:rgba(255,255,255,.08);
-}
-
-.modal-actions .accept{
-  background:linear-gradient(135deg,#ff3d78,#9d3dff);
-}
-
-/* ================================
-   CALL
-================================ */
-
-.call-screen{
-  position:fixed;
-  inset:0;
-  z-index:200;
-  background:#050508;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-}
-
-.remote-video{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  background:#09090d;
-}
-
-.local-video{
-  position:absolute;
-  right:16px;
-  top:18px;
-  width:110px;
-  height:155px;
-  object-fit:cover;
-  border-radius:20px;
-  border:1px solid rgba(255,255,255,.2);
-  box-shadow:0 15px 35px rgba(0,0,0,.5);
-  background:#15151b;
-}
-
-.call-info{
-  position:absolute;
-  top:20px;
-  left:18px;
-  right:140px;
-  padding:13px 15px;
-  border-radius:17px;
-  background:rgba(0,0,0,.34);
-  backdrop-filter:blur(15px);
-}
-
-.call-info strong{
-  display:block;
-}
-
-.call-info small{
-  color:#bcb8c5;
-}
-
-.call-controls{
-  position:absolute;
-  bottom:35px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  gap:13px;
-}
-
-.call-control{
-  width:57px;
-  height:57px;
-  border-radius:50%;
   color:white;
-  background:rgba(255,255,255,.14);
-  backdrop-filter:blur(15px);
-  border:1px solid rgba(255,255,255,.14);
+  background:linear-gradient(
+    135deg,
+    rgba(255,61,120,.22),
+    rgba(139,92,246,.22)
+  );
 }
 
-.call-control.end{
-  background:#e83d5b;
-}
-
-/* ================================
-   TOAST
-================================ */
+/* ================= TOAST ================= */
 
 .toast{
   position:fixed;
-  z-index:300;
   left:50%;
-  bottom:91px;
+  bottom:90px;
   transform:translate(-50%,20px);
-  min-width:180px;
-  max-width:calc(100% - 30px);
-  padding:12px 17px;
-  border-radius:16px;
-  text-align:center;
-  font-size:13px;
-  background:rgba(26,21,32,.94);
+  min-width:220px;
+  max-width:90%;
+  padding:12px 16px;
   border:1px solid var(--border);
-  box-shadow:0 15px 45px rgba(0,0,0,.4);
+  border-radius:15px;
+  color:white;
+  background:rgba(25,25,35,.95);
+  backdrop-filter:blur(20px);
+  text-align:center;
   opacity:0;
   pointer-events:none;
-  transition:.25s;
+  transition:.3s;
+  z-index:999;
 }
 
 .toast.show{
@@ -965,47 +793,165 @@ button{
   transform:translate(-50%,0);
 }
 
-/* ================================
-   EMPTY
-================================ */
+/* ================= CALL MODAL ================= */
 
-.empty{
-  padding:35px 15px;
+.modal{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(0,0,0,.72);
+  backdrop-filter:blur(15px);
+  z-index:500;
+}
+
+.modal-card{
+  width:100%;
+  max-width:360px;
+  padding:28px 20px;
+  border:1px solid var(--border);
+  border-radius:28px;
+  background:#14141f;
   text-align:center;
-  color:#85818e;
+  box-shadow:0 30px 90px rgba(0,0,0,.55);
+  animation:cardIn .35s ease;
 }
 
-.empty .empty-icon{
-  font-size:38px;
-  margin-bottom:9px;
+.modal-avatar{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  object-fit:cover;
+  margin-bottom:14px;
 }
 
-/* ================================
-   ANIMATION
-================================ */
-
-@keyframes heartBeat{
-  0%,100%{transform:scale(1)}
-  10%{transform:scale(1.08)}
-  20%{transform:scale(1)}
+.modal-name{
+  font-size:22px;
+  font-weight:800;
 }
 
-.fade{
-  animation:fade .3s ease;
+.modal-type{
+  color:#9997a7;
+  margin-top:5px;
+  font-size:13px;
 }
 
-@keyframes fade{
-  from{opacity:0;transform:translateY(8px)}
-  to{opacity:1;transform:none}
+.modal-actions{
+  display:flex;
+  gap:10px;
+  margin-top:24px;
 }
 
-@media(min-width:700px){
-  .content{
-    padding-top:28px;
+.accept-btn,
+.reject-btn{
+  flex:1;
+  padding:13px;
+  border-radius:15px;
+  color:white;
+  font-weight:700;
+}
+
+.accept-btn{
+  background:#22c55e;
+}
+
+.reject-btn{
+  background:#ef4444;
+}
+
+/* ================= CALL SCREEN ================= */
+
+.call-screen{
+  position:fixed;
+  inset:0;
+  background:#050509;
+  z-index:1000;
+  display:flex;
+  flex-direction:column;
+}
+
+.remote-video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  background:#101018;
+}
+
+.local-video{
+  position:absolute;
+  right:15px;
+  top:15px;
+  width:105px;
+  height:145px;
+  object-fit:cover;
+  border-radius:18px;
+  border:2px solid rgba(255,255,255,.3);
+  background:#111;
+}
+
+.call-top{
+  position:absolute;
+  top:20px;
+  left:20px;
+  right:20px;
+  display:flex;
+  justify-content:space-between;
+  z-index:2;
+}
+
+.call-label{
+  padding:9px 13px;
+  border-radius:50px;
+  background:rgba(0,0,0,.4);
+  backdrop-filter:blur(10px);
+  font-size:12px;
+}
+
+.call-controls{
+  position:absolute;
+  bottom:30px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  gap:13px;
+  z-index:2;
+}
+
+.call-control{
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  color:white;
+  background:rgba(255,255,255,.13);
+  backdrop-filter:blur(15px);
+  font-size:20px;
+}
+
+.call-control.end{
+  background:#ef4444;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:380px){
+  .home-hero{
+    min-height:470px;
   }
 
-  .quick-grid{
-    grid-template-columns:repeat(4,1fr);
+  .home-profile-photo{
+    width:110px;
+    height:110px;
+  }
+
+  .profile-glow{
+    width:127px;
+    height:127px;
+  }
+
+  .home-name{
+    font-size:25px;
   }
 }
 </style>
@@ -1017,468 +963,409 @@ button{
 <div class="bg-orb orb2"></div>
 <div class="bg-orb orb3"></div>
 
-<!-- ================================
-     LOGIN
-================================ -->
+<!-- ================= LOGIN ================= -->
 
-<section id="loginPage" class="screen auth">
-  <div class="auth-card fade">
+<section id="loginPage" class="auth">
+  <div class="auth-card">
 
     <div class="logo">
       <div class="logo-heart">❤️</div>
       <h1>দুজন</h1>
-      <p>দুজনের জন্য, শুধু দুজনের গল্প</p>
+      <p>দুজনের জন্য ছোট্ট একটা পৃথিবী</p>
     </div>
 
-    <div class="input-group">
-      <label>মোবাইল নম্বর</label>
-      <div class="input-wrap">
-        <span>📱</span>
-        <input id="loginPhone" type="tel" placeholder="মোবাইল নম্বর">
-      </div>
+    <div class="field">
+      <label>মোবাইল নাম্বার</label>
+      <input
+        id="loginPhone"
+        class="input"
+        type="tel"
+        placeholder="01XXXXXXXXX">
     </div>
 
-    <div class="input-group">
+    <div class="field">
       <label>PIN</label>
-      <div class="input-wrap">
-        <span>🔐</span>
-        <input id="loginPin" type="password" inputmode="numeric" placeholder="৪-৬ সংখ্যার PIN">
-      </div>
+      <input
+        id="loginPin"
+        class="input"
+        type="password"
+        placeholder="PIN লিখুন">
     </div>
 
     <button class="primary-btn" onclick="login()">
-      ❤️ দুজনে প্রবেশ করুন
+      লগইন ❤️
     </button>
 
-    <div class="auth-switch">
-      নতুন এখানে?
-      <button onclick="showPage('registerPage')">Account তৈরি করুন</button>
+    <div class="switch">
+      একাউন্ট নেই?
+      <span onclick="showPage('registerPage')">
+        নতুন একাউন্ট
+      </span>
     </div>
 
   </div>
 </section>
 
+<!-- ================= REGISTER ================= -->
 
-<!-- ================================
-     REGISTER
-================================ -->
-
-<section id="registerPage" class="screen auth hidden">
-  <div class="auth-card fade">
+<section id="registerPage" class="auth hidden">
+  <div class="auth-card">
 
     <div class="logo">
       <div class="logo-heart">💞</div>
-      <h1>নতুন দুজন</h1>
-      <p>তোমাদের গল্পের নতুন শুরু</p>
+      <h1>নতুন একাউন্ট</h1>
+      <p>তোমাদের গল্প এখান থেকেই শুরু হোক</p>
     </div>
 
-    <div class="input-group">
-      <label>মোবাইল নম্বর</label>
-      <div class="input-wrap">
-        <span>📱</span>
-        <input id="regPhone" type="tel" placeholder="মোবাইল নম্বর">
-      </div>
+    <div class="field">
+      <label>নাম</label>
+      <input
+        id="registerName"
+        class="input"
+        type="text"
+        placeholder="আপনার নাম">
     </div>
 
-    <div class="input-group">
+    <div class="field">
       <label>Username</label>
-      <div class="input-wrap">
-        <span>@</span>
-        <input id="regUsername" type="text" placeholder="যেমন: rabbi">
-      </div>
+      <input
+        id="registerUsername"
+        class="input"
+        type="text"
+        placeholder="username">
     </div>
 
-    <div class="input-group">
+    <div class="field">
+      <label>মোবাইল নাম্বার</label>
+      <input
+        id="registerPhone"
+        class="input"
+        type="tel"
+        placeholder="01XXXXXXXXX">
+    </div>
+
+    <div class="field">
       <label>PIN</label>
-      <div class="input-wrap">
-        <span>🔐</span>
-        <input id="regPin" type="password" inputmode="numeric" placeholder="৪-৬ সংখ্যার PIN">
-      </div>
+      <input
+        id="registerPin"
+        class="input"
+        type="password"
+        placeholder="একটি PIN দিন">
     </div>
 
-    <button class="primary-btn" onclick="registerUser()">
-      💗 Account তৈরি করুন
+    <button class="primary-btn" onclick="register()">
+      একাউন্ট তৈরি করুন ❤️
     </button>
 
-    <button class="secondary-btn" onclick="showPage('loginPage')">
-      ← Login-এ ফিরে যান
-    </button>
+    <div class="switch">
+      আগে থেকেই একাউন্ট আছে?
+      <span onclick="showPage('loginPage')">
+        লগইন
+      </span>
+    </div>
 
   </div>
 </section>
 
+<!-- ================= HOME ================= -->
 
-<!-- ================================
-     HOME
-================================ -->
+<section id="homePage" class="page hidden">
+  <div class="container">
 
-<section id="homePage" class="screen hidden page">
-
-  <header class="topbar">
-    <div class="brand">
-      <div class="brand-icon">❤️</div>
-      <div>
-        <strong>দুজন</strong>
-        <small>Just You & Me</small>
-      </div>
+    <div class="topbar">
+      <div class="topbar-title">Home</div>
+      <button class="icon-btn" onclick="showPage('profilePage')">
+        ⚙️
+      </button>
     </div>
 
-    <div class="header-actions">
-      <button class="icon-btn" onclick="showPage('profilePage')">⚙️</button>
-    </div>
-  </header>
+    <div class="home-hero">
 
-  <main class="content">
+      <div class="floating-heart h1">❤️</div>
+      <div class="floating-heart h2">💗</div>
+      <div class="floating-heart h3">💕</div>
+      <div class="floating-heart h4">💖</div>
+      <div class="floating-heart h5">❤️</div>
 
-    <div class="hero fade">
-      <div class="eyebrow">OUR LITTLE WORLD ❤️</div>
-      <h2>একসাথে থাকাটাই<br>সবচেয়ে সুন্দর।</h2>
-      <p>
-        তোমাদের কথা, স্মৃতি, অনুভূতি আর ভালোবাসা—
-        সবকিছু এক জায়গায়।
-      </p>
+      <div class="identity-wrap">
 
-      <div class="online-pill">
-        <span class="online-dot"></span>
-        <span id="presenceText">দুজনের connection ready</span>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-head">
-        <h3>দ্রুত কিছু করো</h3>
-      </div>
-
-      <div class="quick-grid">
-
-        <button class="quick" onclick="openChat()">
-          <div class="quick-icon">💬</div>
-          <strong>আমাদের Chat</strong>
-          <small>কথা জমুক</small>
-        </button>
-
-        <button class="quick" onclick="makeCall('video')">
-          <div class="quick-icon">📹</div>
-          <strong>Video Call</strong>
-          <small>দেখা হোক</small>
-        </button>
-
-        <button class="quick" onclick="makeCall('audio')">
-          <div class="quick-icon">📞</div>
-          <strong>Voice Call</strong>
-          <small>শুধু কণ্ঠে ভালোবাসা</small>
-        </button>
-
-        <button class="quick" onclick="showPage('couplePage')">
-          <div class="quick-icon">💞</div>
-          <strong>আমাদের গল্প</strong>
-          <small>স্মৃতিগুলো দেখি</small>
-        </button>
-
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="couple-card">
-        <div class="avatars">
-          <img id="homeProfilePhoto" class="avatar" alt="">
-          <div class="love-between">❤️</div>
-          <div class="avatar" style="display:flex;align-items:center;justify-content:center;font-size:27px;">
-            💕
-          </div>
+        <div class="profile-glow">
+          <img
+            id="homeProfilePhoto"
+            class="home-profile-photo"
+            src=""
+            alt="Profile">
         </div>
 
-        <h3 id="homeName">আমরা দুজন</h3>
-        <p id="togetherDays">একসাথে থাকার প্রতিটি দিন বিশেষ ❤️</p>
+        <div id="homeName" class="home-name">
+          আমি
+        </div>
+
+        <div id="homeUsername" class="home-username">
+          @username
+        </div>
+
+        <div class="connection">
+          <span class="online-dot"></span>
+          <span id="presenceText">
+            দুজনের connection ready
+          </span>
+        </div>
+
+      </div>
+
+      <div class="home-sub">
+        তোমাদের কথা, স্মৃতি, অনুভূতি আর ভালোবাসা—
+        সবকিছু এক জায়গায়। ❤️
+      </div>
+
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        তোমাদের ছোট্ট পৃথিবী 💕
+      </div>
+      <div class="card-text">
+        বন্ধুদের সাথে যুক্ত হও, কথা বলো,
+        মেসেজ পাঠাও এবং সরাসরি অডিও/ভিডিও কলে কথা বলো।
       </div>
     </div>
 
-  </main>
-
-  <nav class="bottom-nav">
-    <button class="nav-btn active" onclick="showPage('homePage')">
-      🏠<span>Home</span>
-    </button>
-
-    <button class="nav-btn" onclick="showPage('friendsPage')">
-      👥<span>Friends</span>
-    </button>
-
-    <button class="nav-btn" onclick="openChat()">
-      💬<span>Chat</span>
-    </button>
-
-    <button class="nav-btn" onclick="showPage('couplePage')">
-      💞<span>Couple</span>
-    </button>
-
-    <button class="nav-btn" onclick="showPage('profilePage')">
-      👤<span>Profile</span>
-    </button>
-  </nav>
-
+  </div>
 </section>
 
+<!-- ================= FRIENDS ================= -->
 
-<!-- ================================
-     FRIENDS
-================================ -->
+<section id="friendsPage" class="page hidden">
+  <div class="container">
 
-<section id="friendsPage" class="screen hidden page">
-
-  <header class="topbar">
-    <div class="brand">
-      <div class="brand-icon">👥</div>
-      <div>
-        <strong>আমাদের মানুষ</strong>
-        <small>Friends</small>
-      </div>
+    <div class="topbar">
+      <div class="topbar-title">Friends ❤️</div>
     </div>
 
-    <button class="icon-btn" onclick="showPage('homePage')">🏠</button>
-  </header>
+    <div class="card">
 
-  <main class="content">
-
-    <div class="section" style="margin-top:0">
-      <div class="section-head">
-        <h3>বন্ধু খুঁজুন</h3>
-      </div>
-
-      <div class="search-box">
-        <input id="friendSearch" placeholder="@username">
-        <button onclick="searchUser()">🔎</button>
+      <div class="search-row">
+        <input
+          id="searchInput"
+          class="input"
+          placeholder="@username">
+        <button class="small-btn" onclick="searchUser()">
+          খুঁজুন
+        </button>
       </div>
 
       <div id="searchResult"></div>
+
     </div>
 
-    <div class="section">
-      <div class="section-head">
-        <h3>Friend Requests</h3>
-      </div>
-
-      <div id="friendRequests" class="friend-list"></div>
+    <div class="card">
+      <div class="card-title">আমার Friends</div>
+      <div id="friendsList"></div>
     </div>
 
-    <div class="section">
-      <div class="section-head">
-        <h3>Friends</h3>
-      </div>
-
-      <div id="friendsList" class="friend-list"></div>
+    <div class="card">
+      <div class="card-title">Friend Requests</div>
+      <div id="requestsList"></div>
     </div>
 
-  </main>
-
-  <nav class="bottom-nav">
-    <button class="nav-btn" onclick="showPage('homePage')">🏠<span>Home</span></button>
-    <button class="nav-btn active" onclick="showPage('friendsPage')">👥<span>Friends</span></button>
-    <button class="nav-btn" onclick="openChat()">💬<span>Chat</span></button>
-    <button class="nav-btn" onclick="showPage('couplePage')">💞<span>Couple</span></button>
-    <button class="nav-btn" onclick="showPage('profilePage')">👤<span>Profile</span></button>
-  </nav>
-
+  </div>
 </section>
 
+<!-- ================= CHAT ================= -->
 
-<!-- ================================
-     CHAT
-================================ -->
+<section id="chatPage" class="page hidden">
 
-<section id="chatPage" class="screen hidden page">
-
-  <div class="chat-page">
+  <div class="container">
 
     <div class="chat-head">
 
-      <button class="back" onclick="showPage('homePage')">←</button>
+      <button class="icon-btn" onclick="showPage('friendsPage')">
+        ←
+      </button>
 
-      <img id="chatPhoto" class="chat-user-photo" alt="">
+      <img
+        id="chatAvatar"
+        class="chat-avatar"
+        src="">
 
-      <div class="chat-user-info">
-        <strong id="chatName">আমাদের Chat</strong>
-        <small id="chatStatus">দুজনের জন্য ❤️</small>
+      <div class="chat-info">
+        <div id="chatName" class="chat-name">
+          Chat
+        </div>
+        <div id="chatUsername" class="chat-user">
+          @username
+        </div>
       </div>
 
-      <div class="call-actions">
-        <button onclick="makeCall('audio')">📞</button>
-        <button onclick="makeCall('video')">📹</button>
+      <div class="chat-actions">
+        <button
+          class="icon-btn"
+          onclick="makeCall('audio')">
+          📞
+        </button>
+
+        <button
+          class="icon-btn"
+          onclick="makeCall('video')">
+          📹
+        </button>
       </div>
 
     </div>
 
-    <div id="chatBox" class="chat-box"></div>
+    <div id="messages" class="messages"></div>
 
-    <div class="chat-input-wrap">
-      <input
-        id="chatInput"
-        type="text"
-        placeholder="মনের কথা লিখো... ❤️"
-        onkeydown="if(event.key==='Enter')sendMessage()"
-      >
-      <button class="send-btn" onclick="sendMessage()">➤</button>
-    </div>
+  </div>
 
+  <div class="chat-input">
+    <input
+      id="messageInput"
+      placeholder="একটা মেসেজ লিখুন..."
+      onkeydown="if(event.key==='Enter')sendMessage()">
+
+    <button
+      class="send-btn"
+      onclick="sendMessage()">
+      ➤
+    </button>
   </div>
 
 </section>
 
+<!-- ================= PROFILE ================= -->
 
-<!-- ================================
-     COUPLE
-================================ -->
+<section id="profilePage" class="page hidden">
+  <div class="container">
 
-<section id="couplePage" class="screen hidden page">
+    <div class="topbar">
+      <button class="icon-btn" onclick="showPage('homePage')">
+        ←
+      </button>
 
-  <header class="topbar">
-    <div class="brand">
-      <div class="brand-icon">💞</div>
-      <div>
-        <strong>আমাদের গল্প</strong>
-        <small>Only us</small>
-      </div>
-    </div>
-
-    <button class="icon-btn" onclick="showPage('homePage')">🏠</button>
-  </header>
-
-  <main class="content">
-
-    <div class="hero">
-      <div class="eyebrow">OUR STORY</div>
-      <h2>আমাদের গল্পটা<br>এখনও লেখা হচ্ছে... ❤️</h2>
-      <p id="storyText">
-        প্রতিটি মুহূর্তই আমাদের গল্পের একটি নতুন পৃষ্ঠা।
-      </p>
-    </div>
-
-    <div class="section">
-      <div class="section-head">
-        <h3>আমাদের স্মৃতি</h3>
+      <div class="topbar-title">
+        Profile
       </div>
 
-      <div id="memoryList" class="friend-list"></div>
+      <button class="icon-btn" onclick="logout()">
+        🚪
+      </button>
     </div>
 
-    <div class="section">
-      <div class="couple-card">
-        <div style="font-size:42px">💗</div>
-        <h3 style="margin-top:8px">Together</h3>
-        <p id="coupleDays">ভালোবাসার দিনগুলো গুনছি...</p>
-      </div>
-    </div>
+    <div class="card profile-card">
 
-  </main>
+      <img
+        id="profilePhoto"
+        class="profile-big"
+        src="">
 
-  <nav class="bottom-nav">
-    <button class="nav-btn" onclick="showPage('homePage')">🏠<span>Home</span></button>
-    <button class="nav-btn" onclick="showPage('friendsPage')">👥<span>Friends</span></button>
-    <button class="nav-btn" onclick="openChat()">💬<span>Chat</span></button>
-    <button class="nav-btn active" onclick="showPage('couplePage')">💞<span>Couple</span></button>
-    <button class="nav-btn" onclick="showPage('profilePage')">👤<span>Profile</span></button>
-  </nav>
-
-</section>
-
-
-<!-- ================================
-     PROFILE
-================================ -->
-
-<section id="profilePage" class="screen hidden page">
-
-  <header class="topbar">
-    <div class="brand">
-      <div class="brand-icon">👤</div>
-      <div>
-        <strong>আমার Profile</strong>
-        <small>তোমার পরিচয়</small>
-      </div>
-    </div>
-
-    <button class="icon-btn" onclick="showPage('homePage')">🏠</button>
-  </header>
-
-  <main class="content">
-
-    <div class="profile-card">
-
-      <div class="profile-photo-wrap">
-        <img id="profilePhoto" class="profile-photo" alt="">
-        <button class="profile-edit" onclick="changePhoto()">✏️</button>
+      <div id="profileTitle" class="profile-title">
+        আমি
       </div>
 
-      <h2 id="profileTitle">আমি</h2>
-      <p id="profileUsername" style="color:#999;margin-top:5px">@username</p>
+      <div id="profileUsername" class="profile-username">
+        @username
+      </div>
 
     </div>
 
-    <div class="form-card">
+    <div class="card">
 
-      <div class="input-group">
-        <label>তোমার নাম</label>
-        <div class="input-wrap">
-          <span>❤️</span>
-          <input id="profileName" type="text" placeholder="নাম">
-        </div>
+      <div class="field">
+        <label>নাম</label>
+
+        <input
+          id="profileName"
+          class="input"
+          type="text"
+          placeholder="আপনার নাম">
       </div>
 
-      <button class="primary-btn" onclick="saveProfile()">
-        💾 Profile Save
+      <button
+        class="primary-btn"
+        onclick="saveProfile()">
+        Profile Save ❤️
       </button>
 
     </div>
 
-    <button
-      class="secondary-btn"
-      style="margin-top:15px"
-      onclick="logout()">
-      🚪 Logout
-    </button>
-
-  </main>
-
-  <nav class="bottom-nav">
-    <button class="nav-btn" onclick="showPage('homePage')">🏠<span>Home</span></button>
-    <button class="nav-btn" onclick="showPage('friendsPage')">👥<span>Friends</span></button>
-    <button class="nav-btn" onclick="openChat()">💬<span>Chat</span></button>
-    <button class="nav-btn" onclick="showPage('couplePage')">💞<span>Couple</span></button>
-    <button class="nav-btn active" onclick="showPage('profilePage')">👤<span>Profile</span></button>
-  </nav>
-
+  </div>
 </section>
 
+<!-- ================= NAV ================= -->
 
-<!-- ================================
-     INCOMING CALL
-================================ -->
+<nav id="bottomNav" class="bottom-nav hidden">
 
-<div id="incomingCallModal" class="modal hidden">
+  <button
+    id="navHome"
+    class="nav-btn active"
+    onclick="showPage('homePage')">
+    <span class="nav-icon">🏠</span>
+    Home
+  </button>
+
+  <button
+    id="navFriends"
+    class="nav-btn"
+    onclick="showPage('friendsPage')">
+    <span class="nav-icon">👥</span>
+    Friends
+  </button>
+
+  <button
+    id="navProfile"
+    class="nav-btn"
+    onclick="showPage('profilePage')">
+    <span class="nav-icon">👤</span>
+    Profile
+  </button>
+
+</nav>
+
+<!-- ================= INCOMING CALL ================= -->
+
+<div id="callModal" class="modal hidden">
 
   <div class="modal-card">
 
-    <div style="font-size:50px">📞</div>
+    <img
+      id="callerAvatar"
+      class="modal-avatar"
+      src="">
 
-    <h3 id="incomingCallTitle">Incoming Call ❤️</h3>
+    <div
+      id="callerName"
+      class="modal-name">
+      Incoming Call
+    </div>
 
-    <p id="incomingCallText">
-      তোমাকে কল করা হচ্ছে...
-    </p>
+    <div
+      id="callerType"
+      class="modal-type">
+      আপনাকে কল করছে
+    </div>
 
     <div class="modal-actions">
-      <button onclick="rejectCall()">✕ Reject</button>
-      <button class="accept" onclick="acceptCall()">❤️ Accept</button>
+
+      <button
+        class="reject-btn"
+        onclick="rejectCall()">
+        ✕
+      </button>
+
+      <button
+        class="accept-btn"
+        onclick="acceptCall()">
+        ✓
+      </button>
+
     </div>
 
   </div>
 
 </div>
 
-
-<!-- ================================
-     CALL SCREEN
-================================ -->
+<!-- ================= CALL SCREEN ================= -->
 
 <div id="callScreen" class="call-screen hidden">
 
@@ -1497,9 +1384,20 @@ button{
     playsinline>
   </video>
 
-  <div class="call-info">
-    <strong id="callName">দুজন ❤️</strong>
-    <small id="callStatus">Connecting...</small>
+  <div class="call-top">
+
+    <div
+      id="callPeerName"
+      class="call-label">
+      Call
+    </div>
+
+    <div
+      id="callStatus"
+      class="call-label">
+      Connecting...
+    </div>
+
   </div>
 
   <div class="call-controls">
@@ -1528,47 +1426,32 @@ button{
 
 </div>
 
-
-<!-- ================================
-     TOAST
-================================ -->
-
 <div id="toast" class="toast"></div>
-
 
 <script>
 
-/* =========================================
+/* =====================================================
    SERVER
-========================================= */
+===================================================== */
 
-const API_URL =
-  "https://dujon-app1.onrender.com";
+const API_URL = "https://dujon-app1.onrender.com";
+const WS_URL  = "wss://dujon-app1.onrender.com";
 
-const WS_URL =
-  "wss://dujon-app1.onrender.com";
-
-
-/* =========================================
-   GLOBALS
-========================================= */
+/* =====================================================
+   STATE
+===================================================== */
 
 let ws = null;
-
 let peerConnection = null;
-
 let localStream = null;
 
 let currentCallType = "video";
-
 let pendingOffer = null;
 
 let currentRoom = null;
-
 let currentPage = "loginPage";
 
 let currentChatUsername = "";
-
 let currentChatPhone = "";
 
 let incomingCaller = null;
@@ -1576,479 +1459,420 @@ let incomingCaller = null;
 let pendingIceCandidates = [];
 
 let micEnabled = true;
-
 let cameraEnabled = true;
 
-
 const ICE_SERVERS = {
-  iceServers: [
+  iceServers:[
     {
-      urls:
-        "stun:stun.l.google.com:19302"
+      urls:"stun:stun.l.google.com:19302"
     },
     {
-      urls:
-        "stun:stun1.l.google.com:19302"
+      urls:"stun:stun1.l.google.com:19302"
     }
   ]
 };
 
-
-/* =========================================
-   LOCAL STORAGE
-========================================= */
+/* =====================================================
+   HELPERS
+===================================================== */
 
 function getAccount(){
-
   try{
-
     return JSON.parse(
-      localStorage.getItem(
-        "dujon_account"
-      ) || "null"
+      localStorage.getItem("dujon_account") || "null"
     );
-
   }catch{
-
     return null;
-
   }
-
 }
-
 
 function getProfile(){
-
   try{
-
     return JSON.parse(
-      localStorage.getItem(
-        "dujon_profile"
-      ) || "null"
+      localStorage.getItem("dujon_profile") || "null"
     ) || {};
-
   }catch{
-
     return {};
-
   }
-
 }
 
-
-function saveLocalProfile(
-  profile
-){
-
+function saveLocalProfile(profile){
   localStorage.setItem(
     "dujon_profile",
     JSON.stringify(profile)
   );
-
 }
 
+function avatarData(text){
 
-/* =========================================
+  const letter =
+    String(text || "❤️")
+    .charAt(0)
+    .toUpperCase();
+
+  const svg = `
+  <svg xmlns="http://www.w3.org/2000/svg"
+       width="120"
+       height="120">
+
+    <defs>
+      <linearGradient id="g"
+        x1="0"
+        x2="1"
+        y1="0"
+        y2="1">
+
+        <stop
+          offset="0"
+          stop-color="#ff3d78"/>
+
+        <stop
+          offset="1"
+          stop-color="#8b5cf6"/>
+
+      </linearGradient>
+    </defs>
+
+    <rect
+      width="120"
+      height="120"
+      rx="60"
+      fill="url(#g)"/>
+
+    <text
+      x="60"
+      y="76"
+      text-anchor="middle"
+      font-size="48"
+      fill="white"
+      font-family="Arial">
+      ${letter}
+    </text>
+
+  </svg>`;
+
+  return "data:image/svg+xml;charset=UTF-8,"+
+    encodeURIComponent(svg);
+}
+
+/* =====================================================
    TOAST
-========================================= */
+===================================================== */
 
-function toast(
-  message
-){
+let toastTimer;
+
+function toast(message){
 
   const el =
-    document.getElementById(
-      "toast"
-    );
+    document.getElementById("toast");
 
-  if(!el)return;
+  el.textContent = message;
 
-  el.textContent =
-    message;
+  el.classList.add("show");
 
-  el.classList.add(
-    "show"
-  );
+  clearTimeout(toastTimer);
 
-  clearTimeout(
-    window.__toastTimer
-  );
-
-  window.__toastTimer =
-    setTimeout(
-      ()=>{
-        el.classList.remove(
-          "show"
-        );
-      },
-      2400
-    );
-
+  toastTimer = setTimeout(()=>{
+    el.classList.remove("show");
+  },2500);
 }
 
-
-/* =========================================
+/* =====================================================
    PAGE
-========================================= */
+===================================================== */
 
-function showPage(
-  page
-){
+function showPage(id){
 
   document
-    .querySelectorAll(
-      ".screen"
-    )
-    .forEach(
-      el =>
-        el.classList.add(
-          "hidden"
-        )
-    );
+    .querySelectorAll(".page,.auth")
+    .forEach(el=>{
+      el.classList.add("hidden");
+    });
 
+  const page =
+    document.getElementById(id);
 
-  const target =
-    document.getElementById(
-      page
-    );
-
-  if(target){
-
-    target.classList.remove(
-      "hidden"
-    );
-
-    target.classList.add(
-      "fade"
-    );
-
+  if(page){
+    page.classList.remove("hidden");
   }
 
+  currentPage = id;
 
-  currentPage =
-    page;
-
+  const nav =
+    document.getElementById("bottomNav");
 
   if(
-    page ===
-    "friendsPage"
+    id === "homePage" ||
+    id === "friendsPage" ||
+    id === "profilePage"
   ){
-
-    loadSocialData();
-
+    nav.classList.remove("hidden");
+  }else{
+    nav.classList.add("hidden");
   }
 
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach(btn=>{
+      btn.classList.remove("active");
+    });
 
-  if(
-    page ===
-    "couplePage"
-  ){
-
-    loadTogetherDays();
-
+  if(id === "homePage"){
+    document
+      .getElementById("navHome")
+      ?.classList.add("active");
   }
 
+  if(id === "friendsPage"){
+    document
+      .getElementById("navFriends")
+      ?.classList.add("active");
 
-  if(
-    page ===
-    "profilePage"
-  ){
+    loadFriends();
+  }
+
+  if(id === "profilePage"){
+    document
+      .getElementById("navProfile")
+      ?.classList.add("active");
 
     loadProfileToUI();
-
   }
 
+  if(id === "homePage"){
+    loadProfileToUI();
+  }
 }
 
-
-/* =========================================
+/* =====================================================
    REGISTER
-========================================= */
+===================================================== */
 
-async function registerUser(){
+async function register(){
 
-  const phone =
+  const name =
     document
-      .getElementById(
-        "regPhone"
-      )
-      .value
-      .trim();
-
-  const pin =
-    document
-      .getElementById(
-        "regPin"
-      )
-      .value
-      .trim();
+      .getElementById("registerName")
+      .value.trim();
 
   const username =
     document
-      .getElementById(
-        "regUsername"
-      )
-      .value
-      .trim()
+      .getElementById("registerUsername")
+      .value.trim()
+      .replace(/^@/,"")
       .toLowerCase();
 
+  const phone =
+    document
+      .getElementById("registerPhone")
+      .value.trim();
 
-  if(!phone){
+  const pin =
+    document
+      .getElementById("registerPin")
+      .value.trim();
 
-    toast(
-      "মোবাইল নম্বর দাও"
-    );
-
+  if(!name || !username || !phone || !pin){
+    toast("সব তথ্য পূরণ করুন");
     return;
-
   }
-
-
-  if(
-    !/^[0-9]{4,6}$/.test(
-      pin
-    )
-  ){
-
-    toast(
-      "PIN ৪-৬ সংখ্যার হতে হবে"
-    );
-
-    return;
-
-  }
-
-
-  if(
-    !/^[a-z0-9_]{3,20}$/.test(
-      username
-    )
-  ){
-
-    toast(
-      "Username 3-20 অক্ষরের হতে হবে"
-    );
-
-    return;
-
-  }
-
 
   try{
 
     const response =
       await fetch(
-        API_URL +
-        "/api/register",
+        API_URL+"/api/register",
         {
           method:"POST",
-
           headers:{
             "Content-Type":
               "application/json"
           },
-
-          body:
-            JSON.stringify({
-              phone,
-              pin,
-              username,
-              name:"আমি",
-              photo:""
-            })
+          body:JSON.stringify({
+            name,
+            username,
+            phone,
+            pin
+          })
         }
       );
-
 
     const text =
       await response.text();
 
-
-    let data;
+    let data = {};
 
     try{
+      data = JSON.parse(text);
+    }catch{}
 
-      data =
-        JSON.parse(text);
-
-    }catch{
-
-      toast(
-        "Server response ঠিক নেই"
-      );
-
-      return;
-
-    }
-
-
-    if(
-      !response.ok ||
-      !data.ok
-    ){
-
+    if(!response.ok){
       toast(
         data.message ||
         "Account তৈরি হয়নি"
       );
-
       return;
-
     }
 
+    const account = {
+      name,
+      username,
+      phone,
+      pin
+    };
 
     localStorage.setItem(
       "dujon_account",
-      JSON.stringify({
-        phone,
-        pin,
-        username
-      })
+      JSON.stringify(account)
     );
 
+    saveLocalProfile({
+      name,
+      username,
+      photo:""
+    });
 
-    localStorage.setItem(
-      "dujon_profile",
-      JSON.stringify({
-        name:"আমি",
-        username,
-        phone,
-        photo:""
-      })
-    );
+    toast("Account তৈরি হয়েছে ❤️");
 
+    connectWS();
 
-    toast(
-      "Account তৈরি হয়েছে ❤️"
-    );
-
-
-    setTimeout(
-      ()=>{
-        showPage(
-          "loginPage"
-        );
-      },
-      700
-    );
-
+    setTimeout(()=>{
+      loadProfileToUI();
+      showPage("homePage");
+    },500);
 
   }catch(error){
 
-    console.log(
-      "Register Error:",
-      error
-    );
+    console.log(error);
 
-    toast(
-      "Server-এর সাথে সংযোগ হয়নি"
-    );
-
+    toast("Server-এর সাথে যোগাযোগ হচ্ছে না");
   }
-
 }
 
-
-/* =========================================
+/* =====================================================
    LOGIN
-========================================= */
+===================================================== */
 
-function login(){
+async function login(){
 
   const phone =
     document
-      .getElementById(
-        "loginPhone"
-      )
-      .value
-      .trim();
+      .getElementById("loginPhone")
+      .value.trim();
 
   const pin =
     document
-      .getElementById(
-        "loginPin"
-      )
-      .value
-      .trim();
+      .getElementById("loginPin")
+      .value.trim();
 
-
-  if(
-    !phone ||
-    !pin
-  ){
-
-    toast(
-      "মোবাইল নম্বর ও PIN দাও"
-    );
-
+  if(!phone || !pin){
+    toast("Phone ও PIN দিন");
     return;
-
   }
 
+  try{
 
-  const account =
-    getAccount();
+    const response =
+      await fetch(
+        API_URL+"/api/social",
+        {
+          method:"POST",
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+          body:JSON.stringify({
+            phone,
+            pin
+          })
+        }
+      );
 
+    const text =
+      await response.text();
 
-  if(
-    !account ||
-    account.phone !== phone ||
-    account.pin !== pin
-  ){
+    let data={};
 
-    toast(
-      "মোবাইল নম্বর বা PIN ভুল"
+    try{
+      data=JSON.parse(text);
+    }catch{}
+
+    if(!response.ok){
+      toast(
+        data.message ||
+        "Login হয়নি"
+      );
+      return;
+    }
+
+    const user =
+      data.user ||
+      data.account ||
+      data;
+
+    const account = {
+      name:
+        user.name ||
+        data.name ||
+        "আমি",
+
+      username:
+        user.username ||
+        data.username ||
+        "",
+
+      phone:
+        user.phone ||
+        phone,
+
+      pin
+    };
+
+    localStorage.setItem(
+      "dujon_account",
+      JSON.stringify(account)
     );
 
-    return;
+    saveLocalProfile({
+      ...getProfile(),
+      name:account.name,
+      username:account.username,
+      photo:
+        user.photo ||
+        getProfile().photo ||
+        ""
+    });
 
+    connectWS();
+
+    loadProfileToUI();
+
+    showPage("homePage");
+
+    toast("স্বাগতম ❤️");
+
+  }catch(error){
+
+    console.log(error);
+
+    toast("Server-এর সাথে যোগাযোগ হচ্ছে না");
   }
-
-
-  localStorage.setItem(
-    "dujon_logged_in",
-    "true"
-  );
-
-
-  loadProfileToUI();
-
-  connectRoom();
-
-  loadTogetherDays();
-
-  loadSocialData();
-
-  showPage(
-    "homePage"
-  );
-
-
-  toast(
-    "স্বাগতম ❤️"
-  );
-
 }
 
-
-/* =========================================
+/* =====================================================
    PROFILE UI
-========================================= */
+===================================================== */
 
 function loadProfileToUI(){
 
-  const account =
-    getAccount();
-
-  const profile =
-    getProfile();
-
+  const account = getAccount();
+  const profile = getProfile();
 
   if(!account)return;
 
-
   const name =
     profile.name ||
+    account.name ||
     "আমি";
 
   const username =
@@ -2056,11 +1880,9 @@ function loadProfileToUI(){
     account.username ||
     "";
 
-
   const photo =
     profile.photo ||
     "";
-
 
   const nameEl =
     document.getElementById(
@@ -2092,2982 +1914,7 @@ function loadProfileToUI(){
       "homeName"
     );
 
-
-  if(nameEl)
-    nameEl.textContent =
-      name;
-
-
-  if(userEl)
-    userEl.textContent =
-      "@" + username;
-
-
-  if(input)
-    input.value =
-      name;
-
-
-  if(img){
-
-    img.src =
-      photo ||
-      avatarData(name);
-
-  }
-
-
-  if(homeImg){
-
-    homeImg.src =
-      photo ||
-      avatarData(name);
-
-  }
-
-
-  if(homeName){
-
-    homeName.textContent =
-      name;
-
-  }
-
-}
-
-
-/* =========================================
-   AVATAR
-========================================= */
-
-function avatarData(
-  text
-){
-
-  const letter =
-    String(text || "❤️")
-      .charAt(0)
-      .toUpperCase();
-
-
-  const svg =
-    `
-    <svg xmlns="http://www.w3.org/2000/svg"
-         width="120"
-         height="120">
-      <defs>
-        <linearGradient id="g"
-          x1="0"
-          x2="1"
-          y1="0"
-          y2="1">
-          <stop offset="0"
-            stop-color="#ff3d78"/>
-          <stop offset="1"
-            stop-color="#8b5cf6"/>
-        </linearGradient>
-      </defs>
-
-      <rect width="120"
-        height="120"
-        rx="60"
-        fill="url(#g)"/>
-
-      <text x="60"
-        y="76"
-        text-anchor="middle"
-        font-size="48"
-        fill="white"
-        font-family="Arial">
-        ${letter}
-      </text>
-    </svg>
-    `;
-
-
-  return(
-    "data:image/svg+xml;charset=UTF-8," +
-    encodeURIComponent(svg)
-  );
-
-}
-
-
-/* =========================================
-   PROFILE SAVE
-   /api/profile অপরিবর্তিত
-========================================= */
-
-async function saveProfile(){
-
-  const account =
-    getAccount();
-
-
-  if(!account)return;
-
-
-  const name =
-    document
-      .getElementById(
-        "profileName"
-      )
-      .value
-      .trim();
-
-
-  if(!name){
-
-    toast(
-      "নাম লিখুন"
-    );
-
-    return;
-
-  }
-
-
-  const oldProfile =
-    getProfile();
-
-
-  const profile = {
-    ...oldProfile,
-    name
-  };
-
-
-  saveLocalProfile(
-    profile
-  );
-
-
-  try{
-
-    const response =
-      await fetch(
-        API_URL +
-        "/api/profile",
-        {
-          method:"POST",
-
-          headers:{
-            "Content-Type":
-              "application/json"
-          },
-
-          body:
-            JSON.stringify({
-              phone:
-                account.phone,
-
-              pin:
-                account.pin,
-
-              name:
-                profile.name,
-
-              username:
-                profile.username ||
-                account.username ||
-                "",
-
-              photo:
-                profile.photo ||
-                ""
-            })
-        }
-      );
-
-
-    const text =
-      await response.text();
-
-
-    let data = {};
-
-    try{
-
-      data =
-        JSON.parse(text);
-
-    }catch{}
-
-
-    if(!response.ok){
-
-      toast(
-        data.message ||
-        "Profile save হয়নি"
-      );
-
-      return;
-
-    }
-
-
-    loadProfileToUI();
-
-    toast(
-      "Profile saved ❤️"
-    );
-
-
-  }catch(error){
-
-    console.log(
-      "Profile Error:",
-      error
-    );
-
-    toast(
-      "Profile local-এ save হয়েছে"
-    );
-
-  }
-
-}
-
-
-/* =========================================
-   PHOTO
-========================================= */
-
-function changePhoto(){
-
-  const input =
-    document.createElement(
-      "input"
-    );
-
-  input.type =
-    "file";
-
-  input.accept =
-    "image/*";
-
-
-  input.onchange =
-    event => {
-
-      const file =
-        event.target.files[0];
-
-      if(!file)return;
-
-
-      const reader =
-        new FileReader();
-
-
-      reader.onload =
-        () => {
-
-          const profile =
-            getProfile();
-
-          profile.photo =
-            reader.result;
-
-          saveLocalProfile(
-            profile
-          );
-
-          loadProfileToUI();
-
-          saveProfile();
-
-        };
-
-
-      reader.readAsDataURL(
-        file
-      );
-
-    };
-
-
-  input.click();
-
-}
-
-
-/* =========================================
-   LOGOUT
-========================================= */
-
-function logout(){
-
-  try{
-
-    if(ws)
-      ws.close();
-
-  }catch{}
-
-
-  localStorage.removeItem(
-    "dujon_logged_in"
-  );
-
-
-  showPage(
-    "loginPage"
-  );
-
-
-  toast(
-    "Logout হয়েছে"
-  );
-
-}
-
-
-/* =========================================
-   WEBSOCKET
-========================================= */
-
-function connectRoom(){
-
-  if(ws){
-
-    if(
-      ws.readyState ===
-      WebSocket.OPEN
-    ){
-
-      return;
-
-    }
-
-    try{
-      ws.close();
-    }catch{}
-
-  }
-
-
-  try{
-
-    ws =
-      new WebSocket(
-        WS_URL
-      );
-
-
-    ws.onopen =
-      () => {
-
-        console.log(
-          "WebSocket connected"
-        );
-
-
-        const account =
-          getAccount();
-
-
-        if(account){
-
-          sendWS({
-
-            type:"join",
-
-            phone:
-              account.phone,
-
-            pin:
-              account.pin,
-
-            username:
-              account.username ||
-              ""
-
-          });
-
-        }
-
-      };
-
-
-    ws.onmessage =
-      async event => {
-
-        try{
-
-          const data =
-            JSON.parse(
-              event.data
-            );
-
-          await handleWSMessage(
-            data
-          );
-
-        }catch(error){
-
-          console.log(
-            "WS message error:",
-            error
-          );
-
-        }
-
-      };
-
-
-    ws.onclose =
-      () => {
-
-        console.log(
-          "WebSocket disconnected"
-        );
-
-        setPresence(
-          false
-        );
-
-      };
-
-
-    ws.onerror =
-      error => {
-
-        console.log(
-          "WebSocket error:",
-          error
-        );
-
-      };
-
-
-  }catch(error){
-
-    console.log(
-      "WebSocket create error:",
-      error
-    );
-
-  }
-
-}
-
-
-/* =========================================
-   SEND WS
-========================================= */
-
-function sendWS(
-  data
-){
-
-  if(
-    ws &&
-    ws.readyState ===
-      WebSocket.OPEN
-  ){
-
-    ws.send(
-      JSON.stringify(data)
-    );
-
-  }
-
-}
-
-
-/* =========================================
-   WS MESSAGE
-========================================= */
-
-async function handleWSMessage(
-  data
-){
-
-  switch(
-    data.type
-  ){
-
-    case "joined":
-
-      if(data.room){
-
-        currentRoom =
-          data.room;
-
-      }
-
-      break;
-
-
-    case "profile":
-
-      if(data.profile){
-
-        const profile =
-          getProfile();
-
-        saveLocalProfile({
-          ...profile,
-          ...data.profile
-        });
-
-        loadProfileToUI();
-
-      }
-
-      break;
-
-
-    case "presence":
-
-      setPresence(
-        data.online
-      );
-
-      break;
-
-
-    case "chat":{
-
-      const senderUsername =
-        data.fromUsername ||
-        data.sender ||
-        data.from ||
-        "";
-
-
-      const senderPhone =
-        data.fromPhone ||
-        "";
-
-
-      if(
-        senderUsername &&
-        currentChatUsername &&
-        senderUsername
-          .toLowerCase() !==
-          currentChatUsername
-            .toLowerCase()
-      ){
-
-        showMessageNotification(
-          data.message,
-          "💬 নতুন মেসেজ"
-        );
-
-        return;
-
-      }
-
-
-      addMessage(
-        data.message,
-        senderUsername ||
-          senderPhone ||
-          "them",
-        false,
-        true
-      );
-
-
-      if(
-        currentPage !==
-        "chatPage"
-      ){
-
-        showMessageNotification(
-          data.message,
-          "💬 নতুন মেসেজ"
-        );
-
-      }
-
-      break;
-
-    }
-
-
-    case "friend-request":
-
-      await loadSocialData();
-
-      toast(
-        "নতুন Friend Request ❤️"
-      );
-
-      break;
-
-
-    case "friend-accepted":
-
-      await loadSocialData();
-
-      toast(
-        "Friend accepted ❤️"
-      );
-
-      break;
-
-
-    case "video-call":
-    case "audio-call":
-
-      await handleCallSignal(
-        data
-      );
-
-      break;
-
-
-    case "ice-candidate":
-
-      await handleRemoteIce(
-        data
-      );
-
-      break;
-
-
-    case "delivery-failed":
-
-      toast(
-        data.message ||
-        "User Offline"
-      );
-
-      break;
-
-
-    case "peer-joined":
-
-      toast(
-        "Room-এ একজন যোগ দিয়েছে ❤️"
-      );
-
-      break;
-
-
-    case "peer-left":
-
-      toast(
-        "Room থেকে বের হয়ে গেছে"
-      );
-
-      break;
-
-  }
-
-}
-
-
-/* =========================================
-   PRESENCE
-========================================= */
-
-function setPresence(
-  online
-){
-
-  const text =
+  const homeUsername =
     document.getElementById(
-      "presenceText"
+      "homeUsername"
     );
-
-
-  if(!text)return;
-
-
-  text.textContent =
-    online
-      ? "Connection active ❤️"
-      : "Offline";
-
-}
-
-
-/* =========================================
-   SOCIAL
-========================================= */
-
-async function loadSocialData(){
-
-  const account =
-    getAccount();
-
-
-  if(
-    !account?.phone ||
-    !account?.pin
-  ){
-
-    return;
-
-  }
-
-
-  try{
-
-    const response =
-      await fetch(
-        API_URL +
-        "/api/social",
-        {
-          method:"POST",
-
-          headers:{
-            "Content-Type":
-              "application/json"
-          },
-
-          body:
-            JSON.stringify({
-              phone:
-                account.phone,
-
-              pin:
-                account.pin
-            })
-        }
-      );
-
-
-    const text =
-      await response.text();
-
-
-    let data = {};
-
-    try{
-
-      data =
-        JSON.parse(text);
-
-    }catch{
-
-      return;
-
-    }
-
-
-    if(!response.ok){
-
-      console.log(
-        "Social Error:",
-        data
-      );
-
-      return;
-
-    }
-
-
-    const requests =
-      data.requests ||
-      data.friendRequests ||
-      data.incomingRequests ||
-      [];
-
-
-    const friends =
-      data.friends ||
-      data.user?.friends ||
-      [];
-
-
-    renderFriendRequests(
-      requests
-    );
-
-
-    renderFriends(
-      friends
-    );
-
-
-  }catch(error){
-
-    console.log(
-      "Social load error:",
-      error
-    );
-
-  }
-
-}
-
-
-/* =========================================
-   FRIEND REQUESTS
-========================================= */
-
-function renderFriendRequests(
-  requests
-){
-
-  const box =
-    document.getElementById(
-      "friendRequests"
-    );
-
-
-  if(!box)return;
-
-
-  box.innerHTML =
-    "";
-
-
-  if(!requests.length){
-
-    box.innerHTML =
-      `
-      <div class="empty">
-        <div class="empty-icon">💌</div>
-        এখনো কোনো request নেই
-      </div>
-      `;
-
-    return;
-
-  }
-
-
-  requests.forEach(
-    username => {
-
-      const div =
-        document.createElement(
-          "div"
-        );
-
-      div.className =
-        "friend";
-
-
-      div.innerHTML =
-        `
-        <div class="friend-photo"
-             style="display:flex;align-items:center;justify-content:center">
-          ❤️
-        </div>
-
-        <div class="friend-info">
-          <strong>@${escapeHTML(username)}</strong>
-          <small>Friend হতে চায়</small>
-        </div>
-
-        <button class="small-btn pink"
-          onclick="acceptFriend('${escapeAttr(username)}')">
-          Accept
-        </button>
-
-        <button class="small-btn"
-          onclick="rejectFriend('${escapeAttr(username)}')">
-          ✕
-        </button>
-        `;
-
-
-      box.appendChild(
-        div
-      );
-
-    }
-  );
-
-}
-
-
-/* =========================================
-   FRIENDS
-========================================= */
-
-function renderFriends(
-  friends
-){
-
-  const box =
-    document.getElementById(
-      "friendsList"
-    );
-
-
-  if(!box)return;
-
-
-  box.innerHTML =
-    "";
-
-
-  if(!friends.length){
-
-    box.innerHTML =
-      `
-      <div class="empty">
-        <div class="empty-icon">👥</div>
-        এখনো কোনো Friend নেই
-      </div>
-      `;
-
-    return;
-
-  }
-
-
-  friends.forEach(
-    username => {
-
-      const div =
-        document.createElement(
-          "div"
-        );
-
-      div.className =
-        "friend";
-
-
-      div.innerHTML =
-        `
-        <div class="friend-photo"
-             style="display:flex;align-items:center;justify-content:center">
-          💕
-        </div>
-
-        <div class="friend-info">
-          <strong>@${escapeHTML(username)}</strong>
-          <small>Friend ❤️</small>
-        </div>
-
-        <button class="small-btn pink">
-          Chat
-        </button>
-        `;
-
-
-      const btn =
-        div.querySelector(
-          "button"
-        );
-
-
-      btn.onclick =
-        () => {
-
-          openFriendChat(
-            username
-          );
-
-        };
-
-
-      box.appendChild(
-        div
-      );
-
-    }
-  );
-
-}
-
-
-/* =========================================
-   SEARCH
-========================================= */
-
-async function searchUser(){
-
-  const input =
-    document.getElementById(
-      "friendSearch"
-    );
-
-
-  const result =
-    document.getElementById(
-      "searchResult"
-    );
-
-
-  const username =
-    input.value
-      .trim()
-      .replace(/^@/,"")
-      .toLowerCase();
-
-
-  if(!username){
-
-    toast(
-      "Username লিখুন"
-    );
-
-    return;
-
-  }
-
-
-  try{
-
-    const response =
-      await fetch(
-        API_URL +
-        "/api/search?username=" +
-        encodeURIComponent(
-          username
-        )
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if(
-      !response.ok ||
-      !data.ok
-    ){
-
-      result.innerHTML =
-        `
-        <div class="empty">
-          User পাওয়া যায়নি
-        </div>
-        `;
-
-      return;
-
-    }
-
-
-    const user =
-      data.user;
-
-
-    result.innerHTML =
-      `
-      <div class="friend" style="margin-top:12px">
-
-        <div class="friend-photo"
-          style="display:flex;align-items:center;justify-content:center">
-          ${user.photo
-            ? `<img src="${escapeAttr(user.photo)}"
-                 style="width:100%;height:100%;object-fit:cover;border-radius:17px">`
-            : "❤️"}
-        </div>
-
-        <div class="friend-info">
-          <strong>
-            ${escapeHTML(user.name || user.username)}
-          </strong>
-
-          <small>
-            @${escapeHTML(user.username)}
-          </small>
-        </div>
-
-        <button
-          class="small-btn pink"
-          onclick="sendFriendRequest('${escapeAttr(user.username)}')">
-          + Add
-        </button>
-
-      </div>
-      `;
-
-
-  }catch(error){
-
-    console.log(
-      error
-    );
-
-    toast(
-      "Search করা যায়নি"
-    );
-
-  }
-
-}
-
-
-/* =========================================
-   SEND FRIEND REQUEST
-========================================= */
-
-async function sendFriendRequest(
-  username
-){
-
-  const account =
-    getAccount();
-
-
-  if(!account)return;
-
-
-  try{
-
-    const response =
-      await fetch(
-        API_URL +
-        "/api/friend-request",
-        {
-          method:"POST",
-
-          headers:{
-            "Content-Type":
-              "application/json"
-          },
-
-          body:
-            JSON.stringify({
-              phone:
-                account.phone,
-
-              pin:
-                account.pin,
-
-              username
-            })
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    toast(
-      data.message ||
-      "Done"
-    );
-
-
-    if(response.ok){
-
-      loadSocialData();
-
-    }
-
-
-  }catch{
-
-    toast(
-      "Request পাঠানো যায়নি"
-    );
-
-  }
-
-}
-
-
-/* =========================================
-   ACCEPT
-========================================= */
-
-async function acceptFriend(
-  username
-){
-
-  const account =
-    getAccount();
-
-
-  if(!account)return;
-
-
-  try{
-
-    const response =
-      await fetch(
-        API_URL +
-        "/api/friend-accept",
-        {
-          method:"POST",
-
-          headers:{
-            "Content-Type":
-              "application/json"
-          },
-
-          body:
-            JSON.stringify({
-              phone:
-                account.phone,
-
-              pin:
-                account.pin,
-
-              username
-            })
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    toast(
-      data.message ||
-      "Friend accepted ❤️"
-    );
-
-
-    await loadSocialData();
-
-
-  }catch{
-
-    toast(
-      "Accept করা যায়নি"
-    );
-
-  }
-
-}
-
-
-/* =========================================
-   REJECT
-========================================= */
-
-async function rejectFriend(
-  username
-){
-
-  const account =
-    getAccount();
-
-
-  if(!account)return;
-
-
-  try{
-
-    const response =
-      await fetch(
-        API_URL +
-        "/api/friend-reject",
-        {
-          method:"POST",
-
-          headers:{
-            "Content-Type":
-              "application/json"
-          },
-
-          body:
-            JSON.stringify({
-              phone:
-                account.phone,
-
-              pin:
-                account.pin,
-
-              username
-            })
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    toast(
-      data.message ||
-      "Rejected"
-    );
-
-
-    await loadSocialData();
-
-
-  }catch{
-
-    toast(
-      "Reject করা যায়নি"
-    );
-
-  }
-
-}
-
-
-/* =========================================
-   FRIEND CHAT
-========================================= */
-
-async function openFriendChat(
-  username
-){
-
-  currentChatUsername =
-    String(username || "")
-      .replace(/^@/,"")
-      .toLowerCase();
-
-
-  currentChatPhone =
-    "";
-
-
-  const result =
-    await findUser(
-      currentChatUsername
-    );
-
-
-  if(result){
-
-    currentChatPhone =
-      result.phone ||
-      "";
-
-    updateChatHeader(
-      result
-    );
-
-  }else{
-
-    updateChatHeader({
-      username:
-        currentChatUsername,
-      name:
-        currentChatUsername,
-      photo:""
-    });
-
-  }
-
-
-  showPage(
-    "chatPage"
-  );
-
-
-  loadMessages();
-
-
-  setTimeout(
-    ()=>{
-      document
-        .getElementById(
-          "chatInput"
-        )
-        ?.focus();
-    },
-    100
-  );
-
-}
-
-
-/* =========================================
-   OPEN CHAT
-========================================= */
-
-function openChat(){
-
-  const account =
-    getAccount();
-
-
-  if(
-    !currentChatUsername
-  ){
-
-    const profile =
-      getProfile();
-
-
-    currentChatUsername =
-      profile.partnerUsername ||
-      "";
-
-
-    currentChatPhone =
-      profile.partnerPhone ||
-      "";
-
-  }
-
-
-  showPage(
-    "chatPage"
-  );
-
-
-  loadMessages();
-
-
-  setTimeout(
-    ()=>{
-      document
-        .getElementById(
-          "chatInput"
-        )
-        ?.focus();
-    },
-    100
-  );
-
-}
-
-
-/* =========================================
-   FIND USER
-========================================= */
-
-async function findUser(
-  username
-){
-
-  try{
-
-    const response =
-      await fetch(
-        API_URL +
-        "/api/search?username=" +
-        encodeURIComponent(
-          username
-        )
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if(
-      response.ok &&
-      data.ok
-    ){
-
-      return data.user;
-
-    }
-
-  }catch(error){
-
-    console.log(
-      error
-    );
-
-  }
-
-
-  return null;
-
-}
-
-
-/* =========================================
-   CHAT HEADER
-========================================= */
-
-function updateChatHeader(
-  user
-){
-
-  const name =
-    document.getElementById(
-      "chatName"
-    );
-
-  const photo =
-    document.getElementById(
-      "chatPhoto"
-    );
-
-
-  if(name){
-
-    name.textContent =
-      user.name ||
-      user.username ||
-      "আমাদের Chat";
-
-  }
-
-
-  if(photo){
-
-    photo.src =
-      user.photo ||
-      avatarData(
-        user.name ||
-        user.username ||
-        "❤️"
-      );
-
-  }
-
-}
-
-
-/* =========================================
-   CHAT STORAGE
-========================================= */
-
-function chatStorageKey(){
-
-  const username =
-    currentChatUsername ||
-    "general";
-
-
-  return (
-    "dujon_messages_" +
-    username
-  );
-
-}
-
-
-function loadMessages(){
-
-  const messages =
-    JSON.parse(
-      localStorage.getItem(
-        chatStorageKey()
-      ) || "[]"
-    );
-
-
-  const box =
-    document.getElementById(
-      "chatBox"
-    );
-
-
-  if(!box)return;
-
-
-  box.innerHTML =
-    "";
-
-
-  messages.forEach(
-    message => {
-
-      addMessage(
-        message.text,
-        message.sender,
-        message.sender === "me",
-        false
-      );
-
-    }
-  );
-
-
-  box.scrollTop =
-    box.scrollHeight;
-
-}
-
-
-/* =========================================
-   ADD MESSAGE
-========================================= */
-
-function addMessage(
-  text,
-  sender,
-  isMe=false,
-  save=true
-){
-
-  const box =
-    document.getElementById(
-      "chatBox"
-    );
-
-
-  if(!box)return;
-
-
-  const row =
-    document.createElement(
-      "div"
-    );
-
-
-  row.className =
-    "message-row " +
-    (isMe ? "me" : "");
-
-
-  const bubble =
-    document.createElement(
-      "div"
-    );
-
-
-  bubble.className =
-    "message";
-
-
-  bubble.textContent =
-    text;
-
-
-  row.appendChild(
-    bubble
-  );
-
-
-  box.appendChild(
-    row
-  );
-
-
-  box.scrollTop =
-    box.scrollHeight;
-
-
-  if(save){
-
-    const messages =
-      JSON.parse(
-        localStorage.getItem(
-          chatStorageKey()
-        ) || "[]"
-      );
-
-
-    messages.push({
-      text,
-      sender:
-        isMe
-          ? "me"
-          : sender || "them",
-
-      time:
-        Date.now()
-    });
-
-
-    if(
-      messages.length >
-      200
-    ){
-
-      messages.shift();
-
-    }
-
-
-    localStorage.setItem(
-      chatStorageKey(),
-      JSON.stringify(
-        messages
-      )
-    );
-
-  }
-
-}
-
-
-/* =========================================
-   SEND MESSAGE
-========================================= */
-
-function sendMessage(){
-
-  const input =
-    document.getElementById(
-      "chatInput"
-    );
-
-
-  const text =
-    input.value.trim();
-
-
-  if(!text)return;
-
-
-  if(
-    !currentChatUsername &&
-    !currentChatPhone
-  ){
-
-    toast(
-      "আগে একজন Friend-এর Chat খুলুন"
-    );
-
-    return;
-
-  }
-
-
-  addMessage(
-    text,
-    "me",
-    true,
-    true
-  );
-
-
-  sendWS({
-
-    type:"chat",
-
-    toUsername:
-      currentChatUsername,
-
-    toPhone:
-      currentChatPhone,
-
-    message:
-      text
-
-  });
-
-
-  input.value =
-    "";
-
-}
-
-
-/* =========================================
-   MESSAGE NOTIFICATION
-========================================= */
-
-function showMessageNotification(
-  message,
-  title
-){
-
-  toast(
-    (title || "💬") +
-    ": " +
-    message
-  );
-
-}
-
-
-/* =========================================
-   CALL MEDIA
-========================================= */
-
-async function getLocalMedia(
-  type
-){
-
-  try{
-
-    const stream =
-      await navigator.mediaDevices
-        .getUserMedia({
-          audio:true,
-
-          video:
-            type === "video"
-        });
-
-
-    localStream =
-      stream;
-
-
-    const video =
-      document.getElementById(
-        "localVideo"
-      );
-
-
-    if(video){
-
-      video.srcObject =
-        stream;
-
-    }
-
-
-    return stream;
-
-
-  }catch(error){
-
-    console.log(
-      "Media error:",
-      error
-    );
-
-
-    toast(
-      "Camera/Microphone permission দিন"
-    );
-
-
-    return null;
-
-  }
-
-}
-
-
-/* =========================================
-   PEER CONNECTION
-========================================= */
-
-function createPeerConnection(){
-
-  if(peerConnection){
-
-    try{
-
-      peerConnection.close();
-
-    }catch{}
-
-  }
-
-
-  peerConnection =
-    new RTCPeerConnection(
-      ICE_SERVERS
-    );
-
-
-  if(localStream){
-
-    localStream
-      .getTracks()
-      .forEach(
-        track =>
-          peerConnection
-            .addTrack(
-              track,
-              localStream
-            )
-      );
-
-  }
-
-
-  peerConnection.ontrack =
-    event => {
-
-      const video =
-        document.getElementById(
-          "remoteVideo"
-        );
-
-
-      if(video){
-
-        video.srcObject =
-          event.streams[0];
-
-      }
-
-    };
-
-
-  peerConnection.onicecandidate =
-    event => {
-
-      if(
-        event.candidate
-      ){
-
-        sendWS({
-
-          type:
-            "ice-candidate",
-
-          candidate:
-            event.candidate,
-
-          toUsername:
-            incomingCaller?.username ||
-            currentChatUsername,
-
-          toPhone:
-            incomingCaller?.phone ||
-            currentChatPhone
-
-        });
-
-      }
-
-    };
-
-
-  peerConnection.onconnectionstatechange =
-    () => {
-
-      const status =
-        document.getElementById(
-          "callStatus"
-        );
-
-
-      if(!status)return;
-
-
-      status.textContent =
-        peerConnection
-          .connectionState ===
-        "connected"
-          ? "Connected ❤️"
-          : peerConnection
-              .connectionState;
-
-    };
-
-}
-
-
-/* =========================================
-   MAKE CALL
-========================================= */
-
-async function makeCall(
-  type
-){
-
-  if(
-    !currentChatUsername &&
-    !currentChatPhone
-  ){
-
-    toast(
-      "আগে Friend-এর Chat খুলুন"
-    );
-
-    return;
-
-  }
-
-
-  currentCallType =
-    type;
-
-
-  const stream =
-    await getLocalMedia(
-      type
-    );
-
-
-  if(!stream)return;
-
-
-  createPeerConnection();
-
-
-  const offer =
-    await peerConnection
-      .createOffer();
-
-
-  await peerConnection
-    .setLocalDescription(
-      offer
-    );
-
-
-  showCallScreen(
-    type,
-    true
-  );
-
-
-  sendWS({
-
-    type:
-      type === "video"
-        ? "video-call"
-        : "audio-call",
-
-    action:"offer",
-
-    offer,
-
-    toUsername:
-      currentChatUsername,
-
-    toPhone:
-      currentChatPhone,
-
-    profile:
-      getProfile()
-
-  });
-
-}
-
-
-/* =========================================
-   HANDLE CALL
-========================================= */
-
-async function handleCallSignal(
-  data
-){
-
-  if(
-    data.action ===
-    "offer"
-  ){
-
-    incomingCaller = {
-
-      username:
-        data.fromUsername ||
-        data.sender ||
-        data.from ||
-        "",
-
-      phone:
-        data.fromPhone ||
-        "",
-
-      profile:
-        data.profile ||
-        {}
-
-    };
-
-
-    currentCallType =
-      data.type ===
-      "audio-call"
-        ? "audio"
-        : "video";
-
-
-    pendingOffer =
-      data.offer;
-
-
-    currentChatUsername =
-      incomingCaller.username;
-
-
-    currentChatPhone =
-      incomingCaller.phone;
-
-
-    const title =
-      document.getElementById(
-        "incomingCallTitle"
-      );
-
-
-    const text =
-      document.getElementById(
-        "incomingCallText"
-      );
-
-
-    if(title){
-
-      title.textContent =
-        currentCallType ===
-        "video"
-          ? "📹 Video Call ❤️"
-          : "📞 Voice Call ❤️";
-
-    }
-
-
-    if(text){
-
-      text.textContent =
-        "@" +
-        (
-          incomingCaller.username ||
-          "Someone"
-        ) +
-        " তোমাকে কল করছে...";
-
-    }
-
-
-    document
-      .getElementById(
-        "incomingCallModal"
-      )
-      .classList.remove(
-        "hidden"
-      );
-
-
-    return;
-
-  }
-
-
-  if(
-    data.action ===
-    "answer"
-  ){
-
-    if(
-      !peerConnection
-    )return;
-
-
-    await peerConnection
-      .setRemoteDescription(
-        new RTCSessionDescription(
-          data.answer
-        )
-      );
-
-
-    await flushIceCandidates();
-
-
-    return;
-
-  }
-
-
-  if(
-    data.action ===
-    "reject"
-  ){
-
-    closeCallUI(
-      false
-    );
-
-    toast(
-      "Call rejected"
-    );
-
-    return;
-
-  }
-
-
-  if(
-    data.action ===
-    "end"
-  ){
-
-    closeCallUI(
-      false
-    );
-
-    toast(
-      "Call ended"
-    );
-
-    return;
-
-  }
-
-}
-
-
-/* =========================================
-   ACCEPT CALL
-========================================= */
-
-async function acceptCall(){
-
-  if(!pendingOffer){
-
-    return;
-
-  }
-
-
-  document
-    .getElementById(
-      "incomingCallModal"
-    )
-    .classList.add(
-      "hidden"
-    );
-
-
-  const stream =
-    await getLocalMedia(
-      currentCallType
-    );
-
-
-  if(!stream)return;
-
-
-  createPeerConnection();
-
-
-  await peerConnection
-    .setRemoteDescription(
-      new RTCSessionDescription(
-        pendingOffer
-      )
-    );
-
-
-  await flushIceCandidates();
-
-
-  const answer =
-    await peerConnection
-      .createAnswer();
-
-
-  await peerConnection
-    .setLocalDescription(
-      answer
-    );
-
-
-  showCallScreen(
-    currentCallType,
-    false
-  );
-
-
-  sendWS({
-
-    type:
-      currentCallType === "video"
-        ? "video-call"
-        : "audio-call",
-
-    action:"answer",
-
-    answer,
-
-    toUsername:
-      incomingCaller?.username ||
-      currentChatUsername,
-
-    toPhone:
-      incomingCaller?.phone ||
-      currentChatPhone
-
-  });
-
-
-  pendingOffer =
-    null;
-
-}
-
-
-/* =========================================
-   REJECT CALL
-========================================= */
-
-function rejectCall(){
-
-  document
-    .getElementById(
-      "incomingCallModal"
-    )
-    .classList.add(
-      "hidden"
-    );
-
-
-  sendWS({
-
-    type:
-      currentCallType === "video"
-        ? "video-call"
-        : "audio-call",
-
-    action:"reject",
-
-    toUsername:
-      incomingCaller?.username ||
-      currentChatUsername,
-
-    toPhone:
-      incomingCaller?.phone ||
-      currentChatPhone
-
-  });
-
-
-  pendingOffer =
-    null;
-
-
-  incomingCaller =
-    null;
-
-}
-
-
-/* =========================================
-   REMOTE ICE
-========================================= */
-
-async function handleRemoteIce(
-  data
-){
-
-  if(
-    !data.candidate
-  )return;
-
-
-  if(
-    !peerConnection ||
-    !peerConnection.remoteDescription
-  ){
-
-    pendingIceCandidates.push(
-      data.candidate
-    );
-
-    return;
-
-  }
-
-
-  try{
-
-    await peerConnection
-      .addIceCandidate(
-        new RTCIceCandidate(
-          data.candidate
-        )
-      );
-
-  }catch(error){
-
-    console.log(
-      "ICE error:",
-      error
-    );
-
-  }
-
-}
-
-
-/* =========================================
-   FLUSH ICE
-========================================= */
-
-async function flushIceCandidates(){
-
-  if(
-    !peerConnection ||
-    !peerConnection.remoteDescription
-  ){
-
-    return;
-
-  }
-
-
-  const list =
-    pendingIceCandidates;
-
-
-  pendingIceCandidates =
-    [];
-
-
-  for(
-    const candidate of list
-  ){
-
-    try{
-
-      await peerConnection
-        .addIceCandidate(
-          new RTCIceCandidate(
-            candidate
-          )
-        );
-
-    }catch(error){
-
-      console.log(
-        "ICE queue error:",
-        error
-      );
-
-    }
-
-  }
-
-}
-
-
-/* =========================================
-   CALL SCREEN
-========================================= */
-
-function showCallScreen(
-  type,
-  outgoing
-){
-
-  const screen =
-    document.getElementById(
-      "callScreen"
-    );
-
-
-  const name =
-    document.getElementById(
-      "callName"
-    );
-
-
-  const status =
-    document.getElementById(
-      "callStatus"
-    );
-
-
-  if(name){
-
-    name.textContent =
-      currentChatUsername
-        ? "@" +
-          currentChatUsername
-        : "দুজন ❤️";
-
-  }
-
-
-  if(status){
-
-    status.textContent =
-      outgoing
-        ? "Calling..."
-        : "Connected...";
-
-  }
-
-
-  screen.classList.remove(
-    "hidden"
-  );
-
-
-  if(type === "audio"){
-
-    const remote =
-      document.getElementById(
-        "remoteVideo"
-      );
-
-    const local =
-      document.getElementById(
-        "localVideo"
-      );
-
-
-    if(remote){
-
-      remote.style.display =
-        "none";
-
-    }
-
-
-    if(local){
-
-      local.style.display =
-        "none";
-
-    }
-
-  }else{
-
-    document
-      .getElementById(
-        "remoteVideo"
-      )
-      .style.display =
-        "block";
-
-
-    document
-      .getElementById(
-        "localVideo"
-      )
-      .style.display =
-        "block";
-
-  }
-
-}
-
-
-/* =========================================
-   END CALL
-========================================= */
-
-function endCall(
-  notify=true
-){
-
-  if(notify){
-
-    sendWS({
-
-      type:
-        currentCallType === "video"
-          ? "video-call"
-          : "audio-call",
-
-      action:"end",
-
-      toUsername:
-        incomingCaller?.username ||
-        currentChatUsername,
-
-      toPhone:
-        incomingCaller?.phone ||
-        currentChatPhone
-
-    });
-
-  }
-
-
-  closeCallUI(
-    true
-  );
-
-}
-
-
-/* =========================================
-   CLOSE CALL
-========================================= */
-
-function closeCallUI(
-  showToastMessage=true
-){
-
-  try{
-
-    if(
-      localStream
-    ){
-
-      localStream
-        .getTracks()
-        .forEach(
-          track =>
-            track.stop()
-        );
-
-    }
-
-  }catch{}
-
-
-  localStream =
-    null;
-
-
-  if(peerConnection){
-
-    try{
-
-      peerConnection.close();
-
-    }catch{}
-
-  }
-
-
-  peerConnection =
-    null;
-
-
-  pendingOffer =
-    null;
-
-
-  pendingIceCandidates =
-    [];
-
-
-  incomingCaller =
-    null;
-
-
-  const remote =
-    document.getElementById(
-      "remoteVideo"
-    );
-
-
-  const local =
-    document.getElementById(
-      "localVideo"
-    );
-
-
-  if(remote)
-    remote.srcObject =
-      null;
-
-
-  if(local)
-    local.srcObject =
-      null;
-
-
-  document
-    .getElementById(
-      "callScreen"
-    )
-    .classList.add(
-      "hidden"
-    );
-
-
-  document
-    .getElementById(
-      "incomingCallModal"
-    )
-    .classList.add(
-      "hidden"
-    );
-
-}
-
-
-/* =========================================
-   MIC
-========================================= */
-
-function toggleMic(){
-
-  if(!localStream)return;
-
-
-  micEnabled =
-    !micEnabled;
-
-
-  localStream
-    .getAudioTracks()
-    .forEach(
-      track =>
-        track.enabled =
-          micEnabled
-    );
-
-
-  document
-    .getElementById(
-      "micBtn"
-    )
-    .textContent =
-      micEnabled
-        ? "🎙️"
-        : "🔇";
-
-}
-
-
-/* =========================================
-   CAMERA
-========================================= */
-
-function toggleCamera(){
-
-  if(!localStream)return;
-
-
-  cameraEnabled =
-    !cameraEnabled;
-
-
-  localStream
-    .getVideoTracks()
-    .forEach(
-      track =>
-        track.enabled =
-          cameraEnabled
-    );
-
-
-  document
-    .getElementById(
-      "cameraBtn"
-    )
-    .textContent =
-      cameraEnabled
-        ? "📹"
-        : "🚫";
-
-}
-
-
-/* =========================================
-   TOGETHER DAYS
-========================================= */
-
-function loadTogetherDays(){
-
-  const days =
-    localStorage.getItem(
-      "dujon_together_days"
-    );
-
-
-  const text =
-    days
-      ? `${days} দিন একসাথে ❤️`
-      : "প্রতিটি দিনই বিশেষ ❤️";
-
-
-  const a =
-    document.getElementById(
-      "togetherDays"
-    );
-
-  const b =
-    document.getElementById(
-      "coupleDays"
-    );
-
-
-  if(a)
-    a.textContent =
-      text;
-
-
-  if(b)
-    b.textContent =
-      text;
-
-}
-
-
-/* =========================================
-   STORY
-========================================= */
-
-function loadOurStory(){
-
-  const text =
-    localStorage.getItem(
-      "dujon_story"
-    );
-
-
-  const el =
-    document.getElementById(
-      "storyText"
-    );
-
-
-  if(
-    el &&
-    text
-  ){
-
-    el.textContent =
-      text;
-
-  }
-
-}
-
-
-/* =========================================
-   MEMORY
-========================================= */
-
-function renderMemories(){
-
-  const box =
-    document.getElementById(
-      "memoryList"
-    );
-
-
-  if(!box)return;
-
-
-  const memories =
-    JSON.parse(
-      localStorage.getItem(
-        "dujon_memories"
-      ) || "[]"
-    );
-
-
-  box.innerHTML =
-    "";
-
-
-  if(!memories.length){
-
-    box.innerHTML =
-      `
-      <div class="empty">
-        <div class="empty-icon">📸</div>
-        এখনো কোনো স্মৃতি যোগ করা হয়নি
-      </div>
-      `;
-
-    return;
-
-  }
-
-
-  memories.forEach(
-    item => {
-
-      const div =
-        document.createElement(
-          "div"
-        );
-
-
-      div.className =
-        "friend";
-
-
-      div.innerHTML =
-        `
-        <div class="friend-photo"
-          style="display:flex;align-items:center;justify-content:center">
-          ❤️
-        </div>
-
-        <div class="friend-info">
-          <strong>
-            ${escapeHTML(
-              item.title ||
-              "আমাদের স্মৃতি"
-            )}
-          </strong>
-
-          <small>
-            ${escapeHTML(
-              item.text ||
-              ""
-            )}
-          </small>
-        </div>
-        `;
-
-
-      box.appendChild(
-        div
-      );
-
-    }
-  );
-
-}
-
-
-/* =========================================
-   ESCAPE
-========================================= */
-
-function escapeHTML(
-  value
-){
-
-  return String(
-    value ?? ""
-  )
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-    .replace(
-      /</g,
-      "&lt;"
-    )
-    .replace(
-      />/g,
-      "&gt;"
-    )
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-
-}
-
-
-function escapeAttr(
-  value
-){
-
-  return escapeHTML(
-    value
-  );
-
-}
-
-
-/* =========================================
-   INITIAL LOAD
-========================================= */
-
-document.addEventListener(
-  "DOMContentLoaded",
-  ()=>{
-
-    const logged =
-      localStorage.getItem(
-        "dujon_logged_in"
-      ) === "true";
-
-
-    if(logged){
-
-      loadProfileToUI();
-
-      loadTogetherDays();
-
-      loadOurStory();
-
-      renderMemories();
-
-      loadSocialData();
-
-      showPage(
-        "homePage"
-      );
-
-      connectRoom();
-
-    }else{
-
-      showPage(
-        "loginPage"
-      );
-
-    }
-
-  }
-);
-
-</script>
-
-</body>
-</html>
