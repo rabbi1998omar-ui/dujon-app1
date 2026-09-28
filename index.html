@@ -743,11 +743,8 @@ textarea::placeholder{
 
 <body>
 
-<!-- ================= LOGIN ================= -->
-
 <section id="loginPage" class="page active">
 <div class="container">
-
 <div class="card center" style="margin-top:50px">
 
 <div style="font-size:55px">❤️</div>
@@ -758,23 +755,13 @@ textarea::placeholder{
 শুধু দুজনের ছোট্ট একটা জগৎ
 </p>
 
-<input
- id="loginPhone"
- type="tel"
- placeholder="মোবাইল নম্বর">
+<input id="loginPhone" type="tel" placeholder="মোবাইল নম্বর">
 
-<input
- id="loginPin"
- type="password"
- placeholder="PIN">
+<input id="loginPin" type="password" placeholder="PIN">
 
-<button class="btn" onclick="login()">
-লগইন
-</button>
+<button class="btn" onclick="login()">লগইন</button>
 
-<button
- class="btn secondary"
- onclick="showPage('registerPage')">
+<button class="btn secondary" onclick="showPage('registerPage')">
 নতুন অ্যাকাউন্ট তৈরি
 </button>
 
@@ -783,44 +770,25 @@ textarea::placeholder{
 </section>
 
 
-<!-- ================= REGISTER ================= -->
-
 <section id="registerPage" class="page">
 <div class="container">
-
 <div class="card">
 
 <h2>নতুন অ্যাকাউন্ট ❤️</h2>
 
-<p>
-তোমার তথ্য দিয়ে অ্যাকাউন্ট তৈরি করো।
-</p>
+<p>তোমার তথ্য দিয়ে অ্যাকাউন্ট তৈরি করো।</p>
 
-<input
- id="regPhone"
- type="tel"
- placeholder="মোবাইল নম্বর">
+<input id="regPhone" type="tel" placeholder="মোবাইল নম্বর">
 
-<input
- id="regPin"
- type="password"
- placeholder="৪-৬ সংখ্যার PIN">
+<input id="regPin" type="password" placeholder="৪-৬ সংখ্যার PIN">
 
-<input
- id="regUsername"
- type="text"
- maxlength="20"
- placeholder="Username যেমন: rabbi123">
+<input id="regUsername" type="text" maxlength="20" placeholder="Username যেমন: rabbi123">
 
-<button
- class="btn"
- onclick="registerUser()">
+<button class="btn" onclick="registerUser()">
 অ্যাকাউন্ট তৈরি
 </button>
 
-<button
- class="btn secondary"
- onclick="showPage('loginPage')">
+<button class="btn secondary" onclick="showPage('loginPage')">
 ফিরে যাও
 </button>
 
@@ -829,8 +797,6 @@ textarea::placeholder{
 </section>
 
 
-<!-- ================= HOME ================= -->
-
 <section id="homePage" class="page">
 <div class="container">
 
@@ -838,32 +804,20 @@ textarea::placeholder{
 
 <div class="my-profile">
 
-<div id="homeAvatar" class="avatar">
-❤️
-</div>
+<div id="homeAvatar" class="avatar">❤️</div>
 
 <div>
-
-<strong id="homeName">
-আমার প্রোফাইল
-</strong>
+<strong id="homeName">আমার প্রোফাইল</strong>
 
 <div style="font-size:12px;color:#aaa">
-
 <span class="online-dot"></span>
 Online
-
 </div>
 
 </div>
-
 </div>
 
-<button
- class="small-btn"
- onclick="openProfile()">
-⚙️
-</button>
+<button class="small-btn" onclick="openProfile()">⚙️</button>
 
 </div>
 
@@ -872,171 +826,89 @@ Online
 
 <div class="heart">💞</div>
 
-<h1>
-দুজনের ছোট্ট জগৎ
-</h1>
+<h1>দুজনের ছোট্ট জগৎ</h1>
 
-<p>
-দূরে থেকেও কাছাকাছি থাকো ❤️
-</p>
+<p>দূরে থেকেও কাছাকাছি থাকো ❤️</p>
 
 </div>
 
-
-<!-- PROFILE -->
 
 <div class="card">
 
 <div class="partner">
 
-<div id="partnerAvatar" class="avatar">
-❤️
-</div>
+<div id="partnerAvatar" class="avatar">❤️</div>
 
 <div class="partner-info">
 
-<div
- id="partnerName"
- class="partner-name">
+<div id="partnerName" class="partner-name">
 এখনো কেউ যুক্ত হয়নি
 </div>
 
-<div
- id="partnerStatus"
- class="status">
+<div id="partnerStatus" class="status">
 Room-এ একজনকে অপেক্ষা করছি...
 </div>
 
 </div>
-
 </div>
 
 </div>
 
-
-<!-- TOGETHER DAYS -->
 
 <div class="card days">
 
-<div style="font-size:30px">
-💑
-</div>
+<div style="font-size:30px">💑</div>
 
-<div
- class="days-number"
- id="togetherDays">
-0
-</div>
+<div class="days-number" id="togetherDays">0</div>
 
-<div class="days-label">
-দিন একসাথে ❤️
-</div>
+<div class="days-label">দিন একসাথে ❤️</div>
 
-<button
- class="btn secondary"
- onclick="setTogetherDate()">
+<button class="btn secondary" onclick="setTogetherDate()">
 📅 আমাদের দিন সেট করুন
 </button>
 
-<div
- id="dateSyncStatus"
- class="sync-status">
+<div id="dateSyncStatus" class="sync-status">
 Room-এ Connect করলে দুজনের তারিখ sync হবে
 </div>
 
 </div>
 
 
-<!-- QUICK -->
-
 <div class="quick-grid">
 
-<button
- class="quick"
- onclick="openChat()">
-
-<span class="quick-icon">
-💬
-</span>
-
+<button class="quick" onclick="openChat()">
+<span class="quick-icon">💬</span>
 Chat
-
-<span
- id="chatBadge"
- class="badge hidden">
-0
-</span>
-
+<span id="chatBadge" class="badge hidden">0</span>
 </button>
 
-
-<button
- class="quick"
- onclick="startVideoFromHome()">
-
-<span class="quick-icon">
-📹
-</span>
-
+<button class="quick" onclick="startVideoFromHome()">
+<span class="quick-icon">📹</span>
 Video Call
-
 </button>
 
-
-<button
- class="quick"
- onclick="startAudioFromHome()">
-
-<span class="quick-icon">
-📞
-</span>
-
+<button class="quick" onclick="startAudioFromHome()">
+<span class="quick-icon">📞</span>
 Audio Call
-
 </button>
 
-
-<button
- class="quick"
- onclick="openRoom()">
-
-<span class="quick-icon">
-🔐
-</span>
-
+<button class="quick" onclick="openRoom()">
+<span class="quick-icon">🔐</span>
 Private Room
-
 </button>
 
-
-<button
- class="quick"
- onclick="openFriends()">
-
-<span class="quick-icon">
-👥
-</span>
-
+<button class="quick" onclick="openFriends()">
+<span class="quick-icon">👥</span>
 Friends
-
-<span
- id="friendBadge"
- class="badge hidden">
-0
-</span>
-
+<span id="friendBadge" class="badge hidden">0</span>
 </button>
 
 </div>
 
 
-<!-- FEELING -->
-
 <div class="card">
 
-<h3>
-💖 আজকের অনুভূতি
-</h3>
+<h3>💖 আজকের অনুভূতি</h3>
 
 <p style="font-size:13px">
 একটা অনুভূতি পাঠিয়ে দাও ❤️
@@ -1044,105 +916,53 @@ Friends
 
 <div class="feeling-grid">
 
-<button
- class="feeling"
- onclick="sendFeeling('❤️')">
-❤️
-</button>
-
-<button
- class="feeling"
- onclick="sendFeeling('🥰')">
-🥰
-</button>
-
-<button
- class="feeling"
- onclick="sendFeeling('😘')">
-😘
-</button>
-
-<button
- class="feeling"
- onclick="sendFeeling('🫶')">
-🫶
-</button>
-
-<button
- class="feeling"
- onclick="sendFeeling('💋')">
-💋
-</button>
+<button class="feeling" onclick="sendFeeling('❤️')">❤️</button>
+<button class="feeling" onclick="sendFeeling('🥰')">🥰</button>
+<button class="feeling" onclick="sendFeeling('😘')">😘</button>
+<button class="feeling" onclick="sendFeeling('🫶')">🫶</button>
+<button class="feeling" onclick="sendFeeling('💋')">💋</button>
 
 </div>
 </div>
 
-
-<!-- LOVE NOTE -->
 
 <div class="card">
 
-<h3>
-💌 Love Note
-</h3>
+<h3>💌 Love Note</h3>
 
-<textarea
- id="loveNoteInput"
- maxlength="300"
- placeholder="তোমার জন্য একটা কথা...">
-</textarea>
+<textarea id="loveNoteInput" maxlength="300" placeholder="তোমার জন্য একটা কথা..."></textarea>
 
-<button
- class="btn"
- onclick="sendLoveNote()">
+<button class="btn" onclick="sendLoveNote()">
 💌 পাঠিয়ে দাও
 </button>
 
 </div>
 
 
-<!-- SURPRISE -->
-
 <div class="card">
 
-<h3>
-🎁 Surprise
-</h3>
+<h3>🎁 Surprise</h3>
 
-<p>
-একটা সুন্দর কথা পেতে চাপ দাও।
-</p>
+<p>একটা সুন্দর কথা পেতে চাপ দাও।</p>
 
-<div
- id="surpriseMessage"
- style="margin:14px 0;color:#ffd6e6">
+<div id="surpriseMessage" style="margin:14px 0;color:#ffd6e6">
 ❤️ Surprise অপেক্ষা করছে...
 </div>
 
-<button
- class="btn"
- onclick="showSurprise()">
+<button class="btn" onclick="showSurprise()">
 ✨ Surprise
 </button>
 
 </div>
 
 
-<!-- COUPLE -->
-
 <div class="card">
 
-<h2>
-💑 Couple Space
-</h2>
+<h2>💑 Couple Space</h2>
 
-<p>
-তোমাদের দুজনের Shared Space ❤️
-</p>
+<p>তোমাদের দুজনের Shared Space ❤️</p>
 
-<button
- class="btn"
- onclick="openCoupleSpace()">
+<button class="btn" onclick="openCoupleSpace()">
 💖 Couple Space খুলুন
 </button>
 
@@ -1151,81 +971,48 @@ Friends
 
 <div class="quick-grid">
 
-<button
- class="quick"
- onclick="openMessageHistory()">
-
-<span class="quick-icon">
-💬
-</span>
-
+<button class="quick" onclick="openMessageHistory()">
+<span class="quick-icon">💬</span>
 Message History
-
 </button>
 
-
-<button
- class="quick"
- onclick="openCallHistory()">
-
-<span class="quick-icon">
-📞
-</span>
-
+<button class="quick" onclick="openCallHistory()">
+<span class="quick-icon">📞</span>
 Call History
-
 </button>
 
 </div>
 
 
-<!-- NOTIFICATION -->
-
 <div class="card">
 
-<h3>
-🔔 Notifications
-</h3>
+<h3>🔔 Notifications</h3>
 
 <p style="font-size:13px">
 নতুন মেসেজের notification চালু রাখো।
 </p>
 
-<button
- class="btn secondary"
- onclick="requestNotifications()">
+<button class="btn secondary" onclick="requestNotifications()">
 🔔 Notification চালু করুন
 </button>
 
 </div>
 
 
-<!-- ROOM -->
-
 <div class="card">
 
-<h3>
-🔐 তোমাদের Room
-</h3>
+<h3>🔐 তোমাদের Room</h3>
 
-<div
- id="homeRoomCode"
- class="room-code">
-------
-</div>
+<div id="homeRoomCode" class="room-code">------</div>
 
-<button
- class="btn secondary"
- onclick="copyRoom()">
+<button class="btn secondary" onclick="copyRoom()">
 📋 Room Code Copy
 </button>
 
 </div>
 
 
-<button
- class="btn danger"
- onclick="logout()">
+<button class="btn danger" onclick="logout()">
 Logout
 </button>
 
@@ -1233,20 +1020,14 @@ Logout
 </section>
 
 
-<!-- ================= FRIENDS ================= -->
-
 <section id="friendsPage" class="page">
 <div class="container">
 
 <div class="card">
 
-<h2>
-👥 Friends
-</h2>
+<h2>👥 Friends</h2>
 
-<p>
-Username দিয়ে মানুষ খুঁজে Friend Request পাঠাও।
-</p>
+<p>Username দিয়ে মানুষ খুঁজে Friend Request পাঠাও।</p>
 
 <input
  id="friendSearchInput"
@@ -1255,9 +1036,7 @@ Username দিয়ে মানুষ খুঁজে Friend Request পাঠ�
  placeholder="Username লিখো..."
  onkeydown="if(event.key==='Enter')searchUser()">
 
-<button
- class="btn"
- onclick="searchUser()">
+<button class="btn" onclick="searchUser()">
 🔎 Search
 </button>
 
@@ -1268,16 +1047,10 @@ Username দিয়ে মানুষ খুঁজে Friend Request পাঠ�
 
 <div class="card">
 
-<h3>
-💌 Friend Requests
-</h3>
+<h3>💌 Friend Requests</h3>
 
 <div id="friendRequests">
-
-<div class="empty">
-কোনো Friend Request নেই ❤️
-</div>
-
+<div class="empty">কোনো Friend Request নেই ❤️</div>
 </div>
 
 </div>
@@ -1285,24 +1058,16 @@ Username দিয়ে মানুষ খুঁজে Friend Request পাঠ�
 
 <div class="card">
 
-<h3>
-❤️ My Friends
-</h3>
+<h3>❤️ My Friends</h3>
 
 <div id="friendsList">
-
-<div class="empty">
-এখনো কোনো Friend নেই।
+<div class="empty">এখনো কোনো Friend নেই।</div>
 </div>
 
 </div>
 
-</div>
 
-
-<button
- class="btn secondary"
- onclick="showPage('homePage')">
+<button class="btn secondary" onclick="showPage('homePage')">
 ← Home
 </button>
 
@@ -1310,24 +1075,16 @@ Username দিয়ে মানুষ খুঁজে Friend Request পাঠ�
 </section>
 
 
-<!-- ================= COUPLE ================= -->
-
 <section id="couplePage" class="page">
 <div class="container">
 
 <div class="card center">
 
-<h2>
-💑 Our Little World
-</h2>
+<h2>💑 Our Little World</h2>
 
-<p>
-শুধু তোমাদের দুজনের জন্য ❤️
-</p>
+<p>শুধু তোমাদের দুজনের জন্য ❤️</p>
 
-<div
- id="coupleSyncStatus"
- class="sync-status">
+<div id="coupleSyncStatus" class="sync-status">
 🔴 Not connected
 </div>
 
@@ -1336,51 +1093,32 @@ Username দিয়ে মানুষ খুঁজে Friend Request পাঠ�
 
 <div class="card days">
 
-<div style="font-size:30px">
-❤️
-</div>
+<div style="font-size:30px">❤️</div>
 
-<div
- class="days-number"
- id="coupleDaysBig">
-0
-</div>
+<div class="days-number" id="coupleDaysBig">0</div>
 
-<div class="days-label">
-আমাদের একসাথে থাকা দিন
-</div>
+<div class="days-label">আমাদের একসাথে থাকা দিন</div>
 
 </div>
 
 
 <div class="card">
 
-<h3>
-📖 Our Story
-</h3>
+<h3>📖 Our Story</h3>
 
 <p style="font-size:13px">
 একজন লিখলে অন্যজনের ফোনেও দেখা যাবে।
 </p>
 
-<textarea
- id="storyInput"
- placeholder="আমাদের গল্পটা শুরু হয়েছিল...">
-</textarea>
+<textarea id="storyInput" placeholder="আমাদের গল্পটা শুরু হয়েছিল..."></textarea>
 
-<button
- class="btn"
- onclick="saveStory()">
+<button class="btn" onclick="saveStory()">
 💾 Story Save & Share
 </button>
 
-<div
- class="love-box"
- style="margin-top:12px">
+<div class="love-box" style="margin-top:12px">
 
-<div
- id="storyDisplay"
- class="story">
+<div id="storyDisplay" class="story">
 এখনো কোনো গল্প লেখা হয়নি ❤️
 </div>
 
@@ -1391,53 +1129,32 @@ Username দিয়ে মানুষ খুঁজে Friend Request পাঠ�
 
 <div class="card">
 
-<h3>
-📸 Shared Memories
-</h3>
+<h3>📸 Shared Memories</h3>
 
 <p style="font-size:13px">
 একটি ছবি ও ছোট্ট স্মৃতি যোগ করো।
 </p>
 
-<label
- class="file-label"
- for="memoryInput">
+<label class="file-label" for="memoryInput">
 📷 Memory Photo নির্বাচন
 </label>
 
-<input
- id="memoryInput"
- type="file"
- accept="image/*"
- onchange="addMemory(event)">
+<input id="memoryInput" type="file" accept="image/*" onchange="addMemory(event)">
 
-<input
- id="memoryCaption"
- maxlength="100"
- placeholder="এই ছবির স্মৃতি...">
+<input id="memoryCaption" maxlength="100" placeholder="এই ছবির স্মৃতি...">
 
-<div
- id="memoryGrid"
- class="memory-grid">
-</div>
+<div id="memoryGrid" class="memory-grid"></div>
 
 </div>
 
 
 <div class="card">
 
-<h3>
-⭐ Favorite Moments
-</h3>
+<h3>⭐ Favorite Moments</h3>
 
-<input
- id="momentInput"
- maxlength="150"
- placeholder="একটা প্রিয় মুহূর্ত লিখো...">
+<input id="momentInput" maxlength="150" placeholder="একটা প্রিয় মুহূর্ত লিখো...">
 
-<button
- class="btn"
- onclick="addMoment()">
+<button class="btn" onclick="addMoment()">
 ⭐ Save & Share Moment
 </button>
 
@@ -1446,66 +1163,42 @@ Username দিয়ে মানুষ খুঁজে Friend Request পাঠ�
 </div>
 
 
-<button
- class="btn secondary"
- onclick="showPage('homePage')">
+<button class="btn secondary" onclick="showPage('homePage')">
 ← Home
 </button>
 
 </div>
 </section>
 
-
-<!-- ================= ROOM ================= -->
 
 <section id="roomPage" class="page">
 <div class="container">
 
 <div class="card">
 
-<h2>
-🔐 Private Room
-</h2>
+<h2>🔐 Private Room</h2>
 
-<p>
-এই Room Code তোমার সঙ্গীকে দাও।
-</p>
+<p>এই Room Code তোমার সঙ্গীকে দাও।</p>
 
-<div
- id="roomCodeDisplay"
- class="room-code">
-------
-</div>
+<div id="roomCodeDisplay" class="room-code">------</div>
 
-<button
- class="btn"
- onclick="createRoom()">
+<button class="btn" onclick="createRoom()">
 ✨ নতুন Room তৈরি
 </button>
 
-<input
- id="joinRoomInput"
- type="tel"
- maxlength="6"
- placeholder="৬ সংখ্যার Room Code">
+<input id="joinRoomInput" type="tel" maxlength="6" placeholder="৬ সংখ্যার Room Code">
 
-<button
- class="btn secondary"
- onclick="joinRoom()">
+<button class="btn secondary" onclick="joinRoom()">
 Room-এ Join
 </button>
 
-<div
- id="roomStatus"
- class="connection">
+<div id="roomStatus" class="connection">
 🔴 Not Connected
 </div>
 
 </div>
 
-<button
- class="btn secondary"
- onclick="showPage('homePage')">
+<button class="btn secondary" onclick="showPage('homePage')">
 ← Home
 </button>
 
@@ -1513,33 +1206,20 @@ Room-এ Join
 </section>
 
 
-<!-- ================= CHAT ================= -->
-
 <section id="chatPage" class="page">
 <div class="container">
 
-<div
- class="card"
- style="padding:15px">
+<div class="card" style="padding:15px">
 
-<div
- style="display:flex;align-items:center;gap:12px">
+<div style="display:flex;align-items:center;gap:12px">
 
-<div
- id="chatPartnerAvatar"
- class="avatar">
-❤️
-</div>
+<div id="chatPartnerAvatar" class="avatar">❤️</div>
 
 <div>
 
-<strong id="chatPartnerName">
-Partner
-</strong>
+<strong id="chatPartnerName">Partner</strong>
 
-<div
- id="chatPartnerStatus"
- class="status">
+<div id="chatPartnerStatus" class="status">
 Offline
 </div>
 
@@ -1552,10 +1232,7 @@ Offline
 
 <div class="card">
 
-<div
- id="chatBox"
- class="chat-box">
-</div>
+<div id="chatBox" class="chat-box"></div>
 
 <div class="chat-input">
 
@@ -1564,143 +1241,99 @@ Offline
  placeholder="একটা মেসেজ লিখো..."
  onkeydown="if(event.key==='Enter')sendMessage()">
 
-<button onclick="sendMessage()">
-➤
-</button>
+<button onclick="sendMessage()">➤</button>
 
 </div>
 
 </div>
 
 
-<button
- class="btn secondary"
- onclick="showPage('homePage')">
+<button class="btn secondary" onclick="showPage('homePage')">
 ← Home
 </button>
 
 </div>
 </section>
 
-
-<!-- ================= MESSAGE HISTORY ================= -->
 
 <section id="messageHistoryPage" class="page">
 <div class="container">
 
 <div class="card">
 
-<h2>
-💬 Message History
-</h2>
+<h2>💬 Message History</h2>
 
 <div id="messageHistoryList"></div>
 
-<button
- class="btn danger"
- onclick="clearMessageHistory()">
+<button class="btn danger" onclick="clearMessageHistory()">
 🗑️ History Clear
 </button>
 
 </div>
 
-<button
- class="btn secondary"
- onclick="showPage('homePage')">
+<button class="btn secondary" onclick="showPage('homePage')">
 ← Home
 </button>
 
 </div>
 </section>
 
-
-<!-- ================= CALL HISTORY ================= -->
 
 <section id="callHistoryPage" class="page">
 <div class="container">
 
 <div class="card">
 
-<h2>
-📞 Call History
-</h2>
+<h2>📞 Call History</h2>
 
 <div id="callHistoryList"></div>
 
-<button
- class="btn danger"
- onclick="clearCallHistory()">
+<button class="btn danger" onclick="clearCallHistory()">
 🗑️ History Clear
 </button>
 
 </div>
 
-<button
- class="btn secondary"
- onclick="showPage('homePage')">
+<button class="btn secondary" onclick="showPage('homePage')">
 ← Home
 </button>
 
 </div>
 </section>
 
-
-<!-- ================= PROFILE ================= -->
 
 <section id="profilePage" class="page">
 <div class="container">
 
 <div class="card center">
 
-<h2>
-আমার Profile
-</h2>
+<h2>আমার Profile</h2>
 
-<div
- id="profileAvatar"
- class="profile-avatar-large">
+<div id="profileAvatar" class="profile-avatar-large">
 ❤️
 </div>
 
-<label
- class="file-label"
- for="photoInput">
+<label class="file-label" for="photoInput">
 📷 ছবি নির্বাচন
 </label>
 
-<input
- id="photoInput"
- type="file"
- accept="image/*"
- onchange="handlePhoto(event)">
+<input id="photoInput" type="file" accept="image/*" onchange="handlePhoto(event)">
 
-<button
- class="btn secondary"
- onclick="removePhoto()">
+<button class="btn secondary" onclick="removePhoto()">
 ছবি সরিয়ে ফেলুন
 </button>
 
-<input
- id="profileUsername"
- type="text"
- maxlength="20"
- placeholder="Username">
+<input id="profileUsername" type="text" maxlength="20" placeholder="Username">
 
-<input
- id="profileName"
- placeholder="তোমার নাম">
+<input id="profileName" placeholder="তোমার নাম">
 
-<button
- class="btn"
- onclick="saveProfile()">
+<button class="btn" onclick="saveProfile()">
 💾 Profile Save
 </button>
 
 </div>
 
-<button
- class="btn secondary"
- onclick="showPage('homePage')">
+<button class="btn secondary" onclick="showPage('homePage')">
 ← Home
 </button>
 
@@ -1708,48 +1341,23 @@ Offline
 </section>
 
 
-<!-- ================= VIDEO CALL ================= -->
+<div id="videoCallScreen" class="call-screen">
 
-<div
- id="videoCallScreen"
- class="call-screen">
+<video id="remoteVideo" class="remote-video" autoplay playsinline></video>
 
-<video
- id="remoteVideo"
- class="remote-video"
- autoplay
- playsinline>
-</video>
-
-<video
- id="localVideo"
- class="local-video"
- autoplay
- muted
- playsinline>
-</video>
+<video id="localVideo" class="local-video" autoplay muted playsinline></video>
 
 <div class="call-info">
 
-<div
- id="videoCallAvatar"
- class="call-avatar">
-❤️
-</div>
+<div id="videoCallAvatar" class="call-avatar">❤️</div>
 
-<h2 id="videoCallName">
-Partner
-</h2>
+<h2 id="videoCallName">Partner</h2>
 
-<div
- id="videoCallStatus"
- class="call-status">
+<div id="videoCallStatus" class="call-status">
 Connecting...
 </div>
 
-<div
- id="videoTimer"
- class="call-status">
+<div id="videoTimer" class="call-status">
 00:00
 </div>
 
@@ -1757,56 +1365,30 @@ Connecting...
 
 <div class="call-controls">
 
-<button
- class="call-control"
- onclick="toggleMic()">
-🎙️
-</button>
+<button class="call-control" onclick="toggleMic()">🎙️</button>
 
-<button
- class="call-control"
- onclick="toggleCamera()">
-📹
-</button>
+<button class="call-control" onclick="toggleCamera()">📹</button>
 
-<button
- class="call-control end"
- onclick="endCall()">
-📞
-</button>
+<button class="call-control end" onclick="endCall()">📞</button>
 
 </div>
 
 </div>
 
 
-<!-- ================= AUDIO CALL ================= -->
-
-<div
- id="audioCallScreen"
- class="call-screen">
+<div id="audioCallScreen" class="call-screen">
 
 <div class="call-info">
 
-<div
- id="audioCallAvatar"
- class="call-avatar">
-❤️
-</div>
+<div id="audioCallAvatar" class="call-avatar">❤️</div>
 
-<h2 id="audioCallName">
-Partner
-</h2>
+<h2 id="audioCallName">Partner</h2>
 
-<div
- id="audioCallStatus"
- class="call-status">
+<div id="audioCallStatus" class="call-status">
 Connecting...
 </div>
 
-<div
- id="audioTimer"
- class="call-status">
+<div id="audioTimer" class="call-status">
 00:00
 </div>
 
@@ -1814,61 +1396,38 @@ Connecting...
 
 <div class="call-controls">
 
-<button
- class="call-control"
- onclick="toggleMic()">
-🎙️
-</button>
+<button class="call-control" onclick="toggleMic()">🎙️</button>
 
-<button
- class="call-control end"
- onclick="endCall()">
-📞
-</button>
+<button class="call-control end" onclick="endCall()">📞</button>
 
 </div>
 
 </div>
 
 
-<!-- ================= INCOMING CALL ================= -->
-
-<div
- id="incomingCall"
- class="incoming">
+<div id="incomingCall" class="incoming">
 
 <div class="incoming-card">
 
-<div
- id="incomingAvatar"
- class="incoming-avatar">
+<div id="incomingAvatar" class="incoming-avatar">
 ❤️
 </div>
 
-<div
- style="margin-top:18px;color:#aaa">
+<div style="margin-top:18px;color:#aaa">
 Incoming Call
 </div>
 
-<h2 id="incomingName">
-Partner
-</h2>
+<h2 id="incomingName">Partner</h2>
 
-<p id="incomingType">
-Call করছে...
-</p>
+<p id="incomingType">Call করছে...</p>
 
 <div class="incoming-buttons">
 
-<button
- class="reject"
- onclick="rejectCall()">
+<button class="reject" onclick="rejectCall()">
 ❌ Reject
 </button>
 
-<button
- class="accept"
- onclick="acceptCall()">
+<button class="accept" onclick="acceptCall()">
 ❤️ Accept
 </button>
 
@@ -1879,38 +1438,24 @@ Call করছে...
 </div>
 
 
-<!-- ================= NOTIFICATION ================= -->
+<div id="messageNotification" class="message-notification" onclick="openChatFromNotification()">
 
-<div
- id="messageNotification"
- class="message-notification"
- onclick="openChatFromNotification()">
-
-<div
- id="notificationAvatar"
- class="notification-avatar">
+<div id="notificationAvatar" class="notification-avatar">
 ❤️
 </div>
 
 <div class="notification-text">
 
-<strong id="notificationName">
-Partner
-</strong>
+<strong id="notificationName">Partner</strong>
 
-<span id="notificationMessage">
-নতুন মেসেজ
-</span>
+<span id="notificationMessage">নতুন মেসেজ</span>
 
 </div>
 
 </div>
 
 
-<div
- id="toast"
- class="toast">
-</div>
+<div id="toast" class="toast"></div>
 
 
 <script>
@@ -1921,29 +1466,33 @@ Partner
 
 if("serviceWorker" in navigator){
 
- window.addEventListener(
-  "load",
-  ()=>{
-   navigator.serviceWorker
-   .register("/sw.js")
-   .catch(error=>{
-    console.log(
-     "Service Worker error:",
-     error
-    );
-   });
-  }
- );
+ window.addEventListener("load",()=>{
+
+  navigator.serviceWorker
+  .register("/sw.js")
+  .catch(error=>{
+   console.log("Service Worker error:",error);
+  });
+
+ });
 
 }
 
 
 /* =========================
-   APP
+   SERVER
 ========================= */
 
-const WS_URL=
+const API_URL =
+ "https://dujon-app1.onrender.com";
+
+const WS_URL =
  "wss://dujon-app1.onrender.com";
+
+
+/* =========================
+   APP
+========================= */
 
 let socket=null;
 let currentRoom=null;
@@ -1969,12 +1518,10 @@ let partnerProfile={
 const rtcConfig={
  iceServers:[
   {
-   urls:
-   "stun:stun.l.google.com:19302"
+   urls:"stun:stun.l.google.com:19302"
   },
   {
-   urls:
-   "stun:stun1.l.google.com:19302"
+   urls:"stun:stun1.l.google.com:19302"
   }
  ]
 };
@@ -1992,39 +1539,28 @@ function showPage(id){
   p.classList.remove("active");
  });
 
-
- const page=
-  document.getElementById(id);
-
+ const page=document.getElementById(id);
 
  if(page){
   page.classList.add("active");
  }
 
-
  if(id==="chatPage"){
-
   unreadCount=0;
-
   updateUnreadBadge();
-
  }
-
 
  if(id==="messageHistoryPage"){
   renderMessageHistory();
  }
 
-
  if(id==="callHistoryPage"){
   renderCallHistory();
  }
 
-
  if(id==="couplePage"){
   loadCoupleSpace();
  }
-
 
  if(id==="friendsPage"){
   loadSocialData();
@@ -2039,8 +1575,7 @@ function showPage(id){
 
 function toast(message){
 
- const el=
-  document.getElementById("toast");
+ const el=document.getElementById("toast");
 
  el.textContent=message;
 
@@ -2059,13 +1594,12 @@ function toast(message){
 
 function escapeHTML(text){
 
- const div=
-  document.createElement("div");
+ const div=document.createElement("div");
 
- div.textContent=
-  String(text??"");
+ div.textContent=String(text??"");
 
  return div.innerHTML;
+
 }
 
 
@@ -2076,54 +1610,54 @@ function escapeHTML(text){
 async function registerUser(){
 
  const phone=
-  document.getElementById(
-   "regPhone"
-  ).value.trim();
+  document.getElementById("regPhone").value.trim();
 
  const pin=
-  document.getElementById(
-   "regPin"
-  ).value.trim();
+  document.getElementById("regPin").value.trim();
 
  const username=
-  document.getElementById(
-   "regUsername"
-  ).value.trim().toLowerCase();
-
+  document.getElementById("regUsername")
+  .value.trim()
+  .toLowerCase();
 
  if(!phone||!pin||!username){
 
-  toast(
-   "সব তথ্য পূরণ করো"
-  );
+  toast("সব তথ্য পূরণ করো");
 
   return;
+
  }
 
+ if(!/^[0-9]{4,6}$/.test(pin)){
 
- if(
-  !/^[a-z0-9_]{3,20}$/.test(username)
- ){
+  toast("PIN ৪-৬ সংখ্যার হতে হবে");
+
+  return;
+
+ }
+
+ if(!/^[a-z0-9_]{3,20}$/.test(username)){
 
   toast(
    "Username 3-20 অক্ষরের হতে হবে। শুধু ইংরেজি অক্ষর, সংখ্যা ও _ ব্যবহার করো।"
   );
 
   return;
+
  }
 
+ toast("Account তৈরি হচ্ছে...");
 
  try{
 
   const response=
    await fetch(
-    "/api/profile",
+    API_URL+"/api/profile",
     {
      method:"POST",
 
      headers:{
-      "Content-Type":
-       "application/json"
+      "Content-Type":"application/json"
      },
 
      body:JSON.stringify({
@@ -2136,12 +1670,21 @@ async function registerUser(){
     }
    );
 
+  const text=await response.text();
 
-  const data=
-   await response.json();
+  let data;
 
+  try{
+   data=JSON.parse(text);
+  }catch{
+   console.log("Server response:",text);
 
-  if(!data.ok){
+   toast("Server থেকে সঠিক response পাওয়া যায়নি");
+
+   return;
+  }
+
+  if(!response.ok||!data.ok){
 
    toast(
     data.message||
@@ -2149,8 +1692,8 @@ async function registerUser(){
    );
 
    return;
-  }
 
+  }
 
   localStorage.setItem(
    "dujon_account",
@@ -2161,7 +1704,6 @@ async function registerUser(){
    })
   );
 
-
   localStorage.setItem(
    "dujon_profile",
    JSON.stringify({
@@ -2170,24 +1712,17 @@ async function registerUser(){
    })
   );
 
-
-  toast(
-   "Account তৈরি হয়েছে ❤️"
-  );
-
+  toast("Account তৈরি হয়েছে ❤️");
 
   setTimeout(()=>{
    showPage("loginPage");
   },700);
 
-
  }catch(error){
 
-  console.log(error);
+  console.log("Register Error:",error);
 
-  toast(
-   "Server-এর সাথে সংযোগ হয়নি"
-  );
+  toast("Server-এর সাথে সংযোগ হয়নি");
 
  }
 
@@ -2201,54 +1736,61 @@ async function registerUser(){
 async function login(){
 
  const phone=
-  document.getElementById(
-   "loginPhone"
-  ).value.trim();
+  document.getElementById("loginPhone")
+  .value.trim();
 
  const pin=
-  document.getElementById(
-   "loginPin"
-  ).value.trim();
+  document.getElementById("loginPin")
+  .value.trim();
 
+ if(!phone||!pin){
+
+  toast("মোবাইল নম্বর ও PIN দাও");
+
+  return;
+
+ }
 
  const saved=
-  localStorage.getItem(
-   "dujon_account"
-  );
-
+  localStorage.getItem("dujon_account");
 
  if(!saved){
 
-  toast(
-   "আগে Account তৈরি করো"
-  );
+  toast("আগে Account তৈরি করো");
 
   return;
+
  }
 
+ let account;
 
- const account=
-  JSON.parse(saved);
+ try{
 
+  account=JSON.parse(saved);
+
+ }catch{
+
+  toast("Account তথ্য নষ্ট হয়েছে");
+
+  return;
+
+ }
 
  if(
   phone!==account.phone||
   pin!==account.pin
  ){
 
-  toast(
-   "মোবাইল নম্বর অথবা PIN ভুল"
-  );
+  toast("মোবাইল নম্বর অথবা PIN ভুল");
 
   return;
- }
 
+ }
 
  localStorage.setItem(
   "dujon_logged_in",
   "true"
  );
-
 
  loadProfile();
 
@@ -2294,9 +1836,7 @@ function getProfile(){
  try{
 
   return JSON.parse(
-   localStorage.getItem(
-    "dujon_profile"
-   )
+   localStorage.getItem("dujon_profile")
   )||{
    name:"আমি",
    photo:""
@@ -2319,9 +1859,7 @@ function getAccount(){
  try{
 
   return JSON.parse(
-   localStorage.getItem(
-    "dujon_account"
-   )
+   localStorage.getItem("dujon_account")
   )||{};
 
  }catch{
@@ -2347,30 +1885,23 @@ function setAvatar(el,photo){
 
 function loadProfile(){
 
- const profile=
-  getProfile();
-
- const account=
-  getAccount();
-
+ const profile=getProfile();
+ const account=getAccount();
 
  document.getElementById(
   "homeName"
  ).textContent=
   profile.name||"আমি";
 
-
  document.getElementById(
   "profileName"
  ).value=
   profile.name||"";
 
-
  const username=
   document.getElementById(
    "profileUsername"
   );
-
 
  if(username){
 
@@ -2379,22 +1910,15 @@ function loadProfile(){
 
  }
 
-
  setAvatar(
-  document.getElementById(
-   "homeAvatar"
-  ),
+  document.getElementById("homeAvatar"),
   profile.photo
  );
 
-
  setAvatar(
-  document.getElementById(
-   "profileAvatar"
-  ),
+  document.getElementById("profileAvatar"),
   profile.photo
  );
-
 
  updateHomeRoom();
 
@@ -2417,67 +1941,45 @@ function handlePhoto(event){
 
  if(!file)return;
 
-
  const reader=
   new FileReader();
 
-
  reader.onload=e=>{
 
-  const img=
-   new Image();
-
+  const img=new Image();
 
   img.onload=()=>{
 
    const canvas=
-    document.createElement(
-     "canvas"
-    );
-
+    document.createElement("canvas");
 
    const max=320;
 
    let w=img.width;
    let h=img.height;
 
-
-   if(
-    w>h&&
-    w>max
-   ){
-
+   if(w>h&&w>max){
     h=h*max/w;
     w=max;
-
    }
 
-
-   if(
-    h>=w&&
-    h>max
-   ){
-
+   if(h>=w&&h>max){
     w=w*max/h;
     h=max;
-
    }
-
 
    canvas.width=w;
    canvas.height=h;
 
-
    canvas
-    .getContext("2d")
-    .drawImage(
-     img,
-     0,
-     0,
-     w,
-     h
-    );
-
+   .getContext("2d")
+   .drawImage(
+    img,
+    0,
+    0,
+    w,
+    h
+   );
 
    const photo=
     canvas.toDataURL(
@@ -2485,27 +1987,21 @@ function handlePhoto(event){
      .65
     );
 
-
    localStorage.setItem(
     "dujon_temp_photo",
     photo
    );
 
-
    setAvatar(
-    document.getElementById(
-     "profileAvatar"
-    ),
+    document.getElementById("profileAvatar"),
     photo
    );
 
   };
 
-
   img.src=e.target.result;
 
  };
-
 
  reader.readAsDataURL(file);
 
@@ -2518,35 +2014,24 @@ function removePhoto(){
   "dujon_temp_photo"
  );
 
-
- const profile=
-  getProfile();
-
+ const profile=getProfile();
 
  profile.photo="";
-
 
  localStorage.setItem(
   "dujon_profile",
   JSON.stringify(profile)
  );
 
-
  setAvatar(
-  document.getElementById(
-   "profileAvatar"
-  ),
+  document.getElementById("profileAvatar"),
   ""
  );
 
-
  setAvatar(
-  document.getElementById(
-   "homeAvatar"
-  ),
+  document.getElementById("homeAvatar"),
   ""
  );
-
 
  sendProfileToPartner();
 
@@ -2555,6 +2040,10 @@ function removePhoto(){
 }
 
 
+/* =========================
+   FIXED PROFILE SAVE
+========================= */
+
 async function saveProfile(){
 
  const name=
@@ -2562,66 +2051,65 @@ async function saveProfile(){
    "profileName"
   ).value.trim()||"আমি";
 
-
  const username=
   document.getElementById(
    "profileUsername"
   ).value.trim().toLowerCase();
 
+ const account=getAccount();
 
- const account=
-  getAccount();
-
-
- if(!username){
+ if(!account.phone||!account.pin){
 
   toast(
-   "Username দিতে হবে"
+   "Account তথ্য পাওয়া যায়নি। আবার Login করো"
   );
 
   return;
+
  }
 
+ if(!username){
 
- if(
-  !/^[a-z0-9_]{3,20}$/.test(username)
- ){
+  toast("Username দিতে হবে");
+
+  return;
+
+ }
+
+ if(!/^[a-z0-9_]{3,20}$/.test(username)){
 
   toast(
    "Username 3-20 অক্ষরের হতে হবে"
   );
 
   return;
+
  }
 
-
- const old=
-  getProfile();
-
+ const old=getProfile();
 
  const temp=
   localStorage.getItem(
    "dujon_temp_photo"
   );
 
-
  const photo=
   temp!==null?
   temp:
   old.photo||"";
 
+ toast("Server-এ Save হচ্ছে...");
 
  try{
 
   const response=
    await fetch(
-    "/api/profile",
+    API_URL+"/api/profile",
     {
      method:"POST",
 
      headers:{
-      "Content-Type":
-       "application/json"
+      "Content-Type":"application/json"
      },
 
      body:JSON.stringify({
@@ -2630,22 +2118,41 @@ async function saveProfile(){
 
       pin:account.pin,
 
-      username,
+      username:username,
 
-      name,
+      name:name,
 
-      photo
+      photo:photo
 
      })
     }
    );
 
+  const text=
+   await response.text();
 
-  const data=
-   await response.json();
+  let data;
 
+  try{
 
-  if(!data.ok){
+   data=JSON.parse(text);
+
+  }catch{
+
+   console.log(
+    "Server response:",
+    text
+   );
+
+   toast(
+    "Server থেকে সঠিক response পাওয়া যায়নি"
+   );
+
+   return;
+
+  }
+
+  if(!response.ok||!data.ok){
 
    toast(
     data.message||
@@ -2653,48 +2160,44 @@ async function saveProfile(){
    );
 
    return;
+
   }
 
-
-  account.username=
-   username;
-
+  account.username=username;
 
   localStorage.setItem(
    "dujon_account",
    JSON.stringify(account)
   );
 
-
   localStorage.setItem(
    "dujon_profile",
    JSON.stringify({
-    name,
-    photo
+    name:name,
+    photo:photo
    })
   );
-
 
   localStorage.removeItem(
    "dujon_temp_photo"
   );
 
-
   loadProfile();
 
   sendProfileToPartner();
 
-  toast(
-   "Profile Save হয়েছে ❤️"
-  );
-
+  toast("Profile Save হয়েছে ❤️");
 
   setTimeout(()=>{
    showPage("homePage");
-  },600);
-
+  },700);
 
  }catch(error){
+
+  console.log(
+   "Profile Save Error:",
+   error
+  );
 
   toast(
    "Server-এর সাথে সংযোগ হয়নি"
@@ -2725,65 +2228,62 @@ async function searchUser(){
    "friendSearchInput"
   ).value.trim().toLowerCase();
 
-
  if(!username){
 
-  toast(
-   "Username লিখো"
-  );
+  toast("Username লিখো");
 
   return;
+
  }
 
-
  const result=
-  document.getElementById(
-   "searchResult"
-  );
-
+  document.getElementById("searchResult");
 
  result.innerHTML=
   `<div class="empty">
    🔎 খোঁজা হচ্ছে...
   </div>`;
 
-
  try{
 
   const response=
    await fetch(
+    API_URL+
     "/api/search?username="+
     encodeURIComponent(username)
    );
 
+  const text=
+   await response.text();
 
-  const data=
-   await response.json();
+  let data;
 
-
-  if(!data.ok){
-
+  try{
+   data=JSON.parse(text);
+  }catch{
    result.innerHTML=
    `<div class="empty">
-    ❌ ${escapeHTML(data.message)}
+    ❌ Server response ঠিক নেই
    </div>`;
 
    return;
   }
 
+  if(!data.ok){
 
-  const user=
-   data.user;
+   result.innerHTML=
+   `<div class="empty">
+    ❌ ${escapeHTML(data.message||"User পাওয়া যায়নি")}
+   </div>`;
 
+   return;
 
-  const account=
-   getAccount();
+  }
 
+  const user=data.user;
+  const account=getAccount();
 
-  if(
-   account.username===
-   user.username
-  ){
+  if(account.username===user.username){
 
    result.innerHTML=
    `<div class="love-box">
@@ -2791,8 +2291,8 @@ async function searchUser(){
    </div>`;
 
    return;
-  }
 
+  }
 
   result.innerHTML=`
 
@@ -2811,7 +2311,7 @@ async function searchUser(){
    <div class="friend-user-info">
 
     <div class="friend-user-name">
-     ${escapeHTML(user.name)}
+     ${escapeHTML(user.name||"User")}
     </div>
 
     <div class="friend-username">
@@ -2830,8 +2330,9 @@ async function searchUser(){
 
   `;
 
-
  }catch(error){
+
+  console.log("Search Error:",error);
 
   result.innerHTML=
   `<div class="empty">
@@ -2843,30 +2344,30 @@ async function searchUser(){
 }
 
 
+/* =========================
+   FIXED FRIEND REQUEST
+========================= */
+
 async function sendFriendRequest(username){
 
- const account=
-  getAccount();
-
+ const account=getAccount();
 
  if(
   !account.phone||
   !account.pin
  ){
 
-  toast(
-   "আগে Login করো"
-  );
+  toast("আগে Login করো");
 
   return;
- }
 
+ }
 
  try{
 
   const response=
    await fetch(
-    "/api/friend-request",
+    API_URL+"/api/friend-request",
     {
      method:"POST",
 
@@ -2881,22 +2382,28 @@ async function sendFriendRequest(username){
 
       pin:account.pin,
 
-      toUsername:username
+      username:username
 
      })
     }
    );
 
+  const text=
+   await response.text();
 
-  const data=
-   await response.json();
+  let data;
 
+  try{
+   data=JSON.parse(text);
+  }catch{
+   toast("Server response ঠিক নেই");
+   return;
+  }
 
   toast(
    data.message||
    "Request পাঠানো হয়েছে"
   );
-
 
   if(data.ok){
 
@@ -2909,7 +2416,12 @@ async function sendFriendRequest(username){
 
   }
 
- }catch{
+ }catch(error){
+
+  console.log(
+   "Friend Request Error:",
+   error
+  );
 
   toast(
    "Server-এর সাথে সংযোগ হয়নি"
@@ -2920,11 +2432,13 @@ async function sendFriendRequest(username){
 }
 
 
+/* =========================
+   FIXED SOCIAL DATA
+========================= */
+
 async function loadSocialData(){
 
- const account=
-  getAccount();
-
+ const account=getAccount();
 
  if(
   !account.phone||
@@ -2932,14 +2446,14 @@ async function loadSocialData(){
  ){
 
   return;
- }
 
+ }
 
  try{
 
   const response=
    await fetch(
-    "/api/social",
+    API_URL+"/api/social",
     {
      method:"POST",
 
@@ -2958,38 +2472,47 @@ async function loadSocialData(){
     }
    );
 
+  const text=
+   await response.text();
 
-  const data=
-   await response.json();
+  let data;
 
+  try{
+   data=JSON.parse(text);
+  }catch{
+   console.log(
+    "Social response:",
+    text
+   );
+   return;
+  }
 
   if(!data.ok)return;
 
+  const user=data.user||{};
 
-  renderFriendRequests(
-   data.requests||[]
-  );
+  const requests=
+   user.requests||[];
 
+  const friends=
+   user.friends||[];
 
-  renderFriends(
-   data.friends||[]
-  );
+  renderFriendRequests(requests);
 
+  renderFriends(friends);
 
   const badge=
    document.getElementById(
     "friendBadge"
    );
 
-
   if(
    badge&&
-   data.requests&&
-   data.requests.length
+   requests.length
   ){
 
    badge.textContent=
-    data.requests.length;
+    requests.length;
 
    badge.classList.remove(
     "hidden"
@@ -3002,7 +2525,6 @@ async function loadSocialData(){
    );
 
   }
-
 
  }catch(error){
 
@@ -3023,12 +2545,9 @@ function renderFriendRequests(requests){
    "friendRequests"
   );
 
-
  if(!box)return;
 
-
  box.innerHTML="";
-
 
  if(!requests.length){
 
@@ -3038,20 +2557,15 @@ function renderFriendRequests(requests){
   </div>`;
 
   return;
- }
 
+ }
 
  requests.forEach(user=>{
 
   const div=
-   document.createElement(
-    "div"
-   );
+   document.createElement("div");
 
-
-  div.className=
-   "friend-user";
-
+  div.className="friend-user";
 
   div.innerHTML=`
 
@@ -3068,7 +2582,7 @@ function renderFriendRequests(requests){
   <div class="friend-user-info">
 
    <div class="friend-user-name">
-    ${escapeHTML(user.name)}
+    ${escapeHTML(user.name||"User")}
    </div>
 
    <div class="friend-username">
@@ -3095,7 +2609,6 @@ function renderFriendRequests(requests){
 
   `;
 
-
   box.appendChild(div);
 
  });
@@ -3110,12 +2623,9 @@ function renderFriends(friends){
    "friendsList"
   );
 
-
  if(!box)return;
 
-
  box.innerHTML="";
-
 
  if(!friends.length){
 
@@ -3125,20 +2635,15 @@ function renderFriends(friends){
   </div>`;
 
   return;
- }
 
+ }
 
  friends.forEach(user=>{
 
   const div=
-   document.createElement(
-    "div"
-   );
+   document.createElement("div");
 
-
-  div.className=
-   "friend-user";
-
+  div.className="friend-user";
 
   div.innerHTML=`
 
@@ -3155,7 +2660,7 @@ function renderFriends(friends){
   <div class="friend-user-info">
 
    <div class="friend-user-name">
-    ${escapeHTML(user.name)}
+    ${escapeHTML(user.name||"User")}
    </div>
 
    <div class="friend-username">
@@ -3170,7 +2675,6 @@ function renderFriends(friends){
 
   `;
 
-
   box.appendChild(div);
 
  });
@@ -3178,17 +2682,27 @@ function renderFriends(friends){
 }
 
 
+/* =========================
+   FIXED ACCEPT
+========================= */
+
 async function acceptFriend(username){
 
- const account=
-  getAccount();
+ const account=getAccount();
 
+ if(!account.phone||!account.pin){
+
+  toast("Login তথ্য পাওয়া যায়নি");
+
+  return;
+
+ }
 
  try{
 
   const response=
    await fetch(
-    "/api/friend-accept",
+    API_URL+"/api/friend-accept",
     {
      method:"POST",
 
@@ -3203,30 +2717,39 @@ async function acceptFriend(username){
 
       pin:account.pin,
 
-      fromUsername:username
+      username:username
 
      })
     }
    );
 
+  const text=
+   await response.text();
 
-  const data=
-   await response.json();
+  let data;
 
+  try{
+   data=JSON.parse(text);
+  }catch{
+   toast("Server response ঠিক নেই");
+   return;
+  }
 
   toast(
    data.message||
    "Friend হয়েছে ❤️"
   );
 
-
   if(data.ok){
-
    loadSocialData();
-
   }
 
- }catch{
+ }catch(error){
+
+  console.log(
+   "Accept Error:",
+   error
+  );
 
   toast(
    "Server-এর সাথে সংযোগ হয়নি"
@@ -3237,17 +2760,27 @@ async function acceptFriend(username){
 }
 
 
+/* =========================
+   FIXED REJECT
+========================= */
+
 async function rejectFriend(username){
 
- const account=
-  getAccount();
+ const account=getAccount();
 
+ if(!account.phone||!account.pin){
+
+  toast("Login তথ্য পাওয়া যায়নি");
+
+  return;
+
+ }
 
  try{
 
   const response=
    await fetch(
-    "/api/friend-reject",
+    API_URL+"/api/friend-reject",
     {
      method:"POST",
 
@@ -3262,30 +2795,39 @@ async function rejectFriend(username){
 
       pin:account.pin,
 
-      fromUsername:username
+      username:username
 
      })
     }
    );
 
+  const text=
+   await response.text();
 
-  const data=
-   await response.json();
+  let data;
 
+  try{
+   data=JSON.parse(text);
+  }catch{
+   toast("Server response ঠিক নেই");
+   return;
+  }
 
   toast(
    data.message||
    "Request বাদ দেওয়া হয়েছে"
   );
 
-
   if(data.ok){
-
    loadSocialData();
-
   }
 
- }catch{
+ }catch(error){
+
+  console.log(
+   "Reject Error:",
+   error
+  );
 
   toast(
    "Server-এর সাথে সংযোগ হয়নি"
@@ -3314,25 +2856,19 @@ function generateRoomCode(){
 
 function createRoom(){
 
- const code=
-  generateRoomCode();
-
+ const code=generateRoomCode();
 
  document.getElementById(
   "roomCodeDisplay"
  ).textContent=code;
 
-
  document.getElementById(
   "homeRoomCode"
  ).textContent=code;
 
-
  connectRoom(code);
 
- toast(
-  "Room তৈরি হয়েছে ❤️"
- );
+ toast("Room তৈরি হয়েছে ❤️");
 
 }
 
@@ -3344,26 +2880,21 @@ function joinRoom(){
    "joinRoomInput"
   ).value.trim();
 
-
  if(!/^\d{6}$/.test(code)){
 
-  toast(
-   "৬ সংখ্যার Room Code দাও"
-  );
+  toast("৬ সংখ্যার Room Code দাও");
 
   return;
- }
 
+ }
 
  document.getElementById(
   "roomCodeDisplay"
  ).textContent=code;
 
-
  document.getElementById(
   "homeRoomCode"
  ).textContent=code;
-
 
  connectRoom(code);
 
@@ -3377,7 +2908,6 @@ function copyRoom(){
    "homeRoomCode"
   ).textContent;
 
-
  if(!/^\d{6}$/.test(code)){
 
   toast(
@@ -3385,15 +2915,16 @@ function copyRoom(){
   );
 
   return;
- }
 
+ }
 
  navigator.clipboard
  .writeText(code)
  .then(()=>{
-  toast(
-   "Room Code Copy হয়েছে 📋"
-  );
+  toast("Room Code Copy হয়েছে 📋");
+ })
+ .catch(()=>{
+  toast("Copy করা যায়নি");
  });
 
 }
@@ -3438,34 +2969,24 @@ function connectRoom(code){
   currentRoom===code
  ){
 
-  setRoomStatus(
-   "🟢 Room Connected"
-  );
+  setRoomStatus("🟢 Room Connected");
 
   return;
 
  }
 
-
  closeSocket();
 
  currentRoom=code;
 
- setRoomStatus(
-  "🟡 Connecting..."
- );
-
+ setRoomStatus("🟡 Connecting...");
 
  socket=
   new WebSocket(WS_URL);
 
-
  socket.onopen=()=>{
 
-  setRoomStatus(
-   "🟢 Connected"
-  );
-
+  setRoomStatus("🟢 Connected");
 
   socket.send(
    JSON.stringify({
@@ -3476,27 +2997,19 @@ function connectRoom(code){
 
  };
 
-
  socket.onmessage=e=>{
 
   let data;
 
   try{
-
-   data=
-    JSON.parse(e.data);
-
+   data=JSON.parse(e.data);
   }catch{
-
    return;
-
   }
-
 
   handleSocketMessage(data);
 
  };
-
 
  socket.onerror=()=>{
 
@@ -3505,7 +3018,6 @@ function connectRoom(code){
   );
 
  };
-
 
  socket.onclose=()=>{
 
@@ -3544,9 +3056,7 @@ function setRoomStatus(text){
   );
 
  if(el){
-
   el.textContent=text;
-
  }
 
 }
@@ -3598,6 +3108,7 @@ function handleSocketMessage(data){
   sendCoupleDataToPartner();
 
   return;
+
  }
 
 
@@ -3614,6 +3125,7 @@ function handleSocketMessage(data){
   );
 
   return;
+
  }
 
 
@@ -3626,6 +3138,7 @@ function handleSocketMessage(data){
   );
 
   return;
+
  }
 
 
@@ -3639,6 +3152,7 @@ function handleSocketMessage(data){
   updatePartnerUI();
 
   return;
+
  }
 
 
@@ -3649,6 +3163,7 @@ function handleSocketMessage(data){
   partnerOffline();
 
   return;
+
  }
 
 
@@ -3659,7 +3174,6 @@ function handleSocketMessage(data){
    "other",
    true
   );
-
 
   if(
    !document
@@ -3683,6 +3197,7 @@ function handleSocketMessage(data){
   }
 
   return;
+
  }
 
 
@@ -3696,6 +3211,7 @@ function handleSocketMessage(data){
   );
 
   return;
+
  }
 
 
@@ -3706,6 +3222,7 @@ function handleSocketMessage(data){
   );
 
   return;
+
  }
 
 
@@ -3719,7 +3236,6 @@ function handleSocketMessage(data){
    );
 
    updateTogetherDays();
-
    updateCoupleDays();
 
    toast(
@@ -3729,15 +3245,13 @@ function handleSocketMessage(data){
   }
 
   return;
+
  }
 
 
  if(data.type==="our-story"){
 
-  if(
-   typeof data.story===
-   "string"
-  ){
+  if(typeof data.story==="string"){
 
    localStorage.setItem(
     "dujon_story",
@@ -3753,6 +3267,7 @@ function handleSocketMessage(data){
   }
 
   return;
+
  }
 
 
@@ -3760,13 +3275,10 @@ function handleSocketMessage(data){
 
   if(
    data.photo&&
-   typeof data.photo===
-   "string"
+   typeof data.photo==="string"
   ){
 
-   const memories=
-    getMemories();
-
+   const memories=getMemories();
 
    const exists=
     memories.some(
@@ -3775,9 +3287,7 @@ function handleSocketMessage(data){
       String(data.id)
     );
 
-
    if(exists)return;
-
 
    memories.push({
 
@@ -3796,21 +3306,14 @@ function handleSocketMessage(data){
 
    });
 
-
-   if(
-    memories.length>30
-   ){
-
+   if(memories.length>30){
     memories.shift();
-
    }
-
 
    localStorage.setItem(
     "dujon_memories",
     JSON.stringify(memories)
    );
-
 
    renderMemories();
 
@@ -3821,6 +3324,7 @@ function handleSocketMessage(data){
   }
 
   return;
+
  }
 
 
@@ -3828,9 +3332,7 @@ function handleSocketMessage(data){
 
   if(data.text){
 
-   const moments=
-    getMoments();
-
+   const moments=getMoments();
 
    const exists=
     moments.some(
@@ -3839,9 +3341,7 @@ function handleSocketMessage(data){
       String(data.id)
     );
 
-
    if(exists)return;
-
 
    moments.push({
 
@@ -3856,21 +3356,14 @@ function handleSocketMessage(data){
 
    });
 
-
-   if(
-    moments.length>50
-   ){
-
+   if(moments.length>50){
     moments.shift();
-
    }
-
 
    localStorage.setItem(
     "dujon_moments",
     JSON.stringify(moments)
    );
-
 
    renderMoments();
 
@@ -3881,6 +3374,7 @@ function handleSocketMessage(data){
   }
 
   return;
+
  }
 
 
@@ -3907,9 +3401,7 @@ function handleSocketMessage(data){
 
 function sendProfileToPartner(){
 
- const p=
-  getProfile();
-
+ const p=getProfile();
 
  sendToRoom({
 
@@ -3922,7 +3414,6 @@ function sendProfileToPartner(){
    p.photo||""
 
  });
-
 
  sendToRoom({
 
@@ -3942,44 +3433,30 @@ function updatePartnerUI(){
  ).textContent=
   partnerProfile.name;
 
-
  document.getElementById(
   "chatPartnerName"
  ).textContent=
   partnerProfile.name;
 
-
  updatePartnerOnline();
 
-
  setAvatar(
-  document.getElementById(
-   "partnerAvatar"
-  ),
+  document.getElementById("partnerAvatar"),
   partnerProfile.photo
  );
 
-
  setAvatar(
-  document.getElementById(
-   "chatPartnerAvatar"
-  ),
+  document.getElementById("chatPartnerAvatar"),
   partnerProfile.photo
  );
 
-
  setAvatar(
-  document.getElementById(
-   "videoCallAvatar"
-  ),
+  document.getElementById("videoCallAvatar"),
   partnerProfile.photo
  );
 
-
  setAvatar(
-  document.getElementById(
-   "audioCallAvatar"
-  ),
+  document.getElementById("audioCallAvatar"),
   partnerProfile.photo
  );
 
@@ -3992,7 +3469,6 @@ function updatePartnerOnline(){
   "partnerStatus"
  ).innerHTML=
  '<span class="online-dot"></span>Online';
-
 
  document.getElementById(
   "chatPartnerStatus"
@@ -4008,7 +3484,6 @@ function partnerOffline(){
   "partnerStatus"
  ).textContent=
   "Offline";
-
 
  document.getElementById(
   "chatPartnerStatus"
@@ -4030,7 +3505,6 @@ function openChat(){
 
  showPage("chatPage");
 
-
  setTimeout(()=>{
 
   document.getElementById(
@@ -4049,20 +3523,16 @@ function sendMessage(){
    "messageInput"
   );
 
-
  const message=
   input.value.trim();
 
-
  if(!message)return;
-
 
  addMessage(
   message,
   "me",
   true
  );
-
 
  sendToRoom({
 
@@ -4071,7 +3541,6 @@ function sendMessage(){
   message
 
  });
-
 
  input.value="";
 
@@ -4089,16 +3558,11 @@ function addMessage(
    "chatBox"
   );
 
-
  const div=
-  document.createElement(
-   "div"
-  );
-
+  document.createElement("div");
 
  div.className=
   "message "+type;
-
 
  const time=
   new Date()
@@ -4110,19 +3574,16 @@ function addMessage(
    }
   );
 
-
  div.innerHTML=
   `${escapeHTML(message)}
   <span class="message-time">
    ${time}
   </span>`;
 
-
  box.appendChild(div);
 
  box.scrollTop=
   box.scrollHeight;
-
 
  if(save){
 
@@ -4144,7 +3605,6 @@ function updateUnreadBadge(){
    "chatBadge"
   );
 
-
  if(unreadCount>0){
 
   badge.textContent=
@@ -4152,15 +3612,11 @@ function updateUnreadBadge(){
    "99+":
    unreadCount;
 
-  badge.classList.remove(
-   "hidden"
-  );
+  badge.classList.remove("hidden");
 
  }else{
 
-  badge.classList.add(
-   "hidden"
-  );
+  badge.classList.add("hidden");
 
  }
 
@@ -4195,7 +3651,6 @@ function saveMessageHistory(
  const history=
   getMessageHistory();
 
-
  history.push({
 
   message,
@@ -4210,13 +3665,9 @@ function saveMessageHistory(
 
  });
 
-
  if(history.length>100){
-
   history.shift();
-
  }
-
 
  localStorage.setItem(
   "dujon_message_history",
@@ -4244,13 +3695,10 @@ function renderMessageHistory(){
    "messageHistoryList"
   );
 
-
  const history=
   getMessageHistory();
 
-
  box.innerHTML="";
-
 
  if(!history.length){
 
@@ -4261,21 +3709,15 @@ function renderMessageHistory(){
 
  }
 
-
  history
  .slice()
  .reverse()
  .forEach(item=>{
 
   const div=
-   document.createElement(
-    "div"
-   );
+   document.createElement("div");
 
-
-  div.className=
-   "history-item";
-
+  div.className="history-item";
 
   div.innerHTML=`
 
@@ -4289,14 +3731,11 @@ function renderMessageHistory(){
     ${
      item.type==="me"?
      "আমি":
-     escapeHTML(
-      partnerProfile.name
-     )
+     escapeHTML(partnerProfile.name)
     }
    </strong>
 
-   <div
-    style="color:#ccc;font-size:13px;margin-top:3px">
+   <div style="color:#ccc;font-size:13px;margin-top:3px">
     ${escapeHTML(item.message)}
    </div>
 
@@ -4307,7 +3746,6 @@ function renderMessageHistory(){
   </div>
 
   `;
-
 
   box.appendChild(div);
 
@@ -4324,17 +3762,13 @@ function clearMessageHistory(){
   )
  )return;
 
-
  localStorage.removeItem(
   "dujon_message_history"
  );
 
-
  renderMessageHistory();
 
- toast(
-  "History Clear হয়েছে"
- );
+ toast("History Clear হয়েছে");
 
 }
 
@@ -4353,7 +3787,6 @@ function sendFeeling(feeling){
 
  });
 
-
  toast(
   feeling+
   " পাঠানো হয়েছে ❤️"
@@ -4369,21 +3802,16 @@ function sendLoveNote(){
    "loveNoteInput"
   );
 
-
  const message=
   input.value.trim();
 
-
  if(!message){
 
-  toast(
-   "আগে কিছু লিখো ❤️"
-  );
+  toast("আগে কিছু লিখো ❤️");
 
   return;
 
  }
-
 
  sendToRoom({
 
@@ -4393,12 +3821,9 @@ function sendLoveNote(){
 
  });
 
-
  input.value="";
 
- toast(
-  "Love Note পাঠানো হয়েছে 💌"
- );
+ toast("Love Note পাঠানো হয়েছে 💌");
 
 }
 
@@ -4443,11 +3868,9 @@ function showSurprise(){
    )
   ];
 
-
  document.getElementById(
   "surpriseMessage"
- ).textContent=
-  msg;
+ ).textContent=msg;
 
 }
 
@@ -4463,18 +3886,15 @@ function showMessageNotification(message){
    "messageNotification"
   );
 
-
  document.getElementById(
   "notificationName"
  ).textContent=
   partnerProfile.name;
 
-
  document.getElementById(
   "notificationMessage"
  ).textContent=
   message;
-
 
  setAvatar(
   document.getElementById(
@@ -4483,23 +3903,14 @@ function showMessageNotification(message){
   partnerProfile.photo
  );
 
+ box.classList.add("show");
 
- box.classList.add(
-  "show"
- );
-
-
- clearTimeout(
-  notificationTimeout
- );
-
+ clearTimeout(notificationTimeout);
 
  notificationTimeout=
   setTimeout(()=>{
 
-   box.classList.remove(
-    "show"
-   );
+   box.classList.remove("show");
 
   },4500);
 
@@ -4510,9 +3921,7 @@ function openChatFromNotification(){
 
  document.getElementById(
   "messageNotification"
- ).classList.remove(
-  "show"
- );
+ ).classList.remove("show");
 
  openChat();
 
@@ -4521,22 +3930,18 @@ function openChatFromNotification(){
 
 async function requestNotifications(){
 
- if(
-  !("Notification" in window)
- ){
+ if(!("Notification" in window)){
 
   toast(
    "এই Browser-এ Notification নেই"
   );
 
   return;
+
  }
 
-
  const permission=
-  await Notification
-  .requestPermission();
-
+  await Notification.requestPermission();
 
  toast(
   permission==="granted"?
@@ -4553,7 +3958,6 @@ function browserNotification(message){
   !("Notification" in window)||
   Notification.permission!=="granted"
  )return;
-
 
  try{
 
@@ -4580,16 +3984,13 @@ function setTogetherDate(){
    "dujon_together_date"
   );
 
-
  const date=
   prompt(
    "যেদিন থেকে তোমাদের বিশেষ যাত্রা শুরু:\nYYYY-MM-DD",
    current||""
   );
 
-
  if(!date)return;
-
 
  if(
   !/^\d{4}-\d{2}-\d{2}$/.test(date)
@@ -4600,19 +4001,16 @@ function setTogetherDate(){
   );
 
   return;
- }
 
+ }
 
  localStorage.setItem(
   "dujon_together_date",
   date
  );
 
-
  updateTogetherDays();
-
  updateCoupleDays();
-
 
  sendToRoom({
 
@@ -4622,12 +4020,10 @@ function setTogetherDate(){
 
  });
 
-
  document.getElementById(
   "dateSyncStatus"
  ).textContent=
   "🟢 তারিখ Partner-এর সাথে Share করা হয়েছে";
-
 
  toast(
   "আমাদের দিন Save & Share হয়েছে ❤️"
@@ -4643,15 +4039,12 @@ function updateTogetherDays(){
    "togetherDays"
   );
 
-
  if(!el)return;
-
 
  const saved=
   localStorage.getItem(
    "dujon_together_date"
   );
-
 
  if(!saved){
 
@@ -4661,16 +4054,12 @@ function updateTogetherDays(){
 
  }
 
-
  const start=
   new Date(
    saved+"T00:00:00"
   );
 
-
- const now=
-  new Date();
-
+ const now=new Date();
 
  const diff=
   Math.max(
@@ -4681,9 +4070,7 @@ function updateTogetherDays(){
    )
   );
 
-
- el.textContent=
-  diff;
+ el.textContent=diff;
 
 }
 
@@ -4695,15 +4082,12 @@ function updateCoupleDays(){
    "coupleDaysBig"
   );
 
-
  if(!el)return;
-
 
  const saved=
   localStorage.getItem(
    "dujon_together_date"
   );
-
 
  if(!saved){
 
@@ -4713,16 +4097,12 @@ function updateCoupleDays(){
 
  }
 
-
  const start=
   new Date(
    saved+"T00:00:00"
   );
 
-
- const now=
-  new Date();
-
+ const now=new Date();
 
  const diff=
   Math.max(
@@ -4733,9 +4113,7 @@ function updateCoupleDays(){
    )
   );
 
-
- el.textContent=
-  diff;
+ el.textContent=diff;
 
 }
 
@@ -4746,9 +4124,7 @@ function updateCoupleDays(){
 
 function openCoupleSpace(){
 
- showPage(
-  "couplePage"
- );
+ showPage("couplePage");
 
  loadCoupleSpace();
 
@@ -4764,7 +4140,6 @@ function loadCoupleSpace(){
  renderMoments();
 
  updateCoupleDays();
-
 
  document.getElementById(
   "coupleSyncStatus"
@@ -4783,38 +4158,28 @@ function sendCoupleDataToPartner(){
    "dujon_together_date"
   );
 
-
  if(date){
 
   sendToRoom({
-
    type:"couple-date",
-
    date
-
   });
 
  }
-
 
  const story=
   localStorage.getItem(
    "dujon_story"
   );
 
-
  if(story){
 
   sendToRoom({
-
    type:"our-story",
-
    story
-
   });
 
  }
-
 
  getMemories()
  .forEach(memory=>{
@@ -4834,7 +4199,6 @@ function sendCoupleDataToPartner(){
   });
 
  });
-
 
  getMoments()
  .forEach(moment=>{
@@ -4863,7 +4227,6 @@ function saveStory(){
    "storyInput"
   ).value.trim();
 
-
  if(!story){
 
   toast(
@@ -4874,15 +4237,12 @@ function saveStory(){
 
  }
 
-
  localStorage.setItem(
   "dujon_story",
   story
  );
 
-
  renderStory();
-
 
  sendToRoom({
 
@@ -4891,7 +4251,6 @@ function saveStory(){
   story
 
  });
-
 
  toast(
   "📖 Story Save & Share হয়েছে"
@@ -4907,12 +4266,10 @@ function renderStory(){
    "dujon_story"
   );
 
-
  document.getElementById(
   "storyInput"
  ).value=
   story||"";
-
 
  document.getElementById(
   "storyDisplay"
@@ -4951,59 +4308,41 @@ function addMemory(event){
  const file=
   event.target.files[0];
 
-
  if(!file)return;
-
 
  const reader=
   new FileReader();
 
-
  reader.onload=e=>{
 
-  const img=
-   new Image();
-
+  const img=new Image();
 
   img.onload=()=>{
 
    const canvas=
-    document.createElement(
-     "canvas"
-    );
-
+    document.createElement("canvas");
 
    const max=600;
 
    let w=img.width;
    let h=img.height;
 
-
-   if(
-    w>h&&
-    w>max
-   ){
+   if(w>h&&w>max){
 
     h=h*max/w;
     w=max;
 
    }
 
-
-   if(
-    h>=w&&
-    h>max
-   ){
+   if(h>=w&&h>max){
 
     w=w*max/h;
     h=max;
 
    }
 
-
    canvas.width=w;
    canvas.height=h;
-
 
    canvas
     .getContext("2d")
@@ -5015,19 +4354,16 @@ function addMemory(event){
      h
     );
 
-
    const photo=
     canvas.toDataURL(
      "image/jpeg",
      .55
     );
 
-
    const caption=
     document.getElementById(
      "memoryCaption"
     ).value.trim();
-
 
    const memory={
 
@@ -5041,47 +4377,32 @@ function addMemory(event){
 
     time:
      new Date()
-     .toLocaleDateString(
-      "bn-BD"
-     )
+     .toLocaleDateString("bn-BD")
 
    };
 
-
-   const memories=
-    getMemories();
-
+   const memories=getMemories();
 
    memories.push(memory);
 
-
-   if(
-    memories.length>30
-   ){
-
+   if(memories.length>30){
     memories.shift();
-
    }
-
 
    localStorage.setItem(
     "dujon_memories",
     JSON.stringify(memories)
    );
 
-
    document.getElementById(
     "memoryCaption"
    ).value="";
-
 
    document.getElementById(
     "memoryInput"
    ).value="";
 
-
    renderMemories();
-
 
    sendToRoom({
 
@@ -5097,18 +4418,15 @@ function addMemory(event){
 
    });
 
-
    toast(
     "📸 Shared Memory পাঠানো হয়েছে"
    );
 
   };
 
-
   img.src=e.target.result;
 
  };
-
 
  reader.readAsDataURL(file);
 
@@ -5122,13 +4440,10 @@ function renderMemories(){
    "memoryGrid"
   );
 
-
  const memories=
   getMemories();
 
-
  box.innerHTML="";
-
 
  memories
  .slice()
@@ -5139,16 +4454,10 @@ function renderMemories(){
    const realIndex=
     memories.length-1-index;
 
-
    const div=
-    document.createElement(
-     "div"
-    );
+    document.createElement("div");
 
-
-   div.className=
-    "memory";
-
+   div.className="memory";
 
    div.innerHTML=`
 
@@ -5177,7 +4486,6 @@ function renderMemories(){
 
    `;
 
-
    box.appendChild(div);
 
   }
@@ -5188,21 +4496,14 @@ function renderMemories(){
 
 function deleteMemory(index){
 
- const memories=
-  getMemories();
+ const memories=getMemories();
 
-
- memories.splice(
-  index,
-  1
- );
-
+ memories.splice(index,1);
 
  localStorage.setItem(
   "dujon_memories",
   JSON.stringify(memories)
  );
-
 
  renderMemories();
 
@@ -5243,10 +4544,8 @@ function addMoment(){
    "momentInput"
   );
 
-
  const text=
   input.value.trim();
-
 
  if(!text){
 
@@ -5257,7 +4556,6 @@ function addMoment(){
   return;
 
  }
-
 
  const moment={
 
@@ -5271,34 +4569,22 @@ function addMoment(){
 
  };
 
-
- const moments=
-  getMoments();
-
+ const moments=getMoments();
 
  moments.push(moment);
 
-
- if(
-  moments.length>50
- ){
-
+ if(moments.length>50){
   moments.shift();
-
  }
-
 
  localStorage.setItem(
   "dujon_moments",
   JSON.stringify(moments)
  );
 
-
  input.value="";
 
-
  renderMoments();
-
 
  sendToRoom({
 
@@ -5311,7 +4597,6 @@ function addMoment(){
   time:moment.time
 
  });
-
 
  toast(
   "⭐ Favorite Moment Share হয়েছে"
@@ -5327,13 +4612,9 @@ function renderMoments(){
    "momentsList"
   );
 
-
- const moments=
-  getMoments();
-
+ const moments=getMoments();
 
  box.innerHTML="";
-
 
  moments
  .slice()
@@ -5344,16 +4625,10 @@ function renderMoments(){
    const realIndex=
     moments.length-1-index;
 
-
    const div=
-    document.createElement(
-     "div"
-    );
+    document.createElement("div");
 
-
-   div.className=
-    "moment";
-
+   div.className="moment";
 
    div.innerHTML=`
 
@@ -5372,7 +4647,6 @@ function renderMoments(){
 
    `;
 
-
    box.appendChild(div);
 
   }
@@ -5383,21 +4657,14 @@ function renderMoments(){
 
 function deleteMoment(index){
 
- const moments=
-  getMoments();
+ const moments=getMoments();
 
-
- moments.splice(
-  index,
-  1
- );
-
+ moments.splice(index,1);
 
  localStorage.setItem(
   "dujon_moments",
   JSON.stringify(moments)
  );
-
 
  renderMoments();
 
@@ -5437,9 +4704,7 @@ function saveCallHistory(
  status
 ){
 
- const history=
-  getCallHistory();
-
+ const history=getCallHistory();
 
  history.push({
 
@@ -5455,13 +4720,9 @@ function saveCallHistory(
 
  });
 
-
  if(history.length>50){
-
   history.shift();
-
  }
-
 
  localStorage.setItem(
   "dujon_call_history",
@@ -5489,13 +4750,9 @@ function renderCallHistory(){
    "callHistoryList"
   );
 
-
- const history=
-  getCallHistory();
-
+ const history=getCallHistory();
 
  box.innerHTML="";
-
 
  if(!history.length){
 
@@ -5506,21 +4763,15 @@ function renderCallHistory(){
 
  }
 
-
  history
  .slice()
  .reverse()
  .forEach(item=>{
 
   const div=
-   document.createElement(
-    "div"
-   );
+   document.createElement("div");
 
-
-  div.className=
-   "history-item";
-
+  div.className="history-item";
 
   div.innerHTML=`
 
@@ -5549,7 +4800,6 @@ function renderCallHistory(){
 
   `;
 
-
   box.appendChild(div);
 
  });
@@ -5565,11 +4815,9 @@ function clearCallHistory(){
   )
  )return;
 
-
  localStorage.removeItem(
   "dujon_call_history"
  );
-
 
  renderCallHistory();
 
@@ -5594,7 +4842,6 @@ async function getLocalMedia(type){
 
  }
 
-
  localStream=
   await navigator
   .mediaDevices
@@ -5610,12 +4857,10 @@ async function getLocalMedia(type){
    }
   );
 
-
  const local=
   document.getElementById(
    "localVideo"
   );
-
 
  local.srcObject=
   type==="video"?
@@ -5632,7 +4877,6 @@ function createPeerConnection(type){
    rtcConfig
   );
 
-
  localStream
  .getTracks()
  .forEach(track=>{
@@ -5644,7 +4888,6 @@ function createPeerConnection(type){
 
  });
 
-
  peerConnection.ontrack=e=>{
 
   const remote=
@@ -5652,10 +4895,8 @@ function createPeerConnection(type){
     "remoteVideo"
    );
 
-
   remote.srcObject=
    e.streams[0];
-
 
   remote.play().catch(
    ()=>{}
@@ -5663,11 +4904,9 @@ function createPeerConnection(type){
 
  };
 
-
  peerConnection.onicecandidate=e=>{
 
   if(!e.candidate)return;
-
 
   sendToRoom({
 
@@ -5684,18 +4923,15 @@ function createPeerConnection(type){
 
  };
 
-
  peerConnection.onconnectionstatechange=()=>{
 
   if(peerConnection){
 
    setCallStatus(
-    peerConnection
-    .connectionState
+    peerConnection.connectionState
    );
 
   }
-
 
   if(
    peerConnection&&
@@ -5704,8 +4940,7 @@ function createPeerConnection(type){
     "disconnected",
     "closed"
    ].includes(
-    peerConnection
-    .connectionState
+    peerConnection.connectionState
    )
   ){
 
@@ -5722,23 +4957,13 @@ async function makeCall(type){
 
  callType=type;
 
-
  try{
 
-  await getLocalMedia(
-   type
-  );
+  await getLocalMedia(type);
 
+  createPeerConnection(type);
 
-  createPeerConnection(
-   type
-  );
-
-
-  showCallScreen(
-   type
-  );
-
+  showCallScreen(type);
 
   saveCallHistory(
    type,
@@ -5746,17 +4971,12 @@ async function makeCall(type){
    "Calling"
   );
 
-
   const offer=
-   await peerConnection
-   .createOffer();
+   await peerConnection.createOffer();
 
-
-  await peerConnection
-   .setLocalDescription(
-    offer
-   );
-
+  await peerConnection.setLocalDescription(
+   offer
+  );
 
   sendToRoom({
 
@@ -5771,13 +4991,11 @@ async function makeCall(type){
 
   });
 
-
-  setCallStatus(
-   "Ringing..."
-  );
-
+  setCallStatus("Ringing...");
 
  }catch(e){
+
+  console.log("Call Error:",e);
 
   toast(
    "Camera/Microphone permission দরকার"
@@ -5806,7 +5024,6 @@ function startVideoFromHome(){
 
  }
 
-
  makeCall("video");
 
 }
@@ -5828,7 +5045,6 @@ function startAudioFromHome(){
 
  }
 
-
  makeCall("audio");
 
 }
@@ -5839,26 +5055,17 @@ function handleCallSignal(
  type
 ){
 
- if(
-  data.action==="offer"
- ){
+ if(data.action==="offer"){
 
-  pendingOffer=
-   data.offer;
+  pendingOffer=data.offer;
 
-  pendingCallType=
-   type;
+  pendingCallType=type;
 
-  showIncomingCall(
-   type
-  );
+  showIncomingCall(type);
 
  }
 
-
- if(
-  data.action==="answer"
- ){
+ if(data.action==="answer"){
 
   handleAnswer(
    data.answer
@@ -5866,10 +5073,7 @@ function handleCallSignal(
 
  }
 
-
- if(
-  data.action==="ice"
- ){
+ if(data.action==="ice"){
 
   addIceCandidate(
    data.candidate
@@ -5877,10 +5081,7 @@ function handleCallSignal(
 
  }
 
-
- if(
-  data.action==="end"
- ){
+ if(data.action==="end"){
 
   endCall(false);
 
@@ -5896,14 +5097,12 @@ function showIncomingCall(type){
  ).textContent=
   partnerProfile.name;
 
-
  document.getElementById(
   "incomingType"
  ).textContent=
   type==="video"?
   "📹 Video Call করছে...":
   "📞 Audio Call করছে...";
-
 
  setAvatar(
   document.getElementById(
@@ -5912,20 +5111,15 @@ function showIncomingCall(type){
   partnerProfile.photo
  );
 
-
  document.getElementById(
   "incomingCall"
- ).classList.add(
-  "active"
- );
-
+ ).classList.add("active");
 
  saveCallHistory(
   type,
   "incoming",
   "Incoming"
  );
-
 
  if(navigator.vibrate){
 
@@ -5942,41 +5136,23 @@ async function acceptCall(){
 
  document.getElementById(
   "incomingCall"
- ).classList.remove(
-  "active"
- );
-
+ ).classList.remove("active");
 
  if(navigator.vibrate){
-
   navigator.vibrate(0);
-
  }
 
-
- const type=
-  pendingCallType;
-
+ const type=pendingCallType;
 
  callType=type;
 
-
  try{
 
-  await getLocalMedia(
-   type
-  );
+  await getLocalMedia(type);
 
+  createPeerConnection(type);
 
-  createPeerConnection(
-   type
-  );
-
-
-  showCallScreen(
-   type
-  );
-
+  showCallScreen(type);
 
   await peerConnection
    .setRemoteDescription(
@@ -5985,17 +5161,14 @@ async function acceptCall(){
     )
    );
 
-
   const answer=
    await peerConnection
    .createAnswer();
-
 
   await peerConnection
    .setLocalDescription(
     answer
    );
-
 
   sendToRoom({
 
@@ -6010,13 +5183,11 @@ async function acceptCall(){
 
   });
 
-
-  setCallStatus(
-   "Connected"
-  );
-
+  setCallStatus("Connected");
 
  }catch(e){
+
+  console.log("Accept Call Error:",e);
 
   toast(
    "Call গ্রহণ করা যায়নি"
@@ -6033,17 +5204,11 @@ function rejectCall(){
 
  document.getElementById(
   "incomingCall"
- ).classList.remove(
-  "active"
- );
-
+ ).classList.remove("active");
 
  if(navigator.vibrate){
-
   navigator.vibrate(0);
-
  }
-
 
  pendingOffer=null;
  pendingCallType=null;
@@ -6055,7 +5220,6 @@ async function handleAnswer(answer){
 
  if(!peerConnection)return;
 
-
  await peerConnection
   .setRemoteDescription(
    new RTCSessionDescription(
@@ -6063,23 +5227,17 @@ async function handleAnswer(answer){
    )
   );
 
-
- setCallStatus(
-  "Connected"
- );
+ setCallStatus("Connected");
 
 }
 
 
-async function addIceCandidate(
- candidate
-){
+async function addIceCandidate(candidate){
 
  if(
   !peerConnection||
   !candidate
  )return;
-
 
  try{
 
@@ -6099,26 +5257,17 @@ function showCallScreen(type){
 
  document.getElementById(
   "videoCallScreen"
- ).classList.remove(
-  "active"
- );
-
+ ).classList.remove("active");
 
  document.getElementById(
   "audioCallScreen"
- ).classList.remove(
-  "active"
- );
-
+ ).classList.remove("active");
 
  if(type==="video"){
 
   document.getElementById(
    "videoCallScreen"
-  ).classList.add(
-   "active"
-  );
-
+  ).classList.add("active");
 
   document.getElementById(
    "videoCallName"
@@ -6129,10 +5278,7 @@ function showCallScreen(type){
 
   document.getElementById(
    "audioCallScreen"
-  ).classList.add(
-   "active"
-  );
-
+  ).classList.add("active");
 
   document.getElementById(
    "audioCallName"
@@ -6140,7 +5286,6 @@ function showCallScreen(type){
    partnerProfile.name;
 
  }
-
 
  startCallTimer();
 
@@ -6151,14 +5296,11 @@ function setCallStatus(status){
 
  document.getElementById(
   "videoCallStatus"
- ).textContent=
-  status;
-
+ ).textContent=status;
 
  document.getElementById(
   "audioCallStatus"
- ).textContent=
-  status;
+ ).textContent=status;
 
 }
 
@@ -6169,15 +5311,12 @@ function startCallTimer(){
   callTimerInterval
  );
 
-
  callSeconds=0;
-
 
  callTimerInterval=
   setInterval(()=>{
 
    callSeconds++;
-
 
    const m=
     String(
@@ -6186,24 +5325,20 @@ function startCallTimer(){
      )
     ).padStart(2,"0");
 
-
    const s=
     String(
      callSeconds%60
     ).padStart(2,"0");
-
 
    document.getElementById(
     "videoTimer"
    ).textContent=
     m+":"+s;
 
-
    document.getElementById(
     "audioTimer"
    ).textContent=
     m+":"+s;
-
 
   },1000);
 
@@ -6214,17 +5349,14 @@ function toggleMic(){
 
  if(!localStream)return;
 
-
  const track=
   localStream
   .getAudioTracks()[0];
-
 
  if(track){
 
   track.enabled=
    !track.enabled;
-
 
   toast(
    track.enabled?
@@ -6241,17 +5373,14 @@ function toggleCamera(){
 
  if(!localStream)return;
 
-
  const track=
   localStream
   .getVideoTracks()[0];
-
 
  if(track){
 
   track.enabled=
    !track.enabled;
-
 
   toast(
    track.enabled?
@@ -6264,9 +5393,7 @@ function toggleCamera(){
 }
 
 
-function endCall(
- sendSignal=true
-){
+function endCall(sendSignal=true){
 
  if(sendSignal){
 
@@ -6283,7 +5410,6 @@ function endCall(
 
  }
 
-
  if(callType){
 
   saveCallHistory(
@@ -6294,11 +5420,9 @@ function endCall(
 
  }
 
-
  clearInterval(
   callTimerInterval
  );
-
 
  if(localStream){
 
@@ -6310,60 +5434,41 @@ function endCall(
 
  }
 
-
  if(peerConnection){
 
   try{
-
    peerConnection.close();
-
   }catch{}
 
  }
-
 
  peerConnection=null;
 
  localStream=null;
 
-
  document.getElementById(
   "remoteVideo"
  ).srcObject=null;
-
 
  document.getElementById(
   "localVideo"
  ).srcObject=null;
 
-
  document.getElementById(
   "videoCallScreen"
- ).classList.remove(
-  "active"
- );
-
+ ).classList.remove("active");
 
  document.getElementById(
   "audioCallScreen"
- ).classList.remove(
-  "active"
- );
-
+ ).classList.remove("active");
 
  document.getElementById(
   "incomingCall"
- ).classList.remove(
-  "active"
- );
-
+ ).classList.remove("active");
 
  if(navigator.vibrate){
-
   navigator.vibrate(0);
-
  }
-
 
  pendingOffer=null;
  pendingCallType=null;
@@ -6390,17 +5495,13 @@ window.addEventListener(
 
    updateTogetherDays();
 
-   showPage(
-    "homePage"
-   );
+   showPage("homePage");
 
    loadSocialData();
 
   }else{
 
-   showPage(
-    "loginPage"
-   );
+   showPage("loginPage");
 
   }
 
