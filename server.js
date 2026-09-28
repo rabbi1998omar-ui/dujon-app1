@@ -1,45 +1,13 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
+const crypto = require("crypto");
 const WebSocket = require("ws");
 
 const PORT = process.env.PORT || 8080;
 const ROOT = __dirname;
 
-const DATA_FILE = path.join(ROOT, "users.json");
-
-/* =========================
-   DATA STORAGE
-========================= */
-
-let users = {};
-
-function loadUsers() {
-  try {
-    if (fs.existsSync(DATA_FILE)) {
-      users = JSON.parse(
-        fs.readFileSync(DATA_FILE, "utf8")
-      );
-    }
-  } catch (error) {
-    console.log("Could not load users:", error.message);
-    users = {};
-  }
-}
-
-function saveUsers() {
-  try {
-    fs.writeFileSync(
-      DATA_FILE,
-      JSON.stringify(users, null, 2),
-      "utf8"
-    );
-  } catch (error) {
-    console.log("Could not save users:", error.message);
-  }
-}
-
-loadUsers();
+const USERS_FILE = path.join(ROOT, "users.json");
 
 /* =========================
    MIME TYPES
@@ -60,15 +28,77 @@ const contentTypes = {
 };
 
 /* =========================
-   HTTP HELPERS
+   USER DATABASE
 ========================= */
+
+function loadUsers() {
+  try {
+    if (!fs.existsSync(USERS_FILE)) {
+      fs.writeFileSync(
+        USERS_FILE,
+        JSON.stringify({ users: {} }, null, 2)
+      );
+    }
+
+    return JSON.parse(
+      fs.readFileSync(USERS_FILE, "utf8")
+    );
+  } catch (error) {
+    console.log("Users database error:", error.message);
+    return { users: {} };
+  }
+}
+
+let userDB = loadUsers();
+
+function saveUsers() {
+  try {
+    fs.writeFileSync(
+      USERS_FILE,
+      JSON.stringify(userDB, null, 2)
+    );
+  } catch (error) {
+    console.log("Save users error:", error.message);
+  }
+}
+
+/* =========================
+   HELPERS
+========================= */
+
+function hashPin(pin) {
+  return crypto
+    .createHash("sha256")
+    .update(String(pin))
+    .digest("hex");
+}
+
+function normalizeUsername(username) {
+  return String(username || "")
+    .trim()
+    .toLowerCase();
+}
+
+function validUsername(username) {
+  return /^[a-z0-9_]{3,20}$/.test(username);
+}
+
+function publicUser(user) {
+  if (!user) return null;
+
+  return {
+    username: user.username,
+    name: user.name || user.username,
+    photo: user.photo || ""
+  };
+}
 
 function sendJSON(res, status, data) {
   res.writeHead(status, {
     "Content-Type": "application/json; charset=utf-8",
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Headers": "Content-Type",
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS"
+    "Access-Control-Allow-Methods": "GET,POST,OPTIONS"
   });
 
   res.end(JSON.stringify(data));
@@ -76,22 +106,59 @@ function sendJSON(res, status, data) {
 
 function readBody(req) {
   return new Promise((resolve, reject) => {
+
     let body = "";
 
     req.on("data", chunk => {
-      body += chunk;
+      body += chunk.toString();
+
+      if (body.length > 1024 * 1024) {
+        reject(new Error("Request too large"));
+        req.destroy();
+      }
     });
 
     req.on("end", () => {
+
       try {
         resolve(body ? JSON.parse(body) : {});
       } catch {
         reject(new Error("Invalid JSON"));
       }
+
     });
 
     req.on("error", reject);
   });
+}
+
+/* =========================
+   AUTHENTICATION
+========================= */
+
+function findUserByPhone(phone) {
+
+  const allUsers = Object.values(userDB.users);
+
+  return allUsers.find(
+    user => user.phone === String(phone)
+  );
+}
+
+function checkLogin(phone, pin) {
+
+  const user = findUserByPhone(phone);
+
+  if (!user) return null;
+
+  if (
+    user.pinHash !==
+    hashPin(pin)
+  ) {
+    return null;
+  }
+
+  return user;
 }
 
 /* =========================
@@ -100,40 +167,29 @@ function readBody(req) {
 
 const httpServer = http.createServer(async (req, res) => {
 
-  let requestPath = req.url.split("?")[0];
-
   /* OPTIONS */
+
   if (req.method === "OPTIONS") {
+
     res.writeHead(204, {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Headers": "Content-Type",
-      "Access-Control-Allow-Methods": "GET, POST, OPTIONS"
+      "Access-Control-Allow-Methods": "GET,POST,OPTIONS"
     });
 
     res.end();
     return;
   }
 
-  /* =========================
-     HEALTH
-  ========================= */
 
-  if (requestPath === "/health") {
-    sendJSON(res, 200, {
-      ok: true,
-      server: "Dujon Server",
-      users: Object.keys(users).length
-    });
-
-    return;
-  }
+  let requestPath = req.url.split("?")[0];
 
   /* =========================
-     CREATE USER
+     API: SAVE PROFILE
   ========================= */
 
   if (
-    requestPath === "/api/user/create" &&
+    requestPath === "/api/profile" &&
     req.method === "POST"
   ) {
 
@@ -141,179 +197,253 @@ const httpServer = http.createServer(async (req, res) => {
 
       const body = await readBody(req);
 
-      const userId = String(
-        body.userId || ""
+      const phone = String(
+        body.phone || ""
       ).trim();
 
-      const username = String(
-        body.username || ""
-      )
-        .trim()
-        .toLowerCase()
-        .replace(/^@/, "");
-
-      const name = String(
-        body.name || ""
+      const pin = String(
+        body.pin || ""
       ).trim();
 
-      if (!userId) {
+      const username =
+        normalizeUsername(body.username);
+
+      const name =
+        String(body.name || "").trim();
+
+      const photo =
+        String(body.photo || "").trim();
+
+
+      if (!phone || !pin) {
+
         sendJSON(res, 400, {
           ok: false,
-          message: "User ID required"
+          message: "Phone এবং PIN প্রয়োজন"
         });
 
         return;
       }
 
-      if (!/^[a-z0-9_.]{3,20}$/.test(username)) {
+
+      if (!validUsername(username)) {
+
         sendJSON(res, 400, {
           ok: false,
           message:
-            "Username 3-20 characters হতে হবে"
+            "Username 3-20 অক্ষরের হতে হবে। শুধু a-z, 0-9 এবং _ ব্যবহার করো।"
         });
 
         return;
       }
 
-      /* Username already used? */
 
-      for (const id in users) {
+      let user = findUserByPhone(phone);
 
-        if (
-          id !== userId &&
-          users[id].username === username
-        ) {
+
+      /* নতুন user */
+
+      if (!user) {
+
+        if (userDB.users[username]) {
 
           sendJSON(res, 409, {
             ok: false,
-            message: "এই Username ইতিমধ্যে নেওয়া হয়েছে"
+            message: "এই Username আগে থেকেই আছে।"
           });
 
           return;
         }
-      }
 
-      if (!users[userId]) {
 
-        users[userId] = {
-          userId,
+        user = {
           username,
+          phone,
+          pinHash: hashPin(pin),
           name: name || username,
-          photo: "",
+          photo,
           friends: [],
-          incomingRequests: [],
-          outgoingRequests: [],
-          createdAt: Date.now()
+          requests: []
         };
 
-      } else {
+        userDB.users[username] = user;
 
-        users[userId].username = username;
+        saveUsers();
 
-        if (name) {
-          users[userId].name = name;
-        }
+
+        sendJSON(res, 200, {
+          ok: true,
+          message: "Account profile তৈরি হয়েছে",
+          user: publicUser(user)
+        });
+
+        return;
+      }
+
+
+      /* পুরনো user-এর PIN check */
+
+      if (user.pinHash !== hashPin(pin)) {
+
+        sendJSON(res, 401, {
+          ok: false,
+          message: "PIN ভুল"
+        });
+
+        return;
+      }
+
+
+      /* Username পরিবর্তন হলে */
+
+      if (
+        user.username !== username &&
+        userDB.users[username]
+      ) {
+
+        sendJSON(res, 409, {
+          ok: false,
+          message: "এই Username আগে থেকেই ব্যবহার করা হয়েছে।"
+        });
+
+        return;
+      }
+
+
+      if (user.username !== username) {
+
+        const oldUsername = user.username;
+
+        delete userDB.users[oldUsername];
+
+        user.username = username;
+
+        userDB.users[username] = user;
+
+
+        /* Friends update */
+
+        Object.values(userDB.users).forEach(other => {
+
+          if (other.friends.includes(oldUsername)) {
+
+            other.friends =
+              other.friends.map(
+                x =>
+                  x === oldUsername
+                    ? username
+                    : x
+              );
+          }
+
+
+          if (other.requests.includes(oldUsername)) {
+
+            other.requests =
+              other.requests.map(
+                x =>
+                  x === oldUsername
+                    ? username
+                    : x
+              );
+          }
+
+        });
 
       }
+
+
+      user.name =
+        name || user.name || username;
+
+      user.photo = photo || user.photo || "";
+
 
       saveUsers();
 
+
       sendJSON(res, 200, {
         ok: true,
-        user: users[userId]
+        message: "Profile saved",
+        user: publicUser(user)
       });
 
-      console.log(
-        "User created:",
-        username
-      );
-
-      return;
 
     } catch (error) {
 
-      sendJSON(res, 400, {
+      sendJSON(res, 500, {
         ok: false,
-        message: "Invalid request"
+        message: "Server error"
       });
 
-      return;
     }
+
+    return;
   }
 
+
   /* =========================
-     SEARCH USER
+     API: SEARCH USER
   ========================= */
 
   if (
-    requestPath === "/api/user/search" &&
+    requestPath === "/api/search" &&
     req.method === "GET"
   ) {
 
-    const url = new URL(
-      req.url,
-      `http://${req.headers.host}`
-    );
+    const url =
+      new URL(
+        req.url,
+        `http://${req.headers.host}`
+      );
 
-    const username = String(
-      url.searchParams.get("username") || ""
-    )
-      .trim()
-      .toLowerCase()
-      .replace(/^@/, "");
+    const username =
+      normalizeUsername(
+        url.searchParams.get("username")
+      );
 
-    const currentUserId =
-      url.searchParams.get("userId") || "";
 
-    let found = null;
+    if (!username) {
 
-    for (const id in users) {
-
-      if (
-        users[id].username === username
-      ) {
-
-        if (id === currentUserId) {
-          found = null;
-        } else {
-
-          found = {
-            userId: users[id].userId,
-            username: users[id].username,
-            name: users[id].name,
-            photo: users[id].photo || ""
-          };
-
-        }
-
-        break;
-      }
-    }
-
-    if (!found) {
-
-      sendJSON(res, 404, {
+      sendJSON(res, 400, {
         ok: false,
-        message: "User পাওয়া যায়নি"
+        message: "Username দাও"
       });
 
       return;
     }
 
+
+    const user =
+      userDB.users[username];
+
+
+    if (!user) {
+
+      sendJSON(res, 404, {
+        ok: false,
+        message: "এই Username পাওয়া যায়নি।"
+      });
+
+      return;
+    }
+
+
     sendJSON(res, 200, {
       ok: true,
-      user: found
+      user: publicUser(user)
     });
 
     return;
   }
 
+
   /* =========================
-     SEND FRIEND REQUEST
+     API: GET SOCIAL DATA
   ========================= */
 
   if (
-    requestPath === "/api/friend/request" &&
+    requestPath === "/api/social" &&
     req.method === "POST"
   ) {
 
@@ -321,112 +451,75 @@ const httpServer = http.createServer(async (req, res) => {
 
       const body = await readBody(req);
 
-      const fromId =
-        String(body.fromId || "").trim();
+      const phone =
+        String(body.phone || "").trim();
 
-      const toId =
-        String(body.toId || "").trim();
+      const pin =
+        String(body.pin || "").trim();
 
-      if (
-        !fromId ||
-        !toId ||
-        !users[fromId] ||
-        !users[toId]
-      ) {
 
-        sendJSON(res, 400, {
+      const user =
+        checkLogin(phone, pin);
+
+
+      if (!user) {
+
+        sendJSON(res, 401, {
           ok: false,
-          message: "User পাওয়া যায়নি"
+          message: "Login তথ্য ভুল"
         });
 
         return;
       }
 
-      if (fromId === toId) {
 
-        sendJSON(res, 400, {
-          ok: false,
-          message: "নিজেকে Friend করা যাবে না"
-        });
+      const friends =
+        user.friends
+          .map(username =>
+            publicUser(
+              userDB.users[username]
+            )
+          )
+          .filter(Boolean);
 
-        return;
-      }
 
-      const fromUser = users[fromId];
-      const toUser = users[toId];
+      const requests =
+        user.requests
+          .map(username =>
+            publicUser(
+              userDB.users[username]
+            )
+          )
+          .filter(Boolean);
 
-      if (
-        fromUser.friends.includes(toId)
-      ) {
-
-        sendJSON(res, 400, {
-          ok: false,
-          message: "তোমরা ইতিমধ্যে Friend"
-        });
-
-        return;
-      }
-
-      if (
-        fromUser.outgoingRequests.includes(toId)
-      ) {
-
-        sendJSON(res, 400, {
-          ok: false,
-          message: "Friend Request আগেই পাঠানো হয়েছে"
-        });
-
-        return;
-      }
-
-      if (
-        toUser.incomingRequests.includes(fromId)
-      ) {
-
-        sendJSON(res, 400, {
-          ok: false,
-          message: "Friend Request আগেই পাঠানো হয়েছে"
-        });
-
-        return;
-      }
-
-      fromUser.outgoingRequests.push(toId);
-      toUser.incomingRequests.push(fromId);
-
-      saveUsers();
 
       sendJSON(res, 200, {
         ok: true,
-        message: "Friend Request পাঠানো হয়েছে"
+        user: publicUser(user),
+        friends,
+        requests
       });
 
-      console.log(
-        "Friend request:",
-        fromUser.username,
-        "->",
-        toUser.username
-      );
-
-      return;
 
     } catch {
 
-      sendJSON(res, 400, {
+      sendJSON(res, 500, {
         ok: false,
-        message: "Invalid request"
+        message: "Server error"
       });
 
-      return;
     }
+
+    return;
   }
 
+
   /* =========================
-     ACCEPT FRIEND REQUEST
+     API: FRIEND REQUEST
   ========================= */
 
   if (
-    requestPath === "/api/friend/accept" &&
+    requestPath === "/api/friend-request" &&
     req.method === "POST"
   ) {
 
@@ -434,106 +527,66 @@ const httpServer = http.createServer(async (req, res) => {
 
       const body = await readBody(req);
 
-      const userId =
-        String(body.userId || "").trim();
+      const phone =
+        String(body.phone || "").trim();
 
-      const requesterId =
-        String(body.requesterId || "").trim();
+      const pin =
+        String(body.pin || "").trim();
 
-      if (
-        !users[userId] ||
-        !users[requesterId]
-      ) {
+      const toUsername =
+        normalizeUsername(
+          body.toUsername
+        );
 
-        sendJSON(res, 400, {
+
+      const fromUser =
+        checkLogin(phone, pin);
+
+
+      if (!fromUser) {
+
+        sendJSON(res, 401, {
           ok: false,
-          message: "User পাওয়া যায়নি"
+          message: "Login তথ্য ভুল"
         });
 
         return;
       }
 
-      const user = users[userId];
-      const requester = users[requesterId];
+
+      const target =
+        userDB.users[toUsername];
+
+
+      if (!target) {
+
+        sendJSON(res, 404, {
+          ok: false,
+          message: "User পাওয়া যায়নি।"
+        });
+
+        return;
+      }
+
 
       if (
-        !user.incomingRequests.includes(
-          requesterId
+        fromUser.username ===
+        target.username
+      ) {
+
+        sendJSON(res, 400, {
+          ok: false,
+          message: "নিজেকে Friend Request পাঠানো যাবে না।"
+        });
+
+        return;
+      }
+
+
+      if (
+        fromUser.friends.includes(
+          target.username
         )
       ) {
 
-        sendJSON(res, 400, {
-          ok: false,
-          message: "Friend Request পাওয়া যায়নি"
-        });
-
-        return;
-      }
-
-      user.incomingRequests =
-        user.incomingRequests.filter(
-          id => id !== requesterId
-        );
-
-      requester.outgoingRequests =
-        requester.outgoingRequests.filter(
-          id => id !== userId
-        );
-
-      if (!user.friends.includes(requesterId)) {
-        user.friends.push(requesterId);
-      }
-
-      if (!requester.friends.includes(userId)) {
-        requester.friends.push(userId);
-      }
-
-      saveUsers();
-
-      sendJSON(res, 200, {
-        ok: true,
-        message: "Friend Request Accept হয়েছে"
-      });
-
-      console.log(
-        "Friend accepted:",
-        user.username,
-        "<->",
-        requester.username
-      );
-
-      return;
-
-    } catch {
-
-      sendJSON(res, 400, {
-        ok: false,
-        message: "Invalid request"
-      });
-
-      return;
-    }
-  }
-
-  /* =========================
-     REJECT FRIEND REQUEST
-  ========================= */
-
-  if (
-    requestPath === "/api/friend/reject" &&
-    req.method === "POST"
-  ) {
-
-    try {
-
-      const body = await readBody(req);
-
-      const userId =
-        String(body.userId || "").trim();
-
-      const requesterId =
-        String(body.requesterId || "").trim();
-
-      if (
-        !users[userId] ||
-        !users[requesterId]
+        sendJSON(res,
