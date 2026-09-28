@@ -2,193 +2,516 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#090912">
 
 <link rel="manifest" href="/manifest.json">
-
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 
 <title>দুজন ❤️</title>
 
 <style>
-
 *{
   box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
   margin:0;
   padding:0;
+  width:100%;
+  min-height:100%;
+  font-family:Arial,"Noto Sans Bengali",sans-serif;
+  background:#07070d;
+  color:#fff;
 }
 
 body{
-  font-family:Arial,sans-serif;
-  background:
-    radial-gradient(circle at top,#24143d,#090912 55%);
-  color:#fff;
-  min-height:100vh;
+  overflow-x:hidden;
 }
 
-button,
-input{
+button,input{
   font:inherit;
 }
 
 button{
+  border:0;
   cursor:pointer;
 }
 
-.hidden{
-  display:none!important;
-}
-
 .page{
+  display:none;
   min-height:100vh;
   padding:20px;
-  padding-bottom:90px;
+  padding-bottom:95px;
+}
+
+.page.active{
+  display:block;
+  animation:pageIn .45s ease;
+}
+
+@keyframes pageIn{
+  from{
+    opacity:0;
+    transform:translateY(18px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.bg{
+  position:fixed;
+  inset:0;
+  z-index:-10;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 20% 10%,rgba(255,45,115,.15),transparent 35%),
+    radial-gradient(circle at 85% 25%,rgba(139,92,246,.15),transparent 35%),
+    #07070d;
+}
+
+.orb{
+  position:absolute;
+  width:240px;
+  height:240px;
+  border-radius:50%;
+  filter:blur(65px);
+  opacity:.35;
+  animation:orbMove 9s infinite alternate ease-in-out;
+}
+
+.orb.one{
+  background:#ff2775;
+  left:-90px;
+  top:10%;
+}
+
+.orb.two{
+  background:#7c3aed;
+  right:-100px;
+  top:45%;
+  animation-delay:2s;
+}
+
+.orb.three{
+  background:#ec4899;
+  left:25%;
+  bottom:-130px;
+  animation-delay:4s;
+}
+
+@keyframes orbMove{
+  from{
+    transform:translate(0,0) scale(1);
+  }
+  to{
+    transform:translate(35px,-25px) scale(1.15);
+  }
 }
 
 .card{
-  background:rgba(255,255,255,.07);
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:22px;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.09);
   backdrop-filter:blur(18px);
   -webkit-backdrop-filter:blur(18px);
-  box-shadow:0 15px 45px rgba(0,0,0,.35);
+  border-radius:24px;
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
 }
 
-.auth-page{
+/* AUTH */
+
+.auth{
+  min-height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
-  min-height:100vh;
   padding:20px;
 }
 
 .auth-card{
   width:100%;
   max-width:420px;
-  padding:28px;
+  padding:30px 22px;
+  text-align:center;
 }
 
 .logo{
-  text-align:center;
-  font-size:42px;
-  margin-bottom:8px;
+  width:82px;
+  height:82px;
+  border-radius:27px;
+  margin:0 auto 18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:38px;
+  background:linear-gradient(135deg,#ff3d78,#8b5cf6);
+  box-shadow:0 0 45px rgba(255,61,120,.3);
+  animation:logoPulse 2.8s infinite;
 }
 
-.title{
-  text-align:center;
-  font-size:28px;
-  font-weight:800;
+@keyframes logoPulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.06)}
 }
 
-.subtitle{
-  text-align:center;
+.auth-title{
+  font-size:30px;
+  margin:0 0 8px;
+}
+
+.auth-sub{
   color:#aaa;
-  margin:8px 0 25px;
+  margin:0 0 25px;
+  line-height:1.6;
 }
 
 .input{
   width:100%;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.06);
-  color:#fff;
-  border-radius:14px;
-  padding:14px;
+  padding:15px 16px;
   margin-bottom:12px;
+  border-radius:15px;
+  border:1px solid rgba(255,255,255,.1);
   outline:none;
+  color:#fff;
+  background:rgba(255,255,255,.06);
 }
 
 .input:focus{
-  border-color:#ff4f91;
+  border-color:#ff3d78;
+  box-shadow:0 0 0 3px rgba(255,61,120,.1);
 }
 
-.main-btn{
+.primary{
   width:100%;
-  border:0;
+  padding:15px;
   border-radius:15px;
+  color:#fff;
+  font-weight:bold;
+  background:linear-gradient(135deg,#ff3d78,#8b5cf6);
+  box-shadow:0 12px 30px rgba(255,61,120,.2);
+  transition:.25s;
+}
+
+.primary:active{
+  transform:scale(.97);
+}
+
+.secondary{
+  width:100%;
   padding:14px;
-  color:#fff;
-  font-weight:700;
-  background:linear-gradient(135deg,#ff2f75,#8f3cff);
-  margin-top:5px;
-}
-
-.secondary-btn{
-  width:100%;
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:15px;
-  padding:13px;
-  color:#fff;
-  background:rgba(255,255,255,.06);
   margin-top:10px;
+  border-radius:15px;
+  color:#fff;
+  background:rgba(255,255,255,.07);
 }
 
-.small-btn{
-  border:0;
-  border-radius:10px;
-  padding:9px 13px;
-  color:#fff;
-  background:linear-gradient(135deg,#ff397d,#8d3cff);
+.switch{
+  margin-top:20px;
+  color:#aaa;
+  font-size:14px;
 }
+
+.switch span{
+  color:#ff6b9a;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+/* TOP */
 
 .topbar{
+  max-width:700px;
+  margin:0 auto 20px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  margin-bottom:20px;
 }
 
-.topbar h2{
-  font-size:23px;
+.top-title{
+  font-size:25px;
+  font-weight:800;
 }
 
 .icon-btn{
-  width:42px;
-  height:42px;
-  border:0;
-  border-radius:50%;
+  width:44px;
+  height:44px;
+  border-radius:15px;
+  background:rgba(255,255,255,.07);
   color:#fff;
-  background:rgba(255,255,255,.08);
+  font-size:20px;
 }
 
-.hero{
-  padding:25px;
+/* HOME */
+
+.home-hero{
+  position:relative;
+  max-width:700px;
+  margin:10px auto 20px;
+  padding:34px 20px 32px;
   text-align:center;
-  margin-bottom:18px;
+  overflow:hidden;
 }
 
-.hero h1{
-  font-size:30px;
-  margin-bottom:8px;
+.home-hero::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:28px;
+  padding:1px;
+  background:linear-gradient(
+    120deg,
+    rgba(255,61,120,.5),
+    transparent,
+    rgba(139,92,246,.5)
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  pointer-events:none;
 }
 
-.hero p{
-  color:#aaa;
+.profile-orbit{
+  position:relative;
+  width:150px;
+  height:150px;
+  margin:5px auto 22px;
 }
 
-.profile-box{
-  padding:20px;
+.profile-orbit::before,
+.profile-orbit::after{
+  content:"";
+  position:absolute;
+  inset:-9px;
+  border-radius:50%;
+  border:1px solid rgba(255,61,120,.35);
+  animation:orbit 3s linear infinite;
+}
+
+.profile-orbit::after{
+  inset:-17px;
+  border-color:rgba(139,92,246,.25);
+  animation-duration:5s;
+  animation-direction:reverse;
+}
+
+@keyframes orbit{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+.home-profile-photo{
+  position:relative;
+  z-index:2;
+  width:150px;
+  height:150px;
+  object-fit:cover;
+  border-radius:50%;
+  border:4px solid rgba(255,255,255,.15);
+  box-shadow:
+    0 0 25px rgba(255,61,120,.35),
+    0 0 70px rgba(139,92,246,.2);
+  animation:photoFloat 3.5s ease-in-out infinite;
+}
+
+@keyframes photoFloat{
+  0%,100%{
+    transform:translateY(0);
+  }
+  50%{
+    transform:translateY(-7px);
+  }
+}
+
+.verified-dot{
+  position:absolute;
+  z-index:4;
+  right:2px;
+  bottom:7px;
+  width:34px;
+  height:34px;
+  border-radius:50%;
   display:flex;
   align-items:center;
-  gap:15px;
-  margin-bottom:18px;
+  justify-content:center;
+  background:linear-gradient(135deg,#ff3d78,#8b5cf6);
+  border:4px solid #101018;
+  font-size:14px;
+}
+
+.home-name{
+  margin:0;
+  font-size:29px;
+  font-weight:800;
+}
+
+.home-username{
+  margin-top:7px;
+  color:#ff78a7;
+  font-size:15px;
+}
+
+.home-caption{
+  margin:18px auto 0;
+  max-width:420px;
+  color:#aaa;
+  line-height:1.7;
+  font-size:14px;
+}
+
+.online-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-top:18px;
+  padding:9px 14px;
+  border-radius:30px;
+  background:rgba(34,197,94,.08);
+  border:1px solid rgba(34,197,94,.15);
+  color:#b8f7cb;
+  font-size:12px;
+}
+
+.online-dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#22c55e;
+  box-shadow:0 0 12px #22c55e;
+  animation:onlinePulse 1.5s infinite;
+}
+
+@keyframes onlinePulse{
+  50%{
+    transform:scale(1.5);
+    opacity:.5;
+  }
+}
+
+.heart{
+  position:absolute;
+  bottom:-30px;
+  font-size:18px;
+  opacity:0;
+  animation:heartFloat 6s linear infinite;
+  pointer-events:none;
+}
+
+.h1{left:10%;animation-delay:0s}
+.h2{left:25%;animation-delay:2s}
+.h3{left:72%;animation-delay:1s}
+.h4{left:88%;animation-delay:3s}
+.h5{left:48%;animation-delay:4s}
+
+@keyframes heartFloat{
+  0%{
+    transform:translateY(0) scale(.6) rotate(0);
+    opacity:0;
+  }
+  15%{
+    opacity:.7;
+  }
+  80%{
+    opacity:.3;
+  }
+  100%{
+    transform:translateY(-330px) scale(1.2) rotate(25deg);
+    opacity:0;
+  }
+}
+
+.feature-grid{
+  max-width:700px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.feature{
+  padding:20px;
+  min-height:125px;
+  transition:.3s;
+}
+
+.feature:active{
+  transform:scale(.97);
+}
+
+.feature-icon{
+  font-size:28px;
+  margin-bottom:12px;
+}
+
+.feature h3{
+  margin:0 0 6px;
+  font-size:16px;
+}
+
+.feature p{
+  margin:0;
+  color:#999;
+  font-size:12px;
+  line-height:1.5;
+}
+
+/* FRIENDS */
+
+.section{
+  max-width:700px;
+  margin:0 auto;
+}
+
+.section-title{
+  font-size:23px;
+  margin:22px 0 16px;
+}
+
+.sub-title{
+  color:#aaa;
+  font-size:14px;
+  margin:0 0 10px;
+}
+
+.search-row{
+  display:flex;
+  gap:8px;
+  margin-bottom:16px;
+}
+
+.search-row .input{
+  margin:0;
+}
+
+.search-btn{
+  width:52px;
+  border-radius:15px;
+  color:#fff;
+  background:linear-gradient(135deg,#ff3d78,#8b5cf6);
+}
+
+.user-card,
+.friend-card,
+.request-card{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:14px;
+  margin-bottom:10px;
 }
 
 .avatar{
-  width:58px;
-  height:58px;
+  width:52px;
+  height:52px;
   border-radius:50%;
   object-fit:cover;
-  background:#222;
-  border:2px solid rgba(255,255,255,.12);
-}
-
-.big-avatar{
-  width:100px;
-  height:100px;
-  border-radius:50%;
-  object-fit:cover;
+  flex-shrink:0;
 }
 
 .user-info{
@@ -198,499 +521,561 @@ button{
 
 .user-info strong{
   display:block;
-  font-size:17px;
-  margin-bottom:5px;
+  font-size:15px;
 }
 
 .user-info span{
   display:block;
-  color:#aaa;
-  font-size:13px;
+  color:#999;
+  font-size:12px;
+  margin-top:4px;
 }
 
-.section-title{
-  font-size:19px;
-  margin:18px 0 12px;
+.small-btn{
+  padding:9px 12px;
+  border-radius:12px;
+  color:#fff;
+  background:linear-gradient(135deg,#ff3d78,#8b5cf6);
+  font-size:12px;
+  white-space:nowrap;
 }
 
-.search-box{
-  display:flex;
-  gap:8px;
-  margin-bottom:15px;
+.accept-btn{
+  background:#22c55e;
 }
 
-.search-box .input{
-  margin:0;
-}
-
-.search-result{
-  padding:15px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.friend-card{
-  padding:14px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-bottom:10px;
-}
-
-.request-card{
-  padding:14px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-bottom:10px;
+.reject-btn{
+  background:#ef4444;
 }
 
 .request-actions{
   display:flex;
-  gap:7px;
+  gap:6px;
 }
 
-.bottom-nav{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  height:70px;
-  display:flex;
-  justify-content:space-around;
-  align-items:center;
-  background:rgba(9,9,18,.92);
-  border-top:1px solid rgba(255,255,255,.1);
-  backdrop-filter:blur(15px);
-  z-index:100;
+.request-actions button{
+  padding:8px 10px;
+  border-radius:10px;
+  color:#fff;
+  font-size:12px;
 }
 
-.nav-btn{
-  border:0;
-  background:none;
-  color:#999;
+/* CHAT */
+
+.chat-wrap{
+  max-width:700px;
+  margin:auto;
   display:flex;
   flex-direction:column;
-  align-items:center;
-  gap:3px;
-  font-size:11px;
-}
-
-.nav-btn span{
-  font-size:22px;
-}
-
-.nav-btn.active{
-  color:#ff4d91;
-}
-
-.chat-page{
-  padding:0;
-  padding-bottom:0;
-  height:100vh;
-  display:flex;
-  flex-direction:column;
+  min-height:calc(100vh - 120px);
 }
 
 .chat-header{
-  height:70px;
   display:flex;
   align-items:center;
-  gap:10px;
-  padding:10px 14px;
-  background:rgba(10,10,20,.95);
-  border-bottom:1px solid rgba(255,255,255,.08);
+  gap:12px;
+  padding:12px;
+  margin-bottom:12px;
 }
 
-.chat-header .user-info{
-  flex:1;
+.chat-header .avatar{
+  width:45px;
+  height:45px;
 }
 
 .chat-actions{
+  margin-left:auto;
   display:flex;
-  gap:7px;
+  gap:6px;
 }
 
-.chat-messages{
+.chat-actions button{
+  width:40px;
+  height:40px;
+  border-radius:13px;
+  color:#fff;
+  background:rgba(255,255,255,.07);
+}
+
+.messages{
   flex:1;
   overflow-y:auto;
-  padding:15px;
+  padding:10px 3px 15px;
 }
 
 .msg{
   max-width:78%;
   padding:11px 14px;
-  border-radius:17px;
-  margin-bottom:9px;
+  border-radius:18px;
+  margin:7px 0;
+  font-size:14px;
+  line-height:1.5;
   word-break:break-word;
 }
 
 .msg.me{
   margin-left:auto;
-  background:linear-gradient(135deg,#ff3478,#863bff);
+  background:linear-gradient(135deg,#ff3d78,#8b5cf6);
   border-bottom-right-radius:5px;
 }
 
 .msg.other{
   margin-right:auto;
-  background:rgba(255,255,255,.09);
+  background:rgba(255,255,255,.08);
   border-bottom-left-radius:5px;
 }
 
-.chat-input{
+.chat-input-row{
   display:flex;
   gap:8px;
   padding:10px;
-  background:rgba(9,9,18,.95);
-  border-top:1px solid rgba(255,255,255,.08);
+  border-radius:20px;
+  background:rgba(255,255,255,.06);
+  backdrop-filter:blur(15px);
 }
 
-.chat-input .input{
-  margin:0;
+.chat-input{
+  flex:1;
+  background:transparent;
+  border:0;
+  outline:none;
+  color:#fff;
+  padding:10px;
 }
 
 .send-btn{
-  width:50px;
-  border:0;
-  border-radius:14px;
-  background:#ff397d;
+  width:48px;
+  height:48px;
+  border-radius:15px;
+  background:linear-gradient(135deg,#ff3d78,#8b5cf6);
   color:#fff;
 }
 
-.profile-page{
+/* PROFILE */
+
+.profile-card{
   max-width:600px;
   margin:auto;
-}
-
-.profile-header{
-  text-align:center;
   padding:25px;
-  margin-bottom:18px;
 }
 
-.photo-upload{
-  display:inline-block;
-  margin-top:12px;
-  padding:9px 15px;
-  background:rgba(255,255,255,.08);
-  border-radius:12px;
-  cursor:pointer;
+.profile-center{
+  text-align:center;
+  margin-bottom:25px;
 }
 
-.photo-upload input{
+.profile-photo-wrap{
+  position:relative;
+  width:120px;
+  height:120px;
+  margin:0 auto 15px;
+}
+
+.profile-big{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid rgba(255,61,120,.5);
+  box-shadow:
+    0 0 35px rgba(255,61,120,.25);
+  background:#151520;
+}
+
+.photo-edit-btn{
+  position:absolute;
+  right:-2px;
+  bottom:2px;
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  color:#fff;
+  background:linear-gradient(135deg,#ff3d78,#8b5cf6);
+  border:4px solid #101018;
+  font-size:18px;
+  box-shadow:0 7px 20px rgba(0,0,0,.3);
+}
+
+.photo-hint{
+  color:#888;
+  font-size:12px;
+  margin-top:8px;
+}
+
+.profile-center h2{
+  margin:13px 0 5px;
+}
+
+.profile-center p{
+  color:#999;
+  margin:0;
+}
+
+.label{
+  display:block;
+  color:#aaa;
+  font-size:13px;
+  margin:12px 0 7px;
+}
+
+/* NAV */
+
+.bottom-nav{
+  position:fixed;
+  z-index:50;
+  left:50%;
+  bottom:12px;
+  transform:translateX(-50%);
+  width:calc(100% - 24px);
+  max-width:650px;
+  height:66px;
+  padding:7px;
+  display:flex;
+  gap:5px;
+  border-radius:22px;
+  background:rgba(15,15,24,.88);
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  box-shadow:0 15px 50px rgba(0,0,0,.45);
+}
+
+.nav-btn{
+  flex:1;
+  border-radius:17px;
+  color:#888;
+  background:transparent;
+  font-size:11px;
+  transition:.25s;
+}
+
+.nav-btn span{
+  display:block;
+  font-size:21px;
+  margin-bottom:2px;
+}
+
+.nav-btn.active{
+  color:#fff;
+  background:linear-gradient(
+    135deg,
+    rgba(255,61,120,.25),
+    rgba(139,92,246,.25)
+  );
+}
+
+/* MODAL */
+
+.modal{
   display:none;
+  position:fixed;
+  z-index:100;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  align-items:center;
+  justify-content:center;
+  padding:20px;
 }
+
+.modal.show{
+  display:flex;
+}
+
+.modal-card{
+  width:100%;
+  max-width:390px;
+  padding:28px;
+  text-align:center;
+}
+
+.call-avatar{
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid #ff3d78;
+  animation:callPulse 1.5s infinite;
+}
+
+@keyframes callPulse{
+  50%{
+    box-shadow:0 0 0 15px rgba(255,61,120,.08);
+  }
+}
+
+.call-buttons{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin-top:22px;
+}
+
+.call-btn{
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  color:#fff;
+  font-size:22px;
+}
+
+.accept{
+  background:#22c55e;
+}
+
+.reject{
+  background:#ef4444;
+}
+
+/* CALL */
 
 .call-screen{
-  position:fixed;
-  inset:0;
-  background:#000;
-  z-index:1000;
   display:none;
+  position:fixed;
+  z-index:200;
+  inset:0;
+  background:#050509;
 }
 
 .call-screen.show{
   display:block;
 }
 
-.remote-video{
+#remoteVideo{
   width:100%;
   height:100%;
   object-fit:cover;
-  background:#111;
+  background:#050509;
 }
 
-.local-video{
+#localVideo{
   position:absolute;
   right:15px;
   top:15px;
-  width:120px;
-  height:170px;
+  width:110px;
+  height:155px;
   object-fit:cover;
-  border-radius:15px;
-  background:#222;
-  border:2px solid rgba(255,255,255,.4);
-}
-
-.call-controls{
-  position:absolute;
-  bottom:30px;
-  left:0;
-  right:0;
-  display:flex;
-  justify-content:center;
-  gap:15px;
+  border-radius:17px;
+  border:1px solid rgba(255,255,255,.2);
+  background:#111;
 }
 
 .call-control{
+  position:absolute;
+  left:50%;
+  bottom:35px;
+  transform:translateX(-50%);
+  display:flex;
+  gap:13px;
+}
+
+.call-control button{
   width:55px;
   height:55px;
-  border:0;
   border-radius:50%;
   color:#fff;
-  background:rgba(255,255,255,.15);
-  font-size:22px;
+  background:rgba(255,255,255,.12);
+  backdrop-filter:blur(10px);
 }
 
-.call-end{
-  background:#e6294d;
+.call-control .end{
+  background:#ef4444;
 }
 
-.incoming-modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.72);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:1100;
-  padding:20px;
-}
-
-.incoming-modal.show{
-  display:flex;
-}
-
-.incoming-card{
-  width:100%;
-  max-width:350px;
-  text-align:center;
-  padding:28px;
-}
-
-.incoming-card .avatar{
-  width:95px;
-  height:95px;
-  margin-bottom:15px;
-}
-
-.incoming-card h2{
-  margin-bottom:6px;
-}
-
-.incoming-card p{
-  color:#aaa;
-  margin-bottom:22px;
-}
-
-.incoming-actions{
-  display:flex;
-  gap:10px;
-}
-
-.incoming-actions button{
-  flex:1;
-}
-
-.accept-btn{
-  background:#25c77a;
-}
-
-.reject-btn{
-  background:#e33b50;
-}
+/* TOAST */
 
 .toast{
   position:fixed;
+  z-index:500;
   left:50%;
-  bottom:85px;
-  transform:translateX(-50%) translateY(20px);
-  background:#222;
-  color:#fff;
+  bottom:92px;
+  transform:translate(-50%,20px);
+  background:rgba(20,20,30,.95);
+  border:1px solid rgba(255,255,255,.1);
   padding:12px 17px;
-  border-radius:12px;
+  border-radius:14px;
+  color:#fff;
+  font-size:13px;
   opacity:0;
   pointer-events:none;
-  transition:.25s;
-  z-index:2000;
-  max-width:90%;
-  text-align:center;
+  transition:.3s;
+  white-space:nowrap;
 }
 
 .toast.show{
   opacity:1;
-  transform:translateX(-50%) translateY(0);
+  transform:translate(-50%,0);
 }
 
 .empty{
   text-align:center;
+  padding:35px 20px;
   color:#888;
-  padding:30px 10px;
 }
 
-@media(max-width:480px){
+.empty-icon{
+  font-size:45px;
+  margin-bottom:10px;
+}
+
+@media(max-width:420px){
 
   .page{
-    padding:14px;
-    padding-bottom:85px;
+    padding:15px;
+    padding-bottom:95px;
   }
 
-  .auth-card{
-    padding:22px;
+  .home-name{
+    font-size:25px;
   }
 
-  .hero h1{
-    font-size:26px;
+  .feature{
+    padding:16px;
   }
 
-  .local-video{
-    width:100px;
-    height:145px;
+  .feature-grid{
+    gap:9px;
   }
 
 }
-
 </style>
 </head>
 
 <body>
 
-<!-- =========================
-     LOGIN
-========================= -->
+<div class="bg">
+  <div class="orb one"></div>
+  <div class="orb two"></div>
+  <div class="orb three"></div>
+</div>
 
-<section
-  id="loginPage"
-  class="auth-page"
->
+<!-- LOGIN -->
 
-  <div class="auth-card card">
+<section id="loginPage" class="page active">
 
-    <div class="logo">
-      ❤️
+  <div class="auth">
+
+    <div class="auth-card card">
+
+      <div class="logo">❤️</div>
+
+      <h1 class="auth-title">দুজন</h1>
+
+      <p class="auth-sub">
+        শুধু তোমাদের দুজনের জন্য<br>
+        ভালোবাসার ছোট্ট একটা জায়গা।
+      </p>
+
+      <input
+        id="loginPhone"
+        class="input"
+        type="tel"
+        placeholder="মোবাইল নাম্বার"
+      >
+
+      <input
+        id="loginPin"
+        class="input"
+        type="password"
+        inputmode="numeric"
+        placeholder="PIN"
+      >
+
+      <button
+        class="primary"
+        onclick="login()"
+      >
+        প্রবেশ করুন ❤️
+      </button>
+
+      <div class="switch">
+        নতুন এখানে?
+        <span onclick="showPage('registerPage')">
+          একাউন্ট তৈরি করুন
+        </span>
+      </div>
+
     </div>
-
-    <div class="title">
-      দুজন
-    </div>
-
-    <div class="subtitle">
-      দুজন মানুষের ছোট্ট একটা পৃথিবী
-    </div>
-
-    <input
-      id="loginPhone"
-      class="input"
-      type="tel"
-      placeholder="মোবাইল নম্বর"
-    >
-
-    <input
-      id="loginPin"
-      class="input"
-      type="password"
-      inputmode="numeric"
-      maxlength="6"
-      placeholder="PIN"
-    >
-
-    <button
-      class="main-btn"
-      onclick="login()"
-    >
-      Login ❤️
-    </button>
-
-    <button
-      class="secondary-btn"
-      onclick="showPage('registerPage')"
-    >
-      নতুন Account তৈরি করুন
-    </button>
 
   </div>
 
 </section>
 
+<!-- REGISTER -->
 
-<!-- =========================
-     REGISTER
-========================= -->
+<section id="registerPage" class="page">
 
-<section
-  id="registerPage"
-  class="auth-page hidden"
->
+  <div class="auth">
 
-  <div class="auth-card card">
+    <div class="auth-card card">
 
-    <div class="logo">
-      💕
+      <div class="logo">💞</div>
+
+      <h1 class="auth-title">
+        নতুন একাউন্ট
+      </h1>
+
+      <p class="auth-sub">
+        দুজনের গল্পটা এখান থেকেই শুরু হোক।
+      </p>
+
+      <input
+        id="registerName"
+        class="input"
+        type="text"
+        placeholder="আপনার নাম"
+      >
+
+      <input
+        id="registerUsername"
+        class="input"
+        type="text"
+        placeholder="Username"
+      >
+
+      <input
+        id="registerPhone"
+        class="input"
+        type="tel"
+        placeholder="মোবাইল নাম্বার"
+      >
+
+      <input
+        id="registerPin"
+        class="input"
+        type="password"
+        inputmode="numeric"
+        placeholder="৪-৬ সংখ্যার PIN"
+      >
+
+      <button
+        class="primary"
+        onclick="register()"
+      >
+        একাউন্ট তৈরি করুন 💗
+      </button>
+
+      <button
+        class="secondary"
+        onclick="showPage('loginPage')"
+      >
+        Login
+      </button>
+
     </div>
-
-    <div class="title">
-      নতুন দুজন Account
-    </div>
-
-    <div class="subtitle">
-      তোমার নিজের পরিচয় তৈরি করো
-    </div>
-
-    <input
-      id="registerPhone"
-      class="input"
-      type="tel"
-      placeholder="মোবাইল নম্বর"
-    >
-
-    <input
-      id="registerPin"
-      class="input"
-      type="password"
-      inputmode="numeric"
-      maxlength="6"
-      placeholder="৪-৬ সংখ্যার PIN"
-    >
-
-    <input
-      id="registerUsername"
-      class="input"
-      type="text"
-      maxlength="20"
-      placeholder="Username যেমন: rabbi"
-    >
-
-    <input
-      id="registerName"
-      class="input"
-      type="text"
-      placeholder="তোমার নাম"
-    >
-
-    <button
-      class="main-btn"
-      onclick="register()"
-    >
-      Account তৈরি করুন ❤️
-    </button>
-
-    <button
-      class="secondary-btn"
-      onclick="showPage('loginPage')"
-    >
-      Login-এ ফিরে যান
-    </button>
 
   </div>
 
 </section>
 
+<!-- HOME -->
 
-<!-- =========================
-     HOME
-========================= -->
-
-<section
-  id="homePage"
-  class="page hidden"
->
+<section id="homePage" class="page">
 
   <div class="topbar">
 
-    <h2>
-      দুজন ❤️
-    </h2>
+    <div class="top-title">
+      Home
+    </div>
 
     <button
       class="icon-btn"
@@ -701,300 +1086,247 @@ button{
 
   </div>
 
+  <div class="home-hero card">
 
-  <div class="hero card">
+    <div class="heart h1">❤️</div>
+    <div class="heart h2">💗</div>
+    <div class="heart h3">💕</div>
+    <div class="heart h4">💖</div>
+    <div class="heart h5">💞</div>
 
-    <h1>
-      <span id="homeName">
-        আমি
-      </span>
-      ❤️
-    </h1>
+    <div class="profile-orbit">
 
-    <p>
-      তোমাদের দুজনের ব্যক্তিগত জায়গা
+      <img
+        id="homeProfilePhoto"
+        class="home-profile-photo"
+        src=""
+        alt="Profile"
+      >
+
+      <div class="verified-dot">
+        ♥
+      </div>
+
+    </div>
+
+    <h2
+      id="homeName"
+      class="home-name"
+    >
+      আমি
+    </h2>
+
+    <div
+      id="homeUsername"
+      class="home-username"
+    >
+      @username
+    </div>
+
+    <p class="home-caption">
+      তোমার নিজের একটা ছোট্ট জায়গা,
+      যেখানে কথা, অনুভূতি আর স্মৃতিগুলো
+      একসাথে থাকবে। ❤️
     </p>
 
-  </div>
+    <div class="online-pill">
 
+      <span class="online-dot"></span>
 
-  <div class="profile-box card">
-
-    <img
-      id="homePhoto"
-      class="avatar"
-      src=""
-      alt=""
-    >
-
-    <div class="user-info">
-
-      <strong
-        id="homeProfileName"
-      >
-        আমি
-      </strong>
-
-      <span
-        id="homeUsername"
-      >
-        @username
+      <span id="presenceText">
+        Connection ready
       </span>
 
     </div>
 
   </div>
 
+  <div class="feature-grid">
 
-  <div class="card" style="padding:20px">
-
-    <h3>
-      💕 দুজনের জন্য
-    </h3>
-
-    <p
-      style="color:#aaa;margin-top:8px;line-height:1.6"
+    <div
+      class="feature card"
+      onclick="showPage('friendsPage')"
     >
-      Friend যোগ করো, কথা বলো এবং সরাসরি
-      Audio / Video Call করো।
-    </p>
+      <div class="feature-icon">👥</div>
+
+      <h3>Friends</h3>
+
+      <p>
+        বন্ধু খুঁজুন এবং connection তৈরি করুন।
+      </p>
+    </div>
+
+    <div
+      class="feature card"
+      onclick="showPage('profilePage')"
+    >
+      <div class="feature-icon">💗</div>
+
+      <h3>My Profile</h3>
+
+      <p>
+        নাম ও profile information আপডেট করুন।
+      </p>
+    </div>
+
+    <div
+      class="feature card"
+      onclick="showPage('friendsPage')"
+    >
+      <div class="feature-icon">💬</div>
+
+      <h3>Private Chat</h3>
+
+      <p>
+        নিজের মানুষটির সাথে সরাসরি কথা বলুন।
+      </p>
+    </div>
+
+    <div
+      class="feature card"
+      onclick="showPage('couplePage')"
+    >
+      <div class="feature-icon">🥰</div>
+
+      <h3>Our Space</h3>
+
+      <p>
+        দুজনের জন্য আরও সুন্দর স্মৃতি।
+      </p>
+    </div>
 
   </div>
 
 </section>
 
+<!-- FRIENDS -->
 
-<!-- =========================
-     FRIENDS
-========================= -->
-
-<section
-  id="friendsPage"
-  class="page hidden"
->
+<section id="friendsPage" class="page">
 
   <div class="topbar">
 
-    <h2>
-      Friends ❤️
-    </h2>
-
-  </div>
-
-
-  <div class="search-box">
-
-    <input
-      id="friendSearch"
-      class="input"
-      placeholder="@username"
-      onkeydown="
-        if(event.key==='Enter')
-          searchUser()
-      "
-    >
-
-    <button
-      class="small-btn"
-      onclick="searchUser()"
-    >
-      Search
-    </button>
-
-  </div>
-
-
-  <div id="searchResult"></div>
-
-
-  <h3 class="section-title">
-    Friend Requests
-  </h3>
-
-  <div id="requestsList"></div>
-
-
-  <h3 class="section-title">
-    Friends
-  </h3>
-
-  <div id="friendsList"></div>
-
-</section>
-
-
-<!-- =========================
-     CHAT
-========================= -->
-
-<section
-  id="chatPage"
-  class="chat-page hidden"
->
-
-  <div class="chat-header">
+    <div class="top-title">
+      Friends
+    </div>
 
     <button
       class="icon-btn"
-      onclick="showPage('friendsPage')"
+      onclick="showPage('homePage')"
     >
-      ←
+      🏠
     </button>
-
-    <img
-      id="chatPhoto"
-      class="avatar"
-      src=""
-      alt=""
-    >
-
-    <div class="user-info">
-
-      <strong
-        id="chatName"
-      >
-        Friend
-      </strong>
-
-      <span
-        id="chatUsername"
-      >
-        @username
-      </span>
-
-    </div>
-
-    <div class="chat-actions">
-
-      <button
-        class="icon-btn"
-        onclick="makeCall('audio')"
-      >
-        📞
-      </button>
-
-      <button
-        class="icon-btn"
-        onclick="makeCall('video')"
-      >
-        📹
-      </button>
-
-    </div>
 
   </div>
 
+  <div class="section">
 
-  <div
-    id="messages"
-    class="chat-messages"
-  ></div>
+    <div class="search-row">
 
+      <input
+        id="friendSearch"
+        class="input"
+        placeholder="Username"
+        onkeydown="if(event.key==='Enter')searchUser()"
+      >
 
-  <div class="chat-input">
+      <button
+        class="search-btn"
+        onclick="searchUser()"
+      >
+        🔍
+      </button>
 
-    <input
-      id="messageInput"
-      class="input"
-      placeholder="একটা মেসেজ লিখুন..."
-      onkeydown="
-        if(event.key==='Enter')
-          sendMessage()
-      "
-    >
+    </div>
 
-    <button
-      class="send-btn"
-      onclick="sendMessage()"
-    >
-      ➤
-    </button>
+    <div id="searchResults"></div>
+
+    <!-- FRIEND REQUESTS -->
+
+    <h2 class="section-title">
+      Friend Requests 💌
+    </h2>
+
+    <div id="requestsList"></div>
+
+    <!-- FRIENDS -->
+
+    <h2 class="section-title">
+      My Friends ❤️
+    </h2>
+
+    <div id="friendsList"></div>
 
   </div>
 
 </section>
 
+<!-- CHAT -->
 
-<!-- =========================
-     PROFILE
-========================= -->
+<section id="chatPage" class="page">
 
-<section
-  id="profilePage"
-  class="page hidden"
->
+  <div class="chat-wrap">
 
-  <div class="profile-page">
-
-    <div class="topbar">
-
-      <h2>
-        Profile
-      </h2>
+    <div class="chat-header card">
 
       <button
         class="icon-btn"
-        onclick="showPage('homePage')"
+        onclick="showPage('friendsPage')"
       >
-        ←
+        ‹
       </button>
 
-    </div>
-
-
-    <div class="profile-header card">
-
       <img
-        id="profilePhotoPreview"
-        class="big-avatar"
+        id="chatPhoto"
+        class="avatar"
         src=""
         alt=""
       >
 
-      <br>
+      <div class="user-info">
 
-      <label class="photo-upload">
+        <strong id="chatName">
+          Chat
+        </strong>
 
-        📷 ছবি পরিবর্তন
+        <span id="chatUsername">
+          @username
+        </span>
 
-        <input
-          id="profilePhoto"
-          type="file"
-          accept="image/*"
-          onchange="previewProfilePhoto(event)"
-        >
+      </div>
 
-      </label>
+      <div class="chat-actions">
+
+        <button onclick="makeCall('audio')">
+          📞
+        </button>
+
+        <button onclick="makeCall('video')">
+          📹
+        </button>
+
+      </div>
 
     </div>
 
+    <div
+      id="messages"
+      class="messages"
+    ></div>
 
-    <div class="card" style="padding:20px">
-
-      <input
-        id="profileName"
-        class="input"
-        placeholder="নাম"
-      >
+    <div class="chat-input-row">
 
       <input
-        id="profileUsername"
-        class="input"
-        placeholder="Username"
+        id="messageInput"
+        class="chat-input"
+        placeholder="একটা মেসেজ লিখুন..."
+        onkeydown="if(event.key==='Enter')sendMessage()"
       >
 
       <button
-        class="main-btn"
-        onclick="saveProfile()"
+        class="send-btn"
+        onclick="sendMessage()"
       >
-        Profile Save ❤️
-      </button>
-
-      <button
-        class="secondary-btn"
-        onclick="logout()"
-      >
-        Logout
+        ➤
       </button>
 
     </div>
@@ -1003,17 +1335,155 @@ button{
 
 </section>
 
+<!-- COUPLE -->
 
-<!-- =========================
-     BOTTOM NAV
-========================= -->
+<section id="couplePage" class="page">
+
+  <div class="topbar">
+
+    <div class="top-title">
+      Our Space ❤️
+    </div>
+
+    <button
+      class="icon-btn"
+      onclick="showPage('homePage')"
+    >
+      🏠
+    </button>
+
+  </div>
+
+  <div class="section">
+
+    <div
+      class="card"
+      style="padding:25px;text-align:center"
+    >
+
+      <div style="font-size:55px">
+        🥰
+      </div>
+
+      <h2>
+        শুধু দুজনের জন্য
+      </h2>
+
+      <p
+        style="color:#999;line-height:1.7"
+      >
+        এখানে তোমাদের ভালোবাসার
+        গল্প, স্মৃতি আর বিশেষ মুহূর্তগুলো
+        ধীরে ধীরে সাজানো যাবে।
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- PROFILE -->
+
+<section id="profilePage" class="page">
+
+  <div class="topbar">
+
+    <div class="top-title">
+      My Profile
+    </div>
+
+    <button
+      class="icon-btn"
+      onclick="showPage('homePage')"
+    >
+      🏠
+    </button>
+
+  </div>
+
+  <div class="profile-card card">
+
+    <div class="profile-center">
+
+      <div class="profile-photo-wrap">
+
+        <img
+          id="profilePhoto"
+          class="profile-big"
+          src=""
+          alt="Profile"
+        >
+
+        <button
+          type="button"
+          class="photo-edit-btn"
+          onclick="document.getElementById('photoInput').click()"
+        >
+          📷
+        </button>
+
+      </div>
+
+      <input
+        id="photoInput"
+        type="file"
+        accept="image/*"
+        style="display:none"
+        onchange="handlePhotoUpload(event)"
+      >
+
+      <div class="photo-hint">
+        📷 ছবিতে চাপ দিয়ে Profile Photo পরিবর্তন করুন
+      </div>
+
+      <h2 id="profileTitle">
+        আমি
+      </h2>
+
+      <p id="profileUsername">
+        @username
+      </p>
+
+    </div>
+
+    <label class="label">
+      নাম
+    </label>
+
+    <input
+      id="profileName"
+      class="input"
+      placeholder="আপনার নাম"
+    >
+
+    <button
+      class="primary"
+      onclick="saveProfile()"
+    >
+      Profile Save ❤️
+    </button>
+
+    <button
+      class="secondary"
+      onclick="logout()"
+    >
+      Logout
+    </button>
+
+  </div>
+
+</section>
+
+<!-- NAV -->
 
 <nav
   id="bottomNav"
-  class="bottom-nav hidden"
+  class="bottom-nav"
 >
 
   <button
+    id="navHome"
     class="nav-btn active"
     onclick="showPage('homePage')"
   >
@@ -1022,14 +1492,25 @@ button{
   </button>
 
   <button
+    id="navFriends"
     class="nav-btn"
-    onclick="showPage('friendsPage');loadFriends()"
+    onclick="showPage('friendsPage')"
   >
     <span>👥</span>
     Friends
   </button>
 
   <button
+    id="navCouple"
+    class="nav-btn"
+    onclick="showPage('couplePage')"
+  >
+    <span>❤️</span>
+    Us
+  </button>
+
+  <button
+    id="navProfile"
     class="nav-btn"
     onclick="showPage('profilePage')"
   >
@@ -1039,51 +1520,47 @@ button{
 
 </nav>
 
-
-<!-- =========================
-     INCOMING CALL
-========================= -->
+<!-- INCOMING CALL -->
 
 <div
   id="incomingModal"
-  class="incoming-modal"
+  class="modal"
 >
 
-  <div class="incoming-card card">
+  <div class="modal-card card">
 
     <img
       id="incomingPhoto"
-      class="avatar"
+      class="call-avatar"
       src=""
       alt=""
     >
 
-    <h2
-      id="incomingName"
-    >
-      Someone
+    <h2 id="incomingName">
+      Incoming Call
     </h2>
 
     <p
       id="incomingType"
+      style="color:#999"
     >
-      কল আসছে...
+      আপনাকে কল করা হচ্ছে...
     </p>
 
-    <div class="incoming-actions">
+    <div class="call-buttons">
 
       <button
-        class="small-btn reject-btn"
+        class="call-btn reject"
         onclick="rejectCall()"
       >
-        ❌
+        ✕
       </button>
 
       <button
-        class="small-btn accept-btn"
+        class="call-btn accept"
         onclick="acceptCall()"
       >
-        ✅
+        ✓
       </button>
 
     </div>
@@ -1092,10 +1569,7 @@ button{
 
 </div>
 
-
-<!-- =========================
-     CALL SCREEN
-========================= -->
+<!-- CALL -->
 
 <div
   id="callScreen"
@@ -1104,64 +1578,50 @@ button{
 
   <video
     id="remoteVideo"
-    class="remote-video"
     autoplay
     playsinline
   ></video>
 
   <video
     id="localVideo"
-    class="local-video"
     autoplay
     muted
     playsinline
   ></video>
 
-  <div class="call-controls">
+  <div class="call-control">
 
     <button
-      id="micBtn"
-      class="call-control"
       onclick="toggleMic()"
+      id="micBtn"
     >
       🎤
     </button>
 
     <button
-      id="cameraBtn"
-      class="call-control"
       onclick="toggleCamera()"
+      id="cameraBtn"
     >
       📹
     </button>
 
     <button
-      class="call-control call-end"
+      class="end"
       onclick="endCall()"
     >
-      📞
+      ☎
     </button>
 
   </div>
 
 </div>
 
-
-<!-- =========================
-     TOAST
-========================= -->
-
 <div
   id="toast"
   class="toast"
 ></div>
 
-
 <script>
-
-/* =========================
-   SERVER
-========================= */
 
 const API_URL =
   "https://dujon-app1.onrender.com";
@@ -1169,22 +1629,16 @@ const API_URL =
 const WS_URL =
   "wss://dujon-app1.onrender.com";
 
-
 let ws = null;
-
 let peerConnection = null;
-
 let localStream = null;
 
 let currentCallType = "video";
-
 let pendingOffer = null;
 
-let currentPage =
-  "loginPage";
+let currentPage = "loginPage";
 
 let currentChatUsername = "";
-
 let currentChatPhone = "";
 
 let incomingCaller = null;
@@ -1192,51 +1646,38 @@ let incomingCaller = null;
 let pendingIceCandidates = [];
 
 let micEnabled = true;
-
 let cameraEnabled = true;
 
-
 const ICE_SERVERS = {
-
-  iceServers: [
-
+  iceServers:[
     {
-      urls:
-        "stun:stun.l.google.com:19302"
+      urls:"stun:stun.l.google.com:19302"
     },
-
     {
-      urls:
-        "stun:stun1.l.google.com:19302"
+      urls:"stun:stun1.l.google.com:19302"
     }
-
   ]
-
 };
-
 
 /* =========================
    HELPERS
 ========================= */
 
 function $(id){
-
   return document.getElementById(id);
-
 }
-
 
 function toast(message){
 
-  const box =
+  const el =
     $("toast");
 
-  if(!box)return;
+  if(!el)return;
 
-  box.textContent =
+  el.textContent =
     message;
 
-  box.classList.add(
+  el.classList.add(
     "show"
   );
 
@@ -1245,17 +1686,12 @@ function toast(message){
   );
 
   window.toastTimer =
-    setTimeout(
-      ()=>{
-        box.classList.remove(
-          "show"
-        );
-      },
-      2500
-    );
-
+    setTimeout(()=>{
+      el.classList.remove(
+        "show"
+      );
+    },2500);
 }
-
 
 function getAccount(){
 
@@ -1275,7 +1711,6 @@ function getAccount(){
 
 }
 
-
 function getProfile(){
 
   try{
@@ -1283,8 +1718,8 @@ function getProfile(){
     return JSON.parse(
       localStorage.getItem(
         "dujon_profile"
-      ) || "{}"
-    );
+      ) || "null"
+    ) || {};
 
   }catch{
 
@@ -1294,532 +1729,255 @@ function getProfile(){
 
 }
 
-
 function saveLocalProfile(
   profile
 ){
 
   localStorage.setItem(
     "dujon_profile",
-    JSON.stringify(
-      profile
-    )
+    JSON.stringify(profile)
   );
 
 }
 
-
 function avatarData(
-  name
+  text
 ){
 
-  const text =
-    String(
-      name || "D"
-    )
-      .trim()
+  const letter =
+    String(text || "❤️")
       .charAt(0)
       .toUpperCase();
 
+  const svg = `
+  <svg xmlns="http://www.w3.org/2000/svg"
+       width="120"
+       height="120">
+
+    <defs>
+
+      <linearGradient
+        id="g"
+        x1="0"
+        x2="1"
+        y1="0"
+        y2="1"
+      >
+
+        <stop
+          offset="0"
+          stop-color="#ff3d78"
+        />
+
+        <stop
+          offset="1"
+          stop-color="#8b5cf6"
+        />
+
+      </linearGradient>
+
+    </defs>
+
+    <rect
+      width="120"
+      height="120"
+      rx="60"
+      fill="url(#g)"
+    />
+
+    <text
+      x="60"
+      y="76"
+      text-anchor="middle"
+      font-size="48"
+      fill="white"
+      font-family="Arial"
+    >
+      ${letter}
+    </text>
+
+  </svg>
+  `;
+
   return (
     "data:image/svg+xml;charset=UTF-8," +
-    encodeURIComponent(
-      `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
-        <rect width="100%" height="100%" rx="100" fill="#20202d"/>
-        <text x="50%" y="56%" text-anchor="middle"
-          font-size="90" fill="white"
-          font-family="Arial">${text}</text>
-      </svg>`
-    )
+    encodeURIComponent(svg)
   );
 
 }
 
-
 /* =========================
-   PAGE
+   PHOTO
 ========================= */
 
-function showPage(
-  pageId
-){
-
-  document
-    .querySelectorAll(
-      ".page,.auth-page,.chat-page"
-    )
-    .forEach(
-      page=>{
-        page.classList.add(
-          "hidden"
-        );
-      }
-    );
-
-
-  const page =
-    $(pageId);
-
-  if(page){
-
-    page.classList.remove(
-      "hidden"
-    );
-
-  }
-
-
-  currentPage =
-    pageId;
-
-
-  const account =
-    getAccount();
-
-
-  if(
-    account &&
-    pageId !== "loginPage" &&
-    pageId !== "registerPage"
-  ){
-
-    $("bottomNav")
-      .classList.remove(
-        "hidden"
-      );
-
-  }else{
-
-    $("bottomNav")
-      .classList.add(
-        "hidden"
-      );
-
-  }
-
-
-  if(
-    pageId ===
-    "homePage"
-  ){
-
-    loadProfileToUI();
-
-  }
-
-
-  if(
-    pageId ===
-    "profilePage"
-  ){
-
-    loadProfileToUI();
-
-  }
-
-}
-
-
-/* =========================
-   PROFILE UI
-========================= */
-
-function loadProfileToUI(){
-
-  const account =
-    getAccount();
-
-  const profile =
-    getProfile();
-
-
-  if(!account)return;
-
-
-  const name =
-    profile.name ||
-    account.name ||
-    "আমি";
-
-
-  const username =
-    profile.username ||
-    account.username ||
-    "";
-
-
-  const photo =
-    profile.photo ||
-    account.photo ||
-    avatarData(name);
-
-
-  if($("homeName"))
-    $("homeName")
-      .textContent =
-      name;
-
-
-  if($("homeProfileName"))
-    $("homeProfileName")
-      .textContent =
-      name;
-
-
-  if($("homeUsername"))
-    $("homeUsername")
-      .textContent =
-      "@" + username;
-
-
-  if($("homePhoto"))
-    $("homePhoto")
-      .src =
-      photo;
-
-
-  if($("profilePhotoPreview"))
-    $("profilePhotoPreview")
-      .src =
-      photo;
-
-
-  if($("profileName"))
-    $("profileName")
-      .value =
-      name;
-
-
-  if($("profileUsername"))
-    $("profileUsername")
-      .value =
-      username;
-
-}
-
-
-/* =========================
-   REGISTER
-========================= */
-
-async function register(){
-
-  const phone =
-    $("registerPhone")
-      .value.trim();
-
-  const pin =
-    $("registerPin")
-      .value.trim();
-
-  const username =
-    $("registerUsername")
-      .value.trim()
-      .toLowerCase();
-
-  const name =
-    $("registerName")
-      .value.trim() ||
-      "আমি";
-
-
-  if(!phone){
-
-    toast(
-      "মোবাইল নম্বর দিন"
-    );
-
-    return;
-
-  }
-
-
-  if(!/^[0-9]{4,6}$/.test(pin)){
-
-    toast(
-      "PIN ৪-৬ সংখ্যার হতে হবে"
-    );
-
-    return;
-
-  }
-
-
-  if(!/^[a-z0-9_]{3,20}$/.test(username)){
-
-    toast(
-      "Username 3-20 অক্ষরের হতে হবে"
-    );
-
-    return;
-
-  }
-
-
-  try{
-
-    const response =
-      await fetch(
-        API_URL +
-        "/api/register",
-        {
-
-          method:"POST",
-
-          headers:{
-            "Content-Type":
-              "application/json"
-          },
-
-          body:
-            JSON.stringify({
-
-              phone,
-              pin,
-              username,
-              name
-
-            })
-
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if(!data.ok){
-
-      toast(
-        data.message ||
-        "Account তৈরি করা যায়নি"
-      );
-
-      return;
-
-    }
-
-
-    localStorage.setItem(
-      "dujon_account",
-      JSON.stringify({
-
-        phone,
-        pin,
-        username,
-        name,
-        photo:
-          data.user?.photo ||
-          ""
-
-      })
-    );
-
-
-    saveLocalProfile({
-
-      username,
-      name,
-      photo:
-        data.user?.photo ||
-        ""
-
-    });
-
-
-    toast(
-      "Account তৈরি হয়েছে ❤️"
-    );
-
-
-    showPage(
-      "homePage"
-    );
-
-    connectWS();
-
-  }catch(error){
-
-    console.log(error);
-
-    toast(
-      "Server-এর সাথে সংযোগ হচ্ছে না"
-    );
-
-  }
-
-}
-
-
-/* =========================
-   LOGIN
-========================= */
-
-async function login(){
-
-  const phone =
-    $("loginPhone")
-      .value.trim();
-
-  const pin =
-    $("loginPin")
-      .value.trim();
-
-
-  if(!phone || !pin){
-
-    toast(
-      "মোবাইল নম্বর ও PIN দিন"
-    );
-
-    return;
-
-  }
-
-
-  try{
-
-    const response =
-      await fetch(
-        API_URL +
-        "/api/social",
-        {
-
-          method:"POST",
-
-          headers:{
-            "Content-Type":
-              "application/json"
-          },
-
-          body:
-            JSON.stringify({
-              phone,
-              pin
-            })
-
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if(!data.ok){
-
-      toast(
-        data.message ||
-        "Login failed"
-      );
-
-      return;
-
-    }
-
-
-    const user =
-      data.user ||
-      {};
-
-
-    localStorage.setItem(
-      "dujon_account",
-      JSON.stringify({
-
-        phone,
-        pin,
-
-        username:
-          user.username ||
-          "",
-
-        name:
-          user.name ||
-          "আমি",
-
-        photo:
-          user.photo ||
-          ""
-
-      })
-    );
-
-
-    saveLocalProfile({
-
-      username:
-        user.username ||
-        "",
-
-      name:
-        user.name ||
-        "আমি",
-
-      photo:
-        user.photo ||
-        ""
-
-    });
-
-
-    loadProfileToUI();
-
-
-    toast(
-      "Login সফল হয়েছে ❤️"
-    );
-
-
-    showPage(
-      "homePage"
-    );
-
-
-    connectWS();
-
-
-  }catch(error){
-
-    console.log(
-      error
-    );
-
-    toast(
-      "Server-এর সাথে সংযোগ হচ্ছে না"
-    );
-
-  }
-
-}
-
-
-/* =========================
-   PROFILE PHOTO
-========================= */
-
-function previewProfilePhoto(
+function handlePhotoUpload(
   event
 ){
 
   const file =
-    event.target.files?.[0];
+    event.target.files &&
+    event.target.files[0];
 
   if(!file)return;
 
+  if(
+    !file.type.startsWith(
+      "image/"
+    )
+  ){
+
+    toast(
+      "শুধু ছবি নির্বাচন করুন"
+    );
+
+    return;
+
+  }
 
   const reader =
     new FileReader();
 
-
   reader.onload =
-    ()=>{
-      $("profilePhotoPreview")
-        .src =
+    function(){
+
+      const img =
+        new Image();
+
+      img.onload =
+        function(){
+
+          const maxSize =
+            700;
+
+          let width =
+            img.width;
+
+          let height =
+            img.height;
+
+          if(width > height){
+
+            if(
+              width >
+              maxSize
+            ){
+
+              height =
+                Math.round(
+                  height *
+                  maxSize /
+                  width
+                );
+
+              width =
+                maxSize;
+
+            }
+
+          }else{
+
+            if(
+              height >
+              maxSize
+            ){
+
+              width =
+                Math.round(
+                  width *
+                  maxSize /
+                  height
+                );
+
+              height =
+                maxSize;
+
+            }
+
+          }
+
+          const canvas =
+            document.createElement(
+              "canvas"
+            );
+
+          canvas.width =
+            width;
+
+          canvas.height =
+            height;
+
+          const ctx =
+            canvas.getContext(
+              "2d"
+            );
+
+          ctx.drawImage(
+            img,
+            0,
+            0,
+            width,
+            height
+          );
+
+          const photo =
+            canvas.toDataURL(
+              "image/jpeg",
+              0.78
+            );
+
+          const oldProfile =
+            getProfile();
+
+          saveLocalProfile({
+
+            ...oldProfile,
+
+            photo
+
+          });
+
+          loadProfileToUI();
+
+          /*
+           * Profile Photo server-এও save
+           * করার চেষ্টা করা হচ্ছে।
+           */
+
+          saveProfilePhotoToServer(
+            photo
+          );
+
+          toast(
+            "Profile Photo পরিবর্তন হয়েছে ❤️"
+          );
+
+          event.target.value =
+            "";
+
+        };
+
+      img.onerror =
+        function(){
+
+          toast(
+            "ছবিটি পড়া যাচ্ছে না"
+          );
+
+        };
+
+      img.src =
         reader.result;
+
     };
 
+  reader.onerror =
+    function(){
+
+      toast(
+        "ছবি নির্বাচন করা যায়নি"
+      );
+
+    };
 
   reader.readAsDataURL(
     file
@@ -1827,38 +1985,21 @@ function previewProfilePhoto(
 
 }
 
-
 /* =========================
-   SAVE PROFILE
-   /api/profile অপরিবর্তিত
+   SAVE PHOTO SERVER
 ========================= */
 
-async function saveProfile(){
+async function saveProfilePhotoToServer(
+  photo
+){
 
   const account =
     getAccount();
 
-  if(!account){
+  if(!account)return;
 
-    return;
-
-  }
-
-
-  const name =
-    $("profileName")
-      .value.trim();
-
-  const username =
-    $("profileUsername")
-      .value.trim()
-      .toLowerCase();
-
-
-  const photo =
-    $("profilePhotoPreview")
-      .src || "";
-
+  const oldProfile =
+    getProfile();
 
   try{
 
@@ -1867,7 +2008,6 @@ async function saveProfile(){
         API_URL +
         "/api/profile",
         {
-
           method:"POST",
 
           headers:{
@@ -1884,115 +2024,792 @@ async function saveProfile(){
               pin:
                 account.pin,
 
-              name,
+              name:
+                oldProfile.name ||
+                account.name ||
+                "আমি",
 
-              username,
+              username:
+                oldProfile.username ||
+                account.username ||
+                "",
 
-              photo
+              photo:
+                photo || ""
 
             })
 
         }
       );
 
+    const text =
+      await response.text();
 
-    const data =
-      await response.json();
+    let data={};
 
+    try{
+      data =
+        JSON.parse(text);
+    }catch{}
 
-    if(!data.ok){
+    if(
+      !response.ok
+    ){
 
-      toast(
-        data.message ||
-        "Profile save হয়নি"
+      console.log(
+        "Photo server save failed:",
+        data
       );
 
       return;
 
     }
 
+    if(
+      data.user
+    ){
 
-    const user =
-      data.user ||
-      {};
+      saveLocalProfile({
 
+        ...getProfile(),
 
-    const newAccount = {
+        name:
+          data.user.name ||
+          oldProfile.name ||
+          account.name,
 
-      ...account,
+        username:
+          data.user.username ||
+          oldProfile.username ||
+          account.username,
 
-      username:
-        user.username ||
-        username,
-
-      name:
-        user.name ||
-        name,
-
-      photo:
-        user.photo ||
-        photo
-
-    };
-
-
-    localStorage.setItem(
-      "dujon_account",
-      JSON.stringify(
-        newAccount
-      )
-    );
-
-
-    saveLocalProfile({
-
-      username:
-        newAccount.username,
-
-      name:
-        newAccount.name,
-
-      photo:
-        newAccount.photo
-
-    });
-
-
-    loadProfileToUI();
-
-
-    toast(
-      "Profile saved ❤️"
-    );
-
-
-    if(ws){
-
-      sendWS({
-
-        type:"profile-update",
-
-        profile:
-          getProfile()
+        photo:
+          data.user.photo ||
+          photo
 
       });
+
+      loadProfileToUI();
 
     }
 
   }catch(error){
 
     console.log(
+      "Photo save error:",
       error
-    );
-
-    toast(
-      "Profile save করা যায়নি"
     );
 
   }
 
 }
 
+/* =========================
+   PAGE
+========================= */
+
+function showPage(
+  pageId
+){
+
+  document
+    .querySelectorAll(".page")
+    .forEach(
+      page=>{
+        page.classList.remove(
+          "active"
+        );
+      }
+    );
+
+  const page =
+    $(pageId);
+
+  if(page){
+
+    page.classList.add(
+      "active"
+    );
+
+  }
+
+  currentPage =
+    pageId;
+
+  const nav =
+    $("bottomNav");
+
+  if(
+    pageId === "loginPage" ||
+    pageId === "registerPage" ||
+    pageId === "chatPage"
+  ){
+
+    nav.style.display =
+      "none";
+
+  }else{
+
+    nav.style.display =
+      "flex";
+
+  }
+
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach(
+      btn=>{
+        btn.classList.remove(
+          "active"
+        );
+      }
+    );
+
+  if(
+    pageId ===
+    "homePage"
+  ){
+
+    $("navHome")
+      ?.classList.add(
+        "active"
+      );
+
+  }
+
+  if(
+    pageId ===
+    "friendsPage"
+  ){
+
+    $("navFriends")
+      ?.classList.add(
+        "active"
+      );
+
+    loadFriends();
+
+  }
+
+  if(
+    pageId ===
+    "couplePage"
+  ){
+
+    $("navCouple")
+      ?.classList.add(
+        "active"
+      );
+
+  }
+
+  if(
+    pageId ===
+    "profilePage"
+  ){
+
+    $("navProfile")
+      ?.classList.add(
+        "active"
+      );
+
+    loadProfileToUI();
+
+  }
+
+}
+
+/* =========================
+   PROFILE UI
+========================= */
+
+function loadProfileToUI(){
+
+  const account =
+    getAccount();
+
+  const profile =
+    getProfile();
+
+  if(!account)return;
+
+  const name =
+    profile.name ||
+    account.name ||
+    "আমি";
+
+  const username =
+    profile.username ||
+    account.username ||
+    "";
+
+  const photo =
+    profile.photo ||
+    "";
+
+  const avatar =
+    photo ||
+    avatarData(name);
+
+  const nameEl =
+    $("profileTitle");
+
+  const userEl =
+    $("profileUsername");
+
+  const input =
+    $("profileName");
+
+  const img =
+    $("profilePhoto");
+
+  const homeImg =
+    $("homeProfilePhoto");
+
+  const homeName =
+    $("homeName");
+
+  const homeUsername =
+    $("homeUsername");
+
+  if(nameEl){
+
+    nameEl.textContent =
+      name;
+
+  }
+
+  if(userEl){
+
+    userEl.textContent =
+      username
+        ? "@" + username
+        : "";
+
+  }
+
+  if(input){
+
+    input.value =
+      name;
+
+  }
+
+  if(img){
+
+    img.src =
+      avatar;
+
+  }
+
+  if(homeImg){
+
+    homeImg.src =
+      avatar;
+
+  }
+
+  if(homeName){
+
+    homeName.textContent =
+      name;
+
+  }
+
+  if(homeUsername){
+
+    homeUsername.textContent =
+      username
+        ? "@" + username
+        : "@username";
+
+  }
+
+}
+
+/* =========================
+   REGISTER
+========================= */
+
+async function register(){
+
+  const name =
+    $("registerName")
+      .value
+      .trim();
+
+  const username =
+    $("registerUsername")
+      .value
+      .trim()
+      .replace(/^@/,"")
+      .toLowerCase();
+
+  const phone =
+    $("registerPhone")
+      .value
+      .trim();
+
+  const pin =
+    $("registerPin")
+      .value
+      .trim();
+
+  if(!name){
+
+    toast(
+      "নাম লিখুন"
+    );
+
+    return;
+
+  }
+
+  if(!username){
+
+    toast(
+      "Username লিখুন"
+    );
+
+    return;
+
+  }
+
+  if(!phone){
+
+    toast(
+      "মোবাইল নাম্বার লিখুন"
+    );
+
+    return;
+
+  }
+
+  if(!pin){
+
+    toast(
+      "PIN লিখুন"
+    );
+
+    return;
+
+  }
+
+  try{
+
+    const response =
+      await fetch(
+        API_URL +
+        "/api/register",
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+
+              name,
+              username,
+              phone,
+              pin
+
+            })
+
+        }
+      );
+
+    const text =
+      await response.text();
+
+    let data={};
+
+    try{
+      data =
+        JSON.parse(text);
+    }catch{}
+
+    if(!response.ok){
+
+      toast(
+        data.message ||
+        "Registration failed"
+      );
+
+      return;
+
+    }
+
+    const account = {
+
+      name,
+      username,
+      phone,
+      pin
+
+    };
+
+    localStorage.setItem(
+      "dujon_account",
+      JSON.stringify(
+        account
+      )
+    );
+
+    saveLocalProfile({
+
+      name,
+      username,
+      photo:""
+
+    });
+
+    toast(
+      "Account তৈরি হয়েছে ❤️"
+    );
+
+    setTimeout(()=>{
+
+      showPage(
+        "homePage"
+      );
+
+      loadProfileToUI();
+
+      connectWS();
+
+    },500);
+
+  }catch(error){
+
+    console.log(error);
+
+    toast(
+      "Server connection failed"
+    );
+
+  }
+
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+async function login(){
+
+  const phone =
+    $("loginPhone")
+      .value
+      .trim();
+
+  const pin =
+    $("loginPin")
+      .value
+      .trim();
+
+  if(!phone){
+
+    toast(
+      "মোবাইল নাম্বার লিখুন"
+    );
+
+    return;
+
+  }
+
+  if(!pin){
+
+    toast(
+      "PIN লিখুন"
+    );
+
+    return;
+
+  }
+
+  try{
+
+    const response =
+      await fetch(
+        API_URL +
+        "/api/social",
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+
+              phone,
+              pin
+
+            })
+
+        }
+      );
+
+    const text =
+      await response.text();
+
+    let data={};
+
+    try{
+      data =
+        JSON.parse(text);
+    }catch{}
+
+    if(!response.ok){
+
+      toast(
+        data.message ||
+        "Login failed"
+      );
+
+      return;
+
+    }
+
+    const user =
+      data.user ||
+      data.account ||
+      data;
+
+    const oldProfile =
+      getProfile();
+
+    const account = {
+
+      name:
+        user.name ||
+        oldProfile.name ||
+        "আমি",
+
+      username:
+        user.username ||
+        oldProfile.username ||
+        "",
+
+      phone:
+        phone,
+
+      pin
+
+    };
+
+    localStorage.setItem(
+      "dujon_account",
+      JSON.stringify(
+        account
+      )
+    );
+
+    saveLocalProfile({
+
+      ...oldProfile,
+
+      name:
+        account.name,
+
+      username:
+        account.username,
+
+      photo:
+        user.photo ||
+        oldProfile.photo ||
+        ""
+
+    });
+
+    toast(
+      "Login successful ❤️"
+    );
+
+    setTimeout(()=>{
+
+      showPage(
+        "homePage"
+      );
+
+      loadProfileToUI();
+
+      connectWS();
+
+    },300);
+
+  }catch(error){
+
+    console.log(error);
+
+    toast(
+      "Server connection failed"
+    );
+
+  }
+
+}
+
+/* =========================
+   PROFILE SAVE
+========================= */
+
+async function saveProfile(){
+
+  const account =
+    getAccount();
+
+  if(!account)return;
+
+  const name =
+    $("profileName")
+      .value
+      .trim();
+
+  if(!name){
+
+    toast(
+      "নাম লিখুন"
+    );
+
+    return;
+
+  }
+
+  const oldProfile =
+    getProfile();
+
+  const profile = {
+
+    ...oldProfile,
+
+    name,
+
+    username:
+      oldProfile.username ||
+      account.username ||
+      "",
+
+    photo:
+      oldProfile.photo ||
+      ""
+
+  };
+
+  saveLocalProfile(
+    profile
+  );
+
+  try{
+
+    const response =
+      await fetch(
+        API_URL +
+        "/api/profile",
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+
+              phone:
+                account.phone,
+
+              pin:
+                account.pin,
+
+              name:
+                profile.name,
+
+              username:
+                profile.username,
+
+              photo:
+                profile.photo
+
+            })
+
+        }
+      );
+
+    const text =
+      await response.text();
+
+    let data={};
+
+    try{
+      data =
+        JSON.parse(text);
+    }catch{}
+
+    if(!response.ok){
+
+      loadProfileToUI();
+
+      toast(
+        data.message ||
+        "Profile local-এ save হয়েছে"
+      );
+
+      return;
+
+    }
+
+    if(data.user){
+
+      saveLocalProfile({
+
+        ...profile,
+
+        name:
+          data.user.name ||
+          profile.name,
+
+        username:
+          data.user.username ||
+          profile.username,
+
+        photo:
+          data.user.photo ||
+          profile.photo
+
+      });
+
+    }
+
+    loadProfileToUI();
+
+    toast(
+      "Profile saved ❤️"
+    );
+
+  }catch(error){
+
+    console.log(
+      "Profile Error:",
+      error
+    );
+
+    loadProfileToUI();
+
+    toast(
+      "Profile local-এ save হয়েছে"
+    );
+
+  }
+
+}
 
 /* =========================
    LOGOUT
@@ -2010,13 +2827,7 @@ function logout(){
 
   }catch{}
 
-
-  ws =
-    null;
-
-
-  closePeer();
-
+  ws = null;
 
   localStorage.removeItem(
     "dujon_account"
@@ -2026,18 +2837,15 @@ function logout(){
     "dujon_profile"
   );
 
-
   showPage(
     "loginPage"
   );
-
 
   toast(
     "Logout হয়েছে"
   );
 
 }
-
 
 /* =========================
    WEBSOCKET
@@ -2048,55 +2856,56 @@ function connectWS(){
   const account =
     getAccount();
 
-
-  if(!account?.phone ||
-     !account?.pin){
-
-    return;
-
-  }
-
+  if(!account)return;
 
   try{
 
-    if(
-      ws &&
-      (
-        ws.readyState ===
-          WebSocket.OPEN ||
-        ws.readyState ===
-          WebSocket.CONNECTING
-      )
-    ){
+    if(ws){
 
-      return;
+      try{
+        ws.close();
+      }catch{}
 
     }
-
 
     ws =
       new WebSocket(
         WS_URL
       );
 
-
     ws.onopen =
       ()=>{
 
+        console.log(
+          "WebSocket connected"
+        );
+
         sendWS({
 
-          type:"auth",
+          type:"join",
 
           phone:
             account.phone,
+
+          username:
+            account.username,
 
           pin:
             account.pin
 
         });
 
-      };
+        const presence =
+          $("presenceText");
 
+        if(presence){
+
+          presence.textContent =
+            "Online";
+
+        }
+
+      };
 
     ws.onmessage =
       event=>{
@@ -2115,6 +2924,7 @@ function connectWS(){
         }catch(error){
 
           console.log(
+            "WS parse error",
             error
           );
 
@@ -2122,6 +2932,32 @@ function connectWS(){
 
       };
 
+    ws.onclose =
+      ()=>{
+
+        console.log(
+          "WebSocket disconnected"
+        );
+
+        const accountNow =
+          getAccount();
+
+        if(accountNow){
+
+          setTimeout(
+            ()=>{
+              if(
+                getAccount()
+              ){
+                connectWS();
+              }
+            },
+            3000
+          );
+
+        }
+
+      };
 
     ws.onerror =
       error=>{
@@ -2133,25 +2969,13 @@ function connectWS(){
 
       };
 
-
-    ws.onclose =
-      ()=>{
-
-        ws =
-          null;
-
-      };
-
   }catch(error){
 
-    console.log(
-      error
-    );
+    console.log(error);
 
   }
 
 }
-
 
 function sendWS(
   data
@@ -2160,57 +2984,35 @@ function sendWS(
   if(
     ws &&
     ws.readyState ===
-      WebSocket.OPEN
+    WebSocket.OPEN
   ){
 
-    try{
-
-      ws.send(
-        JSON.stringify(
-          data
-        )
-      );
-
-      return true;
-
-    }catch(error){
-
-      console.log(
-        error
-      );
-
-    }
+    ws.send(
+      JSON.stringify(
+        data
+      )
+    );
 
   }
 
-
-  return false;
-
 }
 
-
 /* =========================
-   WEBSOCKET MESSAGE
+   WS MESSAGE
 ========================= */
 
 function handleWSMessage(
   data
 ){
 
-  if(
-    data.type ===
-    "auth-error"
-  ){
+  console.log(
+    "WS:",
+    data
+  );
 
-    toast(
-      data.message ||
-      "Authentication failed"
-    );
-
-    return;
-
-  }
-
+  /*
+   * Friend request realtime
+   */
 
   if(
     data.type ===
@@ -2218,9 +3020,8 @@ function handleWSMessage(
   ){
 
     toast(
-      "নতুন Friend Request ❤️"
+      "💌 নতুন Friend Request এসেছে"
     );
-
 
     if(
       currentPage ===
@@ -2235,6 +3036,9 @@ function handleWSMessage(
 
   }
 
+  /*
+   * Friend accepted realtime
+   */
 
   if(
     data.type ===
@@ -2242,23 +3046,18 @@ function handleWSMessage(
   ){
 
     toast(
-      "Friend Request accepted ❤️"
+      "❤️ Friend Request accepted"
     );
 
-
-    if(
-      currentPage ===
-      "friendsPage"
-    ){
-
-      loadFriends();
-
-    }
+    loadFriends();
 
     return;
 
   }
 
+  /*
+   * Chat
+   */
 
   if(
     data.type ===
@@ -2268,28 +3067,28 @@ function handleWSMessage(
     const fromUsername =
       data.fromUsername ||
       data.sender ||
+      data.from ||
       "";
 
+    const text =
+      data.message ||
+      "";
 
     if(
+      fromUsername &&
       fromUsername ===
       currentChatUsername
     ){
 
       addMessage(
-        data.message ||
-        "",
+        text,
         false
       );
 
     }else{
 
       toast(
-        (
-          data.fromUsername ||
-          "Friend"
-        ) +
-        ": নতুন message"
+        "💬 নতুন মেসেজ এসেছে"
       );
 
     }
@@ -2298,22 +3097,94 @@ function handleWSMessage(
 
   }
 
+  /*
+   * Calls
+   */
 
   if(
     data.type ===
-    "video-call" ||
+      "video-call" ||
     data.type ===
-    "audio-call"
+      "audio-call"
   ){
 
-    handleCallSignal(
-      data
-    );
+    if(
+      data.action ===
+      "offer"
+    ){
 
-    return;
+      incomingCaller = {
+
+        username:
+          data.fromUsername ||
+          data.from ||
+          "",
+
+        phone:
+          data.fromPhone ||
+          "",
+
+        profile:
+          data.profile ||
+          {}
+
+      };
+
+      pendingOffer =
+        data.offer;
+
+      currentCallType =
+        data.type ===
+        "video-call"
+          ? "video"
+          : "audio";
+
+      showIncomingCall();
+
+      return;
+
+    }
+
+    if(
+      data.action ===
+      "answer"
+    ){
+
+      handleAnswer(
+        data.answer
+      );
+
+      return;
+
+    }
+
+    if(
+      data.action ===
+      "reject"
+    ){
+
+      toast(
+        "Call rejected"
+      );
+
+      closeCallScreen();
+
+      return;
+
+    }
+
+    if(
+      data.action ===
+      "end"
+    ){
+
+      closeCallScreen();
+
+      return;
+
+    }
 
   }
-
 
   if(
     data.type ===
@@ -2324,12 +3195,9 @@ function handleWSMessage(
       data.candidate
     );
 
-    return;
-
   }
 
 }
-
 
 /* =========================
    SEARCH USER
@@ -2337,23 +3205,10 @@ function handleWSMessage(
 
 async function searchUser(){
 
-  const input =
-    $("friendSearch");
-
   const query =
-    input.value
-      .trim()
-      .replace(/^@/,"")
-      .toLowerCase();
-
-
-  const result =
-    $("searchResult");
-
-
-  result.innerHTML =
-    "";
-
+    $("friendSearch")
+      .value
+      .trim();
 
   if(!query){
 
@@ -2365,6 +3220,18 @@ async function searchUser(){
 
   }
 
+  const account =
+    getAccount();
+
+  if(!account){
+
+    toast(
+      "আগে Login করুন"
+    );
+
+    return;
+
+  }
 
   try{
 
@@ -2373,48 +3240,103 @@ async function searchUser(){
         API_URL +
         "/api/search?username=" +
         encodeURIComponent(
-          query
+          query.replace(
+            /^@/,
+            ""
+          )
         )
       );
 
+    const text =
+      await response.text();
 
-    const data =
-      await response.json();
+    let data={};
 
+    try{
+      data =
+        JSON.parse(text);
+    }catch{}
 
-    if(!data.ok){
+    const box =
+      $("searchResults");
 
-      result.innerHTML =
-        `<div class="empty">
+    box.innerHTML = "";
+
+    if(
+      !response.ok ||
+      !data.user
+    ){
+
+      box.innerHTML = `
+
+        <div class="empty">
+
+          <div class="empty-icon">
+            🔍
+          </div>
+
           User পাওয়া যায়নি
-        </div>`;
+
+        </div>
+
+      `;
 
       return;
 
     }
 
-
     const user =
       data.user;
 
+    const username =
+      user.username ||
+      "";
+
+    /*
+     * নিজের account
+     */
+
+    if(
+      username.toLowerCase() ===
+      String(
+        account.username || ""
+      ).toLowerCase()
+    ){
+
+      box.innerHTML = `
+
+        <div class="empty">
+
+          <div class="empty-icon">
+            ❤️
+          </div>
+
+          এটা আপনার নিজের Account
+
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+    const name =
+      user.name ||
+      username ||
+      "User";
+
+    const photo =
+      user.photo ||
+      avatarData(name);
 
     const div =
       document.createElement(
         "div"
       );
 
-
     div.className =
-      "search-result card";
-
-
-    const photo =
-      user.photo ||
-      avatarData(
-        user.name ||
-        user.username
-      );
-
+      "user-card card";
 
     div.innerHTML = `
 
@@ -2427,53 +3349,45 @@ async function searchUser(){
       <div class="user-info">
 
         <strong>
-          ${escapeHtml(
-            user.name ||
-            user.username
-          )}
+          ${escapeHtml(name)}
         </strong>
 
         <span>
-          @${escapeHtml(
-            user.username
-          )}
+          @${escapeHtml(username)}
         </span>
 
       </div>
 
       <button
         class="small-btn"
-        onclick="sendFriendRequest('${escapeAttr(
-          user.username
-        )}')"
+        onclick="sendFriendRequest('${escapeAttr(username)}')"
       >
         Add
       </button>
 
     `;
 
-
-    result.appendChild(
+    box.appendChild(
       div
     );
 
   }catch(error){
 
     console.log(
+      "Search error:",
       error
     );
 
     toast(
-      "Search করা যায়নি"
+      "Server connection failed"
     );
 
   }
 
 }
 
-
 /* =========================
-   FRIEND REQUEST
+   ADD FRIEND
 ========================= */
 
 async function sendFriendRequest(
@@ -2483,13 +3397,25 @@ async function sendFriendRequest(
   const account =
     getAccount();
 
-
   if(!account){
+
+    toast(
+      "আগে Login করুন"
+    );
 
     return;
 
   }
 
+  if(!username){
+
+    toast(
+      "Username পাওয়া যায়নি"
+    );
+
+    return;
+
+  }
 
   try{
 
@@ -2498,7 +3424,6 @@ async function sendFriendRequest(
         API_URL +
         "/api/friend-request",
         {
-
           method:"POST",
 
           headers:{
@@ -2515,42 +3440,53 @@ async function sendFriendRequest(
               pin:
                 account.pin,
 
-              username
+              username:
+                username
 
             })
 
         }
       );
 
+    const text =
+      await response.text();
 
-    const data =
-      await response.json();
+    let data={};
 
+    try{
+      data =
+        JSON.parse(text);
+    }catch{}
+
+    if(!response.ok){
+
+      toast(
+        data.message ||
+        "Friend Request পাঠানো যায়নি"
+      );
+
+      return;
+
+    }
 
     toast(
-      data.message ||
-      (
-        data.ok
-          ? "Request sent ❤️"
-          : "Request failed"
-      )
+      "Friend Request পাঠানো হয়েছে ❤️"
     );
-
 
   }catch(error){
 
     console.log(
+      "Friend request error:",
       error
     );
 
     toast(
-      "Request পাঠানো যায়নি"
+      "Server connection failed"
     );
 
   }
 
 }
-
 
 /* =========================
    LOAD FRIENDS
@@ -2561,9 +3497,7 @@ async function loadFriends(){
   const account =
     getAccount();
 
-
   if(!account)return;
-
 
   try{
 
@@ -2572,7 +3506,6 @@ async function loadFriends(){
         API_URL +
         "/api/social",
         {
-
           method:"POST",
 
           headers:{
@@ -2594,58 +3527,55 @@ async function loadFriends(){
         }
       );
 
+    const text =
+      await response.text();
 
-    const data =
-      await response.json();
+    let data={};
 
+    try{
+      data =
+        JSON.parse(text);
+    }catch{}
 
-    if(!data.ok){
+    if(!response.ok){
 
       toast(
         data.message ||
-        "Friends load হয়নি"
+        "Friends load failed"
       );
 
       return;
 
     }
 
-
     const friends =
       data.friends ||
       data.user?.friends ||
       [];
-
 
     const requests =
       data.requests ||
       data.user?.requests ||
       [];
 
-
     renderRequests(
       requests
     );
 
-
-    renderFriends(
+    await renderFriends(
       friends
     );
 
   }catch(error){
 
     console.log(
+      "Load friends error:",
       error
-    );
-
-    toast(
-      "Friends load করা যায়নি"
     );
 
   }
 
 }
-
 
 /* =========================
    RENDER REQUESTS
@@ -2658,30 +3588,45 @@ async function renderRequests(
   const list =
     $("requestsList");
 
-
   if(!list)return;
 
+  list.innerHTML = "";
 
-  list.innerHTML =
-    "";
+  if(
+    !Array.isArray(requests) ||
+    !requests.length
+  ){
 
+    list.innerHTML = `
 
-  if(!requests.length){
+      <div class="empty">
 
-    list.innerHTML =
-      `<div class="empty">
-        কোনো Friend Request নেই
-      </div>`;
+        <div class="empty-icon">
+          💌
+        </div>
+
+        কোনো নতুন Friend Request নেই।
+
+      </div>
+
+    `;
 
     return;
 
   }
 
-
   for(
     const username
     of requests
   ){
+
+    let name =
+      username;
+
+    let photo =
+      avatarData(
+        username
+      );
 
     try{
 
@@ -2694,100 +3639,83 @@ async function renderRequests(
           )
         );
 
-
       const data =
         await response.json();
 
+      if(
+        data.user
+      ){
 
-      const user =
-        data.user ||
-        {};
+        name =
+          data.user.name ||
+          username;
 
+        photo =
+          data.user.photo ||
+          avatarData(name);
 
-      const name =
-        user.name ||
-        username;
+      }
 
+    }catch{}
 
-      const photo =
-        user.photo ||
-        avatarData(name);
+    const div =
+      document.createElement(
+        "div"
+      );
 
+    div.className =
+      "request-card card";
 
-      const div =
-        document.createElement(
-          "div"
-        );
+    div.innerHTML = `
 
+      <img
+        class="avatar"
+        src="${escapeAttr(photo)}"
+        alt=""
+      >
 
-      div.className =
-        "request-card card";
+      <div class="user-info">
 
+        <strong>
+          ${escapeHtml(name)}
+        </strong>
 
-      div.innerHTML = `
+        <span>
+          @${escapeHtml(username)}
+        </span>
 
-        <img
-          class="avatar"
-          src="${escapeAttr(photo)}"
-          alt=""
+      </div>
+
+      <div class="request-actions">
+
+        <button
+          class="accept-btn"
+          onclick="acceptFriendRequest('${escapeAttr(username)}')"
         >
+          Accept
+        </button>
 
-        <div class="user-info">
+        <button
+          class="reject-btn"
+          onclick="rejectFriendRequest('${escapeAttr(username)}')"
+        >
+          Reject
+        </button>
 
-          <strong>
-            ${escapeHtml(name)}
-          </strong>
+      </div>
 
-          <span>
-            @${escapeHtml(username)}
-          </span>
+    `;
 
-        </div>
-
-        <div class="request-actions">
-
-          <button
-            class="small-btn accept-btn"
-            onclick="acceptFriendRequest('${escapeAttr(
-              username
-            )}')"
-          >
-            ✓
-          </button>
-
-          <button
-            class="small-btn reject-btn"
-            onclick="rejectFriendRequest('${escapeAttr(
-              username
-            )}')"
-          >
-            ×
-          </button>
-
-        </div>
-
-      `;
-
-
-      list.appendChild(
-        div
-      );
-
-    }catch(error){
-
-      console.log(
-        error
-      );
-
-    }
+    list.appendChild(
+      div
+    );
 
   }
 
 }
 
-
 /* =========================
-   ACCEPT REQUEST
+   ACCEPT FRIEND
 ========================= */
 
 async function acceptFriendRequest(
@@ -2797,9 +3725,7 @@ async function acceptFriendRequest(
   const account =
     getAccount();
 
-
   if(!account)return;
-
 
   try{
 
@@ -2808,7 +3734,6 @@ async function acceptFriendRequest(
         API_URL +
         "/api/friend-accept",
         {
-
           method:"POST",
 
           headers:{
@@ -2825,19 +3750,25 @@ async function acceptFriendRequest(
               pin:
                 account.pin,
 
-              username
+              username:
+                username
 
             })
 
         }
       );
 
+    const text =
+      await response.text();
 
-    const data =
-      await response.json();
+    let data={};
 
+    try{
+      data =
+        JSON.parse(text);
+    }catch{}
 
-    if(!data.ok){
+    if(!response.ok){
 
       toast(
         data.message ||
@@ -2848,31 +3779,33 @@ async function acceptFriendRequest(
 
     }
 
-
     toast(
-      "Friend যুক্ত হয়েছে ❤️"
+      "❤️ Friend যুক্ত হয়েছে"
     );
 
+    /*
+     * সঙ্গে সঙ্গে Friends list refresh
+     */
 
     await loadFriends();
 
   }catch(error){
 
     console.log(
+      "Accept error:",
       error
     );
 
     toast(
-      "Accept করা যায়নি"
+      "Server connection failed"
     );
 
   }
 
 }
 
-
 /* =========================
-   REJECT REQUEST
+   REJECT FRIEND
 ========================= */
 
 async function rejectFriendRequest(
@@ -2882,9 +3815,7 @@ async function rejectFriendRequest(
   const account =
     getAccount();
 
-
   if(!account)return;
-
 
   try{
 
@@ -2893,7 +3824,6 @@ async function rejectFriendRequest(
         API_URL +
         "/api/friend-reject",
         {
-
           method:"POST",
 
           headers:{
@@ -2910,40 +3840,55 @@ async function rejectFriendRequest(
               pin:
                 account.pin,
 
-              username
+              username:
+                username
 
             })
 
         }
       );
 
+    const text =
+      await response.text();
 
-    const data =
-      await response.json();
+    let data={};
 
+    try{
+      data =
+        JSON.parse(text);
+    }catch{}
+
+    if(!response.ok){
+
+      toast(
+        data.message ||
+        "Reject করা যায়নি"
+      );
+
+      return;
+
+    }
 
     toast(
-      data.message ||
       "Request rejected"
     );
-
 
     await loadFriends();
 
   }catch(error){
 
     console.log(
+      "Reject error:",
       error
     );
 
     toast(
-      "Reject করা যায়নি"
+      "Server connection failed"
     );
 
   }
 
 }
-
 
 /* =========================
    RENDER FRIENDS
@@ -2956,30 +3901,68 @@ async function renderFriends(
   const list =
     $("friendsList");
 
-
   if(!list)return;
 
+  list.innerHTML = "";
 
-  list.innerHTML =
-    "";
+  if(
+    !Array.isArray(friends) ||
+    !friends.length
+  ){
 
+    list.innerHTML = `
 
-  if(!friends.length){
+      <div class="empty">
 
-    list.innerHTML =
-      `<div class="empty">
-        এখনো কোনো Friend নেই ❤️
-      </div>`;
+        <div class="empty-icon">
+          💕
+        </div>
+
+        এখনো কোনো friend নেই।
+
+      </div>
+
+    `;
 
     return;
 
   }
 
-
   for(
-    const username
+    const friend
     of friends
   ){
+
+    const username =
+      typeof friend ===
+      "string"
+        ? friend
+        : friend.username;
+
+    if(!username)continue;
+
+    let name =
+      typeof friend ===
+      "object"
+        ? (
+            friend.name ||
+            username
+          )
+        : username;
+
+    let photo =
+      typeof friend ===
+      "object"
+        ? (
+            friend.photo ||
+            avatarData(name)
+          )
+        : avatarData(name);
+
+    /*
+     * Server friends array-তে username
+     * থাকায় search করে profile নিচ্ছি।
+     */
 
     try{
 
@@ -2992,84 +3975,69 @@ async function renderFriends(
           )
         );
 
-
       const data =
         await response.json();
 
+      if(
+        data.user
+      ){
 
-      const user =
-        data.user ||
-        {};
+        name =
+          data.user.name ||
+          username;
 
+        photo =
+          data.user.photo ||
+          avatarData(name);
 
-      const name =
-        user.name ||
-        username;
+      }
 
+    }catch{}
 
-      const photo =
-        user.photo ||
-        avatarData(name);
-
-
-      const div =
-        document.createElement(
-          "div"
-        );
-
-
-      div.className =
-        "friend-card card";
-
-
-      div.innerHTML = `
-
-        <img
-          class="avatar"
-          src="${escapeAttr(photo)}"
-          alt=""
-        >
-
-        <div class="user-info">
-
-          <strong>
-            ${escapeHtml(name)}
-          </strong>
-
-          <span>
-            @${escapeHtml(username)}
-          </span>
-
-        </div>
-
-        <button
-          class="small-btn"
-          onclick="openFriendChat('${escapeAttr(
-            username
-          )}')"
-        >
-          Chat
-        </button>
-
-      `;
-
-
-      list.appendChild(
-        div
+    const div =
+      document.createElement(
+        "div"
       );
 
-    }catch(error){
+    div.className =
+      "friend-card card";
 
-      console.log(
-        error
-      );
+    div.innerHTML = `
 
-    }
+      <img
+        class="avatar"
+        src="${escapeAttr(photo)}"
+        alt=""
+      >
+
+      <div class="user-info">
+
+        <strong>
+          ${escapeHtml(name)}
+        </strong>
+
+        <span>
+          @${escapeHtml(username)}
+        </span>
+
+      </div>
+
+      <button
+        class="small-btn"
+        onclick="openFriendChat('${escapeAttr(username)}')"
+      >
+        Chat
+      </button>
+
+    `;
+
+    list.appendChild(
+      div
+    );
 
   }
 
 }
-
 
 /* =========================
    CHAT
@@ -3080,24 +4048,10 @@ async function openFriendChat(
 ){
 
   currentChatUsername =
-    String(
-      username || ""
-    )
-      .replace(/^@/,"")
-      .trim()
-      .toLowerCase();
-
-
-  /*
-    গুরুত্বপূর্ণ:
-    /api/search phone ফেরত দেয় না।
-    তাই phone-এর উপর নির্ভর করছি না।
-    Server username দিয়েই target খুঁজবে।
-  */
+    username;
 
   currentChatPhone =
     "";
-
 
   try{
 
@@ -3106,78 +4060,64 @@ async function openFriendChat(
         API_URL +
         "/api/search?username=" +
         encodeURIComponent(
-          currentChatUsername
+          username.replace(
+            /^@/,
+            ""
+          )
         )
       );
-
 
     const text =
       await response.text();
 
-
-    let data = {};
-
+    let data={};
 
     try{
-
       data =
         JSON.parse(text);
-
     }catch{}
-
 
     const user =
       data.user ||
       null;
 
-
     if(user){
 
-      /*
-        user.phone নেওয়া হচ্ছে না।
-      */
-
       currentChatPhone =
+        user.phone ||
         "";
-
 
       $("chatName")
         .textContent =
         user.name ||
-        currentChatUsername;
-
+        username;
 
       $("chatUsername")
         .textContent =
-        "@" +
-        currentChatUsername;
-
+        "@" + username;
 
       $("chatPhoto")
         .src =
         user.photo ||
         avatarData(
           user.name ||
-          currentChatUsername
+          username
         );
 
     }else{
 
       $("chatName")
         .textContent =
-        currentChatUsername;
-
+        username;
 
       $("chatUsername")
         .textContent =
-        "@" +
-        currentChatUsername;
-
+        "@" + username;
 
       $("chatPhoto")
         .src =
         avatarData(
-          currentChatUsername
+          username
         );
 
     }
@@ -3189,36 +4129,29 @@ async function openFriendChat(
       error
     );
 
-
     $("chatName")
       .textContent =
-      currentChatUsername;
-
+      username;
 
     $("chatUsername")
       .textContent =
-      "@" +
-      currentChatUsername;
-
+      "@" + username;
 
     $("chatPhoto")
       .src =
       avatarData(
-        currentChatUsername
+        username
       );
 
   }
 
-
   loadMessages();
-
 
   showPage(
     "chatPage"
   );
 
 }
-
 
 /* =========================
    CHAT STORAGE
@@ -3230,7 +4163,6 @@ function chatStorageKey(){
     currentChatUsername ||
     "general";
 
-
   return (
     "dujon_messages_" +
     username
@@ -3238,19 +4170,14 @@ function chatStorageKey(){
 
 }
 
-
 function loadMessages(){
 
   const box =
     $("messages");
 
-
   if(!box)return;
 
-
-  box.innerHTML =
-    "";
-
+  box.innerHTML = "";
 
   try{
 
@@ -3260,7 +4187,6 @@ function loadMessages(){
           chatStorageKey()
         ) || "[]"
       );
-
 
     messages.forEach(
       msg=>{
@@ -3278,14 +4204,12 @@ function loadMessages(){
 
 }
 
-
 function saveMessage(
   text,
   me
 ){
 
-  let messages = [];
-
+  let messages=[];
 
   try{
 
@@ -3298,7 +4222,6 @@ function saveMessage(
 
   }catch{}
 
-
   messages.push({
 
     text,
@@ -3309,7 +4232,6 @@ function saveMessage(
       Date.now()
 
   });
-
 
   if(
     messages.length >
@@ -3323,7 +4245,6 @@ function saveMessage(
 
   }
 
-
   localStorage.setItem(
     chatStorageKey(),
     JSON.stringify(
@@ -3333,25 +4254,21 @@ function saveMessage(
 
 }
 
-
 function addMessage(
   text,
   me,
-  save = true
+  save=true
 ){
 
   const box =
     $("messages");
 
-
   if(!box)return;
-
 
   const div =
     document.createElement(
       "div"
     );
-
 
   div.className =
     "msg " +
@@ -3361,19 +4278,15 @@ function addMessage(
         : "other"
     );
 
-
   div.textContent =
     text;
-
 
   box.appendChild(
     div
   );
 
-
   box.scrollTop =
     box.scrollHeight;
-
 
   if(save){
 
@@ -3386,70 +4299,49 @@ function addMessage(
 
 }
 
-
 function sendMessage(){
 
   const input =
     $("messageInput");
 
-
   const text =
     input.value.trim();
 
-
   if(!text)return;
-
 
   if(!currentChatUsername){
 
     toast(
-      "আগে একজন Friend নির্বাচন করুন"
+      "আগে একজন friend নির্বাচন করুন"
     );
 
     return;
 
   }
 
-
   addMessage(
     text,
     true
   );
 
+  input.value = "";
 
-  input.value =
-    "";
+  sendWS({
 
+    type:"chat",
 
-  /*
-    Username-ই যথেষ্ট।
-    Server username → phone খুঁজে নেবে।
-  */
+    toUsername:
+      currentChatUsername,
 
-  const sent =
-    sendWS({
+    toPhone:
+      currentChatPhone,
 
-      type:"chat",
+    message:
+      text
 
-      toUsername:
-        currentChatUsername,
-
-      message:
-        text
-
-    });
-
-
-  if(!sent){
-
-    toast(
-      "Friend বর্তমানে Offline"
-    );
-
-  }
+  });
 
 }
-
 
 /* =========================
    CALL
@@ -3462,22 +4354,19 @@ async function makeCall(
   if(!currentChatUsername){
 
     toast(
-      "আগে Friend নির্বাচন করুন"
+      "আগে friend নির্বাচন করুন"
     );
 
     return;
 
   }
 
-
   currentCallType =
     type;
-
 
   try{
 
     await createPeerConnection();
-
 
     const constraints =
       type === "video"
@@ -3490,14 +4379,12 @@ async function makeCall(
             video:false
           };
 
-
     localStream =
       await navigator
         .mediaDevices
         .getUserMedia(
           constraints
         );
-
 
     localStream
       .getTracks()
@@ -3510,63 +4397,45 @@ async function makeCall(
             )
       );
 
-
     $("localVideo")
       .srcObject =
       localStream;
 
-
     const offer =
       await peerConnection
         .createOffer();
-
 
     await peerConnection
       .setLocalDescription(
         offer
       );
 
-
     const profile =
       getProfile();
 
+    sendWS({
 
-    const sent =
-      sendWS({
+      type:
+        type === "video"
+          ? "video-call"
+          : "audio-call",
 
-        type:
-          type === "video"
-            ? "video-call"
-            : "audio-call",
+      action:
+        "offer",
 
-        action:
-          "offer",
+      offer,
 
-        offer,
+      toUsername:
+        currentChatUsername,
 
-        toUsername:
-          currentChatUsername,
+      toPhone:
+        currentChatPhone,
 
-        profile
+      profile
 
-      });
-
-
-    if(!sent){
-
-      toast(
-        "Friend বর্তমানে Offline"
-      );
-
-      closePeer();
-
-      return;
-
-    }
-
+    });
 
     showCallScreen();
-
 
   }catch(error){
 
@@ -3575,18 +4444,15 @@ async function makeCall(
       error
     );
 
-
     toast(
       "Camera/Microphone permission দিন"
     );
-
 
     closePeer();
 
   }
 
 }
-
 
 async function createPeerConnection(){
 
@@ -3596,12 +4462,10 @@ async function createPeerConnection(){
 
   }
 
-
   peerConnection =
     new RTCPeerConnection(
       ICE_SERVERS
     );
-
 
   peerConnection.onicecandidate =
     event=>{
@@ -3620,7 +4484,11 @@ async function createPeerConnection(){
 
           toUsername:
             incomingCaller?.username ||
-            currentChatUsername
+            currentChatUsername,
+
+          toPhone:
+            incomingCaller?.phone ||
+            currentChatPhone
 
         });
 
@@ -3628,13 +4496,11 @@ async function createPeerConnection(){
 
     };
 
-
   peerConnection.ontrack =
     event=>{
 
       const stream =
         event.streams[0];
-
 
       if(stream){
 
@@ -3646,122 +4512,12 @@ async function createPeerConnection(){
 
     };
 
-
   return peerConnection;
 
 }
 
-
 /* =========================
-   CALL SIGNAL
-========================= */
-
-async function handleCallSignal(
-  data
-){
-
-  if(
-    data.action ===
-    "offer"
-  ){
-
-    incomingCaller = {
-
-      username:
-        data.fromUsername ||
-        data.sender ||
-        "",
-
-      phone:
-        data.fromPhone ||
-        "",
-
-      profile:
-        data.profile ||
-        {}
-
-    };
-
-
-    currentChatUsername =
-      incomingCaller.username;
-
-
-    currentChatPhone =
-      "";
-
-
-    currentCallType =
-      data.type ===
-      "video-call"
-        ? "video"
-        : "audio";
-
-
-    pendingOffer =
-      data.offer;
-
-
-    showIncomingCall();
-
-
-    return;
-
-  }
-
-
-  if(
-    data.action ===
-    "answer"
-  ){
-
-    await handleAnswer(
-      data.answer
-    );
-
-    return;
-
-  }
-
-
-  if(
-    data.action ===
-    "reject"
-  ){
-
-    toast(
-      "Call rejected"
-    );
-
-
-    closeCallScreen();
-
-    return;
-
-  }
-
-
-  if(
-    data.action ===
-    "end"
-  ){
-
-    toast(
-      "Call ended"
-    );
-
-
-    closeCallScreen();
-
-    return;
-
-  }
-
-}
-
-
-/* =========================
-   CREATE INCOMING CALL UI
+   INCOMING CALL
 ========================= */
 
 function showIncomingCall(){
@@ -3769,22 +4525,18 @@ function showIncomingCall(){
   const modal =
     $("incomingModal");
 
-
   const profile =
     incomingCaller?.profile ||
     {};
-
 
   const name =
     profile.name ||
     incomingCaller?.username ||
     "Someone";
 
-
   $("incomingName")
     .textContent =
     name;
-
 
   $("incomingType")
     .textContent =
@@ -3793,23 +4545,16 @@ function showIncomingCall(){
       ? "ভিডিও কল আসছে..."
       : "অডিও কল আসছে...";
 
-
   $("incomingPhoto")
     .src =
     profile.photo ||
     avatarData(name);
-
 
   modal.classList.add(
     "show"
   );
 
 }
-
-
-/* =========================
-   ACCEPT CALL
-========================= */
 
 async function acceptCall(){
 
@@ -3818,11 +4563,9 @@ async function acceptCall(){
       "show"
     );
 
-
   try{
 
     await createPeerConnection();
-
 
     const constraints =
       currentCallType ===
@@ -3836,14 +4579,12 @@ async function acceptCall(){
             video:false
           };
 
-
     localStream =
       await navigator
         .mediaDevices
         .getUserMedia(
           constraints
         );
-
 
     localStream
       .getTracks()
@@ -3856,11 +4597,9 @@ async function acceptCall(){
             )
       );
 
-
     $("localVideo")
       .srcObject =
       localStream;
-
 
     await peerConnection
       .setRemoteDescription(
@@ -3869,34 +4608,24 @@ async function acceptCall(){
         )
       );
 
-
     await flushIceCandidates();
-
 
     const answer =
       await peerConnection
         .createAnswer();
-
 
     await peerConnection
       .setLocalDescription(
         answer
       );
 
-
     currentChatUsername =
       incomingCaller?.username ||
       "";
 
-
-    /*
-      Phone প্রয়োজন নেই।
-      Username দিয়েই server target খুঁজবে।
-    */
-
     currentChatPhone =
+      incomingCaller?.phone ||
       "";
-
 
     sendWS({
 
@@ -3912,13 +4641,14 @@ async function acceptCall(){
       answer,
 
       toUsername:
-        currentChatUsername
+        currentChatUsername,
+
+      toPhone:
+        currentChatPhone
 
     });
 
-
     showCallScreen();
-
 
   }catch(error){
 
@@ -3926,22 +4656,15 @@ async function acceptCall(){
       error
     );
 
-
     toast(
       "Call accept করা যায়নি"
     );
-
 
     closePeer();
 
   }
 
 }
-
-
-/* =========================
-   REJECT CALL
-========================= */
 
 function rejectCall(){
 
@@ -3958,26 +4681,26 @@ function rejectCall(){
 
     toUsername:
       incomingCaller?.username ||
+      "",
+
+    toPhone:
+      incomingCaller?.phone ||
       ""
 
   });
-
 
   $("incomingModal")
     .classList.remove(
       "show"
     );
 
-
   pendingOffer =
     null;
-
 
   incomingCaller =
     null;
 
 }
-
 
 /* =========================
    ANSWER
@@ -3990,11 +4713,8 @@ async function handleAnswer(
   try{
 
     if(!peerConnection){
-
       return;
-
     }
-
 
     await peerConnection
       .setRemoteDescription(
@@ -4002,7 +4722,6 @@ async function handleAnswer(
           answer
         )
       );
-
 
     await flushIceCandidates();
 
@@ -4016,7 +4735,6 @@ async function handleAnswer(
 
 }
 
-
 /* =========================
    ICE
 ========================= */
@@ -4026,7 +4744,6 @@ async function handleIceCandidate(
 ){
 
   if(!candidate)return;
-
 
   if(
     peerConnection &&
@@ -4062,7 +4779,6 @@ async function handleIceCandidate(
 
 }
 
-
 async function flushIceCandidates(){
 
   if(
@@ -4074,14 +4790,11 @@ async function flushIceCandidates(){
 
   }
 
-
   const queue =
     [...pendingIceCandidates];
 
-
   pendingIceCandidates =
     [];
-
 
   for(
     const candidate
@@ -4110,7 +4823,6 @@ async function flushIceCandidates(){
 
 }
 
-
 /* =========================
    CALL UI
 ========================= */
@@ -4124,7 +4836,6 @@ function showCallScreen(){
 
 }
 
-
 function closeCallScreen(){
 
   $("callScreen")
@@ -4132,11 +4843,9 @@ function closeCallScreen(){
       "show"
     );
 
-
   closePeer();
 
 }
-
 
 function closePeer(){
 
@@ -4150,10 +4859,8 @@ function closePeer(){
 
   }
 
-
   peerConnection =
     null;
-
 
   if(localStream){
 
@@ -4166,34 +4873,21 @@ function closePeer(){
 
   }
 
-
   localStream =
     null;
-
 
   $("localVideo")
     .srcObject =
     null;
 
-
   $("remoteVideo")
     .srcObject =
     null;
 
-
   pendingIceCandidates =
     [];
 
-
-  pendingOffer =
-    null;
-
-
-  incomingCaller =
-    null;
-
 }
-
 
 function endCall(){
 
@@ -4209,29 +4903,27 @@ function endCall(){
       "end",
 
     toUsername:
-      currentChatUsername
+      currentChatUsername,
+
+    toPhone:
+      currentChatPhone
 
   });
-
 
   closeCallScreen();
 
 }
 
-
 function toggleMic(){
 
   if(!localStream)return;
-
 
   const tracks =
     localStream
       .getAudioTracks();
 
-
   micEnabled =
     !micEnabled;
-
 
   tracks.forEach(
     track=>{
@@ -4239,7 +4931,6 @@ function toggleMic(){
         micEnabled;
     }
   );
-
 
   $("micBtn")
     .textContent =
@@ -4249,20 +4940,16 @@ function toggleMic(){
 
 }
 
-
 function toggleCamera(){
 
   if(!localStream)return;
-
 
   const tracks =
     localStream
       .getVideoTracks();
 
-
   cameraEnabled =
     !cameraEnabled;
-
 
   tracks.forEach(
     track=>{
@@ -4271,7 +4958,6 @@ function toggleCamera(){
     }
   );
 
-
   $("cameraBtn")
     .textContent =
     cameraEnabled
@@ -4279,7 +4965,6 @@ function toggleCamera(){
       : "🚫";
 
 }
-
 
 /* =========================
    ESCAPE
@@ -4315,7 +5000,6 @@ function escapeHtml(
 
 }
 
-
 function escapeAttr(
   value
 ){
@@ -4334,7 +5018,6 @@ function escapeAttr(
 
 }
 
-
 /* =========================
    START
 ========================= */
@@ -4345,7 +5028,6 @@ window.addEventListener(
 
     const account =
       getAccount();
-
 
     if(account){
 
