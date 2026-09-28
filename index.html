@@ -8,7 +8,7 @@
 <link rel="manifest" href="/manifest.json">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
 <title>দুজন ❤️</title>
 
@@ -17,436 +17,457 @@
  box-sizing:border-box;
  margin:0;
  padding:0;
- font-family:Arial,"Noto Sans Bengali",sans-serif
 }
 
 body{
- background:radial-gradient(circle at top,#351d48,#120d1d 45%,#07070c);
+ font-family:
+  system-ui,
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  sans-serif;
+ background:
+  radial-gradient(circle at top,#24152d 0,#090912 48%,#050509 100%);
  color:#fff;
- min-height:100vh
+ min-height:100vh;
+}
+
+button,
+input,
+textarea{
+ font:inherit;
+}
+
+button{
+ cursor:pointer;
 }
 
 .page{
  display:none;
  min-height:100vh;
- padding:20px
+ padding:20px;
 }
 
-.page.active{display:block}
+.page.active{
+ display:block;
+}
 
 .container{
- max-width:520px;
- margin:auto
+ width:100%;
+ max-width:650px;
+ margin:auto;
 }
 
 .card{
- background:rgba(255,255,255,.08);
- border:1px solid rgba(255,255,255,.12);
- backdrop-filter:blur(18px);
+ background:rgba(255,255,255,.06);
+ border:1px solid rgba(255,255,255,.1);
  border-radius:24px;
  padding:20px;
- margin-bottom:16px
+ margin-bottom:16px;
+ backdrop-filter:blur(16px);
+ box-shadow:0 15px 50px rgba(0,0,0,.3);
 }
 
-button,input,textarea{font:inherit}
-
-button{
- border:0;
- cursor:pointer
+.logo{
+ text-align:center;
+ font-size:42px;
+ font-weight:800;
+ margin:35px 0 8px;
 }
 
-h1{font-size:29px}
-h2{font-size:22px;margin-bottom:8px}
-h3{margin-bottom:8px}
-
-p{
- color:#ccc;
- line-height:1.5
+.subtitle{
+ text-align:center;
+ color:#aaa;
+ margin-bottom:28px;
 }
 
-.center{text-align:center}
-.hidden{display:none!important}
+.title{
+ font-size:25px;
+ font-weight:800;
+ margin-bottom:5px;
+}
 
-input,textarea{
+.muted{
+ color:#aaa;
+}
+
+.input{
  width:100%;
- padding:15px;
- margin:8px 0;
- border-radius:15px;
+ background:rgba(255,255,255,.07);
  border:1px solid rgba(255,255,255,.12);
- outline:0;
- background:rgba(0,0,0,.25);
- color:#fff
+ color:#fff;
+ border-radius:14px;
+ padding:14px 16px;
+ margin:7px 0;
+ outline:none;
 }
 
-textarea{
- resize:none;
- min-height:100px
+.input:focus{
+ border-color:#ff4d8d;
+ box-shadow:0 0 0 3px rgba(255,77,141,.1);
 }
 
-input::placeholder,
-textarea::placeholder{color:#aaa}
+textarea.input{
+ min-height:100px;
+ resize:vertical;
+}
 
 .btn{
  width:100%;
- padding:15px;
+ border:0;
  border-radius:15px;
- margin-top:8px;
- background:linear-gradient(135deg,#ff4f91,#814cff);
- color:#fff;
- font-weight:bold
+ padding:14px;
+ margin-top:10px;
+ background:linear-gradient(135deg,#ff3d81,#b52dff);
+ color:white;
+ font-weight:800;
+ box-shadow:0 10px 25px rgba(255,61,129,.18);
 }
 
-.btn.secondary{background:rgba(255,255,255,.1)}
-.btn.danger{background:#b52d45}
+.btn.secondary{
+ background:rgba(255,255,255,.08);
+ box-shadow:none;
+}
 
-.small-btn{
+.btn.danger{
+ background:#a91f45;
+}
+
+.btn.small{
+ width:auto;
  padding:9px 13px;
- border-radius:12px;
- background:rgba(255,255,255,.1);
- color:#fff
+ margin:0;
 }
 
-.home-header{
- display:flex;
- justify-content:space-between;
- align-items:center;
- margin-bottom:20px
+.link-btn{
+ background:none;
+ border:0;
+ color:#ff70a5;
+ margin-top:15px;
 }
 
-.my-profile{
- display:flex;
- align-items:center;
- gap:12px
+.center{
+ text-align:center;
 }
 
 .avatar{
- width:54px;
- height:54px;
+ width:58px;
+ height:58px;
  border-radius:50%;
- background:linear-gradient(135deg,#ff4f91,#814cff);
+ object-fit:cover;
+ background:linear-gradient(135deg,#ff4d8d,#7c3aed);
  display:flex;
  align-items:center;
  justify-content:center;
- font-size:24px;
+ font-size:25px;
+ font-weight:800;
  overflow:hidden;
- flex-shrink:0
 }
 
 .avatar img{
  width:100%;
  height:100%;
- object-fit:cover
+ object-fit:cover;
 }
 
-.online-dot{
- display:inline-block;
- width:9px;
- height:9px;
- background:#34e27a;
- border-radius:50%;
- margin-right:5px
+.profile-row{
+ display:flex;
+ align-items:center;
+ gap:14px;
+}
+
+.header{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:12px;
+ margin-bottom:18px;
+}
+
+.header-left{
+ display:flex;
+ align-items:center;
+ gap:12px;
+}
+
+.icon-btn{
+ width:42px;
+ height:42px;
+ border:0;
+ border-radius:13px;
+ background:rgba(255,255,255,.08);
+ color:white;
+ font-size:20px;
 }
 
 .hero{
- padding:30px 20px;
  text-align:center;
- background:linear-gradient(
-  135deg,
-  rgba(255,75,145,.22),
-  rgba(117,70,255,.2)
- )
+ padding:25px 10px;
 }
 
-.hero .heart{
- font-size:50px;
- margin-bottom:8px
+.hero .avatar{
+ width:95px;
+ height:95px;
+ margin:0 auto 14px;
+ font-size:35px;
 }
 
-.partner{
- display:flex;
- align-items:center;
- gap:14px
-}
-
-.partner-info{flex:1}
-
-.partner-name{
- font-size:19px;
- font-weight:bold
+.hero-name{
+ font-size:28px;
+ font-weight:900;
 }
 
 .status{
- color:#aaa;
- font-size:13px;
- margin-top:4px
+ color:#70e69a;
+ margin-top:4px;
+}
+
+.partner-box{
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ gap:20px;
+ padding:20px 0;
+}
+
+.heart{
+ font-size:35px;
+ animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+ 50%{transform:scale(1.15)}
 }
 
 .quick-grid{
  display:grid;
- grid-template-columns:1fr 1fr;
- gap:12px
+ grid-template-columns:repeat(2,1fr);
+ gap:12px;
 }
 
 .quick{
- position:relative;
- padding:19px 10px;
- border-radius:20px;
- background:rgba(255,255,255,.08);
- color:#fff;
- text-align:center
+ background:rgba(255,255,255,.07);
+ border:1px solid rgba(255,255,255,.08);
+ border-radius:18px;
+ padding:18px 10px;
+ text-align:center;
+ color:white;
 }
 
-.quick-icon{
- font-size:29px;
+.quick .emoji{
+ font-size:27px;
  display:block;
- margin-bottom:7px
+ margin-bottom:7px;
 }
 
-.badge{
- position:absolute;
- top:8px;
- right:10px;
- min-width:22px;
- height:22px;
- padding:0 6px;
- background:#ff315f;
- border-radius:20px;
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:11px;
- font-weight:bold
+.section-title{
+ font-size:19px;
+ font-weight:800;
+ margin-bottom:12px;
 }
 
 .feeling-grid{
  display:grid;
- grid-template-columns:repeat(5,1fr);
- gap:7px;
- margin-top:12px
+ grid-template-columns:repeat(4,1fr);
+ gap:8px;
 }
 
 .feeling{
- padding:12px 4px;
- border-radius:15px;
- background:rgba(255,255,255,.08);
+ padding:12px 5px;
+ border:1px solid rgba(255,255,255,.08);
+ background:rgba(255,255,255,.05);
+ border-radius:14px;
+ color:white;
+}
+
+.note{
+ background:rgba(255,75,130,.09);
+ border:1px solid rgba(255,75,130,.2);
+ border-radius:17px;
+ padding:15px;
+ line-height:1.6;
+}
+
+.badge{
+ display:inline-flex;
+ min-width:20px;
+ height:20px;
+ padding:0 6px;
+ align-items:center;
+ justify-content:center;
+ border-radius:20px;
+ background:#ff3d81;
  color:#fff;
- font-size:22px
+ font-size:11px;
+ font-weight:800;
 }
 
-.room-code{
- font-size:34px;
- letter-spacing:7px;
- text-align:center;
- margin:20px 0
+.search-row{
+ display:flex;
+ gap:8px;
 }
 
-.connection{
- text-align:center;
- color:#aaa;
- font-size:13px
+.search-row .input{
+ margin:0;
+}
+
+.user-result,
+.friend-user,
+.request-user{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:12px;
+ padding:13px;
+ background:rgba(255,255,255,.05);
+ border-radius:16px;
+ margin-top:9px;
+}
+
+.user-info{
+ display:flex;
+ align-items:center;
+ gap:11px;
+ min-width:0;
+}
+
+.user-name{
+ font-weight:800;
+ overflow:hidden;
+ text-overflow:ellipsis;
+ white-space:nowrap;
+}
+
+.username{
+ color:#999;
+ font-size:13px;
+}
+
+.actions{
+ display:flex;
+ gap:6px;
 }
 
 .chat-box{
- height:48vh;
+ height:55vh;
+ min-height:350px;
  overflow-y:auto;
- padding:8px 2px
+ padding:10px 3px;
 }
 
-.message{
- max-width:78%;
- padding:12px 15px;
+.msg{
+ max-width:80%;
+ padding:11px 14px;
  border-radius:18px;
- margin:8px 0;
- word-wrap:break-word
+ margin:7px 0;
+ line-height:1.45;
+ word-break:break-word;
 }
 
-.message.me{
+.msg.me{
  margin-left:auto;
- background:linear-gradient(135deg,#ff4f91,#814cff);
- border-bottom-right-radius:5px
+ background:linear-gradient(135deg,#ff3d81,#9d3cff);
+ border-bottom-right-radius:5px;
 }
 
-.message.other{
+.msg.them{
  margin-right:auto;
- background:rgba(255,255,255,.1);
- border-bottom-left-radius:5px
+ background:rgba(255,255,255,.09);
+ border-bottom-left-radius:5px;
 }
 
-.message-time{
- display:block;
- font-size:9px;
+.msg-time{
+ font-size:10px;
  opacity:.65;
- margin-top:5px
+ margin-top:4px;
 }
 
-.chat-input{
+.chat-input-row{
  display:flex;
- gap:8px
+ gap:8px;
+ margin-top:10px;
 }
 
-.chat-input input{
+.chat-input-row .input{
  margin:0;
- flex:1
 }
 
-.chat-input button{
+.send-btn{
  width:55px;
+ border:0;
  border-radius:15px;
- background:#ff4f91;
- color:#fff
-}
-
-.history-item{
- display:flex;
- gap:12px;
- align-items:center;
- padding:14px 0;
- border-bottom:1px solid rgba(255,255,255,.08)
-}
-
-.history-icon{
- width:42px;
- height:42px;
- border-radius:50%;
- display:flex;
- align-items:center;
- justify-content:center;
- background:rgba(255,255,255,.08);
- font-size:20px
-}
-
-.history-info{flex:1}
-
-.history-time{
- font-size:11px;
- color:#999;
- margin-top:4px
-}
-
-.empty{
- text-align:center;
- padding:28px;
- color:#999
-}
-
-.days{
- text-align:center;
- padding:22px;
- border-radius:22px;
- background:linear-gradient(
-  135deg,
-  rgba(255,79,145,.2),
-  rgba(129,76,255,.2)
- )
-}
-
-.days-number{
- font-size:42px;
- font-weight:bold;
- margin:7px
-}
-
-.days-label{color:#ccc}
-
-.love-box{
- padding:18px;
- border-radius:18px;
- background:linear-gradient(
-  135deg,
-  rgba(255,79,145,.18),
-  rgba(129,76,255,.18)
- )
-}
-
-.story{
- white-space:pre-wrap;
- line-height:1.8;
- color:#eee;
- min-height:60px
+ background:#ff3d81;
+ color:white;
+ font-size:20px;
 }
 
 .memory-grid{
  display:grid;
- grid-template-columns:1fr 1fr;
+ grid-template-columns:repeat(2,1fr);
  gap:10px;
- margin-top:12px
 }
 
 .memory{
- position:relative;
+ min-height:120px;
  border-radius:17px;
  overflow:hidden;
- background:rgba(255,255,255,.07)
+ background:rgba(255,255,255,.07);
+ position:relative;
 }
 
 .memory img{
  width:100%;
- height:140px;
- object-fit:cover
+ height:100%;
+ object-fit:cover;
 }
 
 .memory-text{
- padding:10px;
- font-size:13px;
- color:#ddd
+ padding:12px;
 }
 
-.memory-delete{
- position:absolute;
- right:7px;
- top:7px;
- width:30px;
- height:30px;
- border-radius:50%;
- background:rgba(0,0,0,.65);
- color:#fff
-}
-
-.moment{
- padding:13px;
- border-radius:16px;
+.room-code{
+ font-size:32px;
+ letter-spacing:7px;
+ text-align:center;
+ font-weight:900;
+ padding:18px;
  background:rgba(255,255,255,.06);
- margin-top:8px
+ border-radius:18px;
+ margin:15px 0;
 }
 
-.moment small{
- display:block;
- color:#999;
- margin-top:5px
+.profile-avatar-large{
+ width:125px;
+ height:125px;
+ border-radius:50%;
+ margin:10px auto 18px;
+ overflow:hidden;
+ background:linear-gradient(135deg,#ff3d81,#743cff);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:45px;
+ font-weight:900;
 }
 
-.file-label{
- display:block;
- padding:13px;
- border-radius:15px;
- background:rgba(255,255,255,.1);
- text-align:center;
- cursor:pointer;
- margin-top:8px
-}
-
-#memoryInput,#photoInput{display:none}
-
-.sync-status{
- text-align:center;
- color:#aaa;
- font-size:12px;
- margin-top:10px
+.profile-avatar-large img{
+ width:100%;
+ height:100%;
+ object-fit:cover;
 }
 
 .call-screen{
+ display:none;
  position:fixed;
  inset:0;
- z-index:100;
- background:radial-gradient(circle at center,#302044,#09090e 70%);
- display:none;
- flex-direction:column;
- align-items:center;
- justify-content:center;
- padding:20px
+ z-index:1000;
+ background:#050509;
 }
 
-.call-screen.active{display:flex}
+.call-screen.active{
+ display:flex;
+ flex-direction:column;
+}
 
 .remote-video{
  position:absolute;
@@ -454,1109 +475,1074 @@ textarea::placeholder{color:#aaa}
  width:100%;
  height:100%;
  object-fit:cover;
- background:#08080d
+ background:#101018;
 }
 
 .local-video{
  position:absolute;
- width:115px;
- height:165px;
- right:18px;
- top:20px;
- border-radius:18px;
+ right:15px;
+ top:15px;
+ width:110px;
+ height:150px;
  object-fit:cover;
+ border-radius:16px;
  background:#111;
- border:2px solid rgba(255,255,255,.25)
+ border:2px solid rgba(255,255,255,.3);
 }
 
-.call-info{
- position:relative;
+.call-top{
+ position:absolute;
+ top:20px;
+ left:20px;
+ right:20px;
  z-index:2;
  text-align:center;
- margin-bottom:40px
 }
 
-.call-avatar{
- width:100px;
- height:100px;
- border-radius:50%;
- background:linear-gradient(135deg,#ff4f91,#814cff);
- overflow:hidden;
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:40px;
- margin:auto
-}
-
-.call-avatar img{
- width:100%;
- height:100%;
- object-fit:cover
+.call-name{
+ font-size:22px;
+ font-weight:800;
+ text-shadow:0 2px 10px #000;
 }
 
 .call-controls{
  position:absolute;
  bottom:35px;
- z-index:5;
+ left:0;
+ right:0;
+ z-index:3;
  display:flex;
- gap:15px
+ justify-content:center;
+ gap:12px;
 }
 
 .call-control{
- width:58px;
- height:58px;
+ width:55px;
+ height:55px;
+ border:0;
  border-radius:50%;
- background:rgba(255,255,255,.14);
+ background:rgba(255,255,255,.15);
  color:#fff;
- font-size:22px
+ font-size:22px;
+ backdrop-filter:blur(10px);
 }
 
-.call-control.end{background:#e73655}
-
-.call-status{
- margin-top:10px;
- color:#ddd
+.call-control.end{
+ background:#e52f55;
 }
 
 .incoming{
+ display:none;
  position:fixed;
  inset:0;
- z-index:200;
- background:rgba(5,5,10,.9);
+ z-index:1100;
+ background:rgba(5,5,9,.92);
  backdrop-filter:blur(18px);
- display:none;
  align-items:center;
  justify-content:center;
- padding:20px
+ padding:20px;
 }
 
-.incoming.active{display:flex}
+.incoming.active{
+ display:flex;
+}
 
 .incoming-card{
  width:100%;
- max-width:370px;
- padding:30px 20px;
- border-radius:30px;
- background:linear-gradient(145deg,#24162f,#12121c);
- text-align:center
+ max-width:380px;
+ text-align:center;
+ padding:30px;
+ border-radius:28px;
+ background:rgba(30,30,40,.95);
 }
 
 .incoming-avatar{
- width:110px;
- height:110px;
- margin:auto;
+ width:90px;
+ height:90px;
+ margin:0 auto 15px;
  border-radius:50%;
- background:linear-gradient(135deg,#ff4f91,#814cff);
  overflow:hidden;
+ background:linear-gradient(135deg,#ff3d81,#7c3aed);
  display:flex;
  align-items:center;
  justify-content:center;
- font-size:42px
+ font-size:35px;
 }
 
 .incoming-avatar img{
  width:100%;
  height:100%;
- object-fit:cover
+ object-fit:cover;
 }
 
-.incoming-buttons{
+.incoming-actions{
  display:flex;
  gap:10px;
- margin-top:25px
+ margin-top:25px;
 }
 
-.incoming-buttons button{
- flex:1;
- padding:14px;
- border-radius:15px;
- color:#fff;
- font-weight:bold
+.incoming-actions .btn{
+ margin:0;
 }
-
-.accept{background:#28b968}
-.reject{background:#df3c58}
 
 .toast{
  position:fixed;
  left:50%;
  bottom:25px;
- transform:translateX(-50%) translateY(20px);
- background:rgba(25,22,32,.97);
- border:1px solid rgba(255,255,255,.12);
+ transform:translateX(-50%) translateY(100px);
+ background:#22222c;
+ color:#fff;
  padding:13px 18px;
- border-radius:15px;
+ border-radius:14px;
+ z-index:3000;
  opacity:0;
- pointer-events:none;
  transition:.3s;
- z-index:500;
- max-width:90%;
- text-align:center
+ box-shadow:0 10px 30px rgba(0,0,0,.4);
 }
 
 .toast.show{
  opacity:1;
- transform:translateX(-50%) translateY(0)
+ transform:translateX(-50%) translateY(0);
 }
 
 .message-notification{
+ display:none;
  position:fixed;
- top:18px;
- left:50%;
- transform:translate(-50%,-120%);
- width:calc(100% - 30px);
- max-width:430px;
- background:rgba(28,22,37,.98);
- border:1px solid rgba(255,255,255,.13);
+ top:15px;
+ left:15px;
+ right:15px;
+ z-index:2500;
+ background:#252532;
+ border:1px solid rgba(255,255,255,.1);
  border-radius:18px;
  padding:13px;
+ box-shadow:0 10px 40px rgba(0,0,0,.4);
+}
+
+.message-notification.active{
+ display:block;
+}
+
+.bottom-nav{
+ position:fixed;
+ left:0;
+ right:0;
+ bottom:0;
+ z-index:500;
+ background:rgba(10,10,16,.92);
+ backdrop-filter:blur(15px);
+ border-top:1px solid rgba(255,255,255,.08);
  display:flex;
- align-items:center;
- gap:12px;
- z-index:450;
- transition:.35s
-}
-
-.message-notification.show{
- transform:translate(-50%,0)
-}
-
-.notification-avatar{
- width:45px;
- height:45px;
- border-radius:50%;
- overflow:hidden;
- background:#814cff;
- display:flex;
- align-items:center;
- justify-content:center
-}
-
-.notification-avatar img{
- width:100%;
- height:100%;
- object-fit:cover
-}
-
-.notification-text{flex:1}
-
-.notification-text strong{display:block}
-
-.notification-text span{
- color:#bbb;
- font-size:13px
-}
-
-.profile-avatar-large{
- width:110px;
- height:110px;
- margin:10px auto 20px;
- border-radius:50%;
- overflow:hidden;
- background:linear-gradient(135deg,#ff4f91,#814cff);
- display:flex;
- align-items:center;
  justify-content:center;
- font-size:40px
 }
 
-.profile-avatar-large img{
+.bottom-nav-inner{
  width:100%;
- height:100%;
- object-fit:cover
+ max-width:650px;
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
 }
 
-.friend-user{
- display:flex;
- align-items:center;
- gap:12px;
- padding:12px 0;
- border-bottom:1px solid rgba(255,255,255,.08)
-}
-
-.friend-user .avatar{
- width:48px;
- height:48px
-}
-
-.friend-user-info{flex:1}
-
-.friend-user-name{font-weight:bold}
-
-.friend-username{
+.nav-btn{
+ border:0;
+ background:none;
  color:#aaa;
+ padding:10px 4px;
  font-size:12px;
- margin-top:3px
 }
 
-.friend-actions{
- display:flex;
- gap:5px;
- flex-direction:column
+.nav-btn.active{
+ color:#ff5b95;
+}
+
+.nav-btn span{
+ display:block;
+ font-size:21px;
+ margin-bottom:3px;
+}
+
+.has-nav{
+ padding-bottom:80px;
+}
+
+.empty{
+ text-align:center;
+ padding:30px 10px;
+ color:#888;
+}
+
+@media(max-width:400px){
+ .logo{font-size:35px}
+ .quick-grid{grid-template-columns:repeat(2,1fr)}
+ .feeling-grid{grid-template-columns:repeat(2,1fr)}
+ .msg{max-width:88%}
 }
 </style>
 </head>
 
 <body>
 
+<!-- LOGIN -->
 <section id="loginPage" class="page active">
-<div class="container">
-<div class="card center" style="margin-top:50px">
+ <div class="container">
+  <div class="logo">দুজন ❤️</div>
+  <div class="subtitle">শুধু তোমাদের দুজনের জন্য</div>
 
-<div style="font-size:55px">❤️</div>
-<h1>দুজন</h1>
+  <div class="card">
+   <div class="title">Welcome Back ❤️</div>
+   <div class="muted">তোমার অ্যাকাউন্টে প্রবেশ করো</div>
 
-<p style="margin:8px 0 20px">
-শুধু দুজনের ছোট্ট একটা জগৎ
-</p>
+   <input
+    id="loginPhone"
+    class="input"
+    type="tel"
+    placeholder="মোবাইল নম্বর"
+   >
 
-<input id="loginPhone" type="tel" placeholder="মোবাইল নম্বর">
-<input id="loginPin" type="password" placeholder="PIN">
+   <input
+    id="loginPin"
+    class="input"
+    type="password"
+    inputmode="numeric"
+    placeholder="PIN"
+   >
 
-<button class="btn" onclick="login()">লগইন</button>
+   <button class="btn" onclick="login()">
+    Login ❤️
+   </button>
 
-<button class="btn secondary"
- onclick="showPage('registerPage')">
-নতুন অ্যাকাউন্ট তৈরি
-</button>
-
-</div>
-</div>
+   <div class="center">
+    <button
+     class="link-btn"
+     onclick="showPage('registerPage')"
+    >
+     নতুন Account তৈরি করুন
+    </button>
+   </div>
+  </div>
+ </div>
 </section>
 
+
+<!-- REGISTER -->
 <section id="registerPage" class="page">
-<div class="container">
-<div class="card">
+ <div class="container">
 
-<h2>নতুন অ্যাকাউন্ট ❤️</h2>
-<p>তোমার তথ্য দিয়ে অ্যাকাউন্ট তৈরি করো।</p>
+  <div class="header">
+   <button
+    class="icon-btn"
+    onclick="showPage('loginPage')"
+   >←</button>
 
-<input id="regPhone" type="tel"
- placeholder="মোবাইল নম্বর">
+   <div class="title">নতুন Account</div>
+   <div style="width:42px"></div>
+  </div>
 
-<input id="regPin" type="password"
- placeholder="৪-৬ সংখ্যার PIN">
+  <div class="card">
 
-<input id="regUsername" type="text"
- maxlength="20"
- placeholder="Username যেমন: rabbi123">
+   <div class="center" style="font-size:55px">
+    ❤️
+   </div>
 
-<button class="btn" onclick="registerUser()">
-অ্যাকাউন্ট তৈরি
-</button>
+   <input
+    id="regPhone"
+    class="input"
+    type="tel"
+    placeholder="মোবাইল নম্বর"
+   >
 
-<button class="btn secondary"
- onclick="showPage('loginPage')">
-ফিরে যাও
-</button>
+   <input
+    id="regPin"
+    class="input"
+    type="password"
+    inputmode="numeric"
+    placeholder="৪-৬ সংখ্যার PIN"
+   >
 
-</div>
-</div>
+   <input
+    id="regUsername"
+    class="input"
+    type="text"
+    placeholder="Username (যেমন: rabbi123)"
+   >
+
+   <button
+    class="btn"
+    onclick="registerUser()"
+   >
+    Account তৈরি করুন ❤️
+   </button>
+
+  </div>
+ </div>
 </section>
 
-<section id="homePage" class="page">
-<div class="container">
 
-<div class="home-header">
+<!-- HOME -->
+<section id="homePage" class="page has-nav">
+ <div class="container">
 
-<div class="my-profile">
-
-<div id="homeAvatar" class="avatar">❤️</div>
-
-<div>
-<strong id="homeName">আমার প্রোফাইল</strong>
-
-<div style="font-size:12px;color:#aaa">
-<span class="online-dot"></span>Online
-</div>
-</div>
-
-</div>
-
-<button class="small-btn"
- onclick="openProfile()">⚙️</button>
-
-</div>
-
-<div class="card hero">
-<div class="heart">💞</div>
-<h1>দুজনের ছোট্ট জগৎ</h1>
-<p>দূরে থেকেও কাছাকাছি থাকো ❤️</p>
-</div>
-
-<div class="card">
-<div class="partner">
-
-<div id="partnerAvatar" class="avatar">❤️</div>
-
-<div class="partner-info">
-
-<div id="partnerName" class="partner-name">
-এখনো কেউ যুক্ত হয়নি
-</div>
-
-<div id="partnerStatus" class="status">
-Room-এ একজনকে অপেক্ষা করছি...
-</div>
-
-</div>
-</div>
-</div>
-
-<div class="card days">
-
-<div style="font-size:30px">💑</div>
-
-<div class="days-number"
- id="togetherDays">0</div>
-
-<div class="days-label">
-দিন একসাথে ❤️
-</div>
-
-<button class="btn secondary"
- onclick="setTogetherDate()">
-📅 আমাদের দিন সেট করুন
-</button>
-
-<div id="dateSyncStatus"
- class="sync-status">
-Room-এ Connect করলে দুজনের তারিখ sync হবে
-</div>
-
-</div>
-
-<div class="quick-grid">
-
-<button class="quick"
- onclick="openChat()">
-<span class="quick-icon">💬</span>
-Chat
-<span id="chatBadge" class="badge hidden">0</span>
-</button>
-
-<button class="quick"
- onclick="startVideoFromHome()">
-<span class="quick-icon">📹</span>
-Video Call
-</button>
-
-<button class="quick"
- onclick="startAudioFromHome()">
-<span class="quick-icon">📞</span>
-Audio Call
-</button>
-
-<button class="quick"
- onclick="openRoom()">
-<span class="quick-icon">🔐</span>
-Private Room
-</button>
-
-<button class="quick"
- onclick="openFriends()">
-<span class="quick-icon">👥</span>
-Friends
-<span id="friendBadge" class="badge hidden">0</span>
-</button>
-
-</div>
-
-<div class="card">
-
-<h3>💖 আজকের অনুভূতি</h3>
-
-<p style="font-size:13px">
-একটা অনুভূতি পাঠিয়ে দাও ❤️
-</p>
-
-<div class="feeling-grid">
-
-<button class="feeling"
- onclick="sendFeeling('❤️')">❤️</button>
-
-<button class="feeling"
- onclick="sendFeeling('🥰')">🥰</button>
-
-<button class="feeling"
- onclick="sendFeeling('😘')">😘</button>
-
-<button class="feeling"
- onclick="sendFeeling('🫶')">🫶</button>
-
-<button class="feeling"
- onclick="sendFeeling('💋')">💋</button>
-
-</div>
-</div>
-
-<div class="card">
-
-<h3>💌 Love Note</h3>
-
-<textarea id="loveNoteInput"
- maxlength="300"
- placeholder="তোমার জন্য একটা কথা..."></textarea>
-
-<button class="btn"
- onclick="sendLoveNote()">
-💌 পাঠিয়ে দাও
-</button>
-
-</div>
-
-<div class="card">
-
-<h3>🎁 Surprise</h3>
-
-<p>একটা সুন্দর কথা পেতে চাপ দাও।</p>
-
-<div id="surpriseMessage"
- style="margin:14px 0;color:#ffd6e6">
-❤️ Surprise অপেক্ষা করছে...
-</div>
-
-<button class="btn"
- onclick="showSurprise()">
-✨ Surprise
-</button>
-
-</div>
-
-<div class="card">
-
-<h2>💑 Couple Space</h2>
-
-<p>তোমাদের দুজনের Shared Space ❤️</p>
-
-<button class="btn"
- onclick="openCoupleSpace()">
-💖 Couple Space খুলুন
-</button>
-
-</div>
-
-<div class="quick-grid">
-
-<button class="quick"
- onclick="openMessageHistory()">
-<span class="quick-icon">💬</span>
-Message History
-</button>
-
-<button class="quick"
- onclick="openCallHistory()">
-<span class="quick-icon">📞</span>
-Call History
-</button>
-
-</div>
-
-<div class="card">
-
-<h3>🔔 Notifications</h3>
-
-<p style="font-size:13px">
-নতুন মেসেজের notification চালু রাখো।
-</p>
-
-<button class="btn secondary"
- onclick="requestNotifications()">
-🔔 Notification চালু করুন
-</button>
-
-</div>
-
-<div class="card">
-
-<h3>🔐 Private Room</h3>
-
-<div id="homeRoomCode"
- class="room-code">------</div>
-
-<div id="roomStatus"
- class="connection">
-Room তৈরি বা Join করো
-</div>
-
-<button class="btn"
- onclick="openRoom()">
-Room খুলুন
-</button>
-
-</div>
-
-<div class="card">
-
-<button class="btn danger"
- onclick="logout()">
-Logout
-</button>
-
-</div>
-
-</div>
+  <div class="header">
+   <div class="header-left">
+    <div id="homeAvatar" class="avatar">আমি</div>
+
+    <div>
+     <div id="homeName" class="user-name">আমি</div>
+     <div class="muted">দুজন ❤️</div>
+    </div>
+   </div>
+
+   <button
+    class="icon-btn"
+    onclick="showPage('profilePage')"
+   >⚙️</button>
+  </div>
+
+
+  <div class="card hero">
+
+   <div id="partnerAvatar" class="avatar">
+    ❤️
+   </div>
+
+   <div id="partnerName" class="hero-name">
+    আমাদের দুজন
+   </div>
+
+   <div id="partnerStatus" class="status">
+    তোমার মানুষটির অপেক্ষায় ❤️
+   </div>
+
+   <div class="partner-box">
+    <div style="text-align:center">
+     <div class="muted">একসাথে</div>
+     <div id="togetherDays" style="font-size:28px;font-weight:900">
+      0 দিন
+     </div>
+    </div>
+
+    <div class="heart">❤️</div>
+
+    <div style="text-align:center">
+     <div class="muted">স্ট্যাটাস</div>
+     <div id="onlineStatus" style="font-weight:800">
+      Offline
+     </div>
+    </div>
+   </div>
+
+   <button
+    class="btn secondary"
+    onclick="setTogetherDate()"
+   >
+    📅 আমাদের দিন সেট করুন
+   </button>
+
+  </div>
+
+
+  <div class="card">
+   <div class="section-title">Quick Actions</div>
+
+   <div class="quick-grid">
+
+    <button class="quick" onclick="openChat()">
+     <span class="emoji">💬</span>
+     Chat
+    </button>
+
+    <button class="quick" onclick="startVideoFromHome()">
+     <span class="emoji">📹</span>
+     Video Call
+    </button>
+
+    <button class="quick" onclick="startAudioFromHome()">
+     <span class="emoji">📞</span>
+     Audio Call
+    </button>
+
+    <button class="quick" onclick="showPage('roomPage')">
+     <span class="emoji">🔐</span>
+     Private Room
+    </button>
+
+    <button class="quick" onclick="showPage('friendsPage')">
+     <span class="emoji">👥</span>
+     Friends
+     <span id="friendBadge" class="badge" style="display:none">0</span>
+    </button>
+
+    <button class="quick" onclick="showPage('couplePage')">
+     <span class="emoji">💑</span>
+     Couple Space
+    </button>
+
+   </div>
+  </div>
+
+
+  <div class="card">
+   <div class="section-title">
+    আজ তোমার অনুভূতি কেমন? ❤️
+   </div>
+
+   <div class="feeling-grid">
+    <button class="feeling" onclick="sendFeeling('🥰')">🥰<br>ভালোবাসা</button>
+    <button class="feeling" onclick="sendFeeling('😍')">😍<br>মুগ্ধ</button>
+    <button class="feeling" onclick="sendFeeling('😘')">😘<br>চুমু</button>
+    <button class="feeling" onclick="sendFeeling('😔')">😔<br>মিস করছি</button>
+   </div>
+  </div>
+
+
+  <div class="card">
+   <div class="section-title">💌 Love Note</div>
+
+   <textarea
+    id="loveNoteInput"
+    class="input"
+    placeholder="তোমার মানুষটিকে কিছু লিখো..."
+   ></textarea>
+
+   <button
+    class="btn"
+    onclick="sendLoveNote()"
+   >
+    পাঠিয়ে দাও ❤️
+   </button>
+
+   <div
+    id="loveNoteDisplay"
+    class="note"
+    style="display:none;margin-top:12px"
+   ></div>
+  </div>
+
+ </div>
 </section>
 
-<section id="friendsPage" class="page">
-<div class="container">
 
-<div class="card">
+<!-- FRIENDS -->
+<section id="friendsPage" class="page has-nav">
+ <div class="container">
 
-<h2>👥 Friends</h2>
-<p>Username দিয়ে তোমার মানুষটাকে খুঁজে নাও ❤️</p>
+  <div class="header">
+   <button
+    class="icon-btn"
+    onclick="showPage('homePage')"
+   >←</button>
 
-<input id="friendSearchInput"
- type="text"
- placeholder="Username যেমন: rabbi123"
- onkeydown="if(event.key==='Enter')searchUser()">
+   <div class="title">Friends 👥</div>
 
-<button class="btn"
- onclick="searchUser()">
-🔎 Search
-</button>
+   <div style="width:42px"></div>
+  </div>
 
-<div id="searchResult"></div>
 
-</div>
+  <div class="card">
 
-<div class="card">
+   <div class="section-title">বন্ধু খুঁজুন</div>
 
-<h3>💌 Friend Requests</h3>
+   <div class="search-row">
 
-<div id="friendRequests">
-<div class="empty">
-কোনো Friend Request নেই ❤️
-</div>
-</div>
+    <input
+     id="friendSearchInput"
+     class="input"
+     placeholder="@username"
+    >
 
-</div>
+    <button
+     class="btn small"
+     onclick="searchUser()"
+    >
+     খুঁজুন
+    </button>
 
-<div class="card">
+   </div>
 
-<h3>❤️ My Friends</h3>
+   <div id="searchResult"></div>
 
-<div id="friendsList">
-<div class="empty">
-এখনো কোনো Friend নেই।
-</div>
-</div>
+  </div>
 
-</div>
 
-<button class="btn secondary"
- onclick="showPage('homePage')">
-← Home
-</button>
+  <div class="card">
 
-</div>
+   <div class="section-title">
+    Friend Requests
+    <span id="requestCount" class="badge">0</span>
+   </div>
+
+   <div id="friendRequests"></div>
+
+  </div>
+
+
+  <div class="card">
+
+   <div class="section-title">
+    My Friends
+   </div>
+
+   <div id="friendsList"></div>
+
+  </div>
+
+ </div>
 </section>
 
-<section id="couplePage" class="page">
-<div class="container">
 
-<div class="card">
+<!-- COUPLE -->
+<section id="couplePage" class="page has-nav">
+ <div class="container">
 
-<h2>💑 Couple Space</h2>
+  <div class="header">
+   <button
+    class="icon-btn"
+    onclick="showPage('homePage')"
+   >←</button>
 
-<div id="coupleSyncStatus"
- class="sync-status">
-Room status
-</div>
+   <div class="title">Couple Space 💑</div>
 
-<div class="days">
-<div class="days-number"
- id="coupleDaysBig">0</div>
-<div class="days-label">
-একসাথে কাটানো দিন ❤️
-</div>
-</div>
+   <div style="width:42px"></div>
+  </div>
 
-</div>
 
-<div class="card">
+  <div class="card">
+   <div class="section-title">📖 Our Story</div>
 
-<h3>📖 Our Story</h3>
+   <textarea
+    id="ourStoryInput"
+    class="input"
+    placeholder="তোমাদের গল্প লিখো..."
+   ></textarea>
 
-<textarea id="storyInput"
- placeholder="তোমাদের গল্প লিখো..."></textarea>
+   <button
+    class="btn"
+    onclick="saveOurStory()"
+   >
+    Save Story ❤️
+   </button>
 
-<button class="btn"
- onclick="saveStory()">
-📖 Save & Share
-</button>
+   <div
+    id="ourStoryDisplay"
+    class="note"
+    style="margin-top:12px"
+   ></div>
+  </div>
 
-<div style="margin-top:15px"
- class="story"
- id="storyDisplay">
-এখনো কোনো গল্প লেখা হয়নি ❤️
-</div>
 
-</div>
+  <div class="card">
 
-<div class="card">
+   <div class="section-title">
+    📸 Shared Memories
+   </div>
 
-<h3>📸 Shared Memories</h3>
+   <input
+    id="memoryInput"
+    class="input"
+    placeholder="একটি স্মৃতি লিখো..."
+   >
 
-<input id="memoryCaption"
- placeholder="ছবির সাথে কিছু লিখো...">
+   <button
+    class="btn"
+    onclick="saveMemory()"
+   >
+    Add Memory
+   </button>
 
-<label class="file-label"
- for="memoryInput">
-📸 Memory Photo নির্বাচন
-</label>
+   <div
+    id="memoryGrid"
+    class="memory-grid"
+    style="margin-top:15px"
+   ></div>
 
-<input id="memoryInput"
- type="file"
- accept="image/*"
- onchange="addMemory(event)">
+  </div>
 
-<div id="memoryGrid"
- class="memory-grid"></div>
 
-</div>
+  <div class="card">
 
-<div class="card">
+   <div class="section-title">
+    ⭐ Favorite Moments
+   </div>
 
-<h3>⭐ Favorite Moments</h3>
+   <textarea
+    id="favoriteInput"
+    class="input"
+    placeholder="তোমাদের প্রিয় মুহূর্ত..."
+   ></textarea>
 
-<input id="momentInput"
- placeholder="একটা সুন্দর মুহূর্ত লিখো...">
+   <button
+    class="btn"
+    onclick="saveFavorite()"
+   >
+    Save Favorite
+   </button>
 
-<button class="btn"
- onclick="addMoment()">
-⭐ Save Moment
-</button>
+   <div
+    id="favoriteDisplay"
+    class="note"
+    style="margin-top:12px"
+   ></div>
 
-<div id="momentsList"></div>
+  </div>
 
-</div>
-
-<button class="btn secondary"
- onclick="showPage('homePage')">
-← Home
-</button>
-
-</div>
+ </div>
 </section>
 
-<section id="roomPage" class="page">
-<div class="container">
 
-<div class="card center">
+<!-- ROOM -->
+<section id="roomPage" class="page has-nav">
+ <div class="container">
 
-<h2>🔐 Private Room</h2>
+  <div class="header">
+   <button
+    class="icon-btn"
+    onclick="showPage('homePage')"
+   >←</button>
 
-<p>
-একই Room Code দিয়ে দুজন Connect করো।
-</p>
+   <div class="title">Private Room 🔐</div>
 
-<div id="roomCodeDisplay"
- class="room-code">
-------
-</div>
+   <div style="width:42px"></div>
+  </div>
 
-<div id="roomStatus"
- class="connection">
-Disconnected
-</div>
 
-<button class="btn"
- onclick="createRoom()">
-❤️ নতুন Room তৈরি
-</button>
+  <div class="card">
 
-<input id="joinRoomInput"
- inputmode="numeric"
- maxlength="6"
- placeholder="৬ সংখ্যার Room Code">
+   <div class="center">
+    <div style="font-size:55px">🔐</div>
 
-<button class="btn secondary"
- onclick="joinRoom()">
-🔗 Room Join
-</button>
+    <div class="title">
+     Private Room
+    </div>
 
-<button class="btn secondary"
- onclick="copyRoom()">
-📋 Room Code Copy
-</button>
+    <div class="muted">
+     একই Room Code দিয়ে দুজন যুক্ত হও
+    </div>
+   </div>
 
-</div>
 
-<button class="btn secondary"
- onclick="showPage('homePage')">
-← Home
-</button>
+   <button
+    class="btn"
+    onclick="createRoom()"
+   >
+    নতুন Room তৈরি করুন
+   </button>
 
-</div>
+
+   <div
+    id="roomCode"
+    class="room-code"
+    style="display:none"
+   ></div>
+
+
+   <button
+    id="copyRoomBtn"
+    class="btn secondary"
+    onclick="copyRoom()"
+    style="display:none"
+   >
+    📋 Code Copy
+   </button>
+
+
+   <div style="margin-top:25px">
+
+    <div class="section-title">
+     অন্যের Room-এ Join করুন
+    </div>
+
+    <input
+     id="joinRoomCode"
+     class="input"
+     placeholder="Room Code"
+    >
+
+    <button
+     class="btn"
+     onclick="joinRoom()"
+    >
+     Join Room ❤️
+    </button>
+
+   </div>
+
+
+   <div
+    id="roomStatus"
+    class="note"
+    style="margin-top:15px"
+   >
+    Room disconnected
+   </div>
+
+  </div>
+
+ </div>
 </section>
 
-<section id="chatPage" class="page">
-<div class="container">
 
-<div class="card">
+<!-- CHAT -->
+<section id="chatPage" class="page has-nav">
+ <div class="container">
 
-<div class="partner">
+  <div class="header">
 
-<div id="chatPartnerAvatar"
- class="avatar">❤️</div>
+   <button
+    class="icon-btn"
+    onclick="showPage('homePage')"
+   >←</button>
 
-<div class="partner-info">
+   <div class="header-left">
 
-<div id="chatPartnerName"
- class="partner-name">
-Partner
-</div>
+    <div id="chatAvatar" class="avatar">
+     ❤️
+    </div>
 
-<div id="chatPartnerStatus"
- class="status">
-Offline
-</div>
+    <div>
+     <div id="chatName" class="user-name">
+      আমাদের দুজন
+     </div>
 
-</div>
+     <div id="chatStatus" class="muted">
+      Offline
+     </div>
+    </div>
 
-</div>
+   </div>
 
-</div>
+   <button
+    class="icon-btn"
+    onclick="startVideoFromHome()"
+   >
+    📹
+   </button>
 
-<div class="card">
+  </div>
 
-<div id="chatBox"
- class="chat-box"></div>
 
-<div class="chat-input">
+  <div class="card">
 
-<input id="messageInput"
- placeholder="একটা মেসেজ লিখো..."
- onkeydown="if(event.key==='Enter')sendMessage()">
+   <div id="chatBox" class="chat-box"></div>
 
-<button onclick="sendMessage()">
-➤
-</button>
+   <div class="chat-input-row">
 
-</div>
+    <input
+     id="chatInput"
+     class="input"
+     placeholder="একটি মেসেজ লিখুন..."
+     onkeydown="if(event.key==='Enter')sendMessage()"
+    >
 
-</div>
+    <button
+     class="send-btn"
+     onclick="sendMessage()"
+    >
+     ➤
+    </button>
 
-<button class="btn secondary"
- onclick="showPage('homePage')">
-← Home
-</button>
+   </div>
 
-</div>
+  </div>
+
+ </div>
 </section>
 
-<section id="messageHistoryPage" class="page">
-<div class="container">
 
-<div class="card">
+<!-- PROFILE -->
+<section id="profilePage" class="page has-nav">
+ <div class="container">
 
-<h2>💬 Message History</h2>
+  <div class="header">
 
-<div id="messageHistoryList"></div>
+   <button
+    class="icon-btn"
+    onclick="showPage('homePage')"
+   >←</button>
 
-<button class="btn danger"
- onclick="clearMessageHistory()">
-🗑️ History Clear
-</button>
+   <div class="title">Profile</div>
 
-</div>
+   <div style="width:42px"></div>
 
-<button class="btn secondary"
- onclick="showPage('homePage')">
-← Home
-</button>
+  </div>
 
-</div>
+
+  <div class="card">
+
+   <div
+    id="profileAvatarLarge"
+    class="profile-avatar-large"
+   >
+    আমি
+   </div>
+
+   <input
+    id="photoInput"
+    type="file"
+    accept="image/*"
+    hidden
+    onchange="handlePhoto(event)"
+   >
+
+   <button
+    class="btn secondary"
+    onclick="document.getElementById('photoInput').click()"
+   >
+    📷 ছবি পরিবর্তন
+   </button>
+
+   <button
+    class="btn secondary"
+    onclick="removePhoto()"
+   >
+    🗑️ ছবি সরান
+   </button>
+
+
+   <input
+    id="profileName"
+    class="input"
+    placeholder="তোমার নাম"
+   >
+
+   <input
+    id="profileUsername"
+    class="input"
+    placeholder="Username"
+    disabled
+   >
+
+   <input
+    id="profilePhone"
+    class="input"
+    placeholder="Mobile"
+    disabled
+   >
+
+
+   <button
+    class="btn"
+    onclick="saveProfile()"
+   >
+    Save Profile ❤️
+   </button>
+
+
+   <button
+    class="btn danger"
+    onclick="logout()"
+   >
+    Logout
+   </button>
+
+  </div>
+
+ </div>
 </section>
 
-<section id="callHistoryPage" class="page">
-<div class="container">
 
-<div class="card">
+<!-- CALL SCREEN -->
+<div id="callScreen" class="call-screen">
 
-<h2>📞 Call History</h2>
+ <video
+  id="remoteVideo"
+  class="remote-video"
+  autoplay
+  playsinline
+ ></video>
 
-<div id="callHistoryList"></div>
+ <video
+  id="localVideo"
+  class="local-video"
+  autoplay
+  muted
+  playsinline
+ ></video>
 
-<button class="btn danger"
- onclick="clearCallHistory()">
-🗑️ History Clear
-</button>
 
-</div>
+ <div class="call-top">
 
-<button class="btn secondary"
- onclick="showPage('homePage')">
-← Home
-</button>
+  <div
+   id="callName"
+   class="call-name"
+  >
+   Calling...
+  </div>
 
-</div>
-</section>
+  <div
+   id="callType"
+   class="muted"
+  >
+   Video Call
+  </div>
 
-<section id="profilePage" class="page">
-<div class="container">
+ </div>
 
-<div class="card center">
 
-<h2>👤 My Profile</h2>
+ <div class="call-controls">
 
-<div id="profileAvatar"
- class="profile-avatar-large">
-❤️
-</div>
+  <button
+   id="micBtn"
+   class="call-control"
+   onclick="toggleMic()"
+  >
+   🎙️
+  </button>
 
-<label class="file-label"
- for="photoInput">
-📷 Profile Photo নির্বাচন
-</label>
+  <button
+   id="cameraBtn"
+   class="call-control"
+   onclick="toggleCamera()"
+  >
+   📹
+  </button>
 
-<input id="photoInput"
- type="file"
- accept="image/*"
- onchange="handlePhoto(event)">
+  <button
+   class="call-control end"
+   onclick="endCall()"
+  >
+   ☎️
+  </button>
 
-<button class="btn secondary"
- onclick="removePhoto()">
-🗑️ ছবি সরাও
-</button>
-
-</div>
-
-<div class="card">
-
-<input id="profileUsername"
- type="text"
- maxlength="20"
- placeholder="Username">
-
-<input id="profileName"
- placeholder="তোমার নাম">
-
-<button class="btn"
- onclick="saveProfile()">
-💾 Profile Save
-</button>
+ </div>
 
 </div>
 
-<button class="btn secondary"
- onclick="showPage('homePage')">
-← Home
-</button>
 
-</div>
-</section>
+<!-- INCOMING CALL -->
+<div id="incomingCall" class="incoming">
 
-<div id="videoCallScreen"
- class="call-screen">
+ <div class="incoming-card">
 
-<video id="remoteVideo"
- class="remote-video"
- autoplay
- playsinline></video>
+  <div
+   id="incomingAvatar"
+   class="incoming-avatar"
+  >
+   ❤️
+  </div>
 
-<video id="localVideo"
- class="local-video"
- autoplay
- muted
- playsinline></video>
+  <div
+   id="incomingName"
+   class="title"
+  >
+   Incoming Call
+  </div>
 
-<div class="call-info">
+  <div
+   id="incomingType"
+   class="muted"
+  >
+   Video Call
+  </div>
 
-<div id="videoCallAvatar"
- class="call-avatar">
-❤️
-</div>
 
-<h2 id="videoCallName">
-Partner
-</h2>
+  <div class="incoming-actions">
 
-<div id="videoCallStatus"
- class="call-status">
-Calling...
-</div>
+   <button
+    class="btn"
+    onclick="acceptCall()"
+   >
+    📞 গ্রহণ
+   </button>
 
-<div id="videoTimer"
- class="call-status">
-00:00
-</div>
+   <button
+    class="btn danger"
+    onclick="rejectCall()"
+   >
+    ❌ বাতিল
+   </button>
 
-</div>
+  </div>
 
-<div class="call-controls">
-
-<button class="call-control"
- onclick="toggleMic()">
-🎙️
-</button>
-
-<button class="call-control"
- onclick="toggleCamera()">
-📹
-</button>
-
-<button class="call-control end"
- onclick="endCall()">
-📵
-</button>
+ </div>
 
 </div>
 
-</div>
 
-<div id="audioCallScreen"
- class="call-screen">
-
-<div class="call-info">
-
-<div id="audioCallAvatar"
- class="call-avatar">
-❤️
-</div>
-
-<h2 id="audioCallName">
-Partner
-</h2>
-
-<div id="audioCallStatus"
- class="call-status">
-Calling...
-</div>
-
-<div id="audioTimer"
- class="call-status">
-00:00
-</div>
-
-</div>
-
-<div class="call-controls">
-
-<button class="call-control"
- onclick="toggleMic()">
-🎙️
-</button>
-
-<button class="call-control end"
- onclick="endCall()">
-📵
-</button>
-
-</div>
-
-</div>
-
-<div id="incomingCall"
- class="incoming">
-
-<div class="incoming-card">
-
-<div id="incomingAvatar"
- class="incoming-avatar">
-❤️
-</div>
-
-<h2 id="incomingName">
-Partner
-</h2>
-
-<p id="incomingType">
-📞 Call করছে...
-</p>
-
-<div class="incoming-buttons">
-
-<button class="accept"
- onclick="acceptCall()">
-❤️ Accept
-</button>
-
-<button class="reject"
- onclick="rejectCall()">
-❌ Reject
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<div id="messageNotification"
+<!-- MESSAGE NOTIFICATION -->
+<div
+ id="messageNotification"
  class="message-notification"
- onclick="openChatFromNotification()">
+ onclick="openChat()"
+>
+ <div style="font-weight:800">
+  💬 নতুন মেসেজ
+ </div>
 
-<div id="notificationAvatar"
- class="notification-avatar">
-❤️
+ <div
+  id="notificationText"
+  class="muted"
+  style="margin-top:4px"
+ ></div>
 </div>
 
-<div class="notification-text">
 
-<strong id="notificationName">
-Partner
-</strong>
+<!-- TOAST -->
+<div id="toast" class="toast"></div>
 
-<span id="notificationMessage">
-নতুন Message
-</span>
 
+<!-- BOTTOM NAV -->
+<div
+ id="bottomNav"
+ class="bottom-nav"
+ style="display:none"
+>
+ <div class="bottom-nav-inner">
+
+  <button
+   id="navHome"
+   class="nav-btn active"
+   onclick="showPage('homePage')"
+  >
+   <span>🏠</span>
+   Home
+  </button>
+
+  <button
+   id="navFriends"
+   class="nav-btn"
+   onclick="showPage('friendsPage')"
+  >
+   <span>👥</span>
+   Friends
+  </button>
+
+  <button
+   id="navChat"
+   class="nav-btn"
+   onclick="openChat()"
+  >
+   <span>💬</span>
+   Chat
+  </button>
+
+  <button
+   id="navProfile"
+   class="nav-btn"
+   onclick="showPage('profilePage')"
+  >
+   <span>👤</span>
+   Profile
+  </button>
+
+ </div>
 </div>
 
-</div>
-
-<div id="toast" class="toast">
-Done
-</div>
 
 <script>
 
-if("serviceWorker" in navigator){
+const API_URL="https://dujon-app1.onrender.com";
+const WS_URL="wss://dujon-app1.onrender.com";
 
- window.addEventListener("load",()=>{
 
-  navigator.serviceWorker
-   .register("/sw.js")
-   .catch(error=>{
-    console.log(
-     "Service Worker error:",
-     error
-    );
-   });
-
- });
-
-}
-
-const API_URL=
- "https://dujon-app1.onrender.com";
-
-const WS_URL=
- "wss://dujon-app1.onrender.com";
-
-let socket=null;
-let currentRoom=null;
+let ws=null;
 let peerConnection=null;
 let localStream=null;
-
+let currentCallType="video";
 let pendingOffer=null;
-let pendingCallType=null;
-let callType=null;
+let currentRoom=null;
+let currentPage="loginPage";
 
-let callSeconds=0;
-let callTimerInterval=null;
-let unreadCount=0;
-let notificationTimeout=null;
-
-let partnerProfile={
- name:"Partner",
- photo:""
-};
-
-const rtcConfig={
+const ICE_SERVERS={
  iceServers:[
   {
    urls:"stun:stun.l.google.com:19302"
@@ -1567,7 +1553,67 @@ const rtcConfig={
  ]
 };
 
-function showPage(id){
+
+function toast(message){
+
+ const el=
+  document.getElementById("toast");
+
+ el.textContent=message;
+
+ el.classList.add("show");
+
+ setTimeout(()=>{
+  el.classList.remove("show");
+ },2500);
+
+}
+
+
+function getAccount(){
+
+ try{
+
+  return JSON.parse(
+   localStorage.getItem("dujon_account")||
+   "null"
+  );
+
+ }catch{
+  return null;
+ }
+
+}
+
+
+function getProfile(){
+
+ try{
+
+  return JSON.parse(
+   localStorage.getItem("dujon_profile")||
+   "{}"
+  );
+
+ }catch{
+  return {};
+
+ }
+
+}
+
+
+function saveLocalProfile(profile){
+
+ localStorage.setItem(
+  "dujon_profile",
+  JSON.stringify(profile)
+ );
+
+}
+
+
+function showPage(pageId){
 
  document
   .querySelectorAll(".page")
@@ -1576,96 +1622,57 @@ function showPage(id){
   });
 
  const page=
-  document.getElementById(id);
+  document.getElementById(pageId);
 
  if(page){
   page.classList.add("active");
+  currentPage=pageId;
  }
 
- if(id==="friendsPage"){
-  loadSocialData();
- }
+ const logged=
+  localStorage.getItem(
+   "dujon_logged_in"
+  )==="true";
 
- if(id==="couplePage"){
-  loadCoupleSpace();
- }
+ const nav=
+  document.getElementById("bottomNav");
 
-}
+ if(nav){
 
-function toast(message){
-
- const el=
-  document.getElementById("toast");
-
- if(!el)return;
-
- el.textContent=message;
-
- el.classList.add("show");
-
- clearTimeout(
-  window.dujonToastTimer
- );
-
- window.dujonToastTimer=
-  setTimeout(()=>{
-   el.classList.remove("show");
-  },2500);
-
-}
-
-function escapeHTML(value){
-
- return String(value??"")
-  .replace(/&/g,"&amp;")
-  .replace(/</g,"&lt;")
-  .replace(/>/g,"&gt;")
-  .replace(/"/g,"&quot;")
-  .replace(/'/g,"&#039;");
-
-}
-
-function getAccount(){
-
- try{
-
-  return JSON.parse(
-   localStorage.getItem(
-    "dujon_account"
-   )
-  )||{};
-
- }catch{
-
-  return {};
+  nav.style.display=
+   logged &&
+   !["loginPage","registerPage"].includes(pageId)
+    ? "flex"
+    : "none";
 
  }
 
-}
+ document
+  .querySelectorAll(".nav-btn")
+  .forEach(btn=>{
+   btn.classList.remove("active");
+  });
 
-function getProfile(){
-
- try{
-
-  return JSON.parse(
-   localStorage.getItem(
-    "dujon_profile"
-   )
-  )||{
-   name:"আমি",
-   photo:""
-  };
-
- }catch{
-
-  return {
-   name:"আমি",
-   photo:""
-  };
-
+ if(pageId==="homePage"){
+  document.getElementById("navHome")?.classList.add("active");
  }
 
+ if(pageId==="friendsPage"){
+  document.getElementById("navFriends")?.classList.add("active");
+ }
+
+ if(pageId==="chatPage"){
+  document.getElementById("navChat")?.classList.add("active");
+ }
+
+ if(pageId==="profilePage"){
+  document.getElementById("navProfile")?.classList.add("active");
+ }
+
+ window.scrollTo(0,0);
+
 }
+
 
 async function registerUser(){
 
@@ -1688,6 +1695,7 @@ async function registerUser(){
    .trim()
    .toLowerCase();
 
+
  if(!phone){
 
   toast("মোবাইল নম্বর দাও");
@@ -1695,12 +1703,14 @@ async function registerUser(){
 
  }
 
+
  if(!/^[0-9]{4,6}$/.test(pin)){
 
   toast("PIN ৪-৬ সংখ্যার হতে হবে");
   return;
 
  }
+
 
  if(!/^[a-z0-9_]{3,20}$/.test(username)){
 
@@ -1712,17 +1722,20 @@ async function registerUser(){
 
  }
 
+
  try{
 
   const response=
    await fetch(
-    API_URL+"/api/profile",
+    API_URL+"/api/register",
     {
      method:"POST",
+
      headers:{
       "Content-Type":
        "application/json"
      },
+
      body:JSON.stringify({
       phone,
       pin,
@@ -1733,10 +1746,35 @@ async function registerUser(){
     }
    );
 
-  const data=
-   await response.json();
 
-  if(!response.ok||!data.ok){
+  const text=
+   await response.text();
+
+  let data;
+
+
+  try{
+
+   data=
+    JSON.parse(text);
+
+  }catch{
+
+   console.log(
+    "Register server response:",
+    text
+   );
+
+   toast(
+    "Server response ঠিক নেই"
+   );
+
+   return;
+
+  }
+
+
+  if(!response.ok || !data.ok){
 
    toast(
     data.message||
@@ -1747,6 +1785,7 @@ async function registerUser(){
 
   }
 
+
   localStorage.setItem(
    "dujon_account",
    JSON.stringify({
@@ -1756,21 +1795,27 @@ async function registerUser(){
    })
   );
 
+
   localStorage.setItem(
    "dujon_profile",
    JSON.stringify({
     name:"আমি",
+    username,
+    phone,
     photo:""
    })
   );
+
 
   toast(
    "Account তৈরি হয়েছে ❤️"
   );
 
+
   setTimeout(()=>{
    showPage("loginPage");
   },700);
+
 
  }catch(error){
 
@@ -1787,7 +1832,8 @@ async function registerUser(){
 
 }
 
-async function login(){
+
+function login(){
 
  const phone=
   document
@@ -1801,292 +1847,235 @@ async function login(){
    .value
    .trim();
 
- if(!phone||!pin){
 
-  toast("মোবাইল নম্বর ও PIN দাও");
-  return;
-
- }
-
- const account=getAccount();
-
- if(
-  account.phone!==phone||
-  account.pin!==pin
- ){
+ if(!phone || !pin){
 
   toast(
-   "মোবাইল নম্বর অথবা PIN ঠিক নেই"
+   "মোবাইল নম্বর ও PIN দাও"
   );
 
   return;
 
  }
+
+
+ const account=getAccount();
+
+
+ if(
+  !account ||
+  account.phone!==phone ||
+  account.pin!==pin
+ ){
+
+  toast(
+   "মোবাইল নম্বর বা PIN ভুল"
+  );
+
+  return;
+
+ }
+
 
  localStorage.setItem(
   "dujon_logged_in",
   "true"
  );
 
- loadProfile();
- updateTogetherDays();
 
- showPage("homePage");
+ loadProfileToUI();
+
+ connectRoom();
+
+ loadTogetherDays();
 
  loadSocialData();
 
- toast("Login সফল হয়েছে ❤️");
+ showPage("homePage");
+
+ toast("স্বাগতম ❤️");
 
 }
 
+
 function logout(){
-
- try{
-
-  sendToRoom({
-   type:"presence",
-   online:false
-  });
-
- }catch{}
-
- closeSocket();
 
  localStorage.removeItem(
   "dujon_logged_in"
  );
 
- showPage("loginPage");
+ if(ws){
 
- toast("Logout হয়েছে");
+  try{
+   ws.close();
+  }catch{}
+
+  ws=null;
+
+ }
+
+ if(localStream){
+
+  localStream
+   .getTracks()
+   .forEach(track=>{
+    track.stop();
+   });
+
+  localStream=null;
+
+ }
+
+ showPage("loginPage");
 
 }
 
-function setAvatar(el,photo){
 
- if(!el)return;
+function loadProfileToUI(){
 
- if(photo){
+ const profile=getProfile();
 
-  el.innerHTML=
-   `<img src="${escapeHTML(photo)}">`;
+ const name=
+  profile.name||
+  "আমি";
 
- }else{
+ const photo=
+  profile.photo||
+  "";
 
-  el.innerHTML="❤️";
+ const avatar=
+  document.getElementById(
+   "homeAvatar"
+  );
+
+ if(avatar){
+
+  if(photo){
+
+   avatar.innerHTML=
+    `<img src="${photo}" alt="">`;
+
+  }else{
+
+   avatar.textContent=
+    name.charAt(0)||"আমি";
+
+  }
+
+ }
+
+
+ const homeName=
+  document.getElementById(
+   "homeName"
+  );
+
+ if(homeName){
+  homeName.textContent=name;
+ }
+
+
+ const large=
+  document.getElementById(
+   "profileAvatarLarge"
+  );
+
+ if(large){
+
+  if(photo){
+
+   large.innerHTML=
+    `<img src="${photo}" alt="">`;
+
+  }else{
+
+   large.textContent=
+    name.charAt(0)||"আমি";
+
+  }
+
+ }
+
+
+ const nameInput=
+  document.getElementById(
+   "profileName"
+  );
+
+ if(nameInput){
+  nameInput.value=name;
+ }
+
+
+ const usernameInput=
+  document.getElementById(
+   "profileUsername"
+  );
+
+ if(usernameInput){
+
+  usernameInput.value=
+   profile.username||
+   getAccount()?.username||
+   "";
+
+ }
+
+
+ const phoneInput=
+  document.getElementById(
+   "profilePhone"
+  );
+
+ if(phoneInput){
+
+  phoneInput.value=
+   profile.phone||
+   getAccount()?.phone||
+   "";
 
  }
 
 }
 
-function loadProfile(){
 
- const profile=getProfile();
-
- document.getElementById(
-  "homeName"
- ).textContent=
-  profile.name||"আমি";
-
- setAvatar(
-  document.getElementById("homeAvatar"),
-  profile.photo
- );
-
- setAvatar(
-  document.getElementById("profileAvatar"),
-  profile.photo
- );
-
- document.getElementById(
-  "profileName"
- ).value=
-  profile.name||"";
+async function saveProfile(){
 
  const account=getAccount();
 
- document.getElementById(
-  "profileUsername"
- ).value=
-  account.username||"";
+ if(!account)return;
 
- sendProfileToPartner();
-
-}
-
-function openProfile(){
-
- loadProfile();
-
- showPage("profilePage");
-
-}
-
-function handlePhoto(event){
-
- const file=
-  event.target.files[0];
-
- if(!file)return;
-
- const reader=
-  new FileReader();
-
- reader.onload=e=>{
-
-  const img=new Image();
-
-  img.onload=()=>{
-
-   const canvas=
-    document.createElement("canvas");
-
-   const max=320;
-
-   let w=img.width;
-   let h=img.height;
-
-   if(w>h&&w>max){
-    h=h*max/w;
-    w=max;
-   }
-
-   if(h>=w&&h>max){
-    w=w*max/h;
-    h=max;
-   }
-
-   canvas.width=w;
-   canvas.height=h;
-
-   canvas
-    .getContext("2d")
-    .drawImage(
-     img,
-     0,
-     0,
-     w,
-     h
-    );
-
-   const photo=
-    canvas.toDataURL(
-     "image/jpeg",
-     .65
-    );
-
-   localStorage.setItem(
-    "dujon_temp_photo",
-    photo
-   );
-
-   setAvatar(
-    document.getElementById(
-     "profileAvatar"
-    ),
-    photo
-   );
-
-  };
-
-  img.src=e.target.result;
-
- };
-
- reader.readAsDataURL(file);
-
-}
-
-function removePhoto(){
-
- localStorage.removeItem(
-  "dujon_temp_photo"
- );
-
- const profile=getProfile();
-
- profile.photo="";
-
- localStorage.setItem(
-  "dujon_profile",
-  JSON.stringify(profile)
- );
-
- setAvatar(
-  document.getElementById(
-   "profileAvatar"
-  ),
-  ""
- );
-
- setAvatar(
-  document.getElementById(
-   "homeAvatar"
-  ),
-  ""
- );
-
- sendProfileToPartner();
-
- toast("ছবি সরানো হয়েছে");
-
-}
-
-async function saveProfile(){
 
  const name=
   document
    .getElementById("profileName")
    .value
-   .trim()||"আমি";
+   .trim();
 
- const username=
-  document
-   .getElementById("profileUsername")
-   .value
-   .trim()
-   .toLowerCase();
 
- const account=getAccount();
+ if(!name){
 
- if(!account.phone||!account.pin){
-
-  toast(
-   "Account তথ্য পাওয়া যায়নি। আবার Login করো"
-  );
-
+  toast("নাম লিখুন");
   return;
 
  }
 
- if(!username){
 
-  toast("Username দিতে হবে");
-  return;
+ const oldProfile=getProfile();
 
- }
+ const profile={
+  ...oldProfile,
+  name
+ };
 
- if(!/^[a-z0-9_]{3,20}$/.test(username)){
 
-  toast(
-   "Username 3-20 অক্ষরের হতে হবে"
-  );
+ saveLocalProfile(profile);
 
-  return;
 
- }
-
- const old=getProfile();
-
- const temp=
-  localStorage.getItem(
-   "dujon_temp_photo"
-  );
-
- const photo=
-  temp!==null?
-  temp:
-  old.photo||"";
+ /*
+  Profile Save-এর endpoint
+  ইচ্ছাকৃতভাবে /api/profile রাখা হয়েছে।
+ */
 
  try{
 
@@ -2095,976 +2084,665 @@ async function saveProfile(){
     API_URL+"/api/profile",
     {
      method:"POST",
+
      headers:{
       "Content-Type":
        "application/json"
      },
+
      body:JSON.stringify({
       phone:account.phone,
       pin:account.pin,
-      username,
-      name,
-      photo
+      name:profile.name,
+      username:
+       profile.username||
+       account.username||
+       "",
+      photo:
+       profile.photo||
+       ""
      })
     }
    );
 
+
   const text=
    await response.text();
 
-  let data;
+  let data={};
 
   try{
    data=JSON.parse(text);
-  }catch{
-   toast("Server response ঠিক নেই");
-   return;
-  }
+  }catch{}
 
-  if(!response.ok||!data.ok){
+
+  if(!response.ok){
 
    toast(
     data.message||
-    "Profile Save করা যায়নি"
+    "Profile save হয়নি"
    );
 
    return;
 
   }
 
-  account.username=username;
 
-  localStorage.setItem(
-   "dujon_account",
-   JSON.stringify(account)
-  );
+  loadProfileToUI();
 
-  localStorage.setItem(
-   "dujon_profile",
-   JSON.stringify({
-    name,
-    photo
-   })
-  );
+  toast("Profile saved ❤️");
 
-  localStorage.removeItem(
-   "dujon_temp_photo"
-  );
-
-  loadProfile();
-  sendProfileToPartner();
-
-  toast("Profile Save হয়েছে ❤️");
-
-  setTimeout(()=>{
-   showPage("homePage");
-  },700);
 
  }catch(error){
 
   console.log(
-   "Profile Save Error:",
+   "Profile Error:",
    error
   );
 
   toast(
-   "Server-এর সাথে সংযোগ হয়নি"
+   "Profile local-এ save হয়েছে"
   );
 
  }
 
 }
 
-function openFriends(){
 
- showPage("friendsPage");
+function handlePhoto(event){
 
- loadSocialData();
+ const file=
+  event.target.files?.[0];
 
-}
+ if(!file)return;
 
-async function searchUser(){
 
- const username=
-  document
-   .getElementById(
-    "friendSearchInput"
-   )
-   .value
-   .trim()
-   .toLowerCase();
+ if(file.size>5*1024*1024){
 
- if(!username){
+  toast(
+   "ছবির সাইজ ৫MB-এর কম হতে হবে"
+  );
 
-  toast("Username লিখো");
   return;
 
  }
 
- const result=
-  document.getElementById(
-   "searchResult"
+
+ const reader=
+  new FileReader();
+
+
+ reader.onload=()=>{
+
+  const profile=getProfile();
+
+  profile.photo=
+   reader.result;
+
+  saveLocalProfile(profile);
+
+  loadProfileToUI();
+
+  toast("ছবি পরিবর্তন হয়েছে ❤️");
+
+ };
+
+
+ reader.readAsDataURL(file);
+
+}
+
+
+function removePhoto(){
+
+ const profile=getProfile();
+
+ profile.photo="";
+
+ saveLocalProfile(profile);
+
+ loadProfileToUI();
+
+ toast("ছবি সরানো হয়েছে");
+
+}
+
+
+function setTogetherDate(){
+
+ const date=
+  prompt(
+   "তোমাদের সম্পর্কের শুরু তারিখ লিখুন (YYYY-MM-DD)"
   );
 
- result.innerHTML=
-  `<div class="empty">
-   🔎 খোঁজা হচ্ছে...
-  </div>`;
+ if(!date)return;
 
- try{
 
-  const response=
-   await fetch(
-    API_URL+
-    "/api/search?username="+
-    encodeURIComponent(username)
-   );
+ const parsed=
+  new Date(date);
 
-  const data=
-   await response.json();
 
-  if(!data.ok){
+ if(isNaN(parsed.getTime())){
 
-   result.innerHTML=
-    `<div class="empty">
-     ❌ ${
-      escapeHTML(
-       data.message||
-       "User পাওয়া যায়নি"
-      )
-     }
-    </div>`;
+  toast("তারিখ সঠিক নয়");
+  return;
 
-   return;
+ }
 
-  }
 
-  const user=data.user;
-  const account=getAccount();
+ localStorage.setItem(
+  "dujon_together_date",
+  date
+ );
+
+
+ loadTogetherDays();
+
+ sendWS({
+  type:"couple-date",
+  date
+ });
+
+
+ toast("তারিখ সংরক্ষণ হয়েছে ❤️");
+
+}
+
+
+function loadTogetherDays(){
+
+ const date=
+  localStorage.getItem(
+   "dujon_together_date"
+  );
+
+ const el=
+  document.getElementById(
+   "togetherDays"
+  );
+
+ if(!el)return;
+
+
+ if(!date){
+
+  el.textContent="0 দিন";
+  return;
+
+ }
+
+
+ const start=
+  new Date(date);
+
+ const now=
+  new Date();
+
+ const diff=
+  Math.max(
+   0,
+   Math.floor(
+    (
+     now.getTime()-
+     start.getTime()
+    )/
+    (1000*60*60*24)
+   )
+  );
+
+
+ el.textContent=
+  diff+" দিন";
+
+}
+
+
+function connectRoom(){
+
+ if(ws){
 
   if(
-   String(account.username||"")
-    .toLowerCase()===
-   String(user.username||"")
-    .toLowerCase()
+   ws.readyState===
+   WebSocket.OPEN
   ){
-
-   result.innerHTML=
-    `<div class="love-box">
-     ❤️ এটা তোমার নিজের Username
-    </div>`;
-
    return;
-
   }
-
-  result.innerHTML=`
-
-  <div class="friend-user">
-
-   <div class="avatar">
-
-    ${
-     user.photo?
-     `<img src="${escapeHTML(user.photo)}">`:
-     "❤️"
-    }
-
-   </div>
-
-   <div class="friend-user-info">
-
-    <div class="friend-user-name">
-     ${escapeHTML(user.name||"User")}
-    </div>
-
-    <div class="friend-username">
-     @${escapeHTML(user.username)}
-    </div>
-
-   </div>
-
-   <button
-    class="small-btn"
-    onclick="sendFriendRequest('${escapeHTML(user.username)}')">
-    ➕ Add
-   </button>
-
-  </div>
-
-  `;
-
- }catch(error){
-
-  console.log(
-   "Search Error:",
-   error
-  );
-
-  result.innerHTML=
-   `<div class="empty">
-    ❌ Server-এর সাথে সংযোগ হয়নি
-   </div>`;
-
- }
-
-}
-
-async function sendFriendRequest(username){
-
- const account=getAccount();
-
- if(!account.phone||!account.pin){
-
-  toast("আগে Login করো");
-  return;
-
- }
-
- try{
-
-  const response=
-   await fetch(
-    API_URL+"/api/friend-request",
-    {
-     method:"POST",
-     headers:{
-      "Content-Type":
-       "application/json"
-     },
-     body:JSON.stringify({
-      phone:account.phone,
-      pin:account.pin,
-      username:String(username)
-       .trim()
-       .toLowerCase()
-     })
-    }
-   );
-
-  const data=
-   await response.json();
-
-  toast(
-   data.message||
-   "Request পাঠানো হয়েছে"
-  );
-
-  if(data.ok){
-
-   document.getElementById(
-    "searchResult"
-   ).innerHTML=
-   `<div class="love-box">
-    ❤️ Friend Request পাঠানো হয়েছে
-   </div>`;
-
-  }
-
- }catch(error){
-
-  console.log(
-   "Friend Request Error:",
-   error
-  );
-
-  toast(
-   "Server-এর সাথে সংযোগ হয়নি"
-  );
-
- }
-
-}
-
-async function loadSocialData(){
-
- const account=getAccount();
-
- if(!account.phone||!account.pin)return;
-
- try{
-
-  const response=
-   await fetch(
-    API_URL+"/api/social",
-    {
-     method:"POST",
-     headers:{
-      "Content-Type":
-       "application/json"
-     },
-     body:JSON.stringify({
-      phone:account.phone,
-      pin:account.pin
-     })
-    }
-   );
-
-  const data=
-   await response.json();
-
-  if(!data.ok)return;
-
-  const user=data.user||{};
-
-  const requests=
-   Array.isArray(user.requests)?
-   user.requests:
-   [];
-
-  const friends=
-   Array.isArray(user.friends)?
-   user.friends:
-   [];
-
-  renderFriendRequests(requests);
-  renderFriends(friends);
-
-  const badge=
-   document.getElementById(
-    "friendBadge"
-   );
-
-  if(badge){
-
-   if(requests.length){
-
-    badge.textContent=
-     requests.length;
-
-    badge.classList.remove(
-     "hidden"
-    );
-
-   }else{
-
-    badge.textContent="";
-    badge.classList.add(
-     "hidden"
-    );
-
-   }
-
-  }
-
- }catch(error){
-
-  console.log(
-   "Social data error:",
-   error
-  );
-
- }
-
-}
-
-function renderFriendRequests(requests){
-
- const box=
-  document.getElementById(
-   "friendRequests"
-  );
-
- if(!box)return;
-
- box.innerHTML="";
-
- if(!requests.length){
-
-  box.innerHTML=
-  `<div class="empty">
-   কোনো Friend Request নেই ❤️
-  </div>`;
-
-  return;
-
- }
-
- requests.forEach(request=>{
-
-  const username=
-   typeof request==="string"?
-   request:
-   request.username||"";
-
-  if(!username)return;
-
-  const name=
-   typeof request==="object"?
-   request.name||"User":
-   "User";
-
-  const photo=
-   typeof request==="object"?
-   request.photo||"":
-   "";
-
-  const div=
-   document.createElement("div");
-
-  div.className="friend-user";
-
-  div.innerHTML=`
-
-  <div class="avatar">
-
-   ${
-    photo?
-    `<img src="${escapeHTML(photo)}">`:
-    "❤️"
-   }
-
-  </div>
-
-  <div class="friend-user-info">
-
-   <div class="friend-user-name">
-    ${escapeHTML(name)}
-   </div>
-
-   <div class="friend-username">
-    @${escapeHTML(username)}
-   </div>
-
-  </div>
-
-  <div class="friend-actions">
-
-   <button
-    class="small-btn"
-    onclick="acceptFriend('${escapeHTML(username)}')">
-    ❤️ Accept
-   </button>
-
-   <button
-    class="small-btn"
-    onclick="rejectFriend('${escapeHTML(username)}')">
-    ❌ Reject
-   </button>
-
-  </div>
-
-  `;
-
-  box.appendChild(div);
-
- });
-
-}
-
-function renderFriends(friends){
-
- const box=
-  document.getElementById(
-   "friendsList"
-  );
-
- if(!box)return;
-
- box.innerHTML="";
-
- if(
-  !Array.isArray(friends)||
-  !friends.length
- ){
-
-  box.innerHTML=
-   `<div class="empty">
-    এখনো কোনো Friend নেই ❤️
-   </div>`;
-
-  return;
-
- }
-
- friends.forEach(friend=>{
-
-  const username=
-   typeof friend==="string"
-    ? friend
-    : String(
-       friend.username||""
-      )
-      .trim()
-      .toLowerCase();
-
-  if(!username)return;
-
-  const name=
-   typeof friend==="object"&&friend.name
-    ? friend.name
-    : username;
-
-  const photo=
-   typeof friend==="object"&&friend.photo
-    ? friend.photo
-    : "";
-
-  const div=
-   document.createElement("div");
-
-  div.className="friend-user";
-
-  div.innerHTML=`
-
-   <div class="avatar">
-
-    ${
-     photo
-      ? `<img src="${escapeHTML(photo)}" alt="">`
-      : "❤️"
-    }
-
-   </div>
-
-   <div class="friend-user-info">
-
-    <div class="friend-user-name">
-     ${escapeHTML(name)}
-    </div>
-
-    <div class="friend-username">
-     @${escapeHTML(username)}
-    </div>
-
-   </div>
-
-   <div class="friend-actions">
-
-    <button
-     class="small-btn"
-     onclick="openChat()">
-     💕 Chat
-    </button>
-
-   </div>
-
-  `;
-
-  box.appendChild(div);
-
- });
-
-}
-
-async function acceptFriend(username){
-
- const account=getAccount();
-
- if(!account.phone||!account.pin){
-
-  toast("Login তথ্য পাওয়া যায়নি");
-  return;
-
- }
-
- const cleanUsername=
-  String(username||"")
-   .trim()
-   .toLowerCase();
-
- if(!cleanUsername){
-
-  toast("Username পাওয়া যায়নি");
-  return;
-
- }
-
- try{
-
-  const response=
-   await fetch(
-    API_URL+"/api/friend-accept",
-    {
-     method:"POST",
-     headers:{
-      "Content-Type":
-       "application/json"
-     },
-     body:JSON.stringify({
-      phone:account.phone,
-      pin:account.pin,
-      username:cleanUsername
-     })
-    }
-   );
-
-  const text=
-   await response.text();
-
-  let data;
 
   try{
-   data=JSON.parse(text);
-  }catch{
-
-   toast("Server response ঠিক নেই");
-   return;
-
-  }
-
-  console.log(
-   "FRIEND ACCEPT RESPONSE:",
-   data
-  );
-
-  if(!data.ok){
-
-   toast(
-    data.message||
-    "Friend accept করা যায়নি"
-   );
-
-   return;
-
-  }
-
-  const friends=
-   Array.isArray(data.friends)
-    ? data.friends
-    : (
-       data.user &&
-       Array.isArray(data.user.friends)
-        ? data.user.friends
-        : []
-      );
-
-  const requests=
-   data.user &&
-   Array.isArray(data.user.requests)
-    ? data.user.requests
-    : [];
-
-  localStorage.setItem(
-   "dujon_friends",
-   JSON.stringify(friends)
-  );
-
-  renderFriends(friends);
-  renderFriendRequests(requests);
-
-  const badge=
-   document.getElementById(
-    "friendBadge"
-   );
-
-  if(badge){
-
-   if(requests.length){
-
-    badge.textContent=
-     requests.length;
-
-    badge.classList.remove(
-     "hidden"
-    );
-
-   }else{
-
-    badge.textContent="";
-    badge.classList.add(
-     "hidden"
-    );
-
-   }
-
-  }
-
-  toast(
-   data.message||
-   "Friend হয়েছে ❤️"
-  );
-
-  setTimeout(()=>{
-   loadSocialData();
-  },300);
-
- }catch(error){
-
-  console.log(
-   "Accept Error:",
-   error
-  );
-
-  toast(
-   "Server-এর সাথে সংযোগ হয়নি"
-  );
-
- }
-
-}
-
-async function rejectFriend(username){
-
- const account=getAccount();
-
- if(!account.phone||!account.pin){
-
-  toast("Login তথ্য পাওয়া যায়নি");
-  return;
-
- }
-
- const cleanUsername=
-  String(username||"")
-   .trim()
-   .toLowerCase();
-
- if(!cleanUsername){
-
-  toast("Username পাওয়া যায়নি");
-  return;
-
- }
-
- try{
-
-  const response=
-   await fetch(
-    API_URL+"/api/friend-reject",
-    {
-     method:"POST",
-     headers:{
-      "Content-Type":
-       "application/json"
-     },
-     body:JSON.stringify({
-      phone:account.phone,
-      pin:account.pin,
-      username:cleanUsername
-     })
-    }
-   );
-
-  const data=
-   await response.json();
-
-  toast(
-   data.message||
-   "Request বাদ দেওয়া হয়েছে"
-  );
-
-  if(data.ok){
-   loadSocialData();
-  }
-
- }catch(error){
-
-  console.log(
-   "Reject Error:",
-   error
-  );
-
-  toast(
-   "Server-এর সাথে সংযোগ হয়নি"
-  );
-
- }
-
-}
-
-function generateRoomCode(){
-
- return String(
-  Math.floor(
-   100000+
-   Math.random()*900000
-  )
- );
-
-}
-
-function createRoom(){
-
- const code=
-  generateRoomCode();
-
- document.getElementById(
-  "roomCodeDisplay"
- ).textContent=code;
-
- document.getElementById(
-  "homeRoomCode"
- ).textContent=code;
-
- connectRoom(code);
-
- toast(
-  "Room তৈরি হয়েছে ❤️"
- );
-
-}
-
-function joinRoom(){
-
- const code=
-  document
-   .getElementById(
-    "joinRoomInput"
-   )
-   .value
-   .trim();
-
- if(!/^\d{6}$/.test(code)){
-
-  toast(
-   "৬ সংখ্যার Room Code দাও"
-  );
-
-  return;
-
- }
-
- document.getElementById(
-  "roomCodeDisplay"
- ).textContent=code;
-
- document.getElementById(
-  "homeRoomCode"
- ).textContent=code;
-
- connectRoom(code);
-
-}
-
-function copyRoom(){
-
- const code=
-  document.getElementById(
-   "homeRoomCode"
-  ).textContent;
-
- if(!/^\d{6}$/.test(code)){
-
-  toast(
-   "আগে Room তৈরি বা Join করো"
-  );
-
-  return;
-
- }
-
- navigator.clipboard
-  .writeText(code)
-  .then(()=>{
-   toast(
-    "Room Code Copy হয়েছে 📋"
-   );
-  })
-  .catch(()=>{
-   toast(
-    "Copy করা যায়নি"
-   );
-  });
-
-}
-
-function openRoom(){
-
- showPage("roomPage");
-
- if(currentRoom){
-
-  document.getElementById(
-   "roomCodeDisplay"
-  ).textContent=
-   currentRoom;
-
- }
-
-}
-
-function connectRoom(code){
-
- if(
-  socket&&
-  socket.readyState===
-   WebSocket.OPEN&&
-  currentRoom===code
- ){
-
-  setRoomStatus(
-   "🟢 Room Connected"
-  );
-
-  return;
-
- }
-
- closeSocket();
-
- currentRoom=code;
-
- setRoomStatus(
-  "🟡 Connecting..."
- );
-
- socket=
-  new WebSocket(WS_URL);
-
- socket.onopen=()=>{
-
-  setRoomStatus(
-   "🟢 Connected"
-  );
-
-  socket.send(
-   JSON.stringify({
-    type:"join-room",
-    room:code
-   })
-  );
-
- };
-
- socket.onmessage=e=>{
-
-  let data;
-
-  try{
-   data=JSON.parse(e.data);
-  }catch{
-   return;
-  }
-
-  handleSocketMessage(data);
-
- };
-
- socket.onerror=()=>{
-
-  setRoomStatus(
-   "🔴 Connection Error"
-  );
-
- };
-
- socket.onclose=()=>{
-
-  setRoomStatus(
-   "🔴 Disconnected"
-  );
-
-  socket=null;
-
- };
-
-}
-
-function closeSocket(){
-
- if(socket){
-
-  try{
-   socket.close();
+   ws.close();
   }catch{}
 
  }
 
- socket=null;
- currentRoom=null;
+
+ try{
+
+  ws=
+   new WebSocket(
+    WS_URL
+   );
+
+
+  ws.onopen=()=>{
+
+   console.log(
+    "WebSocket connected"
+   );
+
+   const account=
+    getAccount();
+
+   if(account){
+
+    sendWS({
+     type:"join",
+     phone:account.phone,
+     pin:account.pin,
+     username:
+      account.username||
+      ""
+    });
+
+   }
+
+   setPresence(true);
+
+  };
+
+
+  ws.onmessage=
+   async(event)=>{
+
+    try{
+
+     const data=
+      JSON.parse(event.data);
+
+     await handleWSMessage(data);
+
+    }catch(error){
+
+     console.log(
+      "WS message error:",
+      error
+     );
+
+    }
+
+   };
+
+
+  ws.onclose=()=>{
+
+   console.log(
+    "WebSocket disconnected"
+   );
+
+   setPresence(false);
+
+  };
+
+
+  ws.onerror=(error)=>{
+
+   console.log(
+    "WebSocket error:",
+    error
+   );
+
+  };
+
+
+ }catch(error){
+
+  console.log(
+   "WebSocket create error:",
+   error
+  );
+
+ }
 
 }
+
+
+function sendWS(data){
+
+ if(
+  ws &&
+  ws.readyState===
+  WebSocket.OPEN
+ ){
+
+  ws.send(
+   JSON.stringify(data)
+  );
+
+ }
+
+}
+
+
+function setPresence(online){
+
+ sendWS({
+  type:"presence",
+  online
+ });
+
+ const status=
+  document.getElementById(
+   "onlineStatus"
+  );
+
+ if(status){
+
+  status.textContent=
+   online?
+   "Online":
+   "Offline";
+
+ }
+
+}
+
+
+async function handleWSMessage(data){
+
+ switch(data.type){
+
+  case"joined":
+
+   if(data.room){
+    currentRoom=data.room;
+   }
+
+   setRoomStatus(
+    "Connected ❤️"
+   );
+
+   break;
+
+
+  case"peer-joined":
+
+   setRoomStatus(
+    "তোমার মানুষটি Room-এ এসেছে ❤️"
+   );
+
+   break;
+
+
+  case"peer-left":
+
+   setRoomStatus(
+    "তোমার মানুষটি চলে গেছে"
+   );
+
+   break;
+
+
+  case"profile":
+
+   if(data.profile){
+
+    updatePartnerProfile(
+     data.profile
+    );
+
+   }
+
+   break;
+
+
+  case"presence":
+
+   updatePartnerPresence(
+    data
+   );
+
+   break;
+
+
+  case"chat":
+
+   addMessage(
+    data.message,
+    data.sender||
+    data.from,
+    false
+   );
+
+   if(currentPage!=="chatPage"){
+
+    showMessageNotification(
+     data.message
+    );
+
+   }
+
+   break;
+
+
+  case"feeling":
+
+   toast(
+    "তোমার মানুষটি "+data.feeling
+   );
+
+   break;
+
+
+  case"love-note":
+
+   showLoveNote(
+    data.note
+   );
+
+   break;
+
+
+  case"couple-date":
+
+   if(data.date){
+
+    localStorage.setItem(
+     "dujon_together_date",
+     data.date
+    );
+
+    loadTogetherDays();
+
+   }
+
+   break;
+
+
+  case"our-story":
+
+   if(data.story){
+
+    document
+     .getElementById(
+      "ourStoryDisplay"
+     )
+     .textContent=
+      data.story;
+
+   }
+
+   break;
+
+
+  case"memory":
+
+   if(data.memory){
+
+    renderMemory(
+     data.memory
+    );
+
+   }
+
+   break;
+
+
+  case"favorite":
+
+   if(data.favorite){
+
+    document
+     .getElementById(
+      "favoriteDisplay"
+     )
+     .textContent=
+      data.favorite;
+
+   }
+
+   break;
+
+
+  case"video-call":
+
+   await handleCallSignal(
+    data
+   );
+
+   break;
+
+
+  case"audio-call":
+
+   await handleCallSignal(
+    data
+   );
+
+   break;
+
+
+ }
+
+}
+
+
+function updatePartnerProfile(profile){
+
+ const name=
+  profile.name||
+  profile.username||
+  "আমাদের দুজন";
+
+ const photo=
+  profile.photo||
+  "";
+
+ const avatar=
+  document.getElementById(
+   "partnerAvatar"
+  );
+
+ if(avatar){
+
+  if(photo){
+
+   avatar.innerHTML=
+    `<img src="${photo}" alt="">`;
+
+  }else{
+
+   avatar.textContent=
+    name.charAt(0)||"❤️";
+
+  }
+
+ }
+
+
+ const partnerName=
+  document.getElementById(
+   "partnerName"
+  );
+
+ if(partnerName){
+  partnerName.textContent=name;
+ }
+
+
+ const chatName=
+  document.getElementById(
+   "chatName"
+  );
+
+ if(chatName){
+  chatName.textContent=name;
+ }
+
+
+ const chatAvatar=
+  document.getElementById(
+   "chatAvatar"
+  );
+
+ if(chatAvatar){
+
+  if(photo){
+
+   chatAvatar.innerHTML=
+    `<img src="${photo}" alt="">`;
+
+  }else{
+
+   chatAvatar.textContent=
+    name.charAt(0)||"❤️";
+
+  }
+
+ }
+
+}
+
+
+function updatePartnerPresence(data){
+
+ const online=
+  !!data.online;
+
+ const status=
+  document.getElementById(
+   "partnerStatus"
+  );
+
+ if(status){
+
+  status.textContent=
+   online?
+   "এখন Online ❤️":
+   "এখন Offline";
+
+  status.style.color=
+   online?
+   "#70e69a":
+   "#aaa";
+
+ }
+
+
+ const chatStatus=
+  document.getElementById(
+   "chatStatus"
+  );
+
+ if(chatStatus){
+
+  chatStatus.textContent=
+   online?
+   "Online":
+   "Offline";
+
+ }
+
+}
+
 
 function setRoomStatus(text){
 
@@ -3076,476 +2754,280 @@ function setRoomStatus(text){
 
 }
 
-function sendToRoom(data){
 
- if(
-  socket&&
-  socket.readyState===
-   WebSocket.OPEN
- ){
+async function createRoom(){
 
-  socket.send(
-   JSON.stringify(data)
-  );
+ const code=
+  Math.random()
+   .toString(36)
+   .substring(2,8)
+   .toUpperCase();
 
- }
 
-}
+ currentRoom=code;
 
-function handleSocketMessage(data){
-
- if(data.type==="joined"){
-
-  currentRoom=data.room;
-
+ const codeEl=
   document.getElementById(
-   "roomCodeDisplay"
-  ).textContent=
-   currentRoom;
+   "roomCode"
+  );
 
+ codeEl.textContent=code;
+ codeEl.style.display="block";
+
+
+ const copyBtn=
   document.getElementById(
-   "homeRoomCode"
-  ).textContent=
-   currentRoom;
-
-  setRoomStatus(
-   "🟢 Room Connected"
+   "copyRoomBtn"
   );
 
-  sendProfileToPartner();
-  sendCoupleDataToPartner();
+ copyBtn.style.display="block";
 
-  return;
 
- }
-
- if(data.type==="peer-joined"){
-
-  updatePartnerOnline();
-
-  sendProfileToPartner();
-  sendCoupleDataToPartner();
-
-  toast(
-   "Partner Room-এ এসেছে ❤️"
-  );
-
-  return;
-
- }
-
- if(data.type==="peer-left"){
-
-  partnerOffline();
-
-  toast(
-   "Partner Room থেকে বের হয়েছে"
-  );
-
-  return;
-
- }
-
- if(data.type==="profile"){
-
-  partnerProfile={
-   name:data.name||"Partner",
-   photo:data.photo||""
-  };
-
-  updatePartnerUI();
-
-  return;
-
- }
-
- if(data.type==="presence"){
-
-  data.online?
-   updatePartnerOnline():
-   partnerOffline();
-
-  return;
-
- }
-
- if(data.type==="chat"){
-
-  addMessage(
-   data.message,
-   "other",
-   true
-  );
-
-  if(
-   !document
-    .getElementById("chatPage")
-    .classList
-    .contains("active")
-  ){
-
-   unreadCount++;
-
-   updateUnreadBadge();
-
-   showMessageNotification(
-    data.message
-   );
-
-   browserNotification(
-    data.message
-   );
-
-  }
-
-  return;
-
- }
-
- if(data.type==="feeling"){
-
-  toast(
-   partnerProfile.name+
-   " তোমাকে "+
-   data.feeling+
-   " পাঠিয়েছে ❤️"
-  );
-
-  return;
-
- }
-
- if(data.type==="love-note"){
-
-  showLoveNote(
-   data.message
-  );
-
-  return;
-
- }
-
- if(data.type==="couple-date"){
-
-  if(data.date){
-
-   localStorage.setItem(
-    "dujon_together_date",
-    data.date
-   );
-
-   updateTogetherDays();
-   updateCoupleDays();
-
-   toast(
-    "❤️ আমাদের তারিখ sync হয়েছে"
-   );
-
-  }
-
-  return;
-
- }
-
- if(data.type==="our-story"){
-
-  if(typeof data.story==="string"){
-
-   localStorage.setItem(
-    "dujon_story",
-    data.story
-   );
-
-   renderStory();
-
-  }
-
-  return;
-
- }
-
- if(data.type==="memory"){
-
-  if(
-   data.photo&&
-   typeof data.photo==="string"
-  ){
-
-   const memories=
-    getMemories();
-
-   const exists=
-    memories.some(
-     m=>
-      String(m.id)===
-      String(data.id)
-    );
-
-   if(exists)return;
-
-   memories.push({
-
-    id:data.id||Date.now(),
-
-    photo:data.photo,
-
-    caption:
-     data.caption||
-     "একটা সুন্দর স্মৃতি ❤️",
-
-    time:
-     data.time||
-     new Date()
-      .toLocaleDateString("bn-BD")
-
-   });
-
-   if(memories.length>30){
-    memories.shift();
-   }
-
-   localStorage.setItem(
-    "dujon_memories",
-    JSON.stringify(memories)
-   );
-
-   renderMemories();
-
-   toast(
-    "📸 নতুন Shared Memory এসেছে"
-   );
-
-  }
-
-  return;
-
- }
-
- if(data.type==="favorite"){
-
-  if(data.text){
-
-   const moments=
-    getMoments();
-
-   const exists=
-    moments.some(
-     m=>
-      String(m.id)===
-      String(data.id)
-    );
-
-   if(exists)return;
-
-   moments.push({
-
-    id:data.id||Date.now(),
-
-    text:data.text,
-
-    time:
-     data.time||
-     new Date()
-      .toLocaleString("bn-BD")
-
-   });
-
-   if(moments.length>50){
-    moments.shift();
-   }
-
-   localStorage.setItem(
-    "dujon_moments",
-    JSON.stringify(moments)
-   );
-
-   renderMoments();
-
-   toast(
-    "⭐ নতুন Favorite Moment এসেছে"
-   );
-
-  }
-
-  return;
-
- }
-
- if(
-  data.type==="video-call"||
-  data.type==="audio-call"
- ){
-
-  handleCallSignal(
-   data,
-   data.type==="video-call"?
-    "video":
-    "audio"
-  );
-
- }
-
-}
-
-function sendProfileToPartner(){
-
- const p=getProfile();
-
- sendToRoom({
-
-  type:"profile",
-
-  name:p.name||"আমি",
-
-  photo:p.photo||""
-
- });
-
- sendToRoom({
-
-  type:"presence",
-
-  online:true
-
- });
-
-}
-
-function updatePartnerUI(){
-
- document.getElementById(
-  "partnerName"
- ).textContent=
-  partnerProfile.name;
-
- document.getElementById(
-  "chatPartnerName"
- ).textContent=
-  partnerProfile.name;
-
- updatePartnerOnline();
-
- setAvatar(
-  document.getElementById(
-   "partnerAvatar"
-  ),
-  partnerProfile.photo
+ localStorage.setItem(
+  "dujon_room",
+  code
  );
 
- setAvatar(
-  document.getElementById(
-   "chatPartnerAvatar"
-  ),
-  partnerProfile.photo
- );
 
- setAvatar(
-  document.getElementById(
-   "videoCallAvatar"
-  ),
-  partnerProfile.photo
- );
+ connectRoom();
 
- setAvatar(
-  document.getElementById(
-   "audioCallAvatar"
-  ),
-  partnerProfile.photo
- );
-
-}
-
-function updatePartnerOnline(){
-
- document.getElementById(
-  "partnerStatus"
- ).innerHTML=
-  '<span class="online-dot"></span>Online';
-
- document.getElementById(
-  "chatPartnerStatus"
- ).innerHTML=
-  '<span class="online-dot"></span>Online';
-
-}
-
-function partnerOffline(){
-
- document.getElementById(
-  "partnerStatus"
- ).textContent=
-  "Offline";
-
- document.getElementById(
-  "chatPartnerStatus"
- ).textContent=
-  "Offline";
-
-}
-
-function openChat(){
-
- unreadCount=0;
-
- updateUnreadBadge();
-
- showPage("chatPage");
 
  setTimeout(()=>{
 
-  document.getElementById(
-   "messageInput"
-  ).focus();
+  sendWS({
+   type:"room-create",
+   room:code
+  });
 
+ },500);
+
+
+ setRoomStatus(
+  "Room তৈরি হয়েছে ❤️"
+ );
+
+ toast(
+  "Room Code তৈরি হয়েছে"
+ );
+
+}
+
+
+function joinRoom(){
+
+ const code=
+  document
+   .getElementById(
+    "joinRoomCode"
+   )
+   .value
+   .trim()
+   .toUpperCase();
+
+
+ if(!code){
+
+  toast(
+   "Room Code দিন"
+  );
+
+  return;
+
+ }
+
+
+ currentRoom=code;
+
+ localStorage.setItem(
+  "dujon_room",
+  code
+ );
+
+
+ connectRoom();
+
+
+ setTimeout(()=>{
+
+  sendWS({
+   type:"room-join",
+   room:code
+  });
+
+ },500);
+
+
+ setRoomStatus(
+  "Room-এ Join করার চেষ্টা চলছে..."
+ );
+
+}
+
+
+function copyRoom(){
+
+ const code=
+  currentRoom||
+  localStorage.getItem(
+   "dujon_room"
+  );
+
+
+ if(!code)return;
+
+
+ navigator.clipboard
+  ?.writeText(code)
+  .then(()=>{
+   toast(
+    "Room Code Copy হয়েছে"
+   );
+  })
+  .catch(()=>{
+   toast(
+    "Code: "+code
+   );
+  });
+
+}
+
+
+function openChat(){
+
+ showPage("chatPage");
+
+ loadMessages();
+
+ const input=
+  document.getElementById(
+   "chatInput"
+  );
+
+ setTimeout(()=>{
+  input?.focus();
  },100);
 
 }
 
-function sendMessage(){
 
- const input=
-  document.getElementById(
-   "messageInput"
+function loadMessages(){
+
+ const messages=
+  JSON.parse(
+   localStorage.getItem(
+    "dujon_messages"
+   )||
+   "[]"
   );
-
- const message=
-  input.value.trim();
-
- if(!message)return;
-
- addMessage(
-  message,
-  "me",
-  true
- );
-
- sendToRoom({
-  type:"chat",
-  message
- });
-
- input.value="";
-
-}
-
-function addMessage(
- message,
- type,
- save
-){
 
  const box=
   document.getElementById(
    "chatBox"
   );
 
- const div=
+ if(!box)return;
+
+ box.innerHTML="";
+
+ messages.forEach(message=>{
+
+  addMessage(
+   message.text,
+   message.sender,
+   message.sender==="me",
+   false
+  );
+
+ });
+
+}
+
+
+function saveMessages(messages){
+
+ localStorage.setItem(
+  "dujon_messages",
+  JSON.stringify(messages)
+ );
+
+}
+
+
+function sendMessage(){
+
+ const input=
+  document.getElementById(
+   "chatInput"
+  );
+
+ const text=
+  input.value.trim();
+
+ if(!text)return;
+
+
+ addMessage(
+  text,
+  "me",
+  true,
+  true
+ );
+
+
+ sendWS({
+  type:"chat",
+  message:text
+ });
+
+
+ input.value="";
+
+}
+
+
+function addMessage(
+ text,
+ sender,
+ isMe=false,
+ save=true
+){
+
+ if(!text)return;
+
+
+ const box=
+  document.getElementById(
+   "chatBox"
+  );
+
+ if(!box)return;
+
+
+ const msg=
   document.createElement("div");
 
- div.className=
-  "message "+type;
+ msg.className=
+  "msg "+
+  (
+   isMe||
+   sender==="me"
+    ? "me"
+    : "them"
+  );
+
+
+ const content=
+  document.createElement("div");
+
+ content.textContent=text;
+
 
  const time=
+  document.createElement("div");
+
+ time.className="msg-time";
+
+ time.textContent=
   new Date()
    .toLocaleTimeString(
     "bn-BD",
@@ -3555,216 +3037,83 @@ function addMessage(
     }
    );
 
- div.innerHTML=
-  `${escapeHTML(message)}
-  <span class="message-time">
-   ${time}
-  </span>`;
 
- box.appendChild(div);
+ msg.appendChild(content);
+ msg.appendChild(time);
+
+ box.appendChild(msg);
 
  box.scrollTop=
   box.scrollHeight;
 
+
  if(save){
 
-  saveMessageHistory(
-   message,
-   type,
-   time
-  );
+  const messages=
+   JSON.parse(
+    localStorage.getItem(
+     "dujon_messages"
+    )||
+    "[]"
+   );
 
- }
-
-}
-
-function updateUnreadBadge(){
-
- const badge=
-  document.getElementById(
-   "chatBadge"
-  );
-
- if(unreadCount>0){
-
-  badge.textContent=
-   unreadCount>99?
-    "99+":
-    unreadCount;
-
-  badge.classList.remove(
-   "hidden"
-  );
-
- }else{
-
-  badge.classList.add(
-   "hidden"
-  );
-
- }
-
-}
-
-function getMessageHistory(){
-
- try{
-
-  return JSON.parse(
-   localStorage.getItem(
-    "dujon_message_history"
-   )
-  )||[];
-
- }catch{
-
-  return [];
-
- }
-
-}
-
-function saveMessageHistory(
- message,
- type,
- time
-){
-
- const history=
-  getMessageHistory();
-
- history.push({
-
-  message,
-  type,
-  time,
-
-  date:
-   new Date()
-    .toLocaleDateString("bn-BD")
-
- });
-
- if(history.length>100){
-  history.shift();
- }
-
- localStorage.setItem(
-  "dujon_message_history",
-  JSON.stringify(history)
- );
-
-}
-
-function openMessageHistory(){
-
- showPage(
-  "messageHistoryPage"
- );
-
- renderMessageHistory();
-
-}
-
-function renderMessageHistory(){
-
- const box=
-  document.getElementById(
-   "messageHistoryList"
-  );
-
- const history=
-  getMessageHistory();
-
- box.innerHTML="";
-
- if(!history.length){
-
-  box.innerHTML=
-   '<div class="empty">💌 এখনো কোনো Message History নেই</div>';
-
-  return;
-
- }
-
- history
-  .slice()
-  .reverse()
-  .forEach(item=>{
-
-   const div=
-    document.createElement("div");
-
-   div.className="history-item";
-
-   div.innerHTML=`
-
-   <div class="history-icon">
-    ${item.type==="me"?"💙":"💗"}
-   </div>
-
-   <div class="history-info">
-
-    <strong>
-     ${
-      item.type==="me"?
-       "আমি":
-       escapeHTML(partnerProfile.name)
-     }
-    </strong>
-
-    <div style="
-     color:#ccc;
-     font-size:13px;
-     margin-top:3px">
-     ${escapeHTML(item.message)}
-    </div>
-
-    <div class="history-time">
-     ${item.date} • ${item.time}
-    </div>
-
-   </div>
-
-   `;
-
-   box.appendChild(div);
-
+  messages.push({
+   text,
+   sender:
+    isMe?
+    "me":
+    "them",
+   time:
+    Date.now()
   });
 
-}
+  if(messages.length>200){
+   messages.shift();
+  }
 
-function clearMessageHistory(){
+  saveMessages(messages);
 
- if(!confirm(
-  "সব Message History মুছে ফেলবে?"
- ))return;
-
- localStorage.removeItem(
-  "dujon_message_history"
- );
-
- renderMessageHistory();
-
- toast(
-  "History Clear হয়েছে"
- );
+ }
 
 }
+
+
+function showMessageNotification(text){
+
+ const el=
+  document.getElementById(
+   "messageNotification"
+  );
+
+ const txt=
+  document.getElementById(
+   "notificationText"
+  );
+
+ txt.textContent=text;
+
+ el.classList.add("active");
+
+ setTimeout(()=>{
+  el.classList.remove("active");
+ },4000);
+
+}
+
 
 function sendFeeling(feeling){
 
- sendToRoom({
+ sendWS({
   type:"feeling",
   feeling
  });
 
  toast(
-  feeling+
-  " পাঠানো হয়েছে ❤️"
+  "তোমার অনুভূতি পাঠানো হয়েছে "+feeling
  );
 
 }
+
 
 function sendLoveNote(){
 
@@ -3773,1537 +3122,1747 @@ function sendLoveNote(){
    "loveNoteInput"
   );
 
- const message=
+ const note=
   input.value.trim();
 
- if(!message){
+ if(!note){
 
   toast(
-   "আগে কিছু লিখো ❤️"
+   "Love Note লিখুন"
   );
 
   return;
 
  }
 
- sendToRoom({
+
+ showLoveNote(note);
+
+ sendWS({
   type:"love-note",
-  message
+  note
  });
 
  input.value="";
 
  toast(
-  "Love Note পাঠানো হয়েছে 💌"
+  "Love Note পাঠানো হয়েছে ❤️"
  );
 
 }
 
-function showLoveNote(message){
 
- showMessageNotification(
-  "💌 "+message
- );
+function showLoveNote(note){
 
- browserNotification(
-  "💌 "+message
- );
-
-}
-
-const surprises=[
-
- "তোমাদের গল্পটা সুন্দর থাকুক ❤️",
-
- "কিছু মানুষ জীবনটাকে একটু বেশি সুন্দর করে দেয়। 💞",
-
- "দূরে থেকেও মনের কাছাকাছি থাকা যায়। 🫶",
-
- "আজ একটু বেশি করে হাসো। 😊",
-
- "একটা ছোট্ট মেসেজও পুরো দিন সুন্দর করে দিতে পারে। 💌",
-
- "আজকের দিনটা তোমাদের জন্য সুন্দর হোক। ❤️"
-
-];
-
-function showSurprise(){
-
- const msg=
-  surprises[
-   Math.floor(
-    Math.random()*
-    surprises.length
-   )
-  ];
-
- document.getElementById(
-  "surpriseMessage"
- ).textContent=msg;
-
-}
-
-function showMessageNotification(message){
-
- const box=
+ const display=
   document.getElementById(
-   "messageNotification"
+   "loveNoteDisplay"
   );
 
- document.getElementById(
-  "notificationName"
- ).textContent=
-  partnerProfile.name;
+ display.textContent=note;
+ display.style.display="block";
 
- document.getElementById(
-  "notificationMessage"
- ).textContent=
-  message;
+}
 
- setAvatar(
+
+function saveOurStory(){
+
+ const input=
   document.getElementById(
-   "notificationAvatar"
-  ),
-  partnerProfile.photo
- );
-
- box.classList.add("show");
-
- clearTimeout(
-  notificationTimeout
- );
-
- notificationTimeout=
-  setTimeout(()=>{
-   box.classList.remove("show");
-  },4500);
-
-}
-
-function openChatFromNotification(){
-
- document.getElementById(
-  "messageNotification"
- ).classList.remove("show");
-
- openChat();
-
-}
-
-async function requestNotifications(){
-
- if(!("Notification" in window)){
-
-  toast(
-   "এই Browser-এ Notification নেই"
+   "ourStoryInput"
   );
-
-  return;
-
- }
-
- const permission=
-  await Notification.requestPermission();
-
- toast(
-  permission==="granted"?
-   "🔔 Notification চালু হয়েছে":
-   "Notification permission দেওয়া হয়নি"
- );
-
-}
-
-function browserNotification(message){
-
- if(
-  !("Notification" in window)||
-  Notification.permission!=="granted"
- )return;
-
- try{
-
-  new Notification(
-   "💬 "+partnerProfile.name,
-   {
-    body:message
-   }
-  );
-
- }catch{}
-
-}
-
-function setTogetherDate(){
-
- const current=
-  localStorage.getItem(
-   "dujon_together_date"
-  );
-
- const date=
-  prompt(
-   "যেদিন থেকে তোমাদের বিশেষ যাত্রা শুরু:\nYYYY-MM-DD",
-   current||""
-  );
-
- if(!date)return;
-
- if(!/^\d{4}-\d{2}-\d{2}$/.test(date)){
-
-  toast(
-   "তারিখের format: YYYY-MM-DD"
-  );
-
-  return;
-
- }
-
- localStorage.setItem(
-  "dujon_together_date",
-  date
- );
-
- updateTogetherDays();
- updateCoupleDays();
-
- sendToRoom({
-  type:"couple-date",
-  date
- });
-
- document.getElementById(
-  "dateSyncStatus"
- ).textContent=
-  "🟢 তারিখ Partner-এর সাথে Share করা হয়েছে";
-
- toast(
-  "আমাদের দিন Save & Share হয়েছে ❤️"
- );
-
-}
-
-function updateTogetherDays(){
-
- const el=
-  document.getElementById(
-   "togetherDays"
-  );
-
- if(!el)return;
-
- const saved=
-  localStorage.getItem(
-   "dujon_together_date"
-  );
-
- if(!saved){
-
-  el.textContent="0";
-  return;
-
- }
-
- const start=
-  new Date(
-   saved+"T00:00:00"
-  );
-
- const now=new Date();
-
- const diff=
-  Math.max(
-   0,
-   Math.floor(
-    (now-start)/86400000
-   )
-  );
-
- el.textContent=diff;
-
-}
-
-function updateCoupleDays(){
-
- const el=
-  document.getElementById(
-   "coupleDaysBig"
-  );
-
- if(!el)return;
-
- const saved=
-  localStorage.getItem(
-   "dujon_together_date"
-  );
-
- if(!saved){
-
-  el.textContent="0";
-  return;
-
- }
-
- const start=
-  new Date(
-   saved+"T00:00:00"
-  );
-
- const now=new Date();
-
- const diff=
-  Math.max(
-   0,
-   Math.floor(
-    (now-start)/86400000
-   )
-  );
-
- el.textContent=diff;
-
-}
-
-function openCoupleSpace(){
-
- showPage("couplePage");
-
- loadCoupleSpace();
-
-}
-
-function loadCoupleSpace(){
-
- renderStory();
- renderMemories();
- renderMoments();
- updateCoupleDays();
-
- document.getElementById(
-  "coupleSyncStatus"
- ).textContent=
-  currentRoom?
-   "🟢 Shared Room Connected":
-   "🔴 Room-এ Connect করো";
-
-}
-
-function sendCoupleDataToPartner(){
-
- const date=
-  localStorage.getItem(
-   "dujon_together_date"
-  );
-
- if(date){
-
-  sendToRoom({
-   type:"couple-date",
-   date
-  });
-
- }
 
  const story=
-  localStorage.getItem(
-   "dujon_story"
-  );
-
- if(story){
-
-  sendToRoom({
-   type:"our-story",
-   story
-  });
-
- }
-
- getMemories()
-  .forEach(memory=>{
-
-   sendToRoom({
-    type:"memory",
-    id:memory.id,
-    photo:memory.photo,
-    caption:memory.caption,
-    time:memory.time
-   });
-
-  });
-
- getMoments()
-  .forEach(moment=>{
-
-   sendToRoom({
-    type:"favorite",
-    id:moment.id,
-    text:moment.text,
-    time:moment.time
-   });
-
-  });
-
-}
-
-function saveStory(){
-
- const story=
-  document.getElementById(
-   "storyInput"
-  ).value.trim();
+  input.value.trim();
 
  if(!story){
 
-  toast(
-   "আগে তোমাদের গল্প লিখো ❤️"
-  );
-
+  toast("Story লিখুন");
   return;
 
  }
+
 
  localStorage.setItem(
   "dujon_story",
   story
  );
 
- renderStory();
 
- sendToRoom({
+ document
+  .getElementById(
+   "ourStoryDisplay"
+  )
+  .textContent=
+   story;
+
+
+ sendWS({
   type:"our-story",
   story
  });
 
+
  toast(
-  "📖 Story Save & Share হয়েছে"
+  "Our Story saved ❤️"
  );
 
 }
 
-function renderStory(){
+
+function loadOurStory(){
 
  const story=
   localStorage.getItem(
    "dujon_story"
-  );
+  )||
+  "";
 
- document.getElementById(
-  "storyInput"
- ).value=
-  story||"";
+ document
+  .getElementById(
+   "ourStoryInput"
+  ).value=story;
 
- document.getElementById(
-  "storyDisplay"
- ).textContent=
-  story||
-  "এখনো কোনো গল্প লেখা হয়নি ❤️";
+ document
+  .getElementById(
+   "ourStoryDisplay"
+  ).textContent=story;
 
 }
 
-function getMemories(){
 
- try{
+function saveMemory(){
 
-  return JSON.parse(
-   localStorage.getItem(
-    "dujon_memories"
-   )
-  )||[];
+ const input=
+  document.getElementById(
+   "memoryInput"
+  );
 
- }catch{
+ const memory=
+  input.value.trim();
 
-  return [];
+ if(!memory){
+
+  toast(
+   "Memory লিখুন"
+  );
+
+  return;
 
  }
 
-}
 
-function addMemory(event){
-
- const file=
-  event.target.files[0];
-
- if(!file)return;
-
- const reader=
-  new FileReader();
-
- reader.onload=e=>{
-
-  const img=new Image();
-
-  img.onload=()=>{
-
-   const canvas=
-    document.createElement("canvas");
-
-   const max=600;
-
-   let w=img.width;
-   let h=img.height;
-
-   if(w>h&&w>max){
-    h=h*max/w;
-    w=max;
-   }
-
-   if(h>=w&&h>max){
-    w=w*max/h;
-    h=max;
-   }
-
-   canvas.width=w;
-   canvas.height=h;
-
-   canvas
-    .getContext("2d")
-    .drawImage(
-     img,
-     0,
-     0,
-     w,
-     h
-    );
-
-   const photo=
-    canvas.toDataURL(
-     "image/jpeg",
-     .55
-    );
-
-   const caption=
-    document.getElementById(
-     "memoryCaption"
-    ).value.trim();
-
-   const memory={
-
-    id:Date.now(),
-
-    photo,
-
-    caption:
-     caption||
-     "একটা সুন্দর স্মৃতি ❤️",
-
-    time:
-     new Date()
-      .toLocaleDateString("bn-BD")
-
-   };
-
-   const memories=
-    getMemories();
-
-   memories.push(memory);
-
-   if(memories.length>30){
-    memories.shift();
-   }
-
-   localStorage.setItem(
-    "dujon_memories",
-    JSON.stringify(memories)
-   );
-
-   document.getElementById(
-    "memoryCaption"
-   ).value="";
-
-   document.getElementById(
-    "memoryInput"
-   ).value="";
-
-   renderMemories();
-
-   sendToRoom({
-    type:"memory",
-    id:memory.id,
-    photo:memory.photo,
-    caption:memory.caption,
-    time:memory.time
-   });
-
-   toast(
-    "📸 Shared Memory পাঠানো হয়েছে"
-   );
-
-  };
-
-  img.src=e.target.result;
-
- };
-
- reader.readAsDataURL(file);
-
-}
-
-function renderMemories(){
-
- const box=
-  document.getElementById(
-   "memoryGrid"
+ const memories=
+  JSON.parse(
+   localStorage.getItem(
+    "dujon_memories"
+   )||
+   "[]"
   );
 
- const memories=
-  getMemories();
 
- box.innerHTML="";
+ memories.push({
+  text:memory,
+  time:Date.now()
+ });
 
- memories
-  .slice()
-  .reverse()
-  .forEach((m,index)=>{
-
-   const realIndex=
-    memories.length-1-index;
-
-   const div=
-    document.createElement("div");
-
-   div.className="memory";
-
-   div.innerHTML=`
-
-   <img
-    src="${escapeHTML(m.photo)}"
-    alt="memory">
-
-   <button
-    class="memory-delete"
-    onclick="deleteMemory(${realIndex})">
-    ×
-   </button>
-
-   <div class="memory-text">
-
-    ${escapeHTML(m.caption)}
-
-    <div style="
-     font-size:10px;
-     color:#888;
-     margin-top:4px">
-     ${escapeHTML(m.time||"")}
-    </div>
-
-   </div>
-
-   `;
-
-   box.appendChild(div);
-
-  });
-
-}
-
-function deleteMemory(index){
-
- const memories=
-  getMemories();
-
- memories.splice(index,1);
 
  localStorage.setItem(
   "dujon_memories",
   JSON.stringify(memories)
  );
 
+
  renderMemories();
 
- toast(
-  "Memory এই ফোন থেকে মুছে গেছে"
- );
+ sendWS({
+  type:"memory",
+  memory
+ });
 
-}
-
-function getMoments(){
-
- try{
-
-  return JSON.parse(
-   localStorage.getItem(
-    "dujon_moments"
-   )
-  )||[];
-
- }catch{
-
-  return [];
-
- }
-
-}
-
-function addMoment(){
-
- const input=
-  document.getElementById(
-   "momentInput"
-  );
-
- const text=
-  input.value.trim();
-
- if(!text){
-
-  toast(
-   "একটা মুহূর্ত লিখো ⭐"
-  );
-
-  return;
-
- }
-
- const moment={
-
-  id:Date.now(),
-
-  text,
-
-  time:
-   new Date()
-    .toLocaleString("bn-BD")
-
- };
-
- const moments=
-  getMoments();
-
- moments.push(moment);
-
- if(moments.length>50){
-  moments.shift();
- }
-
- localStorage.setItem(
-  "dujon_moments",
-  JSON.stringify(moments)
- );
 
  input.value="";
 
- renderMoments();
-
- sendToRoom({
-  type:"favorite",
-  id:moment.id,
-  text:moment.text,
-  time:moment.time
- });
-
  toast(
-  "⭐ Favorite Moment Share হয়েছে"
+  "Memory যোগ হয়েছে ❤️"
  );
 
 }
 
-function renderMoments(){
 
- const box=
+function renderMemory(memory){
+
+ const grid=
   document.getElementById(
-   "momentsList"
+   "memoryGrid"
   );
 
- const moments=
-  getMoments();
+ if(!grid)return;
 
- box.innerHTML="";
 
- moments
-  .slice()
-  .reverse()
-  .forEach((m,index)=>{
+ const div=
+  document.createElement("div");
 
-   const realIndex=
-    moments.length-1-index;
+ div.className="memory";
 
-   const div=
-    document.createElement("div");
+ const text=
+  document.createElement("div");
 
-   div.className="moment";
+ text.className=
+  "memory-text";
 
-   div.innerHTML=`
+ text.textContent=memory;
 
-   ⭐ ${escapeHTML(m.text)}
+ div.appendChild(text);
 
-   <small>
-    ${escapeHTML(m.time||"")}
-   </small>
-
-   <button
-    class="small-btn"
-    style="float:right;margin-top:-25px"
-    onclick="deleteMoment(${realIndex})">
-    🗑️
-   </button>
-
-   `;
-
-   box.appendChild(div);
-
-  });
+ grid.appendChild(div);
 
 }
 
-function deleteMoment(index){
 
- const moments=
-  getMoments();
+function renderMemories(){
 
- moments.splice(index,1);
+ const grid=
+  document.getElementById(
+   "memoryGrid"
+  );
 
- localStorage.setItem(
-  "dujon_moments",
-  JSON.stringify(moments)
- );
+ if(!grid)return;
 
- renderMoments();
+ grid.innerHTML="";
 
- toast(
-  "Moment এই ফোন থেকে মুছে গেছে"
- );
 
-}
-
-function getCallHistory(){
-
- try{
-
-  return JSON.parse(
+ const memories=
+  JSON.parse(
    localStorage.getItem(
-    "dujon_call_history"
-   )
-  )||[];
-
- }catch{
-
-  return [];
-
- }
-
-}
-
-function saveCallHistory(
- type,
- direction,
- status
-){
-
- const history=
-  getCallHistory();
-
- history.push({
-
-  type,
-  direction,
-  status,
-
-  time:
-   new Date()
-    .toLocaleString("bn-BD")
-
- });
-
- if(history.length>50){
-  history.shift();
- }
-
- localStorage.setItem(
-  "dujon_call_history",
-  JSON.stringify(history)
- );
-
-}
-
-function openCallHistory(){
-
- showPage(
-  "callHistoryPage"
- );
-
- renderCallHistory();
-
-}
-
-function renderCallHistory(){
-
- const box=
-  document.getElementById(
-   "callHistoryList"
+    "dujon_memories"
+   )||
+   "[]"
   );
 
- const history=
-  getCallHistory();
 
- box.innerHTML="";
+ if(!memories.length){
 
- if(!history.length){
-
-  box.innerHTML=
-   '<div class="empty">📞 এখনো কোনো Call History নেই</div>';
+  grid.innerHTML=
+   `<div class="empty">
+    এখনো কোনো Memory নেই ❤️
+   </div>`;
 
   return;
 
  }
 
- history
-  .slice()
-  .reverse()
-  .forEach(item=>{
 
-   const div=
-    document.createElement("div");
+ memories.forEach(item=>{
 
-   div.className="history-item";
+  renderMemory(
+   item.text||
+   item
+  );
 
-   div.innerHTML=`
+ });
 
-   <div class="history-icon">
-    ${item.type==="video"?"📹":"📞"}
+}
+
+
+function saveFavorite(){
+
+ const input=
+  document.getElementById(
+   "favoriteInput"
+  );
+
+ const favorite=
+  input.value.trim();
+
+ if(!favorite){
+
+  toast(
+   "Favorite Moment লিখুন"
+  );
+
+  return;
+
+ }
+
+
+ localStorage.setItem(
+  "dujon_favorite",
+  favorite
+ );
+
+
+ document
+  .getElementById(
+   "favoriteDisplay"
+  )
+  .textContent=
+   favorite;
+
+
+ sendWS({
+  type:"favorite",
+  favorite
+ });
+
+
+ input.value="";
+
+ toast(
+  "Favorite Moment saved ⭐"
+ );
+
+}
+
+
+function loadFavorite(){
+
+ const favorite=
+  localStorage.getItem(
+   "dujon_favorite"
+  )||
+  "";
+
+ document
+  .getElementById(
+   "favoriteInput"
+  ).value=
+   favorite;
+
+ document
+  .getElementById(
+   "favoriteDisplay"
+  ).textContent=
+   favorite;
+
+}
+
+
+async function searchUser(){
+
+ const input=
+  document.getElementById(
+   "friendSearchInput"
+  );
+
+ const username=
+  input.value
+   .trim()
+   .replace(/^@/,"")
+   .toLowerCase();
+
+
+ if(!username){
+
+  toast(
+   "Username লিখুন"
+  );
+
+  return;
+
+ }
+
+
+ const result=
+  document.getElementById(
+   "searchResult"
+  );
+
+ result.innerHTML=
+  `<div class="empty">
+   খোঁজা হচ্ছে...
+  </div>`;
+
+
+ try{
+
+  const response=
+   await fetch(
+    API_URL+
+    "/api/search?username="+
+    encodeURIComponent(username)
+   );
+
+
+  const text=
+   await response.text();
+
+  let data={};
+
+  try{
+   data=JSON.parse(text);
+  }catch{}
+
+
+  if(!response.ok){
+
+   result.innerHTML=
+    `<div class="empty">
+     ${data.message||"User পাওয়া যায়নি"}
+    </div>`;
+
+   return;
+
+  }
+
+
+  const user=
+   data.user||
+   data;
+
+
+  if(!user || !user.username){
+
+   result.innerHTML=
+    `<div class="empty">
+     User পাওয়া যায়নি
+    </div>`;
+
+   return;
+
+  }
+
+
+  const me=
+   getAccount();
+
+
+  if(
+   me &&
+   user.username===me.username
+  ){
+
+   result.innerHTML=
+    `<div class="empty">
+     এটা তোমার নিজের Account
+    </div>`;
+
+   return;
+
+  }
+
+
+  result.innerHTML=
+   `
+   <div class="user-result">
+
+    <div class="user-info">
+
+     <div class="avatar">
+      ${
+       user.photo
+        ? `<img src="${user.photo}" alt="">`
+        : (user.name||
+           user.username||
+           "?").charAt(0)
+      }
+     </div>
+
+     <div>
+      <div class="user-name">
+       ${escapeHtml(
+        user.name||
+        user.username
+       )}
+      </div>
+
+      <div class="username">
+       @${escapeHtml(
+        user.username
+       )}
+      </div>
+     </div>
+
+    </div>
+
+    <button
+     class="btn small"
+     onclick="sendFriendRequest('${escapeJs(user.username)}')"
+    >
+     Add
+    </button>
+
    </div>
+   `;
 
-   <div class="history-info">
 
-    <strong>
+ }catch(error){
+
+  console.log(
+   "Search Error:",
+   error
+  );
+
+  result.innerHTML=
+   `<div class="empty">
+    Server-এর সাথে সংযোগ হয়নি
+   </div>`;
+
+ }
+
+}
+
+
+async function sendFriendRequest(username){
+
+ const account=
+  getAccount();
+
+ if(!account)return;
+
+
+ try{
+
+  const response=
+   await fetch(
+    API_URL+"/api/friend-request",
+    {
+     method:"POST",
+
+     headers:{
+      "Content-Type":
+       "application/json"
+     },
+
+     body:JSON.stringify({
+      phone:account.phone,
+      pin:account.pin,
+      username
+     })
+    }
+   );
+
+
+  const text=
+   await response.text();
+
+  let data={};
+
+  try{
+   data=JSON.parse(text);
+  }catch{}
+
+
+  if(!response.ok || data.ok===false){
+
+   toast(
+    data.message||
+    "Friend request পাঠানো যায়নি"
+   );
+
+   return;
+
+  }
+
+
+  toast(
+   "Friend request পাঠানো হয়েছে ❤️"
+  );
+
+
+ }catch(error){
+
+  console.log(
+   "Friend request error:",
+   error
+  );
+
+  toast(
+   "Server-এর সাথে সংযোগ হয়নি"
+  );
+
+ }
+
+}
+
+
+async function loadSocialData(){
+
+ const account=
+  getAccount();
+
+ if(
+  !account?.phone||
+  !account?.pin
+ ){
+  return;
+ }
+
+
+ try{
+
+  const response=
+   await fetch(
+    API_URL+"/api/social",
+    {
+     method:"POST",
+
+     headers:{
+      "Content-Type":
+       "application/json"
+     },
+
+     body:JSON.stringify({
+      phone:account.phone,
+      pin:account.pin
+     })
+    }
+   );
+
+
+  const text=
+   await response.text();
+
+  let data={};
+
+  try{
+   data=JSON.parse(text);
+  }catch{
+   return;
+  }
+
+
+  if(!response.ok){
+
+   console.log(
+    "Social Error:",
+    data
+   );
+
+   return;
+
+  }
+
+
+  const requests=
+   data.requests||
+   data.friendRequests||
+   data.incomingRequests||
+   [];
+
+
+  const friends=
+   data.friends||
+   data.user?.friends||
+   [];
+
+
+  renderFriendRequests(
+   requests
+  );
+
+  renderFriends(
+   friends
+  );
+
+
+  const count=
+   requests.length;
+
+
+  const badge=
+   document.getElementById(
+    "friendBadge"
+   );
+
+  if(badge){
+
+   badge.textContent=count;
+
+   badge.style.display=
+    count>0?
+    "inline-flex":
+    "none";
+
+  }
+
+
+  const requestCount=
+   document.getElementById(
+    "requestCount"
+   );
+
+  if(requestCount){
+   requestCount.textContent=count;
+  }
+
+
+ }catch(error){
+
+  console.log(
+   "Social load error:",
+   error
+  );
+
+ }
+
+}
+
+
+function renderFriendRequests(requests){
+
+ const container=
+  document.getElementById(
+   "friendRequests"
+  );
+
+ if(!container)return;
+
+ container.innerHTML="";
+
+
+ if(!requests.length){
+
+  container.innerHTML=
+   `<div class="empty">
+    কোনো Friend Request নেই
+   </div>`;
+
+  return;
+
+ }
+
+
+ requests.forEach(request=>{
+
+  const username=
+   typeof request==="string"
+    ? request
+    : (
+       request.username||
+       request.from||
+       request.phone||
+       ""
+      );
+
+
+  const name=
+   typeof request==="string"
+    ? request
+    : (
+       request.name||
+       request.username||
+       "User"
+      );
+
+
+  if(!username)return;
+
+
+  const div=
+   document.createElement("div");
+
+  div.className="request-user";
+
+
+  div.innerHTML=
+   `
+   <div class="user-info">
+
+    <div class="avatar">
      ${
-      item.direction==="outgoing"?
-       "তুমি কল করেছিলে":
-       partnerProfile.name+
-       " কল করেছিল"
+      (
+       name||
+       username
+      ).charAt(0)
      }
-    </strong>
+    </div>
 
-    <div class="history-time">
-     ${escapeHTML(item.type)} •
-     ${escapeHTML(item.status)} •
-     ${escapeHTML(item.time)}
+    <div>
+     <div class="user-name">
+      ${escapeHtml(name)}
+     </div>
+
+     <div class="username">
+      @${escapeHtml(username)}
+     </div>
     </div>
 
    </div>
 
+   <div class="actions">
+
+    <button
+     class="btn small"
+     onclick="acceptFriend('${escapeJs(username)}')"
+    >
+     Accept
+    </button>
+
+    <button
+     class="btn small danger"
+     onclick="rejectFriend('${escapeJs(username)}')"
+    >
+     Reject
+    </button>
+
+   </div>
    `;
 
-   box.appendChild(div);
 
-  });
+  container.appendChild(div);
+
+ });
+
+}
+
+
+function renderFriends(friends){
+
+ const container=
+  document.getElementById(
+   "friendsList"
+  );
+
+ if(!container)return;
+
+ container.innerHTML="";
+
+
+ if(!friends.length){
+
+  container.innerHTML=
+   `<div class="empty">
+    এখনো কোনো Friend নেই ❤️
+   </div>`;
+
+  return;
+
+ }
+
+
+ friends.forEach(friend=>{
+
+  const username=
+   typeof friend==="string"
+    ? friend
+    : (
+       friend.username||
+       friend.phone||
+       ""
+      );
+
+
+  const name=
+   typeof friend==="string"
+    ? friend
+    : (
+       friend.name||
+       friend.username||
+       "Friend"
+      );
+
+
+  if(!username)return;
+
+
+  const div=
+   document.createElement("div");
+
+  div.className="friend-user";
+
+
+  div.innerHTML=
+   `
+   <div class="user-info">
+
+    <div class="avatar">
+     ${
+      (
+       name||
+       username
+      ).charAt(0)
+     }
+    </div>
+
+    <div>
+     <div class="user-name">
+      ${escapeHtml(name)}
+     </div>
+
+     <div class="username">
+      @${escapeHtml(username)}
+     </div>
+    </div>
+
+   </div>
+
+   <button
+    class="btn small"
+    onclick="openChat()"
+   >
+    Chat
+   </button>
+   `;
+
+
+  container.appendChild(div);
+
+ });
 
 }
 
-function clearCallHistory(){
 
- if(!confirm(
-  "সব Call History মুছে ফেলবে?"
- ))return;
+async function acceptFriend(username){
 
- localStorage.removeItem(
-  "dujon_call_history"
- );
+ const account=
+  getAccount();
 
- renderCallHistory();
+ if(!account)return;
 
- toast(
-  "Call History Clear হয়েছে"
- );
+
+ try{
+
+  const response=
+   await fetch(
+    API_URL+"/api/friend-accept",
+    {
+     method:"POST",
+
+     headers:{
+      "Content-Type":
+       "application/json"
+     },
+
+     body:JSON.stringify({
+      phone:account.phone,
+      pin:account.pin,
+      username
+     })
+    }
+   );
+
+
+  const text=
+   await response.text();
+
+  let data={};
+
+  try{
+   data=JSON.parse(text);
+  }catch{}
+
+
+  if(!response.ok || data.ok===false){
+
+   toast(
+    data.message||
+    "Friend request accept হয়নি"
+   );
+
+   return;
+
+  }
+
+
+  /*
+   Server যদি updated friends পাঠায়,
+   তাহলে সঙ্গে সঙ্গে UI update হবে।
+  */
+
+  const friends=
+   data.friends||
+   data.user?.friends;
+
+
+  if(Array.isArray(friends)){
+
+   renderFriends(friends);
+
+   const profile=
+    getProfile();
+
+   profile.friends=friends;
+
+   saveLocalProfile(profile);
+
+  }
+
+
+  toast(
+   "Friend request accepted ❤️"
+  );
+
+
+  /*
+   Server থেকে latest social data
+   আবার নিয়ে আসা হচ্ছে।
+  */
+
+  await loadSocialData();
+
+
+ }catch(error){
+
+  console.log(
+   "Accept friend error:",
+   error
+  );
+
+  toast(
+   "Server-এর সাথে সংযোগ হয়নি"
+  );
+
+ }
 
 }
+
+
+async function rejectFriend(username){
+
+ const account=
+  getAccount();
+
+ if(!account)return;
+
+
+ try{
+
+  const response=
+   await fetch(
+    API_URL+"/api/friend-reject",
+    {
+     method:"POST",
+
+     headers:{
+      "Content-Type":
+       "application/json"
+     },
+
+     body:JSON.stringify({
+      phone:account.phone,
+      pin:account.pin,
+      username
+     })
+    }
+   );
+
+
+  const text=
+   await response.text();
+
+  let data={};
+
+  try{
+   data=JSON.parse(text);
+  }catch{}
+
+
+  if(!response.ok || data.ok===false){
+
+   toast(
+    data.message||
+    "Request reject হয়নি"
+   );
+
+   return;
+
+  }
+
+
+  toast(
+   "Request rejected"
+  );
+
+
+  await loadSocialData();
+
+
+ }catch(error){
+
+  console.log(
+   "Reject friend error:",
+   error
+  );
+
+  toast(
+   "Server-এর সাথে সংযোগ হয়নি"
+  );
+
+ }
+
+}
+
+
+function escapeHtml(value){
+
+ return String(value)
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
+
+}
+
+
+function escapeJs(value){
+
+ return String(value)
+  .replace(/\\/g,"\\\\")
+  .replace(/'/g,"\\'")
+  .replace(/"/g,'\\"')
+  .replace(/\n/g,"\\n")
+  .replace(/\r/g,"\\r");
+
+}
+
+
+/* =========================
+   WEBRTC
+========================= */
+
 
 async function getLocalMedia(type){
+
+ try{
+
+  if(localStream){
+
+   localStream
+    .getTracks()
+    .forEach(track=>{
+     track.stop();
+    });
+
+  }
+
+
+  localStream=
+   await navigator.mediaDevices.getUserMedia({
+
+    audio:true,
+
+    video:
+     type==="video"
+
+   });
+
+
+  const localVideo=
+   document.getElementById(
+    "localVideo"
+   );
+
+  localVideo.srcObject=
+   localStream;
+
+
+  return localStream;
+
+
+ }catch(error){
+
+  console.log(
+   "Media error:",
+   error
+  );
+
+  toast(
+   "Camera/Microphone permission দিন"
+  );
+
+  return null;
+
+ }
+
+}
+
+
+function createPeerConnection(){
+
+ peerConnection=
+  new RTCPeerConnection(
+   ICE_SERVERS
+  );
+
 
  if(localStream){
 
   localStream
    .getTracks()
-   .forEach(t=>t.stop());
+   .forEach(track=>{
+
+    peerConnection.addTrack(
+     track,
+     localStream
+    );
+
+   });
 
  }
 
- localStream=
-  await navigator
-   .mediaDevices
-   .getUserMedia(
-    type==="video"?
-     {
-      video:true,
-      audio:true
-     }:
-     {
-      video:false,
-      audio:true
-     }
-   );
 
- const local=
-  document.getElementById(
-   "localVideo"
-  );
+ peerConnection.ontrack=
+  event=>{
 
- local.srcObject=
-  type==="video"?
-   localStream:
-   null;
+   const remoteVideo=
+    document.getElementById(
+     "remoteVideo"
+    );
 
-}
+   if(
+    event.streams &&
+    event.streams[0]
+   ){
 
-function createPeerConnection(type){
+    remoteVideo.srcObject=
+     event.streams[0];
 
- peerConnection=
-  new RTCPeerConnection(
-   rtcConfig
-  );
+   }
 
- localStream
-  .getTracks()
-  .forEach(track=>{
+  };
 
-   peerConnection.addTrack(
-    track,
-    localStream
-   );
 
-  });
+ peerConnection.onicecandidate=
+  event=>{
 
- peerConnection.ontrack=e=>{
+   if(event.candidate){
 
-  const remote=
-   document.getElementById(
-    "remoteVideo"
-   );
+    sendWS({
+     type:"ice-candidate",
+     candidate:
+      event.candidate
+    });
 
-  remote.srcObject=
-   e.streams[0];
+   }
 
-  remote.play().catch(
-   ()=>{}
-  );
+  };
 
- };
 
- peerConnection.onicecandidate=e=>{
+ peerConnection.onconnectionstatechange=
+  ()=>{
 
-  if(!e.candidate)return;
+   if(!peerConnection)return;
 
-  sendToRoom({
+   if(
+    peerConnection.connectionState===
+    "connected"
+   ){
 
-   type:
-    type==="video"?
-     "video-call":
-     "audio-call",
+    toast(
+     "Call connected ❤️"
+    );
 
-   action:"ice",
+   }
 
-   candidate:e.candidate
 
-  });
+   if(
+    peerConnection.connectionState===
+    "failed"
+   ){
 
- };
+    toast(
+     "Call connection failed"
+    );
 
- peerConnection.onconnectionstatechange=()=>{
+   }
 
-  if(peerConnection){
+  };
 
-   setCallStatus(
-    peerConnection.connectionState
-   );
 
-  }
-
-  if(
-   peerConnection&&
-   [
-    "failed",
-    "disconnected",
-    "closed"
-   ].includes(
-    peerConnection.connectionState
-   )
-  ){
-
-   endCall(false);
-
-  }
-
- };
+ return peerConnection;
 
 }
+
 
 async function makeCall(type){
 
- callType=type;
+ currentCallType=type;
 
- try{
 
+ const stream=
   await getLocalMedia(type);
 
-  createPeerConnection(type);
+ if(!stream)return;
 
-  showCallScreen(type);
 
-  saveCallHistory(
-   type,
-   "outgoing",
-   "Calling"
-  );
+ createPeerConnection();
 
-  const offer=
-   await peerConnection
-    .createOffer();
 
-  await peerConnection
-   .setLocalDescription(
-    offer
+ const offer=
+  await peerConnection.createOffer();
+
+ await peerConnection.setLocalDescription(
+  offer
+ );
+
+
+ showCallScreen(
+  type,
+  true
+ );
+
+
+ sendWS({
+  type:
+   type==="video"
+    ? "video-call"
+    : "audio-call",
+
+  action:"offer",
+
+  offer,
+
+  from:
+   getAccount()?.username||
+   getAccount()?.phone||
+   "",
+
+  profile:getProfile()
+ });
+
+}
+
+
+async function startVideoFromHome(){
+
+ await makeCall("video");
+
+}
+
+
+async function startAudioFromHome(){
+
+ await makeCall("audio");
+
+}
+
+
+async function handleCallSignal(data){
+
+ if(
+  data.action==="offer"
+ ){
+
+  pendingOffer=data;
+
+  currentCallType=
+   data.type==="audio-call"
+    ? "audio"
+    : "video";
+
+
+  const profile=
+   data.profile||
+   {};
+
+
+  const incomingName=
+   document.getElementById(
+    "incomingName"
    );
 
-  sendToRoom({
+  incomingName.textContent=
+   profile.name||
+   profile.username||
+   "Incoming Call";
 
-   type:
-    type==="video"?
-     "video-call":
-     "audio-call",
 
-   action:"offer",
+  const type=
+   document.getElementById(
+    "incomingType"
+   );
 
-   offer
+  type.textContent=
+   currentCallType==="video"
+    ? "Video Call"
+    : "Audio Call";
 
-  });
 
-  setCallStatus(
-   "Ringing..."
-  );
+  const avatar=
+   document.getElementById(
+    "incomingAvatar"
+   );
 
- }catch(e){
 
-  console.log(
-   "Call Error:",
-   e
-  );
+  if(profile.photo){
 
-  toast(
-   "Camera/Microphone permission দরকার"
-  );
+   avatar.innerHTML=
+    `<img src="${profile.photo}" alt="">`;
 
-  endCall(false);
+  }else{
 
- }
+   avatar.textContent=
+    (
+     profile.name||
+     profile.username||
+     "❤️"
+    ).charAt(0);
 
-}
+  }
 
-function startVideoFromHome(){
 
- if(
-  !socket||
-  socket.readyState!==
-   WebSocket.OPEN
- ){
+  document
+   .getElementById(
+    "incomingCall"
+   )
+   .classList.add("active");
 
-  toast(
-   "আগে Room-এ Connect করো"
-  );
-
-  return;
-
- }
-
- makeCall("video");
-
-}
-
-function startAudioFromHome(){
-
- if(
-  !socket||
-  socket.readyState!==
-   WebSocket.OPEN
- ){
-
-  toast(
-   "আগে Room-এ Connect করো"
-  );
 
   return;
 
  }
 
- makeCall("audio");
 
-}
+ if(
+  data.action==="answer"
+ ){
 
-function handleCallSignal(
- data,
- type
-){
-
- if(data.action==="offer"){
-
-  pendingOffer=data.offer;
-  pendingCallType=type;
-
-  showIncomingCall(type);
-
- }
-
- if(data.action==="answer"){
-
-  handleAnswer(
+  await handleAnswer(
    data.answer
   );
 
+  return;
+
  }
 
- if(data.action==="ice"){
 
-  addIceCandidate(
+ if(
+  data.action==="ice-candidate"
+ ){
+
+  await addIceCandidate(
    data.candidate
   );
 
+  return;
+
  }
 
- if(data.action==="end"){
+
+ if(
+  data.action==="reject"
+ ){
+
+  toast(
+   "Call rejected"
+  );
 
   endCall(false);
 
+  return;
+
+ }
+
+
+ if(
+  data.action==="end"
+ ){
+
+  endCall(false);
+
+  return;
+
  }
 
 }
 
-function showIncomingCall(type){
-
- document.getElementById(
-  "incomingName"
- ).textContent=
-  partnerProfile.name;
-
- document.getElementById(
-  "incomingType"
- ).textContent=
-  type==="video"?
-   "📹 Video Call করছে...":
-   "📞 Audio Call করছে...";
-
- setAvatar(
-  document.getElementById(
-   "incomingAvatar"
-  ),
-  partnerProfile.photo
- );
-
- document.getElementById(
-  "incomingCall"
- ).classList.add("active");
-
- saveCallHistory(
-  type,
-  "incoming",
-  "Incoming"
- );
-
- if(navigator.vibrate){
-
-  navigator.vibrate(
-   [300,200,300,200,300]
-  );
-
- }
-
-}
 
 async function acceptCall(){
 
- document.getElementById(
-  "incomingCall"
- ).classList.remove("active");
+ const data=
+  pendingOffer;
 
- if(navigator.vibrate){
-  navigator.vibrate(0);
+ if(!data)return;
+
+
+ document
+  .getElementById(
+   "incomingCall"
+  )
+  .classList.remove("active");
+
+
+ const stream=
+  await getLocalMedia(
+   currentCallType
+  );
+
+ if(!stream){
+
+  pendingOffer=null;
+
+  return;
+
  }
 
- const type=
-  pendingCallType;
 
- callType=type;
+ createPeerConnection();
+
 
  try{
 
-  await getLocalMedia(type);
+  await peerConnection.setRemoteDescription(
+   new RTCSessionDescription(
+    data.offer
+   )
+  );
 
-  createPeerConnection(type);
-
-  showCallScreen(type);
-
-  await peerConnection
-   .setRemoteDescription(
-    new RTCSessionDescription(
-     pendingOffer
-    )
-   );
 
   const answer=
-   await peerConnection
-    .createAnswer();
+   await peerConnection.createAnswer();
 
-  await peerConnection
-   .setLocalDescription(
-    answer
-   );
 
-  sendToRoom({
+  await peerConnection.setLocalDescription(
+   answer
+  );
 
+
+  showCallScreen(
+   currentCallType,
+   false
+  );
+
+
+  sendWS({
    type:
-    type==="video"?
-     "video-call":
-     "audio-call",
+    currentCallType==="video"
+     ? "video-call"
+     : "audio-call",
 
    action:"answer",
 
    answer
-
   });
 
-  setCallStatus(
-   "Connected"
-  );
 
- }catch(e){
+ }catch(error){
 
   console.log(
-   "Accept Call Error:",
-   e
+   "Accept call error:",
+   error
   );
 
   toast(
    "Call গ্রহণ করা যায়নি"
   );
 
-  endCall(false);
-
  }
 
+
+ pendingOffer=null;
+
 }
+
 
 function rejectCall(){
 
- document.getElementById(
-  "incomingCall"
- ).classList.remove("active");
+ document
+  .getElementById(
+   "incomingCall"
+  )
+  .classList.remove("active");
 
- if(navigator.vibrate){
-  navigator.vibrate(0);
- }
+
+ sendWS({
+  type:
+   currentCallType==="video"
+    ? "video-call"
+    : "audio-call",
+
+  action:"reject"
+ });
+
 
  pendingOffer=null;
- pendingCallType=null;
 
 }
+
 
 async function handleAnswer(answer){
 
  if(!peerConnection)return;
 
- await peerConnection
-  .setRemoteDescription(
+
+ try{
+
+  await peerConnection.setRemoteDescription(
    new RTCSessionDescription(
     answer
    )
   );
 
- setCallStatus(
-  "Connected"
- );
+ }catch(error){
+
+  console.log(
+   "Answer error:",
+   error
+  );
+
+ }
 
 }
+
 
 async function addIceCandidate(candidate){
 
  if(
   !peerConnection||
   !candidate
- )return;
+ ){
+  return;
+ }
+
 
  try{
 
-  await peerConnection
-   .addIceCandidate(
-    new RTCIceCandidate(
-     candidate
-    )
-   );
+  await peerConnection.addIceCandidate(
+   new RTCIceCandidate(candidate)
+  );
 
- }catch{}
+ }catch(error){
 
-}
-
-function showCallScreen(type){
-
- document.getElementById(
-  "videoCallScreen"
- ).classList.remove("active");
-
- document.getElementById(
-  "audioCallScreen"
- ).classList.remove("active");
-
- if(type==="video"){
-
-  document.getElementById(
-   "videoCallScreen"
-  ).classList.add("active");
-
-  document.getElementById(
-   "videoCallName"
-  ).textContent=
-   partnerProfile.name;
-
- }else{
-
-  document.getElementById(
-   "audioCallScreen"
-  ).classList.add("active");
-
-  document.getElementById(
-   "audioCallName"
-  ).textContent=
-   partnerProfile.name;
+  console.log(
+   "ICE error:",
+   error
+  );
 
  }
 
- startCallTimer();
+}
+
+
+function showCallScreen(
+ type,
+ outgoing
+){
+
+ const screen=
+  document.getElementById(
+   "callScreen"
+  );
+
+ screen.classList.add("active");
+
+
+ const callName=
+  document.getElementById(
+   "callName"
+  );
+
+
+ const profile=getProfile();
+
+
+ callName.textContent=
+  outgoing
+   ? "Calling..."
+   : (
+      profile.name||
+      "দুজন"
+     );
+
+
+ document
+  .getElementById(
+   "callType"
+  )
+  .textContent=
+   type==="video"
+    ? "Video Call"
+    : "Audio Call";
+
+
+ const local=
+  document.getElementById(
+   "localVideo"
+  );
+
+
+ local.style.display=
+  type==="video"
+   ? "block"
+   : "none";
+
+
+ const remote=
+  document.getElementById(
+   "remoteVideo"
+  );
+
+
+ remote.style.display=
+  type==="video"
+   ? "block"
+   : "none";
 
 }
 
-function setCallStatus(status){
-
- document.getElementById(
-  "videoCallStatus"
- ).textContent=status;
-
- document.getElementById(
-  "audioCallStatus"
- ).textContent=status;
-
-}
-
-function startCallTimer(){
-
- clearInterval(
-  callTimerInterval
- );
-
- callSeconds=0;
-
- callTimerInterval=
-  setInterval(()=>{
-
-   callSeconds++;
-
-   const m=
-    String(
-     Math.floor(
-      callSeconds/60
-     )
-    ).padStart(2,"0");
-
-   const s=
-    String(
-     callSeconds%60
-    ).padStart(2,"0");
-
-   document.getElementById(
-    "videoTimer"
-   ).textContent=
-    m+":"+s;
-
-   document.getElementById(
-    "audioTimer"
-   ).textContent=
-    m+":"+s;
-
-  },1000);
-
-}
 
 function toggleMic(){
 
  if(!localStream)return;
 
+
  const track=
   localStream
    .getAudioTracks()[0];
 
- if(track){
 
-  track.enabled=
-   !track.enabled;
+ if(!track)return;
 
-  toast(
-   track.enabled?
-    "🎙️ Mic On":
-    "🔇 Mic Off"
-  );
 
- }
+ track.enabled=
+  !track.enabled;
+
+
+ document
+  .getElementById(
+   "micBtn"
+  )
+  .textContent=
+   track.enabled
+    ? "🎙️"
+    : "🔇";
 
 }
+
 
 function toggleCamera(){
 
  if(!localStream)return;
 
+
  const track=
   localStream
    .getVideoTracks()[0];
 
- if(track){
 
-  track.enabled=
-   !track.enabled;
+ if(!track)return;
 
-  toast(
-   track.enabled?
-    "📹 Camera On":
-    "🚫 Camera Off"
-  );
 
- }
+ track.enabled=
+  !track.enabled;
+
+
+ document
+  .getElementById(
+   "cameraBtn"
+  )
+  .textContent=
+   track.enabled
+    ? "📹"
+    : "🚫";
 
 }
+
 
 function endCall(sendSignal=true){
 
  if(sendSignal){
 
-  sendToRoom({
-
+  sendWS({
    type:
-    callType==="video"?
-     "video-call":
-     "audio-call",
+    currentCallType==="video"
+     ? "video-call"
+     : "audio-call",
 
    action:"end"
-
   });
 
  }
 
- if(callType){
-
-  saveCallHistory(
-   callType,
-   "outgoing",
-   "Ended"
-  );
-
- }
-
- clearInterval(
-  callTimerInterval
- );
-
- if(localStream){
-
-  localStream
-   .getTracks()
-   .forEach(
-    t=>t.stop()
-   );
-
- }
 
  if(peerConnection){
 
@@ -5311,58 +4870,98 @@ function endCall(sendSignal=true){
    peerConnection.close();
   }catch{}
 
+  peerConnection=null;
+
  }
 
- peerConnection=null;
- localStream=null;
 
- document.getElementById(
-  "remoteVideo"
- ).srcObject=null;
+ if(localStream){
 
- document.getElementById(
-  "localVideo"
- ).srcObject=null;
+  localStream
+   .getTracks()
+   .forEach(track=>{
+    track.stop();
+   });
 
- document.getElementById(
-  "videoCallScreen"
- ).classList.remove("active");
+  localStream=null;
 
- document.getElementById(
-  "audioCallScreen"
- ).classList.remove("active");
-
- document.getElementById(
-  "incomingCall"
- ).classList.remove("active");
-
- if(navigator.vibrate){
-  navigator.vibrate(0);
  }
+
+
+ const remote=
+  document.getElementById(
+   "remoteVideo"
+  );
+
+ const local=
+  document.getElementById(
+   "localVideo"
+  );
+
+
+ remote.srcObject=null;
+ local.srcObject=null;
+
+
+ document
+  .getElementById(
+   "callScreen"
+  )
+  .classList.remove("active");
+
+
+ document
+  .getElementById(
+   "incomingCall"
+  )
+  .classList.remove("active");
+
 
  pendingOffer=null;
- pendingCallType=null;
- callType=null;
 
 }
 
+
 window.addEventListener(
- "load",
+ "beforeunload",
+ ()=>{
+  setPresence(false);
+ }
+);
+
+
+/* =========================
+   INITIAL LOAD
+========================= */
+
+
+document.addEventListener(
+ "DOMContentLoaded",
  ()=>{
 
-  if(
+  const logged=
    localStorage.getItem(
     "dujon_logged_in"
-   )==="true"
-  ){
+   )==="true";
 
-   loadProfile();
 
-   updateTogetherDays();
+  if(logged){
+
+   loadProfileToUI();
+
+   loadTogetherDays();
+
+   loadOurStory();
+
+   renderMemories();
+
+   loadFavorite();
+
+   loadSocialData();
 
    showPage("homePage");
 
-   loadSocialData();
+   connectRoom();
 
   }else{
 
@@ -5372,20 +4971,28 @@ window.addEventListener(
 
  });
 
-window.addEventListener(
- "beforeunload",
- ()=>{
 
-  try{
+/* Service Worker */
 
-   sendToRoom({
-    type:"presence",
-    online:false
-   });
+if(
+ "serviceWorker" in navigator
+){
 
-  }catch{}
+ window.addEventListener(
+  "load",
+  ()=>{
+   navigator.serviceWorker
+    .register("/sw.js")
+    .catch(error=>{
+     console.log(
+      "SW error:",
+      error
+     );
+    });
+  }
+ );
 
- });
+}
 
 </script>
 
