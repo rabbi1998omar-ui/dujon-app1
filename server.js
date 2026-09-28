@@ -125,8 +125,22 @@ function readBody(req){
 
           body += chunk;
 
+          // Prevent extremely large requests
+          if(body.length > 2 * 1024 * 1024){
+
+            reject(
+              new Error(
+                "Request body too large"
+              )
+            );
+
+            req.destroy();
+
+          }
+
         }
       );
+
 
       req.on(
         "end",
@@ -134,10 +148,17 @@ function readBody(req){
 
           try{
 
+            if(!body){
+
+              resolve({});
+
+              return;
+
+            }
+
+
             resolve(
-              body
-                ? JSON.parse(body)
-                : {}
+              JSON.parse(body)
             );
 
           }catch(error){
@@ -148,6 +169,7 @@ function readBody(req){
 
         }
       );
+
 
       req.on(
         "error",
@@ -207,6 +229,7 @@ function findUserByUsername(username){
   const clean =
     cleanUsername(username);
 
+
   return Object.values(users)
     .find(
       user =>
@@ -226,7 +249,9 @@ function publicUser(user){
 
   }
 
+
   ensureArrays(user);
+
 
   return {
 
@@ -259,7 +284,7 @@ const server =
     async (req,res)=>{
 
       // ==================================================
-      // OPTIONS / CORS
+      // CORS / OPTIONS
       // ==================================================
 
       if(req.method === "OPTIONS"){
@@ -288,7 +313,7 @@ const server =
       const url =
         new URL(
           req.url,
-          `http://${req.headers.host}`
+          `http://${req.headers.host || "localhost"}`
         );
 
 
@@ -300,7 +325,11 @@ const server =
       // API
       // ==================================================
 
-      if(pathname.startsWith("/api/")){
+      if(
+        pathname.startsWith(
+          "/api/"
+        )
+      ){
 
         try{
 
@@ -347,9 +376,7 @@ const server =
                 : "";
 
 
-            // ------------------------------
-            // Phone validation
-            // ------------------------------
+            // Phone
 
             if(!phone){
 
@@ -358,6 +385,7 @@ const server =
                 400,
                 {
                   ok:false,
+
                   message:
                     "মোবাইল নম্বর দিন"
                 }
@@ -366,12 +394,12 @@ const server =
             }
 
 
-            // ------------------------------
-            // PIN validation
-            // ------------------------------
+            // PIN
 
             if(
-              !/^[0-9]{4,6}$/.test(pin)
+              !/^[0-9]{4,6}$/.test(
+                pin
+              )
             ){
 
               return sendJSON(
@@ -379,6 +407,7 @@ const server =
                 400,
                 {
                   ok:false,
+
                   message:
                     "PIN ৪-৬ সংখ্যার হতে হবে"
                 }
@@ -387,9 +416,7 @@ const server =
             }
 
 
-            // ------------------------------
-            // Username validation
-            // ------------------------------
+            // Username
 
             if(
               !/^[a-z0-9_]{3,20}$/.test(
@@ -402,6 +429,7 @@ const server =
                 400,
                 {
                   ok:false,
+
                   message:
                     "Username 3-20 অক্ষরের হতে হবে"
                 }
@@ -410,9 +438,7 @@ const server =
             }
 
 
-            // ------------------------------
-            // Phone duplicate check
-            // ------------------------------
+            // Duplicate phone
 
             if(users[phone]){
 
@@ -421,6 +447,7 @@ const server =
                 400,
                 {
                   ok:false,
+
                   message:
                     "এই মোবাইল নম্বর দিয়ে Account আগে থেকেই আছে"
                 }
@@ -429,9 +456,7 @@ const server =
             }
 
 
-            // ------------------------------
-            // Username duplicate check
-            // ------------------------------
+            // Duplicate username
 
             const existing =
               findUserByUsername(
@@ -446,6 +471,7 @@ const server =
                 400,
                 {
                   ok:false,
+
                   message:
                     "এই Username আগে থেকেই আছে"
                 }
@@ -454,9 +480,7 @@ const server =
             }
 
 
-            // ------------------------------
             // Create user
-            // ------------------------------
 
             users[phone] = {
 
@@ -487,16 +511,8 @@ const server =
             };
 
 
-            // ------------------------------
-            // Save
-            // ------------------------------
-
             saveUsers();
 
-
-            // ------------------------------
-            // Response
-            // ------------------------------
 
             return sendJSON(
               res,
@@ -553,6 +569,7 @@ const server =
                 401,
                 {
                   ok:false,
+
                   message:
                     "Account পাওয়া যায়নি"
                 }
@@ -571,6 +588,7 @@ const server =
                 401,
                 {
                   ok:false,
+
                   message:
                     "PIN ভুল"
                 }
@@ -632,6 +650,7 @@ const server =
                 404,
                 {
                   ok:false,
+
                   message:
                     "Account পাওয়া যায়নি"
                 }
@@ -650,6 +669,7 @@ const server =
                 401,
                 {
                   ok:false,
+
                   message:
                     "PIN ভুল"
                 }
@@ -679,6 +699,7 @@ const server =
                 400,
                 {
                   ok:false,
+
                   message:
                     "Username দিন"
                 }
@@ -703,6 +724,7 @@ const server =
                 400,
                 {
                   ok:false,
+
                   message:
                     "এই Username আগে থেকেই আছে"
                 }
@@ -737,8 +759,8 @@ const server =
             }
 
 
-            // Username change হলে
-            // Friends এবং Requests update
+            // Update friends and requests
+            // if username changes
 
             if(
               oldUsername &&
@@ -812,21 +834,56 @@ const server =
 
           // ==================================================
           // SEARCH USER
+          // GET:
+          // /api/search?username=rabbi
+          //
+          // POST:
+          // { username:"rabbi" }
           // ==================================================
 
           if(
             pathname === "/api/search" &&
-            req.method === "POST"
+            (
+              req.method === "GET" ||
+              req.method === "POST"
+            )
           ){
 
-            const body =
-              await readBody(req);
+            let username = "";
 
 
-            const username =
-              cleanUsername(
-                body.username
-              );
+            // GET
+
+            if(
+              req.method === "GET"
+            ){
+
+              username =
+                cleanUsername(
+                  url.searchParams.get(
+                    "username"
+                  )
+                );
+
+            }
+
+
+            // POST
+
+            if(
+              req.method === "POST"
+            ){
+
+              const body =
+                await readBody(req);
+
+
+              username =
+                cleanUsername(
+                  body.username
+                );
+
+            }
 
 
             if(!username){
@@ -836,6 +893,7 @@ const server =
                 400,
                 {
                   ok:false,
+
                   message:
                     "Username দিন"
                 }
@@ -878,7 +936,7 @@ const server =
                 user:{
 
                   username:
-                    user.username,
+                    user.username || "",
 
                   name:
                     user.name || "",
@@ -935,6 +993,7 @@ const server =
                 401,
                 {
                   ok:false,
+
                   message:
                     "Account পাওয়া যায়নি"
                 }
@@ -953,6 +1012,7 @@ const server =
                 401,
                 {
                   ok:false,
+
                   message:
                     "PIN ভুল"
                 }
@@ -973,6 +1033,7 @@ const server =
                 400,
                 {
                   ok:false,
+
                   message:
                     "Username দিন"
                 }
@@ -992,6 +1053,7 @@ const server =
                 400,
                 {
                   ok:false,
+
                   message:
                     "নিজেকে Friend করা যাবে না"
                 }
@@ -1013,6 +1075,7 @@ const server =
                 404,
                 {
                   ok:false,
+
                   message:
                     "User পাওয়া যায়নি"
                 }
@@ -1026,7 +1089,7 @@ const server =
             );
 
 
-            // Already friend?
+            // Already friend
 
             const alreadyFriend =
               target.friends.some(
@@ -1047,6 +1110,7 @@ const server =
                 400,
                 {
                   ok:false,
+
                   message:
                     "ইতিমধ্যে Friend"
                 }
@@ -1055,7 +1119,7 @@ const server =
             }
 
 
-            // Already requested?
+            // Already requested
 
             const alreadyRequested =
               target.requests.some(
@@ -1076,6 +1140,7 @@ const server =
                 400,
                 {
                   ok:false,
+
                   message:
                     "Friend Request আগে থেকেই পাঠানো হয়েছে"
                 }
@@ -1148,6 +1213,7 @@ const server =
                 401,
                 {
                   ok:false,
+
                   message:
                     "Account পাওয়া যায়নি"
                 }
@@ -1166,6 +1232,7 @@ const server =
                 401,
                 {
                   ok:false,
+
                   message:
                     "PIN ভুল"
                 }
@@ -1186,6 +1253,7 @@ const server =
                 400,
                 {
                   ok:false,
+
                   message:
                     "Username পাওয়া যায়নি"
                 }
@@ -1194,7 +1262,7 @@ const server =
             }
 
 
-            // Requester
+            // Find requester
 
             const requester =
               findUserByUsername(
@@ -1209,6 +1277,7 @@ const server =
                 404,
                 {
                   ok:false,
+
                   message:
                     "যে User Request পাঠিয়েছে তাকে পাওয়া যায়নি"
                 }
@@ -1234,7 +1303,7 @@ const server =
               );
 
 
-            // Request আছে কিনা
+            // Check request
 
             const requestIndex =
               receiver.requests.findIndex(
@@ -1253,6 +1322,7 @@ const server =
                 400,
                 {
                   ok:false,
+
                   message:
                     "এই Friend Request পাওয়া যায়নি"
                 }
@@ -1269,7 +1339,7 @@ const server =
             );
 
 
-            // Receiver -> Friend
+            // Receiver -> requester
 
             const receiverAlreadyFriend =
               receiver.friends.some(
@@ -1292,7 +1362,7 @@ const server =
             }
 
 
-            // Requester -> Friend
+            // Requester -> receiver
 
             const requesterAlreadyFriend =
               requester.friends.some(
@@ -1315,7 +1385,7 @@ const server =
             }
 
 
-            // Opposite request remove
+            // Remove opposite request
 
             requester.requests =
               requester.requests.filter(
@@ -1407,6 +1477,7 @@ const server =
                 401,
                 {
                   ok:false,
+
                   message:
                     "Account পাওয়া যায়নি"
                 }
@@ -1425,6 +1496,7 @@ const server =
                 401,
                 {
                   ok:false,
+
                   message:
                     "PIN ভুল"
                 }
@@ -1463,7 +1535,6 @@ const server =
                   publicUser(
                     receiver
                   )
-
               }
             );
 
@@ -1551,8 +1622,9 @@ const server =
 
 
       if(
+        normalizedPath !== normalizedRoot &&
         !normalizedPath.startsWith(
-          normalizedRoot
+          normalizedRoot + path.sep
         )
       ){
 
@@ -1653,7 +1725,7 @@ const server =
 
 
 // ======================================================
-// WEBSOCKET SERVER
+// WEBSOCKET
 // ======================================================
 
 const wss =
@@ -1670,6 +1742,7 @@ function generateRoomCode(){
 
   let code;
 
+
   do{
 
     code =
@@ -1682,6 +1755,7 @@ function generateRoomCode(){
   }while(
     rooms.has(code)
   );
+
 
   return code;
 
@@ -1960,7 +2034,9 @@ wss.on(
 
 
         const room =
-          rooms.get(code);
+          rooms.get(
+            code
+          );
 
 
         if(!room) return;
@@ -1996,6 +2072,7 @@ wss.on(
 
       }
     );
+
 
   }
 );
