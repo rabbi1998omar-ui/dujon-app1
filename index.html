@@ -4,12 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#090912">
-
 <link rel="manifest" href="/manifest.json">
-
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-
 <title>দুজন ❤️</title>
 
 <style>
@@ -23,42 +20,20 @@ html,body{
  padding:0;
  width:100%;
  min-height:100%;
- font-family:
-  system-ui,
-  -apple-system,
-  BlinkMacSystemFont,
-  "Segoe UI",
-  sans-serif;
+ font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
  background:#090912;
  color:#fff;
 }
 
-body{
- overflow-x:hidden;
-}
+body{overflow-x:hidden}
 
-button,input,textarea{
- font:inherit;
-}
-
-button{
- cursor:pointer;
- border:0;
-}
-
-.hidden{
- display:none!important;
-}
+button,input,textarea{font:inherit}
+button{cursor:pointer;border:0}
+.hidden{display:none!important}
 
 .page{
  min-height:100vh;
  padding-bottom:80px;
-}
-
-.center{
- display:flex;
- align-items:center;
- justify-content:center;
 }
 
 .auth-page{
@@ -68,9 +43,9 @@ button{
  justify-content:center;
  padding:20px;
  background:
-  radial-gradient(circle at 20% 20%,#35102e 0%,transparent 35%),
-  radial-gradient(circle at 80% 80%,#111b43 0%,transparent 40%),
-  #090912;
+ radial-gradient(circle at 20% 20%,#35102e 0%,transparent 35%),
+ radial-gradient(circle at 80% 80%,#111b43 0%,transparent 40%),
+ #090912;
 }
 
 .auth-box{
@@ -106,9 +81,7 @@ button{
  font-size:14px;
 }
 
-.input-group{
- margin-bottom:14px;
-}
+.input-group{margin-bottom:14px}
 
 .input-group label{
  display:block;
@@ -184,16 +157,10 @@ textarea{
  font-size:22px;
 }
 
-.topbar small{
- color:#8d8d9e;
-}
+.topbar small{color:#8d8d9e}
 
 .card{
- background:linear-gradient(
-  145deg,
-  rgba(30,30,48,.95),
-  rgba(15,15,26,.95)
- );
+ background:linear-gradient(145deg,rgba(30,30,48,.95),rgba(15,15,26,.95));
  border:1px solid rgba(255,255,255,.07);
  border-radius:22px;
  padding:18px;
@@ -209,8 +176,8 @@ textarea{
  align-items:center;
  text-align:center;
  background:
-  radial-gradient(circle at 50% 0%,rgba(255,71,145,.22),transparent 55%),
-  #151522;
+ radial-gradient(circle at 50% 0%,rgba(255,71,145,.22),transparent 55%),
+ #151522;
 }
 
 .hero-heart{
@@ -325,6 +292,7 @@ textarea{
  background:#141420;
  border:1px solid rgba(255,255,255,.06);
  text-align:center;
+ color:#fff;
 }
 
 .feature-icon{
@@ -342,9 +310,7 @@ textarea{
  gap:8px;
 }
 
-.search-row input{
- flex:1;
-}
+.search-row input{flex:1}
 
 .search-row button{
  width:auto;
@@ -397,13 +363,8 @@ textarea{
  font-size:11px;
 }
 
-.nav-item span:first-child{
- font-size:21px;
-}
-
-.nav-item.active{
- color:#ff5ca5;
-}
+.nav-item span:first-child{font-size:21px}
+.nav-item.active{color:#ff5ca5}
 
 .chat-page{
  min-height:100vh;
@@ -435,9 +396,7 @@ textarea{
  white-space:nowrap;
 }
 
-.chat-person small{
- color:#777;
-}
+.chat-person small{color:#777}
 
 .chat-actions{
  display:flex;
@@ -466,9 +425,7 @@ textarea{
  margin:7px 0;
 }
 
-.message.me{
- justify-content:flex-end;
-}
+.message.me{justify-content:flex-end}
 
 .message-bubble{
  max-width:78%;
@@ -531,9 +488,7 @@ textarea{
  flex-direction:column;
 }
 
-.call-screen.show{
- display:flex;
-}
+.call-screen.show{display:flex}
 
 .remote-video{
  width:100%;
@@ -582,9 +537,7 @@ textarea{
  font-size:23px;
 }
 
-.call-control.end{
- background:#e63852;
-}
+.call-control.end{background:#e63852}
 
 .incoming-modal{
  position:fixed;
@@ -598,9 +551,7 @@ textarea{
  backdrop-filter:blur(10px);
 }
 
-.incoming-modal.show{
- display:flex;
-}
+.incoming-modal.show{display:flex}
 
 .incoming-box{
  width:100%;
@@ -637,9 +588,7 @@ textarea{
  margin-top:20px;
 }
 
-.incoming-actions button{
- flex:1;
-}
+.incoming-actions button{flex:1}
 
 .toast{
  position:fixed;
@@ -711,20 +660,6 @@ textarea{
  white-space:pre-wrap;
 }
 
-.memory-item{
- border-radius:15px;
- overflow:hidden;
- margin-top:10px;
- background:#11111b;
-}
-
-.memory-item img{
- width:100%;
- display:block;
- max-height:350px;
- object-fit:cover;
-}
-
 .profile-edit-avatar{
  width:100px;
  height:100px;
@@ -744,13 +679,37 @@ textarea{
  object-fit:cover;
 }
 
+.photo-upload{
+ display:flex;
+ flex-direction:column;
+ gap:8px;
+ margin-bottom:15px;
+}
+
+.photo-upload input[type=file]{
+ width:100%;
+ padding:12px;
+ background:#10101b;
+ color:#aaa;
+ border:1px solid rgba(255,255,255,.1);
+ border-radius:15px;
+}
+
+.upload-note{
+ color:#777;
+ font-size:12px;
+ line-height:1.5;
+}
+
+.call-status{
+ margin-top:10px;
+ color:#aaa;
+ font-size:13px;
+}
+
 @media(max-width:420px){
- .grid{
-  gap:8px;
- }
- .feature{
-  padding:16px 8px;
- }
+ .grid{gap:8px}
+ .feature{padding:16px 8px}
  .local-video{
   width:95px;
   height:130px;
@@ -761,53 +720,27 @@ textarea{
 
 <body>
 
-<!-- =========================
-     LOGIN
-========================= -->
-
 <section id="loginPage" class="auth-page">
  <div class="auth-box">
 
   <div class="logo">❤️</div>
   <div class="logo-title">দুজন</div>
-  <div class="subtitle">
-   শুধু তোমার আর আমার জন্য
-  </div>
+  <div class="subtitle">শুধু তোমার আর আমার জন্য</div>
 
   <div class="input-group">
    <label>মোবাইল নম্বর</label>
-   <input
-    id="loginPhone"
-    class="input"
-    type="tel"
-    placeholder="01XXXXXXXXX"
-   >
+   <input id="loginPhone" class="input" type="tel" placeholder="01XXXXXXXXX">
   </div>
 
   <div class="input-group">
    <label>PIN</label>
-   <input
-    id="loginPin"
-    class="input"
-    type="password"
-    inputmode="numeric"
-    maxlength="6"
-    placeholder="৪-৬ সংখ্যার PIN"
-   >
+   <input id="loginPin" class="input" type="password" inputmode="numeric" maxlength="6" placeholder="৪-৬ সংখ্যার PIN">
   </div>
 
-  <button
-   class="primary-btn"
-   onclick="login()"
-  >
-   ❤️ Login
-  </button>
+  <button class="primary-btn" onclick="login()">❤️ Login</button>
 
   <div style="text-align:center;margin-top:15px">
-   <button
-    class="text-btn"
-    onclick="showPage('registerPage')"
-   >
+   <button class="text-btn" onclick="showPage('registerPage')">
     নতুন Account তৈরি করুন
    </button>
   </div>
@@ -816,63 +749,32 @@ textarea{
 </section>
 
 
-<!-- =========================
-     REGISTER
-========================= -->
-
 <section id="registerPage" class="auth-page hidden">
  <div class="auth-box">
 
   <div class="logo">💞</div>
   <div class="logo-title">নতুন Account</div>
-  <div class="subtitle">
-   দুজনের জগতে স্বাগতম
-  </div>
+  <div class="subtitle">দুজনের জগতে স্বাগতম</div>
 
   <div class="input-group">
    <label>মোবাইল নম্বর</label>
-   <input
-    id="regPhone"
-    class="input"
-    type="tel"
-    placeholder="01XXXXXXXXX"
-   >
+   <input id="regPhone" class="input" type="tel" placeholder="01XXXXXXXXX">
   </div>
 
   <div class="input-group">
    <label>PIN</label>
-   <input
-    id="regPin"
-    class="input"
-    type="password"
-    inputmode="numeric"
-    maxlength="6"
-    placeholder="৪-৬ সংখ্যার PIN"
-   >
+   <input id="regPin" class="input" type="password" inputmode="numeric" maxlength="6" placeholder="৪-৬ সংখ্যার PIN">
   </div>
 
   <div class="input-group">
    <label>Username</label>
-   <input
-    id="regUsername"
-    class="input"
-    type="text"
-    placeholder="যেমন: rabbi_01"
-   >
+   <input id="regUsername" class="input" type="text" placeholder="যেমন: rabbi_01">
   </div>
 
-  <button
-   class="primary-btn"
-   onclick="registerUser()"
-  >
-   Account তৈরি করুন ❤️
-  </button>
+  <button class="primary-btn" onclick="registerUser()">Account তৈরি করুন ❤️</button>
 
   <div style="text-align:center;margin-top:15px">
-   <button
-    class="text-btn"
-    onclick="showPage('loginPage')"
-   >
+   <button class="text-btn" onclick="showPage('loginPage')">
     Login-এ ফিরে যান
    </button>
   </div>
@@ -880,10 +782,6 @@ textarea{
  </div>
 </section>
 
-
-<!-- =========================
-     HOME
-========================= -->
 
 <section id="homePage" class="page hidden">
 
@@ -893,12 +791,7 @@ textarea{
    <small id="homeUsername">@username</small>
   </div>
 
-  <button
-   class="icon-btn"
-   onclick="openProfile()"
-  >
-   👤
-  </button>
+  <button class="icon-btn" onclick="openProfile()">👤</button>
  </div>
 
  <div class="section">
@@ -906,64 +799,38 @@ textarea{
   <div class="card hero-card">
    <div class="hero-heart">❤️</div>
    <h2 id="homeName">আমরা দুজন</h2>
-   <p style="color:#999">
-    তোমার আপন মানুষটার সাথে
-   </p>
+   <p style="color:#999">তোমার আপন মানুষটার সাথে</p>
   </div>
 
   <div class="card">
-   <div style="text-align:center;color:#aaa">
-    আমাদের একসাথে থাকার দিন
-   </div>
-
-   <div id="togetherDays" class="days">
-    0
-   </div>
-
-   <div style="text-align:center;color:#777">
-    দিন ❤️
-   </div>
+   <div style="text-align:center;color:#aaa">আমাদের একসাথে থাকার দিন</div>
+   <div id="togetherDays" class="days">0</div>
+   <div style="text-align:center;color:#777">দিন ❤️</div>
   </div>
 
   <div class="grid">
 
-   <button
-    class="feature"
-    onclick="openFriends()"
-   >
+   <button class="feature" onclick="openFriends()">
     <div class="feature-icon">👥</div>
-    <strong>Friends</strong>
-    <br>
+    <strong>Friends</strong><br>
     <span>আপন মানুষ</span>
    </button>
 
-   <button
-    class="feature"
-    onclick="openChatWithoutFriend()"
-   >
+   <button class="feature" onclick="openChatWithoutFriend()">
     <div class="feature-icon">💬</div>
-    <strong>Chat</strong>
-    <br>
+    <strong>Chat</strong><br>
     <span>মেসেজ</span>
    </button>
 
-   <button
-    class="feature"
-    onclick="openRoom()"
-   >
+   <button class="feature" onclick="openRoom()">
     <div class="feature-icon">📹</div>
-    <strong>Video Room</strong>
-    <br>
+    <strong>Video Room</strong><br>
     <span>ভিডিও কল</span>
    </button>
 
-   <button
-    class="feature"
-    onclick="openOurStory()"
-   >
+   <button class="feature" onclick="openOurStory()">
     <div class="feature-icon">💌</div>
-    <strong>Our Story</strong>
-    <br>
+    <strong>Our Story</strong><br>
     <span>আমাদের গল্প</span>
    </button>
 
@@ -972,8 +839,7 @@ textarea{
   <div class="card">
    <h3 style="margin-top:0">✨ ছোট্ট কথা</h3>
    <p style="color:#aaa;line-height:1.7">
-    দূরত্ব যতই হোক, দুজনের মাঝে যোগাযোগটা
-    যেন সবসময় থাকে। ❤️
+    দূরত্ব যতই হোক, দুজনের মাঝে যোগাযোগটা যেন সবসময় থাকে। ❤️
    </p>
   </div>
 
@@ -982,10 +848,6 @@ textarea{
  <bottom-nav></bottom-nav>
 </section>
 
-
-<!-- =========================
-     FRIENDS
-========================= -->
 
 <section id="friendsPage" class="page hidden">
 
@@ -995,12 +857,7 @@ textarea{
    <small>তোমার আপন মানুষগুলো</small>
   </div>
 
-  <button
-   class="icon-btn"
-   onclick="showPage('homePage')"
-  >
-   ←
-  </button>
+  <button class="icon-btn" onclick="showPage('homePage')">←</button>
  </div>
 
  <div class="section">
@@ -1008,61 +865,28 @@ textarea{
   <div class="card">
 
    <div class="search-row">
-    <input
-     id="searchUsername"
-     class="input"
-     placeholder="Username দিয়ে খুঁজুন"
-    >
-
-    <button
-     class="btn primary"
-     onclick="searchUser()"
-    >
-     খুঁজুন
-    </button>
+    <input id="searchUsername" class="input" placeholder="Username দিয়ে খুঁজুন">
+    <button class="btn primary" onclick="searchUser()">খুঁজুন</button>
    </div>
 
-   <div
-    id="searchResult"
-    style="margin-top:12px"
-   ></div>
+   <div id="searchResult" style="margin-top:12px"></div>
 
   </div>
 
-
   <div class="card">
+   <h3 style="margin-top:0">Friend Requests</h3>
 
-   <h3 style="margin-top:0">
-    Friend Requests
-   </h3>
-
-   <div
-    id="friendRequests"
-    class="friend-list"
-   >
-    <div class="empty">
-     কোনো Request নেই ❤️
-    </div>
+   <div id="friendRequests" class="friend-list">
+    <div class="empty">কোনো Request নেই ❤️</div>
    </div>
-
   </div>
 
-
   <div class="card">
+   <h3 style="margin-top:0">Friends ❤️</h3>
 
-   <h3 style="margin-top:0">
-    Friends ❤️
-   </h3>
-
-   <div
-    id="friendsList"
-    class="friend-list"
-   >
-    <div class="empty">
-     এখনো কোনো Friend নেই
-    </div>
+   <div id="friendsList" class="friend-list">
+    <div class="empty">এখনো কোনো Friend নেই</div>
    </div>
-
   </div>
 
  </div>
@@ -1070,10 +894,6 @@ textarea{
  <bottom-nav></bottom-nav>
 </section>
 
-
-<!-- =========================
-     COUPLE
-========================= -->
 
 <section id="couplePage" class="page hidden">
 
@@ -1083,12 +903,7 @@ textarea{
    <small>Our little world</small>
   </div>
 
-  <button
-   class="icon-btn"
-   onclick="showPage('homePage')"
-  >
-   ←
-  </button>
+  <button class="icon-btn" onclick="showPage('homePage')">←</button>
  </div>
 
  <div class="section">
@@ -1100,19 +915,12 @@ textarea{
 
   <div class="card">
    <h3>💌 আমাদের গল্প</h3>
-   <div
-    id="storyPreview"
-    class="story"
-   >
-    এখনো কোনো গল্প লেখা হয়নি।
-   </div>
+   <div id="storyPreview" class="story">এখনো কোনো গল্প লেখা হয়নি।</div>
   </div>
 
   <div class="card">
    <h3>⭐ Favorite</h3>
-   <p id="favoriteText" style="color:#aaa">
-    এখনো কিছু যোগ করা হয়নি।
-   </p>
+   <p id="favoriteText" style="color:#aaa">এখনো কিছু যোগ করা হয়নি।</p>
   </div>
 
  </div>
@@ -1120,10 +928,6 @@ textarea{
  <bottom-nav></bottom-nav>
 </section>
 
-
-<!-- =========================
-     ROOM
-========================= -->
 
 <section id="roomPage" class="page hidden">
 
@@ -1133,12 +937,7 @@ textarea{
    <small>দুজন একসাথে</small>
   </div>
 
-  <button
-   class="icon-btn"
-   onclick="showPage('homePage')"
-  >
-   ←
-  </button>
+  <button class="icon-btn" onclick="showPage('homePage')">←</button>
  </div>
 
  <div class="section">
@@ -1151,37 +950,21 @@ textarea{
     একটি Room Code তৈরি করে অন্যজনকে দিন।
    </p>
 
-   <button
-    class="primary-btn"
-    onclick="createRoom()"
-   >
+   <button class="primary-btn" onclick="createRoom()">
     নতুন Room তৈরি
    </button>
 
-   <div
-    id="createdRoom"
-    style="text-align:center;margin-top:15px"
-   ></div>
+   <div id="createdRoom" style="text-align:center;margin-top:15px"></div>
 
   </div>
-
 
   <div class="card">
 
    <h3>Room-এ Join করুন</h3>
 
-   <input
-    id="roomCodeInput"
-    class="input"
-    placeholder="Room Code"
-    style="text-transform:uppercase"
-   >
+   <input id="roomCodeInput" class="input" placeholder="Room Code" style="text-transform:uppercase">
 
-   <button
-    class="primary-btn"
-    style="margin-top:10px"
-    onclick="joinRoom()"
-   >
+   <button class="primary-btn" style="margin-top:10px" onclick="joinRoom()">
     Join Room
    </button>
 
@@ -1193,59 +976,31 @@ textarea{
 </section>
 
 
-<!-- =========================
-     CHAT
-========================= -->
-
 <section id="chatPage" class="chat-page hidden">
 
  <div class="chat-header">
 
-  <button
-   class="icon-btn"
-   onclick="showPage('friendsPage')"
-  >
-   ←
-  </button>
+  <button class="icon-btn" onclick="showPage('friendsPage')">←</button>
 
   <div class="chat-person">
 
-   <strong id="chatName">
-    কাউকে নির্বাচন করুন
-   </strong>
+   <strong id="chatName">কাউকে নির্বাচন করুন</strong>
 
-   <small id="chatStatus">
-    Friend নির্বাচন করুন
-   </small>
+   <small id="chatStatus">Friend নির্বাচন করুন</small>
 
   </div>
 
   <div class="chat-actions">
 
-   <button
-    class="icon-btn"
-    onclick="startAudioCall()"
-   >
-    📞
-   </button>
+   <button class="icon-btn" onclick="startAudioCall()">📞</button>
 
-   <button
-    class="icon-btn"
-    onclick="startVideoCall()"
-   >
-    📹
-   </button>
+   <button class="icon-btn" onclick="startVideoCall()">📹</button>
 
   </div>
 
  </div>
 
-
- <div
-  id="chatBox"
-  class="chat-box"
- ></div>
-
+ <div id="chatBox" class="chat-box"></div>
 
  <div class="chat-input-area">
 
@@ -1255,15 +1010,10 @@ textarea{
     id="chatInput"
     class="input"
     placeholder="মেসেজ লিখুন..."
-    onkeydown="if(event.key==='Enter')sendMessage()"
+    onkeydown="if(event.key==='Enter'){event.preventDefault();sendMessage()}"
    >
 
-   <button
-    class="send-btn"
-    onclick="sendMessage()"
-   >
-    ➤
-   </button>
+   <button class="send-btn" onclick="sendMessage()">➤</button>
 
   </div>
 
@@ -1271,10 +1021,6 @@ textarea{
 
 </section>
 
-
-<!-- =========================
-     PROFILE
-========================= -->
 
 <section id="profilePage" class="page hidden">
 
@@ -1285,12 +1031,7 @@ textarea{
    <small>তোমার প্রোফাইল</small>
   </div>
 
-  <button
-   class="icon-btn"
-   onclick="showPage('homePage')"
-  >
-   ←
-  </button>
+  <button class="icon-btn" onclick="showPage('homePage')">←</button>
 
  </div>
 
@@ -1298,23 +1039,43 @@ textarea{
 
   <div class="card">
 
-   <div
-    id="profileAvatar"
-    class="profile-edit-avatar"
-   >
+   <div id="profileAvatar" class="profile-edit-avatar">
     👤
    </div>
 
+   <!-- নতুন Photo Upload -->
+   <div class="photo-upload">
+
+    <label style="color:#aaa;font-size:13px">
+     📷 ফোন থেকে Profile Photo নির্বাচন করুন
+    </label>
+
+    <input
+     id="profilePhotoFile"
+     type="file"
+     accept="image/*"
+     onchange="handlePhotoUpload(event)"
+    >
+
+    <div class="upload-note">
+     ছবি নির্বাচন করলে সেটি স্বয়ংক্রিয়ভাবে ছোট করে Save করা হবে।
+    </div>
+
+   </div>
+
    <div class="input-group">
+
     <label>নাম</label>
 
     <input
      id="profileName"
      class="input"
     >
+
    </div>
 
    <div class="input-group">
+
     <label>Username</label>
 
     <input
@@ -1322,9 +1083,11 @@ textarea{
      class="input"
      readonly
     >
+
    </div>
 
    <div class="input-group">
+
     <label>Profile Photo URL</label>
 
     <input
@@ -1332,24 +1095,18 @@ textarea{
      class="input"
      placeholder="https://..."
     >
+
    </div>
 
-   <button
-    class="primary-btn"
-    onclick="saveProfile()"
-   >
+   <button class="primary-btn" onclick="saveProfile()">
     Save Profile ❤️
    </button>
 
   </div>
 
-
   <div class="card">
 
-   <button
-    class="secondary-btn"
-    onclick="logout()"
-   >
+   <button class="secondary-btn" onclick="logout()">
     Logout
    </button>
 
@@ -1361,113 +1118,45 @@ textarea{
 </section>
 
 
-<!-- =========================
-     CALL SCREEN
-========================= -->
+<div id="callScreen" class="call-screen">
 
-<div
- id="callScreen"
- class="call-screen"
->
+ <video id="remoteVideo" class="remote-video" autoplay playsinline></video>
 
- <video
-  id="remoteVideo"
-  class="remote-video"
-  autoplay
-  playsinline
- ></video>
-
- <video
-  id="localVideo"
-  class="local-video"
-  autoplay
-  muted
-  playsinline
- ></video>
+ <video id="localVideo" class="local-video" autoplay muted playsinline></video>
 
  <div class="call-info">
-  <strong id="callTitle">
-   Calling...
-  </strong>
-  <div id="callSubTitle">
-   সংযোগ হচ্ছে...
-  </div>
+  <strong id="callTitle">Calling...</strong>
+  <div id="callSubTitle">সংযোগ হচ্ছে...</div>
  </div>
 
  <div class="call-controls">
 
-  <button
-   id="micButton"
-   class="call-control"
-   onclick="toggleMic()"
-  >
-   🎙️
-  </button>
+  <button id="micButton" class="call-control" onclick="toggleMic()">🎙️</button>
 
-  <button
-   id="cameraButton"
-   class="call-control"
-   onclick="toggleCamera()"
-  >
-   📷
-  </button>
+  <button id="cameraButton" class="call-control" onclick="toggleCamera()">📷</button>
 
-  <button
-   class="call-control end"
-   onclick="endCall()"
-  >
-   📞
-  </button>
+  <button class="call-control end" onclick="endCall()">📞</button>
 
  </div>
 
 </div>
 
 
-<!-- =========================
-     INCOMING CALL
-========================= -->
-
-<div
- id="incomingCallModal"
- class="incoming-modal"
->
+<div id="incomingCallModal" class="incoming-modal">
 
  <div class="incoming-box">
 
-  <div
-   id="incomingAvatar"
-   class="incoming-avatar"
-  >
-   ❤️
-  </div>
+  <div id="incomingAvatar" class="incoming-avatar">❤️</div>
 
-  <h2 id="incomingName">
-   Incoming Call
-  </h2>
+  <h2 id="incomingName">Incoming Call</h2>
 
-  <p
-   id="incomingType"
-   style="color:#999"
-  >
-   Video Call
-  </p>
+  <p id="incomingType" style="color:#999">Video Call</p>
 
   <div class="incoming-actions">
 
-   <button
-    class="btn red"
-    onclick="rejectCall()"
-   >
-    ✕ Reject
-   </button>
+   <button class="btn red" onclick="rejectCall()">✕ Reject</button>
 
-   <button
-    class="btn green"
-    onclick="acceptCall()"
-   >
-    ✓ Accept
-   </button>
+   <button class="btn green" onclick="acceptCall()">✓ Accept</button>
 
   </div>
 
@@ -1476,21 +1165,14 @@ textarea{
 </div>
 
 
-<div
- id="toast"
- class="toast"
-></div>
+<div id="toast" class="toast"></div>
 
-<div
- id="notification"
- class="notification"
- onclick="hideNotification()"
->
- <strong id="notificationTitle">
-  Notification
- </strong>
+<div id="notification" class="notification" onclick="hideNotification()">
+
+ <strong id="notificationTitle">Notification</strong>
 
  <span id="notificationText"></span>
+
 </div>
 
 
@@ -1500,80 +1182,71 @@ textarea{
    CONFIG
 ========================================= */
 
-const API_URL =
- "https://dujon-app1.onrender.com";
-
-const WS_URL =
- "wss://dujon-app1.onrender.com";
+const API_URL="https://dujon-app1.onrender.com";
+const WS_URL="wss://dujon-app1.onrender.com";
 
 
 /* =========================================
-   GLOBAL STATE
+   STATE
 ========================================= */
 
-let ws = null;
+let ws=null;
 
-let peerConnection = null;
+let peerConnection=null;
 
-let localStream = null;
+let localStream=null;
 
-let currentCallType = "video";
+let currentCallType="video";
 
-let pendingOffer = null;
+let pendingOffer=null;
 
-let currentRoom = null;
+let currentRoom=null;
 
-let currentPage = "loginPage";
+let currentPage="loginPage";
 
-/*
-  সবচেয়ে গুরুত্বপূর্ণ:
-  বর্তমানে যার সাথে Chat/Call হচ্ছে
-*/
-let currentChatUsername = null;
+let currentChatUsername=null;
 
-let currentChatName = "";
+let currentChatName="";
 
-let pendingIceCandidates = [];
+let currentChatPhone=null;
 
-let callPeerUsername = null;
+let pendingIceCandidates=[];
 
-let callPeerPhone = null;
+let callPeerUsername=null;
 
-let micEnabled = true;
+let callPeerPhone=null;
 
-let cameraEnabled = true;
+let micEnabled=true;
+
+let cameraEnabled=true;
 
 
-const ICE_SERVERS = {
+/* =========================================
+   ICE
+========================================= */
+
+const ICE_SERVERS={
  iceServers:[
-  {
-   urls:"stun:stun.l.google.com:19302"
-  },
-  {
-   urls:"stun:stun1.l.google.com:19302"
-  }
+  {urls:"stun:stun.l.google.com:19302"},
+  {urls:"stun:stun1.l.google.com:19302"},
+  {urls:"stun:stun2.l.google.com:19302"},
+  {urls:"stun:stun.cloudflare.com:3478"}
  ]
 };
 
 
 /* =========================================
-   BASIC HELPERS
+   STORAGE
 ========================================= */
 
 function getAccount(){
 
  try{
-
   return JSON.parse(
-   localStorage.getItem(
-    "dujon_account"
-   ) || "null"
+   localStorage.getItem("dujon_account")||"null"
   );
-
  }catch{
-
   return null;
-
  }
 
 }
@@ -1582,17 +1255,11 @@ function getAccount(){
 function getProfile(){
 
  try{
-
   return JSON.parse(
-   localStorage.getItem(
-    "dujon_profile"
-   ) || "{}"
+   localStorage.getItem("dujon_profile")||"{}"
   );
-
  }catch{
-
   return {};
-
  }
 
 }
@@ -1608,48 +1275,42 @@ function saveLocalProfile(profile){
 }
 
 
+/* =========================================
+   TOAST
+========================================= */
+
 function toast(message){
 
- const el =
-  document.getElementById("toast");
+ const el=document.getElementById("toast");
 
  if(!el)return;
 
- el.textContent = message;
+ el.textContent=message;
 
  el.classList.add("show");
 
- clearTimeout(
-  toast.timer
- );
+ clearTimeout(toast.timer);
 
- toast.timer =
-  setTimeout(
-   ()=>{
-    el.classList.remove("show");
-   },
-   2600
-  );
+ toast.timer=setTimeout(()=>{
+  el.classList.remove("show");
+ },2800);
 
 }
 
+
+/* =========================================
+   PAGE
+========================================= */
 
 function showPage(id){
 
  document
   .querySelectorAll(".page,.auth-page")
-  .forEach(
-   page=>{
-    page.classList.add("hidden");
-   }
-  );
+  .forEach(p=>p.classList.add("hidden"));
 
- const page =
-  document.getElementById(id);
+ const page=document.getElementById(id);
 
- if(page){
-  page.classList.remove("hidden");
- }
+ if(page)page.classList.remove("hidden");
 
  currentPage=id;
 
@@ -1668,101 +1329,65 @@ function showPage(id){
 }
 
 
+/* =========================================
+   NAV
+========================================= */
+
 function openProfile(){
-
  loadProfileToUI();
-
  showPage("profilePage");
-
 }
-
 
 function openFriends(){
-
  loadSocialData();
-
  showPage("friendsPage");
-
 }
-
 
 function openRoom(){
-
  showPage("roomPage");
-
 }
-
 
 function openOurStory(){
-
  showPage("couplePage");
-
 }
-
 
 function bottomNavHTML(){
 
  return `
-  <div class="bottom-nav">
-   <div class="nav-inner">
+ <div class="bottom-nav">
+  <div class="nav-inner">
 
-    <button
-     class="nav-item"
-     onclick="showPage('homePage')"
-    >
-     <span>🏠</span>
-     Home
-    </button>
+   <button class="nav-item" onclick="showPage('homePage')">
+    <span>🏠</span>Home
+   </button>
 
-    <button
-     class="nav-item"
-     onclick="showPage('friendsPage')"
-    >
-     <span>👥</span>
-     Friends
-    </button>
+   <button class="nav-item" onclick="showPage('friendsPage')">
+    <span>👥</span>Friends
+   </button>
 
-    <button
-     class="nav-item"
-     onclick="showPage('couplePage')"
-    >
-     <span>❤️</span>
-     Couple
-    </button>
+   <button class="nav-item" onclick="showPage('couplePage')">
+    <span>❤️</span>Couple
+   </button>
 
-    <button
-     class="nav-item"
-     onclick="showPage('profilePage')"
-    >
-     <span>👤</span>
-     Profile
-    </button>
+   <button class="nav-item" onclick="showPage('profilePage')">
+    <span>👤</span>Profile
+   </button>
 
-   </div>
   </div>
+ </div>
  `;
 
 }
 
-
-/*
-  Custom bottom-nav elements
-*/
 class BottomNav extends HTMLElement{
 
  connectedCallback(){
-
-  this.outerHTML =
-   bottomNavHTML();
-
+  this.outerHTML=bottomNavHTML();
  }
 
 }
 
-customElements.define(
- "bottom-nav",
- BottomNav
-);
+customElements.define("bottom-nav",BottomNav);
 
 
 /* =========================================
@@ -1771,124 +1396,65 @@ customElements.define(
 
 async function registerUser(){
 
- const phone =
-  document
-   .getElementById("regPhone")
-   .value
-   .trim();
+ const phone=document.getElementById("regPhone").value.trim();
 
- const pin =
-  document
-   .getElementById("regPin")
-   .value
-   .trim();
+ const pin=document.getElementById("regPin").value.trim();
 
- const username =
-  document
-   .getElementById("regUsername")
-   .value
-   .trim()
-   .toLowerCase();
-
+ const username=document
+  .getElementById("regUsername")
+  .value
+  .trim()
+  .toLowerCase();
 
  if(!phone){
-
   toast("মোবাইল নম্বর দাও");
-
   return;
-
  }
-
 
  if(!/^[0-9]{4,6}$/.test(pin)){
-
-  toast(
-   "PIN ৪-৬ সংখ্যার হতে হবে"
-  );
-
+  toast("PIN ৪-৬ সংখ্যার হতে হবে");
   return;
-
  }
 
-
- if(
-  !/^[a-z0-9_]{3,20}$/.test(username)
- ){
-
-  toast(
-   "Username 3-20 অক্ষরের হতে হবে"
-  );
-
+ if(!/^[a-z0-9_]{3,20}$/.test(username)){
+  toast("Username 3-20 অক্ষরের হতে হবে");
   return;
-
  }
-
 
  try{
 
-  const response =
-   await fetch(
-    API_URL +
-    "/api/register",
-    {
-     method:"POST",
+  const response=await fetch(
+   API_URL+"/api/register",
+   {
+    method:"POST",
+    headers:{
+     "Content-Type":"application/json"
+    },
+    body:JSON.stringify({
+     phone,
+     pin,
+     username,
+     name:"আমি",
+     photo:""
+    })
+   }
+  );
 
-     headers:{
-      "Content-Type":
-       "application/json"
-     },
+  const text=await response.text();
 
-     body:JSON.stringify({
-      phone,
-      pin,
-      username,
-      name:"আমি",
-      photo:""
-     })
-    }
-   );
-
-
-  const text =
-   await response.text();
-
-  let data;
+  let data={};
 
   try{
-
-   data =
-    JSON.parse(text);
-
+   data=JSON.parse(text);
   }catch{
-
-   console.log(
-    "Register response:",
-    text
-   );
-
-   toast(
-    "Server response ঠিক নেই"
-   );
-
+   toast("Server response ঠিক নেই");
    return;
-
   }
 
-
-  if(
-   !response.ok ||
-   !data.ok
-  ){
-
-   toast(
-    data.message ||
-    "Account তৈরি হয়নি"
-   );
-
+  if(!response.ok||!data.ok){
+   toast(data.message||"Account তৈরি হয়নি");
    return;
-
   }
-
 
   localStorage.setItem(
    "dujon_account",
@@ -1898,7 +1464,6 @@ async function registerUser(){
     username
    })
   );
-
 
   localStorage.setItem(
    "dujon_profile",
@@ -1910,38 +1475,18 @@ async function registerUser(){
    })
   );
 
+  toast("Account তৈরি হয়েছে ❤️");
 
-  toast(
-   "Account তৈরি হয়েছে ❤️"
-  );
-
-
-  setTimeout(
-   ()=>{
-    document
-     .getElementById("loginPhone")
-     .value=phone;
-
-    document
-     .getElementById("loginPin")
-     .value=pin;
-
-    showPage("loginPage");
-   },
-   700
-  );
-
+  setTimeout(()=>{
+   document.getElementById("loginPhone").value=phone;
+   document.getElementById("loginPin").value=pin;
+   showPage("loginPage");
+  },700);
 
  }catch(error){
 
-  console.log(
-   "Register Error:",
-   error
-  );
-
-  toast(
-   "Server-এর সাথে সংযোগ হয়নি"
-  );
+  console.log(error);
+  toast("Server-এর সাথে সংযোগ হয়নি");
 
  }
 
@@ -1954,58 +1499,32 @@ async function registerUser(){
 
 function login(){
 
- const phone =
-  document
-   .getElementById("loginPhone")
-   .value
-   .trim();
+ const phone=document.getElementById("loginPhone").value.trim();
 
- const pin =
-  document
-   .getElementById("loginPin")
-   .value
-   .trim();
+ const pin=document.getElementById("loginPin").value.trim();
 
-
- if(!phone || !pin){
-
-  toast(
-   "মোবাইল নম্বর ও PIN দাও"
-  );
-
+ if(!phone||!pin){
+  toast("মোবাইল নম্বর ও PIN দাও");
   return;
-
  }
 
-
- const account =
-  getAccount();
-
+ const account=getAccount();
 
  if(
-  !account ||
-  account.phone!==phone ||
+  !account||
+  account.phone!==phone||
   account.pin!==pin
  ){
-
-  toast(
-   "মোবাইল নম্বর বা PIN ভুল"
-  );
-
+  toast("মোবাইল নম্বর বা PIN ভুল");
   return;
-
  }
-
 
  localStorage.setItem(
   "dujon_logged_in",
   "true"
  );
 
-
  loadProfileToUI();
-
- connectRoom();
 
  loadTogetherDays();
 
@@ -2013,133 +1532,288 @@ function login(){
 
  showPage("homePage");
 
+ connectWebSocket();
+
  toast("স্বাগতম ❤️");
 
 }
 
 
 /* =========================================
-   PROFILE
+   PROFILE LOAD
 ========================================= */
 
 function loadProfileToUI(){
 
- const profile =
-  getProfile();
+ const profile=getProfile();
 
- const account =
-  getAccount();
+ const account=getAccount();
 
- const name =
-  profile.name ||
-  account?.username ||
+ const name=
+  profile.name||
+  account?.username||
   "আমি";
 
- const username =
-  profile.username ||
-  account?.username ||
+ const username=
+  profile.username||
+  account?.username||
   "";
 
- const photo =
-  profile.photo ||
+ const photo=
+  profile.photo||
   "";
 
-
- const homeName =
-  document.getElementById(
-   "homeName"
-  );
+ const homeName=document.getElementById("homeName");
 
  if(homeName){
   homeName.textContent=name;
  }
 
-
- const homeUsername =
-  document.getElementById(
-   "homeUsername"
-  );
+ const homeUsername=document.getElementById("homeUsername");
 
  if(homeUsername){
-  homeUsername.textContent =
-   "@" + username;
+  homeUsername.textContent="@"+username;
  }
 
-
- const profileName =
-  document.getElementById(
-   "profileName"
-  );
+ const profileName=document.getElementById("profileName");
 
  if(profileName){
   profileName.value=name;
  }
 
-
- const profileUsername =
-  document.getElementById(
-   "profileUsername"
-  );
+ const profileUsername=document.getElementById("profileUsername");
 
  if(profileUsername){
   profileUsername.value=username;
  }
 
-
- const profilePhoto =
-  document.getElementById(
-   "profilePhoto"
-  );
+ const profilePhoto=document.getElementById("profilePhoto");
 
  if(profilePhoto){
-  profilePhoto.value=photo;
+
+  /*
+   Data URL হলে URL input-এ দেখানোর দরকার নেই।
+  */
+
+  profilePhoto.value=
+   photo.startsWith("data:image/")
+   ? ""
+   : photo;
+
  }
 
+ setAvatar(
+  document.getElementById("profileAvatar"),
+  photo,
+  "👤"
+ );
 
- const avatar =
-  document.getElementById(
-   "profileAvatar"
-  );
+}
 
- if(avatar){
 
-  if(photo){
+/* =========================================
+   AVATAR
+========================================= */
 
-   avatar.innerHTML =
-    `<img src="${escapeHtml(photo)}"
-          onerror="this.parentElement.innerHTML='👤'">`;
+function setAvatar(
+ element,
+ photo,
+ fallback="👤"
+){
 
-  }else{
+ if(!element)return;
 
-   avatar.innerHTML="👤";
+ element.innerHTML="";
 
-  }
+ if(photo){
+
+  const img=document.createElement("img");
+
+  img.src=photo;
+
+  img.onload=()=>{
+   element.innerHTML="";
+   element.appendChild(img);
+  };
+
+  img.onerror=()=>{
+   element.textContent=fallback;
+  };
+
+ }else{
+
+  element.textContent=fallback;
 
  }
 
 }
 
 
+/* =========================================
+   PHOTO UPLOAD
+========================================= */
+
+function handlePhotoUpload(event){
+
+ const file=
+  event.target.files?.[0];
+
+ if(!file)return;
+
+ if(!file.type.startsWith("image/")){
+
+  toast("শুধু ছবি নির্বাচন করুন");
+
+  event.target.value="";
+
+  return;
+
+ }
+
+ if(file.size>10*1024*1024){
+
+  toast("ছবির size 10MB-এর কম হতে হবে");
+
+  event.target.value="";
+
+  return;
+
+ }
+
+ toast("ছবি প্রস্তুত হচ্ছে...");
+
+ const reader=new FileReader();
+
+ reader.onload=()=>{
+
+  const image=new Image();
+
+  image.onload=()=>{
+
+   const maxSize=600;
+
+   let width=image.width;
+
+   let height=image.height;
+
+   if(width>height){
+
+    if(width>maxSize){
+
+     height=Math.round(
+      height*maxSize/width
+     );
+
+     width=maxSize;
+
+    }
+
+   }else{
+
+    if(height>maxSize){
+
+     width=Math.round(
+      width*maxSize/height
+     );
+
+     height=maxSize;
+
+    }
+
+   }
+
+   const canvas=document.createElement("canvas");
+
+   canvas.width=width;
+
+   canvas.height=height;
+
+   const ctx=canvas.getContext("2d");
+
+   ctx.drawImage(
+    image,
+    0,
+    0,
+    width,
+    height
+   );
+
+   /*
+    JPEG quality কমিয়ে server-এর JSON
+    request ছোট রাখা হচ্ছে।
+   */
+
+   const dataUrl=
+    canvas.toDataURL(
+     "image/jpeg",
+     .78
+    );
+
+   const profile=getProfile();
+
+   profile.photo=dataUrl;
+
+   saveLocalProfile(profile);
+
+   setAvatar(
+    document.getElementById("profileAvatar"),
+    dataUrl,
+    "👤"
+   );
+
+   /*
+    URL field খালি রাখি
+   */
+
+   const urlInput=
+    document.getElementById("profilePhoto");
+
+   if(urlInput){
+    urlInput.value="";
+   }
+
+   toast("Photo প্রস্তুত ❤️ Save Profile চাপুন");
+
+  };
+
+  image.onerror=()=>{
+   toast("ছবি পড়া যায়নি");
+  };
+
+  image.src=reader.result;
+
+ };
+
+ reader.onerror=()=>{
+  toast("ছবি পড়া যায়নি");
+ };
+
+ reader.readAsDataURL(file);
+
+}
+
+
+/* =========================================
+   PROFILE SAVE
+========================================= */
+
 async function saveProfile(){
 
- const account =
-  getAccount();
+ const account=getAccount();
 
  if(!account)return;
 
-
- const name =
+ const name=
   document
    .getElementById("profileName")
    .value
    .trim();
 
- const photo =
+ const urlPhoto=
   document
    .getElementById("profilePhoto")
    .value
    .trim();
-
 
  if(!name){
 
@@ -2149,62 +1823,64 @@ async function saveProfile(){
 
  }
 
+ const oldProfile=getProfile();
 
- const oldProfile =
-  getProfile();
+ /*
+  যদি URL দেওয়া হয় তাহলে URL ব্যবহার হবে।
+  না হলে আগে upload করা Data URL থাকবে।
+ */
 
+ const photo=
+  urlPhoto||
+  oldProfile.photo||
+  "";
 
- const profile = {
+ const profile={
   ...oldProfile,
   name,
+  username:
+   oldProfile.username||
+   account.username||
+   "",
+  phone:account.phone,
   photo
  };
 
-
  saveLocalProfile(profile);
-
 
  try{
 
-  const response =
-   await fetch(
-    API_URL +
-    "/api/profile",
-    {
-     method:"POST",
+  toast("Profile save হচ্ছে...");
 
-     headers:{
-      "Content-Type":
-       "application/json"
-     },
+  const response=await fetch(
+   API_URL+"/api/profile",
+   {
+    method:"POST",
 
-     body:JSON.stringify({
+    headers:{
+     "Content-Type":"application/json"
+    },
 
-      phone:
-       account.phone,
+    body:JSON.stringify({
 
-      pin:
-       account.pin,
+     phone:account.phone,
 
-      name:
-       profile.name,
+     pin:account.pin,
 
-      username:
-       profile.username ||
-       account.username ||
-       "",
+     name:profile.name,
 
-      photo:
-       profile.photo ||
-       ""
+     username:
+      profile.username||
+      account.username||
+      "",
 
-     })
-    }
-   );
+     photo:profile.photo||""
 
+    })
+   }
+  );
 
-  const text =
-   await response.text();
+  const text=await response.text();
 
   let data={};
 
@@ -2212,11 +1888,10 @@ async function saveProfile(){
    data=JSON.parse(text);
   }catch{}
 
-
   if(!response.ok){
 
    toast(
-    data.message ||
+    data.message||
     "Profile save হয়নি"
    );
 
@@ -2224,13 +1899,28 @@ async function saveProfile(){
 
   }
 
+  /*
+   Server থেকে returned profile থাকলে
+   local profile-ও update করি।
+  */
+
+  if(data.user){
+
+   const serverProfile={
+    ...profile,
+    ...data.user,
+    phone:account.phone
+   };
+
+   saveLocalProfile(
+    serverProfile
+   );
+
+  }
 
   loadProfileToUI();
 
-  toast(
-   "Profile saved ❤️"
-  );
-
+  toast("Profile saved ❤️");
 
  }catch(error){
 
@@ -2239,8 +1929,14 @@ async function saveProfile(){
    error
   );
 
+  /*
+   Local save আগেই হয়েছে।
+  */
+
+  loadProfileToUI();
+
   toast(
-   "Profile local-এ save হয়েছে"
+   "Local-এ save হয়েছে, Server-এ হয়নি"
   );
 
  }
@@ -2255,13 +1951,8 @@ async function saveProfile(){
 function logout(){
 
  try{
-
-  if(ws){
-   ws.close();
-  }
-
+  if(ws)ws.close();
  }catch{}
-
 
  endCall(false);
 
@@ -2270,33 +1961,26 @@ function logout(){
  );
 
  currentChatUsername=null;
-
  currentChatName="";
+ currentChatPhone=null;
 
  showPage("loginPage");
 
- toast(
-  "Logout হয়েছে"
- );
+ toast("Logout হয়েছে");
 
 }
 
 
 /* =========================================
-   WEBSOCKET
+   WEBSOCKET CONNECT
 ========================================= */
 
-function connectRoom(){
+function connectWebSocket(){
 
  if(ws){
 
-  if(
-   ws.readyState ===
-   WebSocket.OPEN
-  ){
-
+  if(ws.readyState===WebSocket.OPEN){
    return;
-
   }
 
   try{
@@ -2305,12 +1989,9 @@ function connectRoom(){
 
  }
 
-
  try{
 
-  ws =
-   new WebSocket(WS_URL);
-
+  ws=new WebSocket(WS_URL);
 
   ws.onopen=()=>{
 
@@ -2318,58 +1999,50 @@ function connectRoom(){
     "WebSocket connected"
    );
 
+   const account=getAccount();
 
-   const account =
-    getAccount();
-
-
-   if(account){
-
-    sendWS({
-
-     type:"join",
-
-     phone:
-      account.phone,
-
-     pin:
-      account.pin,
-
-     username:
-      account.username ||
-      ""
-
-    });
-
+   if(!account){
+    return;
    }
+
+   sendWS({
+
+    type:"join",
+
+    phone:account.phone,
+
+    pin:account.pin,
+
+    username:
+     account.username||
+     ""
+
+   });
 
   };
 
 
-  ws.onmessage =
-   async event=>{
+  ws.onmessage=async(event)=>{
 
-    try{
+   try{
 
-     const data =
-      JSON.parse(
-       event.data
-      );
-
-     await handleWSMessage(
-      data
+    const data=
+     JSON.parse(
+      event.data
      );
 
-    }catch(error){
+    await handleWSMessage(data);
 
-     console.log(
-      "WS message error:",
-      error
-     );
+   }catch(error){
 
-    }
+    console.log(
+     "WS message error:",
+     error
+    );
 
-   };
+   }
+
+  };
 
 
   ws.onclose=()=>{
@@ -2377,6 +2050,29 @@ function connectRoom(){
    console.log(
     "WebSocket disconnected"
    );
+
+   /*
+    Login অবস্থায় থাকলে কিছুক্ষণ পর
+    আবার connect করার চেষ্টা।
+   */
+
+   if(
+    localStorage.getItem(
+     "dujon_logged_in"
+    )==="true"
+   ){
+
+    clearTimeout(
+     connectWebSocket.timer
+    );
+
+    connectWebSocket.timer=
+     setTimeout(
+      connectWebSocket,
+      3000
+     );
+
+   }
 
   };
 
@@ -2390,7 +2086,6 @@ function connectRoom(){
 
   };
 
-
  }catch(error){
 
   console.log(
@@ -2403,11 +2098,20 @@ function connectRoom(){
 }
 
 
+/*
+ পুরোনো code-এর connectRoom নামটাও
+ রেখে দেওয়া হলো।
+*/
+function connectRoom(){
+ connectWebSocket();
+}
+
+
 function sendWS(data){
 
  if(
   ws &&
-  ws.readyState ===
+  ws.readyState===
    WebSocket.OPEN
  ){
 
@@ -2426,13 +2130,19 @@ function sendWS(data){
 
   }
 
+ }else{
+
+  toast(
+   "Server connection হচ্ছে..."
+  );
+
  }
 
 }
 
 
 /* =========================================
-   WEBSOCKET MESSAGE HANDLER
+   WS HANDLER
 ========================================= */
 
 async function handleWSMessage(data){
@@ -2448,10 +2158,7 @@ async function handleWSMessage(data){
   case "joined":
 
    if(data.room){
-
-    currentRoom =
-     data.room;
-
+    currentRoom=data.room;
    }
 
    break;
@@ -2460,14 +2167,9 @@ async function handleWSMessage(data){
   case "auth-error":
 
    toast(
-    data.message ||
+    data.message||
     "WebSocket login failed"
    );
-
-   break;
-
-
-  case "profile":
 
    break;
 
@@ -2484,48 +2186,7 @@ async function handleWSMessage(data){
 
   case "chat":
 
-   /*
-    শুধু বর্তমানে খোলা chat-এর
-    recipient-এর message দেখানো হবে।
-   */
-
-   if(
-    data.fromUsername &&
-    currentChatUsername &&
-    data.fromUsername.toLowerCase() !==
-     currentChatUsername.toLowerCase()
-   ){
-
-    showMessageNotification(
-     data.message,
-     "💬 নতুন মেসেজ"
-    );
-
-    return;
-
-   }
-
-
-   addMessage(
-    data.message,
-    data.fromUsername ||
-    data.from ||
-    "them",
-    false,
-    data.fromUsername
-   );
-
-
-   if(
-    currentPage!=="chatPage"
-   ){
-
-    showMessageNotification(
-     data.message,
-     "💬 নতুন মেসেজ"
-    );
-
-   }
+   handleIncomingChat(data);
 
    break;
 
@@ -2533,8 +2194,8 @@ async function handleWSMessage(data){
   case "delivery-failed":
 
    toast(
-    data.message ||
-    "Message পৌঁছায়নি"
+    data.message||
+    "Message/Call পৌঁছায়নি"
    );
 
    break;
@@ -2545,9 +2206,11 @@ async function handleWSMessage(data){
    await loadSocialData();
 
    showFriendRequestNotification(
-    (data.from?.name ||
-     data.from?.username ||
-     "কেউ") +
+    (
+     data.from?.name||
+     data.from?.username||
+     "কেউ"
+    )+
     " তোমাকে Friend Request পাঠিয়েছে ❤️"
    );
 
@@ -2559,7 +2222,7 @@ async function handleWSMessage(data){
    await loadSocialData();
 
    toast(
-    "Friend Request accepted ❤️"
+    "Friend added ❤️"
    );
 
    break;
@@ -2568,18 +2231,14 @@ async function handleWSMessage(data){
   case "video-call":
   case "audio-call":
 
-   await handleCallSignal(
-    data
-   );
+   await handleCallSignal(data);
 
    break;
 
 
   case "ice-candidate":
 
-   await handleIceCandidate(
-    data
-   );
+   await handleIceCandidate(data);
 
    break;
 
@@ -2607,6 +2266,119 @@ async function handleWSMessage(data){
 
 
 /* =========================================
+   INCOMING CHAT
+========================================= */
+
+function handleIncomingChat(data){
+
+ const fromUsername=
+  String(
+   data.fromUsername||
+   data.sender||
+   data.from||
+   ""
+  )
+  .replace(/^@/,"")
+  .toLowerCase();
+
+ if(!fromUsername){
+
+  return;
+
+ }
+
+ /*
+  Sender অনুযায়ী message save হবে।
+  Chat খোলা না থাকলেও message হারাবে না।
+ */
+
+ saveIncomingMessage(
+  fromUsername,
+  data.message
+ );
+
+
+ /*
+  বর্তমানে ওই ব্যক্তির chat খোলা থাকলে
+  সরাসরি message দেখাবে।
+ */
+
+ if(
+  currentPage==="chatPage"&&
+  currentChatUsername&&
+  fromUsername===
+   currentChatUsername.toLowerCase()
+ ){
+
+  addMessage(
+   data.message,
+   fromUsername,
+   false,
+   false
+  );
+
+ }else{
+
+  showMessageNotification(
+   data.message,
+   "💬 @"+fromUsername+
+   " থেকে নতুন মেসেজ"
+  );
+
+ }
+
+}
+
+
+function saveIncomingMessage(
+ username,
+ text
+){
+
+ const account=getAccount();
+
+ const me=
+  account?.username||
+  "me";
+
+ const names=[
+  me.toLowerCase(),
+  username.toLowerCase()
+ ].sort();
+
+ const key=
+  "dujon_messages_"+
+  names.join("_");
+
+ const messages=
+  JSON.parse(
+   localStorage.getItem(key)||
+   "[]"
+  );
+
+ messages.push({
+
+  text,
+
+  sender:username,
+
+  time:Date.now()
+
+ });
+
+ while(messages.length>200){
+  messages.shift();
+ }
+
+ localStorage.setItem(
+  key,
+  JSON.stringify(messages)
+ );
+
+}
+
+
+/* =========================================
    PRESENCE
 ========================================= */
 
@@ -2617,53 +2389,50 @@ function updatePresence(
 
  if(!username)return;
 
-
  document
   .querySelectorAll(
    `[data-username="${cssEscape(username)}"]`
   )
-  .forEach(
-   el=>{
+  .forEach(el=>{
 
-    const dot =
-     el.querySelector(
-      ".online-dot"
-     );
+   const dot=
+    el.querySelector(
+     ".online-dot"
+    );
 
-    if(dot){
+   if(dot){
 
-     dot.classList.toggle(
-      "online",
-      !!online
-     );
-
-    }
+    dot.classList.toggle(
+     "online",
+     !!online
+    );
 
    }
-  );
+
+  });
 
 
  if(
-  currentChatUsername &&
-  username.toLowerCase() ===
+  currentChatUsername&&
+  username.toLowerCase()===
    currentChatUsername.toLowerCase()
  ){
 
-  const status =
+  const status=
    document.getElementById(
     "chatStatus"
    );
 
   if(status){
 
-   status.textContent =
-    online ?
-    "● Online" :
+   status.textContent=
+    online?
+    "● Online":
     "Offline";
 
-   status.style.color =
-    online ?
-    "#45e98a" :
+   status.style.color=
+    online?
+    "#45e98a":
     "#777";
 
   }
@@ -2674,54 +2443,34 @@ function updatePresence(
 
 
 /* =========================================
-   SOCIAL DATA
+   SOCIAL
 ========================================= */
 
 async function loadSocialData(){
 
- const account =
-  getAccount();
+ const account=getAccount();
 
-
- if(
-  !account?.phone ||
-  !account?.pin
- ){
-
+ if(!account?.phone||!account?.pin){
   return;
-
  }
-
 
  try{
 
-  const response =
-   await fetch(
-    API_URL +
-    "/api/social",
-    {
-     method:"POST",
+  const response=await fetch(
+   API_URL+"/api/social",
+   {
+    method:"POST",
+    headers:{
+     "Content-Type":"application/json"
+    },
+    body:JSON.stringify({
+     phone:account.phone,
+     pin:account.pin
+    })
+   }
+  );
 
-     headers:{
-      "Content-Type":
-       "application/json"
-     },
-
-     body:JSON.stringify({
-
-      phone:
-       account.phone,
-
-      pin:
-       account.pin
-
-     })
-    }
-   );
-
-
-  const text =
-   await response.text();
+  const text=await response.text();
 
   let data={};
 
@@ -2731,40 +2480,22 @@ async function loadSocialData(){
    return;
   }
 
-
   if(!response.ok){
-
-   console.log(
-    "Social Error:",
-    data
-   );
-
+   console.log("Social Error:",data);
    return;
-
   }
 
-
-  const requests =
-   data.requests ||
-   data.friendRequests ||
-   data.incomingRequests ||
-   [];
-
-
-  const friends =
-   data.friends ||
-   data.user?.friends ||
-   [];
-
-
   renderFriendRequests(
-   requests
+   data.requests||
+   data.friendRequests||
+   []
   );
 
   renderFriends(
-   friends
+   data.friends||
+   data.user?.friends||
+   []
   );
-
 
  }catch(error){
 
@@ -2779,216 +2510,193 @@ async function loadSocialData(){
 
 
 /* =========================================
-   FRIEND REQUEST RENDER
+   FRIEND REQUESTS
 ========================================= */
 
-function renderFriendRequests(
- requests
-){
+function renderFriendRequests(requests){
 
- const box =
+ const box=
   document.getElementById(
    "friendRequests"
   );
 
  if(!box)return;
 
-
  if(!requests.length){
 
-  box.innerHTML =
+  box.innerHTML=
    `<div class="empty">
-     কোনো Request নেই ❤️
-    </div>`;
+    কোনো Request নেই ❤️
+   </div>`;
 
   return;
 
  }
 
+ box.innerHTML=
+  requests.map(username=>`
 
- box.innerHTML =
-  requests
-   .map(
-    username=>`
+   <div class="profile-row card" style="margin:0">
 
-     <div
-      class="profile-row card"
-      style="margin:0"
+    <div class="avatar">👤</div>
+
+    <div class="profile-info">
+
+     <strong>
+      @${escapeHtml(username)}
+     </strong>
+
+     <span>Friend Request</span>
+
+    </div>
+
+    <div class="action-row" style="margin:0">
+
+     <button
+      class="btn green small"
+      onclick="acceptFriend('${jsEscape(username)}')"
      >
+      Accept
+     </button>
 
-      <div class="avatar">
-       👤
-      </div>
+     <button
+      class="btn red small"
+      onclick="rejectFriend('${jsEscape(username)}')"
+     >
+      Reject
+     </button>
 
-      <div class="profile-info">
-       <strong>
-        @${escapeHtml(username)}
-       </strong>
-       <span>
-        Friend Request
-       </span>
-      </div>
+    </div>
 
-      <div class="action-row"
-           style="margin:0">
+   </div>
 
-       <button
-        class="btn green small"
-        onclick="acceptFriend('${jsEscape(username)}')"
-       >
-        Accept
-       </button>
-
-       <button
-        class="btn red small"
-        onclick="rejectFriend('${jsEscape(username)}')"
-       >
-        Reject
-       </button>
-
-      </div>
-
-     </div>
-
-    `
-   )
-   .join("");
+  `).join("");
 
 }
 
 
 /* =========================================
-   FRIEND RENDER
+   FRIENDS
 ========================================= */
 
-function renderFriends(
- friends
-){
+function renderFriends(friends){
 
- const box =
+ const box=
   document.getElementById(
    "friendsList"
   );
 
  if(!box)return;
 
-
  if(!friends.length){
 
-  box.innerHTML =
+  box.innerHTML=
    `<div class="empty">
-     এখনো কোনো Friend নেই ❤️
-    </div>`;
+    এখনো কোনো Friend নেই ❤️
+   </div>`;
 
   return;
 
  }
 
+ box.innerHTML=
+  friends.map(username=>`
 
- box.innerHTML =
-  friends
-   .map(
-    username=>`
+   <div
+    class="profile-row card"
+    style="margin:0"
+    data-username="${escapeHtml(username)}"
+   >
 
-     <div
-      class="profile-row card"
-      style="margin:0"
-      data-username="${escapeHtml(username)}"
+    <div class="avatar">👤</div>
+
+    <div class="profile-info">
+
+     <strong>
+      @${escapeHtml(username)}
+     </strong>
+
+     <span>
+      <span class="online-dot"></span>
+      Friend
+     </span>
+
+    </div>
+
+    <div class="action-row" style="margin:0">
+
+     <button
+      class="btn primary small"
+      onclick="openChatWith('${jsEscape(username)}')"
      >
+      Chat
+     </button>
 
-      <div class="avatar">
-       👤
-      </div>
+     <button
+      class="btn small"
+      onclick="callFriend('${jsEscape(username)}','audio')"
+     >
+      📞
+     </button>
 
-      <div class="profile-info">
+     <button
+      class="btn small"
+      onclick="callFriend('${jsEscape(username)}','video')"
+     >
+      📹
+     </button>
 
-       <strong>
-        @${escapeHtml(username)}
-       </strong>
+    </div>
 
-       <span>
-        <span class="online-dot"></span>
-        Friend
-       </span>
+   </div>
 
-      </div>
-
-      <div class="action-row"
-           style="margin:0">
-
-       <button
-        class="btn primary small"
-        onclick="openChatWith('${jsEscape(username)}')"
-       >
-        Chat
-       </button>
-
-      </div>
-
-     </div>
-
-    `
-   )
-   .join("");
+  `).join("");
 
 }
 
 
 /* =========================================
-   SEARCH USER
+   SEARCH
 ========================================= */
 
 async function searchUser(){
 
- const input =
+ const input=
   document.getElementById(
    "searchUsername"
   );
 
- const box =
+ const box=
   document.getElementById(
    "searchResult"
   );
 
-
- const username =
+ const username=
   input.value
    .trim()
    .replace(/^@/,"")
    .toLowerCase();
 
-
  if(!username){
 
-  toast(
-   "Username লিখুন"
-  );
+  toast("Username লিখুন");
 
   return;
 
  }
 
-
- box.innerHTML =
-  `<div class="empty">
-    খোঁজা হচ্ছে...
-   </div>`;
-
+ box.innerHTML=
+  `<div class="empty">খোঁজা হচ্ছে...</div>`;
 
  try{
 
-  const response =
-   await fetch(
-    API_URL +
-    "/api/search?username=" +
-    encodeURIComponent(
-     username
-    )
-   );
+  const response=await fetch(
+   API_URL+
+   "/api/search?username="+
+   encodeURIComponent(username)
+  );
 
-
-  const text =
-   await response.text();
+  const text=await response.text();
 
   let data={};
 
@@ -2996,34 +2704,28 @@ async function searchUser(){
    data=JSON.parse(text);
   }catch{}
 
+  if(!response.ok||!data.ok){
 
-  if(
-   !response.ok ||
-   !data.ok
-  ){
-
-   box.innerHTML =
+   box.innerHTML=
     `<div class="empty">
-      ${escapeHtml(
-       data.message ||
-       "User পাওয়া যায়নি"
-      )}
-     </div>`;
+     ${escapeHtml(
+      data.message||
+      "User পাওয়া যায়নি"
+     )}
+    </div>`;
 
    return;
 
   }
 
+  const user=data.user;
 
-  const user =
-   data.user;
-
-
-  box.innerHTML = `
+  box.innerHTML=`
 
    <div class="profile-row">
 
     <div class="avatar">
+
      ${
       user.photo
       ?
@@ -3031,21 +2733,20 @@ async function searchUser(){
       :
       "👤"
      }
+
     </div>
 
     <div class="profile-info">
 
      <strong>
       ${escapeHtml(
-       user.name ||
+       user.name||
        user.username
       )}
      </strong>
 
      <span>
-      @${escapeHtml(
-       user.username
-      )}
+      @${escapeHtml(user.username)}
      </span>
 
     </div>
@@ -3061,7 +2762,6 @@ async function searchUser(){
 
   `;
 
-
  }catch(error){
 
   console.log(
@@ -3069,10 +2769,10 @@ async function searchUser(){
    error
   );
 
-  box.innerHTML =
+  box.innerHTML=
    `<div class="empty">
-     Server-এর সাথে সংযোগ হয়নি
-    </div>`;
+    Server-এর সাথে সংযোগ হয়নি
+   </div>`;
 
  }
 
@@ -3080,50 +2780,33 @@ async function searchUser(){
 
 
 /* =========================================
-   SEND FRIEND REQUEST
+   FRIEND REQUEST
 ========================================= */
 
-async function sendFriendRequest(
- username
-){
+async function sendFriendRequest(username){
 
- const account =
-  getAccount();
+ const account=getAccount();
 
  if(!account)return;
 
-
  try{
 
-  const response =
-   await fetch(
-    API_URL +
-    "/api/friend-request",
-    {
-     method:"POST",
+  const response=await fetch(
+   API_URL+"/api/friend-request",
+   {
+    method:"POST",
+    headers:{
+     "Content-Type":"application/json"
+    },
+    body:JSON.stringify({
+     phone:account.phone,
+     pin:account.pin,
+     username
+    })
+   }
+  );
 
-     headers:{
-      "Content-Type":
-       "application/json"
-     },
-
-     body:JSON.stringify({
-
-      phone:
-       account.phone,
-
-      pin:
-       account.pin,
-
-      username
-
-     })
-    }
-   );
-
-
-  const text =
-   await response.text();
+  const text=await response.text();
 
   let data={};
 
@@ -3131,9 +2814,8 @@ async function sendFriendRequest(
    data=JSON.parse(text);
   }catch{}
 
-
   toast(
-   data.message ||
+   data.message||
    (
     response.ok
     ?
@@ -3143,19 +2825,13 @@ async function sendFriendRequest(
    )
   );
 
-
   if(response.ok){
-
-   document
-    .getElementById(
-     "searchResult"
-    )
-    .innerHTML="";
-
+   document.getElementById(
+    "searchResult"
+   ).innerHTML="";
   }
 
-
- }catch(error){
+ }catch{
 
   toast(
    "Server-এর সাথে সংযোগ হয়নি"
@@ -3167,50 +2843,33 @@ async function sendFriendRequest(
 
 
 /* =========================================
-   ACCEPT FRIEND
+   ACCEPT
 ========================================= */
 
-async function acceptFriend(
- username
-){
+async function acceptFriend(username){
 
- const account =
-  getAccount();
+ const account=getAccount();
 
  if(!account)return;
 
-
  try{
 
-  const response =
-   await fetch(
-    API_URL +
-    "/api/friend-accept",
-    {
-     method:"POST",
+  const response=await fetch(
+   API_URL+"/api/friend-accept",
+   {
+    method:"POST",
+    headers:{
+     "Content-Type":"application/json"
+    },
+    body:JSON.stringify({
+     phone:account.phone,
+     pin:account.pin,
+     username
+    })
+   }
+  );
 
-     headers:{
-      "Content-Type":
-       "application/json"
-     },
-
-     body:JSON.stringify({
-
-      phone:
-       account.phone,
-
-      pin:
-       account.pin,
-
-      username
-
-     })
-    }
-   );
-
-
-  const text =
-   await response.text();
+  const text=await response.text();
 
   let data={};
 
@@ -3218,11 +2877,10 @@ async function acceptFriend(
    data=JSON.parse(text);
   }catch{}
 
-
   if(!response.ok){
 
    toast(
-    data.message ||
+    data.message||
     "Accept হয়নি"
    );
 
@@ -3230,36 +2888,13 @@ async function acceptFriend(
 
   }
 
-
-  const profile =
-   getProfile();
-
-
-  profile.friends =
-   data.friends ||
-   data.user?.friends ||
-   [];
-
-
-  saveLocalProfile(
-   profile
-  );
-
-
-  toast(
-   "Friend added ❤️"
-  );
-
+  toast("Friend added ❤️");
 
   await loadSocialData();
 
-
  }catch(error){
 
-  console.log(
-   "Accept Error:",
-   error
-  );
+  console.log(error);
 
   toast(
    "Server-এর সাথে সংযোগ হয়নি"
@@ -3271,50 +2906,33 @@ async function acceptFriend(
 
 
 /* =========================================
-   REJECT FRIEND
+   REJECT
 ========================================= */
 
-async function rejectFriend(
- username
-){
+async function rejectFriend(username){
 
- const account =
-  getAccount();
+ const account=getAccount();
 
  if(!account)return;
 
-
  try{
 
-  const response =
-   await fetch(
-    API_URL +
-    "/api/friend-reject",
-    {
-     method:"POST",
+  const response=await fetch(
+   API_URL+"/api/friend-reject",
+   {
+    method:"POST",
+    headers:{
+     "Content-Type":"application/json"
+    },
+    body:JSON.stringify({
+     phone:account.phone,
+     pin:account.pin,
+     username
+    })
+   }
+  );
 
-     headers:{
-      "Content-Type":
-       "application/json"
-     },
-
-     body:JSON.stringify({
-
-      phone:
-       account.phone,
-
-      pin:
-       account.pin,
-
-      username
-
-     })
-    }
-   );
-
-
-  const text =
-   await response.text();
+  const text=await response.text();
 
   let data={};
 
@@ -3322,17 +2940,14 @@ async function rejectFriend(
    data=JSON.parse(text);
   }catch{}
 
-
   toast(
-   data.message ||
+   data.message||
    "Request rejected"
   );
 
-
   await loadSocialData();
 
-
- }catch(error){
+ }catch{
 
   toast(
    "Server-এর সাথে সংযোগ হয়নি"
@@ -3344,7 +2959,7 @@ async function rejectFriend(
 
 
 /* =========================================
-   DIRECT CHAT
+   CHAT OPEN
 ========================================= */
 
 function openChatWithoutFriend(){
@@ -3353,72 +2968,89 @@ function openChatWithoutFriend(){
   "আগে Friends থেকে একজনকে নির্বাচন করুন ❤️"
  );
 
- showPage(
-  "friendsPage"
- );
+ showPage("friendsPage");
 
 }
 
 
-function openChatWith(
- username
-){
+async function openChatWith(username){
 
- currentChatUsername =
+ currentChatUsername=
   String(username)
    .replace(/^@/,"")
+   .trim()
    .toLowerCase();
 
-
- currentChatName =
-  "@" +
+ currentChatName=
+  "@"+
   currentChatUsername;
 
+ currentChatPhone=null;
 
- const chatName =
+ /*
+  Username থেকে phone বের করার জন্য
+  search API ব্যবহার করছি।
+ */
+
+ try{
+
+  const response=await fetch(
+   API_URL+
+   "/api/search?username="+
+   encodeURIComponent(
+    currentChatUsername
+   )
+  );
+
+  if(response.ok){
+
+   const data=await response.json();
+
+   if(data.ok&&data.user){
+
+    currentChatName=
+     data.user.name||
+     "@"+currentChatUsername;
+
+   }
+
+  }
+
+ }catch{}
+
+ const chatName=
   document.getElementById(
    "chatName"
   );
 
  if(chatName){
-
-  chatName.textContent =
+  chatName.textContent=
    currentChatName;
-
  }
 
-
- const chatStatus =
+ const chatStatus=
   document.getElementById(
    "chatStatus"
   );
 
  if(chatStatus){
-
-  chatStatus.textContent =
-   "Online/Offline";
-
-  chatStatus.style.color =
-   "#777";
-
+  chatStatus.textContent=
+   "● Online/Offline";
+  chatStatus.style.color="#777";
  }
-
 
  showPage("chatPage");
 
  loadMessages();
 
- const input =
+ const input=
   document.getElementById(
    "chatInput"
   );
 
- setTimeout(
-  ()=>{
-   input?.focus();
-  },
-  100
- );
+ setTimeout(()=>{
+  input?.focus();
+ },100);
 
 }
 
@@ -3441,141 +3073,124 @@ function openChat(){
 
 
 /* =========================================
-   PER-FRIEND MESSAGES
+   MESSAGE STORAGE
 ========================================= */
 
-function messageKey(){
+function messageKeyFor(username){
 
- const account =
-  getAccount();
+ const account=getAccount();
 
- const me =
-  account?.username ||
+ const me=
+  account?.username||
   "me";
 
- const other =
-  currentChatUsername ||
-  "unknown";
+ const other=
+  String(username||"unknown")
+   .replace(/^@/,"")
+   .toLowerCase();
 
-
- return (
-  "dujon_messages_" +
-  [me,other]
-   .sort()
-   .join("_")
+ return(
+  "dujon_messages_"+
+  [
+   me.toLowerCase(),
+   other
+  ]
+  .sort()
+  .join("_")
  );
 
+}
+
+
+function messageKey(){
+ return messageKeyFor(
+  currentChatUsername
+ );
 }
 
 
 function loadMessages(){
 
- const messages =
+ const messages=
   JSON.parse(
    localStorage.getItem(
     messageKey()
-   ) || "[]"
+   )||"[]"
   );
 
-
- const box =
+ const box=
   document.getElementById(
    "chatBox"
   );
 
  if(!box)return;
 
-
  box.innerHTML="";
 
+ messages.forEach(message=>{
 
- messages.forEach(
-  message=>{
+  addMessage(
+   message.text,
+   message.sender,
+   message.sender==="me",
+   false
+  );
 
-   addMessage(
-    message.text,
-    message.sender,
-    message.sender==="me",
-    false
-   );
+ });
 
-  }
- );
-
-
- box.scrollTop =
+ box.scrollTop=
   box.scrollHeight;
 
 }
 
 
-function saveMessages(
- messages
-){
-
- localStorage.setItem(
-  messageKey(),
-  JSON.stringify(messages)
- );
-
-}
-
+/* =========================================
+   ADD MESSAGE
+========================================= */
 
 function addMessage(
  text,
  sender,
  isMe=false,
- save=true,
- senderUsername=""
+ save=true
 ){
 
- const box =
+ const box=
   document.getElementById(
    "chatBox"
   );
 
  if(!box)return;
 
-
- const row =
+ const row=
   document.createElement(
    "div"
   );
 
- row.className =
-  "message" +
-  (
-   isMe
-   ?
-   " me"
-   :
-   ""
-  );
+ row.className=
+  "message"+
+  (isMe?" me":"");
 
-
- const bubble =
+ const bubble=
   document.createElement(
    "div"
   );
 
- bubble.className =
+ bubble.className=
   "message-bubble";
 
-
- bubble.textContent =
+ bubble.textContent=
   text;
 
-
- const time =
+ const time=
   document.createElement(
    "div"
   );
 
- time.className =
+ time.className=
   "message-time";
 
-
- time.textContent =
+ time.textContent=
   new Date()
    .toLocaleTimeString(
     "bn-BD",
@@ -3585,33 +3200,23 @@ function addMessage(
     }
    );
 
+ bubble.appendChild(time);
 
- bubble.appendChild(
-  time
- );
+ row.appendChild(bubble);
 
- row.appendChild(
-  bubble
- );
+ box.appendChild(row);
 
- box.appendChild(
-  row
- );
-
-
- box.scrollTop =
+ box.scrollTop=
   box.scrollHeight;
-
 
  if(save){
 
-  const messages =
+  const messages=
    JSON.parse(
     localStorage.getItem(
      messageKey()
-    ) || "[]"
+    )||"[]"
    );
-
 
   messages.push({
 
@@ -3622,27 +3227,20 @@ function addMessage(
     ?
     "me"
     :
-    (
-     senderUsername ||
-     sender ||
-     "them"
-    ),
+    sender,
 
    time:
     Date.now()
 
   });
 
-
-  if(messages.length>200){
-
+  while(messages.length>200){
    messages.shift();
-
   }
 
-
-  saveMessages(
-   messages
+  localStorage.setItem(
+   messageKey(),
+   JSON.stringify(messages)
   );
 
  }
@@ -3666,23 +3264,22 @@ function sendMessage(){
 
  }
 
-
- const input =
+ const input=
   document.getElementById(
    "chatInput"
   );
 
-
- const text =
+ const text=
   input.value.trim();
-
 
  if(!text)return;
 
-
  /*
-  Phone 1 → নির্দিষ্ট Phone 2
+  খুব গুরুত্বপূর্ণ:
+  নির্দিষ্ট Friend-এর username
+  server-এ পাঠানো হচ্ছে।
  */
+
  sendWS({
 
   type:"chat",
@@ -3690,21 +3287,23 @@ function sendMessage(){
   message:text,
 
   toUsername:
+   currentChatUsername,
+
+  targetUsername:
    currentChatUsername
 
  });
 
-
  /*
-  নিজের message immediately দেখাই
+  নিজের message immediately দেখানো
  */
+
  addMessage(
   text,
   "me",
   true,
   true
  );
-
 
  input.value="";
 
@@ -3732,48 +3331,62 @@ function callTarget(){
 }
 
 
-/* =========================================
-   GET MEDIA
-========================================= */
-
-async function getLocalMedia(
+function callFriend(
+ username,
  type
 ){
 
+ openChatWith(
+  username
+ );
+
+ setTimeout(()=>{
+
+  if(type==="video"){
+   startVideoCall();
+  }else{
+   startAudioCall();
+  }
+
+ },400);
+
+}
+
+
+/* =========================================
+   MEDIA
+========================================= */
+
+async function getLocalMedia(type){
+
  try{
 
-  const stream =
+  const stream=
    await navigator.mediaDevices
     .getUserMedia({
 
      audio:true,
 
      video:
-      type === "video"
+      type==="video"
 
     });
 
+  localStream=stream;
 
-  localStream =
-   stream;
-
-
-  const localVideo =
+  const localVideo=
    document.getElementById(
     "localVideo"
    );
 
-
   if(localVideo){
 
-   localVideo.srcObject =
+   localVideo.srcObject=
     stream;
 
   }
 
-
   return stream;
-
 
  }catch(error){
 
@@ -3782,7 +3395,6 @@ async function getLocalMedia(
    error
   );
 
-
   toast(
    type==="video"
    ?
@@ -3790,7 +3402,6 @@ async function getLocalMedia(
    :
    "Microphone permission দিন"
   );
-
 
   return null;
 
@@ -3813,158 +3424,165 @@ function createPeerConnection(){
 
  }
 
-
- peerConnection =
+ peerConnection=
   new RTCPeerConnection(
    ICE_SERVERS
   );
-
 
  if(localStream){
 
   localStream
    .getTracks()
-   .forEach(
-    track=>{
+   .forEach(track=>{
 
-     peerConnection.addTrack(
-      track,
-      localStream
-     );
+    peerConnection.addTrack(
+     track,
+     localStream
+    );
 
-    }
-   );
+   });
 
  }
 
+ peerConnection.ontrack=event=>{
 
- peerConnection.ontrack =
-  event=>{
+  const remoteVideo=
+   document.getElementById(
+    "remoteVideo"
+   );
 
-   const remoteVideo =
-    document.getElementById(
-     "remoteVideo"
-    );
+  if(
+   remoteVideo&&
+   event.streams&&
+   event.streams[0]
+  ){
+
+   remoteVideo.srcObject=
+    event.streams[0];
+
+   remoteVideo.play()
+    .catch(()=>{});
+
+  }
+
+ };
 
 
-   if(
-    remoteVideo &&
-    event.streams[0]
-   ){
+ peerConnection.onicecandidate=event=>{
 
-    remoteVideo.srcObject =
-     event.streams[0];
+  if(
+   event.candidate&&
+   callPeerUsername
+  ){
 
+   sendWS({
+
+    type:"ice-candidate",
+
+    candidate:
+     event.candidate,
+
+    toUsername:
+     callPeerUsername,
+
+    targetUsername:
+     callPeerUsername
+
+   });
+
+  }
+
+ };
+
+
+ peerConnection.onconnectionstatechange=()=>{
+
+  if(!peerConnection)return;
+
+  const state=
+   peerConnection.connectionState;
+
+  console.log(
+   "Peer state:",
+   state
+  );
+
+  const sub=
+   document.getElementById(
+    "callSubTitle"
+   );
+
+  if(state==="connected"){
+
+   if(sub){
+    sub.textContent=
+     "Connected ❤️";
    }
 
-  };
+  }
 
+  if(state==="connecting"){
 
- peerConnection.onicecandidate =
-  event=>{
-
-   if(
-    event.candidate &&
-    callPeerUsername
-   ){
-
-    sendWS({
-
-     type:"ice-candidate",
-
-     candidate:
-      event.candidate,
-
-     toUsername:
-      callPeerUsername
-
-    });
-
+   if(sub){
+    sub.textContent=
+     "Connecting...";
    }
 
-  };
+  }
 
+  if(
+   state==="failed"
+  ){
 
- peerConnection.onconnectionstatechange =
-  ()=>{
-
-   if(!peerConnection)return;
-
-
-   const state =
-    peerConnection
-     .connectionState;
-
-
-   if(
-    state==="connected"
-   ){
-
-    const sub =
-     document.getElementById(
-      "callSubTitle"
-     );
-
-    if(sub){
-
-     sub.textContent =
-      "Connected ❤️";
-
-    }
-
+   if(sub){
+    sub.textContent=
+     "Connection failed";
    }
 
+   toast(
+    "Call connection হয়নি"
+   );
 
-   if(
-    state==="failed" ||
-    state==="disconnected"
-   ){
+  }
 
-    const sub =
-     document.getElementById(
-      "callSubTitle"
-     );
+  if(
+   state==="disconnected"
+  ){
 
-    if(sub){
-
-     sub.textContent =
-      "Connection সমস্যা";
-
-    }
-
+   if(sub){
+    sub.textContent=
+     "Connection বিচ্ছিন্ন";
    }
 
-  };
+  }
+
+ };
 
 }
 
 
 /* =========================================
-   START AUDIO CALL
+   AUDIO
 ========================================= */
 
 async function startAudioCall(){
 
  if(!callTarget())return;
 
- await makeCall(
-  "audio"
- );
+ await makeCall("audio");
 
 }
 
 
 /* =========================================
-   START VIDEO CALL
+   VIDEO
 ========================================= */
 
 async function startVideoCall(){
 
  if(!callTarget())return;
 
- await makeCall(
-  "video"
- );
+ await makeCall("video");
 
 }
 
@@ -3973,137 +3591,139 @@ async function startVideoCall(){
    MAKE CALL
 ========================================= */
 
-async function makeCall(
- type
-){
+async function makeCall(type){
 
- currentCallType =
-  type;
+ currentCallType=type;
 
-
- callPeerUsername =
+ callPeerUsername=
   currentChatUsername;
 
+ callPeerPhone=
+  currentChatPhone;
 
- const stream =
-  await getLocalMedia(
-   type
-  );
+ pendingIceCandidates=[];
 
+ const stream=
+  await getLocalMedia(type);
 
  if(!stream)return;
 
-
  createPeerConnection();
 
+ try{
 
- const offer =
-  await peerConnection
-   .createOffer();
+  const offer=
+   await peerConnection.createOffer();
 
-
- await peerConnection
-  .setLocalDescription(
+  await peerConnection.setLocalDescription(
    offer
   );
 
+  showCallScreen(
+   type,
+   true
+  );
 
- showCallScreen(
-  type,
-  true
- );
+  sendWS({
 
+   type:
+    type==="video"
+    ?
+    "video-call"
+    :
+    "audio-call",
 
- sendWS({
+   action:"offer",
 
-  type:
-   type==="video"
-   ?
-   "video-call"
-   :
-   "audio-call",
+   offer,
 
-  action:"offer",
+   toUsername:
+    currentChatUsername,
 
-  offer,
+   targetUsername:
+    currentChatUsername,
 
-  toUsername:
-   currentChatUsername,
+   fromUsername:
+    getAccount()?.username||
+    "",
 
-  from:
-   getAccount()?.username ||
-   getAccount()?.phone ||
-   "",
+   profile:
+    getProfile()
 
-  profile:
-   getProfile()
+  });
 
- });
+ }catch(error){
+
+  console.log(
+   "Make call error:",
+   error
+  );
+
+  toast(
+   "Call শুরু হয়নি"
+  );
+
+  endCall(false);
+
+ }
 
 }
 
 
 /* =========================================
-   HANDLE CALL SIGNAL
+   CALL SIGNAL
 ========================================= */
 
-async function handleCallSignal(
- data
-){
+async function handleCallSignal(data){
 
- const fromUsername =
-  data.fromUsername ||
-  data.sender ||
-  data.from ||
-  "";
-
-
- if(
-  fromUsername &&
-  fromUsername !==
-   currentChatUsername
- ){
-
-  /*
-   Incoming call
-  */
-
- }
-
+ const fromUsername=
+  String(
+   data.fromUsername||
+   data.sender||
+   data.from||
+   ""
+  )
+  .replace(/^@/,"")
+  .toLowerCase();
 
  if(
-  data.action === "offer"
+  data.action==="offer"
  ){
 
-  pendingOffer =
+  pendingOffer=
    data.offer;
 
-
-  currentCallType =
-   data.type ===
-   "audio-call"
+  currentCallType=
+   data.type==="audio-call"
    ?
    "audio"
    :
    "video";
 
-
-  callPeerUsername =
-   fromUsername ||
-   data.fromUsername ||
-   data.from ||
+  callPeerUsername=
+   fromUsername||
    null;
 
-
-  callPeerPhone =
-   data.fromPhone ||
+  callPeerPhone=
+   data.fromPhone||
    null;
 
+  /*
+   Incoming call-এর caller-কে
+   current chat target হিসেবে রাখি।
+  */
 
-  showIncomingCall(
-   data
-  );
+  if(callPeerUsername){
 
+   currentChatUsername=
+    callPeerUsername;
+
+   currentChatName=
+    "@"+callPeerUsername;
+
+  }
+
+  showIncomingCall(data);
 
   return;
 
@@ -4111,17 +3731,12 @@ async function handleCallSignal(
 
 
  if(
-  data.action === "answer"
+  data.action==="answer"
  ){
 
-  if(
-   !peerConnection
-  ){
-
+  if(!peerConnection){
    return;
-
   }
-
 
   try{
 
@@ -4132,9 +3747,7 @@ async function handleCallSignal(
      )
     );
 
-
    await flushIceCandidates();
-
 
   }catch(error){
 
@@ -4145,6 +3758,18 @@ async function handleCallSignal(
 
   }
 
+  return;
+
+ }
+
+
+ if(
+  data.action==="reject"
+ ){
+
+  toast("Call rejected");
+
+  endCall(false);
 
   return;
 
@@ -4152,29 +3777,10 @@ async function handleCallSignal(
 
 
  if(
-  data.action === "reject"
+  data.action==="end"
  ){
 
-  toast(
-   "Call rejected"
-  );
-
-  endCall(
-   false
-  );
-
-  return;
-
- }
-
-
- if(
-  data.action === "end"
- ){
-
-  endCall(
-   false
-  );
+  endCall(false);
 
   return;
 
@@ -4184,18 +3790,15 @@ async function handleCallSignal(
 
 
 /* =========================================
-   ICE CANDIDATE
+   ICE
 ========================================= */
 
-async function handleIceCandidate(
- data
-){
+async function handleIceCandidate(data){
 
  if(!data.candidate)return;
 
-
  if(
-  !peerConnection ||
+  !peerConnection||
   !peerConnection.remoteDescription
  ){
 
@@ -4207,13 +3810,13 @@ async function handleIceCandidate(
 
  }
 
-
  try{
 
-  await peerConnection
-   .addIceCandidate(
+  await peerConnection.addIceCandidate(
+   new RTCIceCandidate(
     data.candidate
-   );
+   )
+  );
 
  }catch(error){
 
@@ -4230,29 +3833,26 @@ async function handleIceCandidate(
 async function flushIceCandidates(){
 
  if(
-  !peerConnection ||
+  !peerConnection||
   !peerConnection.remoteDescription
  ){
-
   return;
-
  }
-
 
  while(
   pendingIceCandidates.length
  ){
 
-  const candidate =
+  const candidate=
    pendingIceCandidates.shift();
-
 
   try{
 
-   await peerConnection
-    .addIceCandidate(
+   await peerConnection.addIceCandidate(
+    new RTCIceCandidate(
      candidate
-    );
+    )
+   );
 
   }catch(error){
 
@@ -4269,79 +3869,60 @@ async function flushIceCandidates(){
 
 
 /* =========================================
-   SHOW INCOMING CALL
+   INCOMING CALL UI
 ========================================= */
 
-function showIncomingCall(
- data
-){
+function showIncomingCall(data){
 
- const modal =
+ const modal=
   document.getElementById(
    "incomingCallModal"
   );
 
-
- const name =
+ const name=
   document.getElementById(
    "incomingName"
   );
 
-
- const type =
+ const type=
   document.getElementById(
    "incomingType"
   );
 
-
- const avatar =
+ const avatar=
   document.getElementById(
    "incomingAvatar"
   );
 
-
- const profile =
-  data.profile ||
+ const profile=
+  data.profile||
   {};
 
-
- const username =
-  data.fromUsername ||
-  data.sender ||
-  data.from ||
+ const username=
+  data.fromUsername||
+  data.sender||
+  data.from||
   "Someone";
 
+ name.textContent=
+  profile.name||
+  "@"+username;
 
- name.textContent =
-  profile.name ||
-  username;
-
-
- type.textContent =
-  data.type ===
-  "audio-call"
+ type.textContent=
+  data.type==="audio-call"
   ?
   "📞 Audio Call"
   :
   "📹 Video Call";
 
-
- if(profile.photo){
-
-  avatar.innerHTML =
-   `<img src="${escapeHtml(profile.photo)}">`;
-
- }else{
-
-  avatar.innerHTML =
-   "❤️";
-
- }
-
-
- modal.classList.add(
-  "show"
+ setAvatar(
+  avatar,
+  profile.photo||
+  "",
+  "❤️"
  );
+
+ modal.classList.add("show");
 
 }
 
@@ -4352,33 +3933,22 @@ function showIncomingCall(
 
 async function acceptCall(){
 
- const modal =
+ const modal=
   document.getElementById(
    "incomingCallModal"
   );
 
-
- modal.classList.remove(
-  "show"
- );
-
+ modal.classList.remove("show");
 
  if(!pendingOffer){
-
   return;
-
  }
 
-
- const type =
+ const type=
   currentCallType;
 
-
- const stream =
-  await getLocalMedia(
-   type
-  );
-
+ const stream=
+  await getLocalMedia(type);
 
  if(!stream){
 
@@ -4388,11 +3958,13 @@ async function acceptCall(){
 
  }
 
-
  createPeerConnection();
 
-
  try{
+
+  /*
+   আগে remote description
+  */
 
   await peerConnection
    .setRemoteDescription(
@@ -4401,26 +3973,25 @@ async function acceptCall(){
     )
    );
 
+  /*
+   তারপর queue করা ICE
+  */
 
   await flushIceCandidates();
 
-
-  const answer =
+  const answer=
    await peerConnection
     .createAnswer();
-
 
   await peerConnection
    .setLocalDescription(
     answer
    );
 
-
   showCallScreen(
    type,
    false
   );
-
 
   sendWS({
 
@@ -4436,10 +4007,12 @@ async function acceptCall(){
    answer,
 
    toUsername:
+    callPeerUsername,
+
+   targetUsername:
     callPeerUsername
 
   });
-
 
  }catch(error){
 
@@ -4452,8 +4025,9 @@ async function acceptCall(){
    "Call connect হয়নি"
   );
 
- }
+  endCall(false);
 
+ }
 
  pendingOffer=null;
 
@@ -4466,16 +4040,12 @@ async function acceptCall(){
 
 function rejectCall(){
 
- const modal =
+ const modal=
   document.getElementById(
    "incomingCallModal"
   );
 
-
- modal.classList.remove(
-  "show"
- );
-
+ modal.classList.remove("show");
 
  if(callPeerUsername){
 
@@ -4491,12 +4061,14 @@ function rejectCall(){
    action:"reject",
 
    toUsername:
+    callPeerUsername,
+
+   targetUsername:
     callPeerUsername
 
   });
 
  }
-
 
  pendingOffer=null;
 
@@ -4516,7 +4088,7 @@ function endCall(
 ){
 
  if(
-  notifyPeer &&
+  notifyPeer&&
   callPeerUsername
  ){
 
@@ -4532,30 +4104,30 @@ function endCall(
    action:"end",
 
    toUsername:
+    callPeerUsername,
+
+   targetUsername:
     callPeerUsername
 
   });
 
  }
 
-
  if(localStream){
 
   localStream
    .getTracks()
-   .forEach(
-    track=>{
-     try{
-      track.stop();
-     }catch{}
-    }
-   );
+   .forEach(track=>{
+
+    try{
+     track.stop();
+    }catch{}
+
+   });
 
  }
 
-
  localStream=null;
-
 
  if(peerConnection){
 
@@ -4564,7 +4136,6 @@ function endCall(
   }catch{}
 
  }
-
 
  peerConnection=null;
 
@@ -4576,54 +4147,41 @@ function endCall(
 
  callPeerPhone=null;
 
-
- const localVideo =
+ const localVideo=
   document.getElementById(
    "localVideo"
   );
 
- const remoteVideo =
+ const remoteVideo=
   document.getElementById(
    "remoteVideo"
   );
 
-
  if(localVideo){
-
   localVideo.srcObject=null;
-
  }
-
 
  if(remoteVideo){
-
   remoteVideo.srcObject=null;
-
  }
-
 
  document
   .getElementById(
    "callScreen"
   )
-  ?.classList.remove(
-   "show"
-  );
-
+  ?.classList.remove("show");
 
  document
   .getElementById(
    "incomingCallModal"
   )
-  ?.classList.remove(
-   "show"
-  );
+  ?.classList.remove("show");
 
 }
 
 
 /* =========================================
-   CALL UI
+   CALL SCREEN
 ========================================= */
 
 function showCallScreen(
@@ -4631,31 +4189,27 @@ function showCallScreen(
  outgoing
 ){
 
- const screen =
+ const screen=
   document.getElementById(
    "callScreen"
   );
 
-
- const title =
+ const title=
   document.getElementById(
    "callTitle"
   );
 
-
- const subtitle =
+ const subtitle=
   document.getElementById(
    "callSubTitle"
   );
 
-
- title.textContent =
-  currentChatName ||
-  callPeerUsername ||
+ title.textContent=
+  currentChatName||
+  callPeerUsername||
   "Call";
 
-
- subtitle.textContent =
+ subtitle.textContent=
   outgoing
   ?
   (
@@ -4674,25 +4228,21 @@ function showCallScreen(
    "Incoming Audio Call"
   );
 
+ screen.classList.add("show");
 
- screen.classList.add(
-  "show"
- );
-
-
- /*
-  Audio call হলে camera preview
-  বন্ধ রাখি।
- */
- const localVideo =
+ const localVideo=
   document.getElementById(
    "localVideo"
   );
 
+ const remoteVideo=
+  document.getElementById(
+   "remoteVideo"
+  );
 
  if(localVideo){
 
-  localVideo.style.display =
+  localVideo.style.display=
    type==="video"
    ?
    "block"
@@ -4701,16 +4251,9 @@ function showCallScreen(
 
  }
 
-
- const remoteVideo =
-  document.getElementById(
-   "remoteVideo"
-  );
-
-
  if(remoteVideo){
 
-  remoteVideo.style.display =
+  remoteVideo.style.display=
    type==="video"
    ?
    "block"
@@ -4730,32 +4273,25 @@ function toggleMic(){
 
  if(!localStream)return;
 
-
- const track =
+ const track=
   localStream
    .getAudioTracks()[0];
 
-
  if(!track)return;
 
+ micEnabled=!micEnabled;
 
- micEnabled =
-  !micEnabled;
-
-
- track.enabled =
+ track.enabled=
   micEnabled;
 
-
- const btn =
+ const btn=
   document.getElementById(
    "micButton"
   );
 
-
  if(btn){
 
-  btn.textContent =
+  btn.textContent=
    micEnabled
    ?
    "🎙️"
@@ -4775,32 +4311,25 @@ function toggleCamera(){
 
  if(!localStream)return;
 
-
- const track =
+ const track=
   localStream
    .getVideoTracks()[0];
 
-
  if(!track)return;
 
+ cameraEnabled=!cameraEnabled;
 
- cameraEnabled =
-  !cameraEnabled;
-
-
- track.enabled =
+ track.enabled=
   cameraEnabled;
 
-
- const btn =
+ const btn=
   document.getElementById(
    "cameraButton"
   );
 
-
  if(btn){
 
-  btn.textContent =
+  btn.textContent=
    cameraEnabled
    ?
    "📷"
@@ -4818,42 +4347,35 @@ function toggleCamera(){
 
 function createRoom(){
 
- const code =
+ const code=
   Math.random()
    .toString(36)
    .substring(2,8)
    .toUpperCase();
 
+ currentRoom=code;
 
- currentRoom =
-  code;
-
-
- const box =
+ const box=
   document.getElementById(
    "createdRoom"
   );
 
-
  if(box){
 
-  box.innerHTML = `
+  box.innerHTML=`
 
-   <div class="card"
-        style="margin-top:12px">
+   <div class="card" style="margin-top:12px">
 
-    <div
-     style="font-size:13px;color:#999"
-    >
+    <div style="font-size:13px;color:#999">
      তোমার Room Code
     </div>
 
-    <div
-     style="font-size:30px;
-            font-weight:800;
-            letter-spacing:5px;
-            margin:8px"
-    >
+    <div style="
+     font-size:30px;
+     font-weight:800;
+     letter-spacing:5px;
+     margin:8px
+    ">
      ${code}
     </div>
 
@@ -4865,29 +4387,25 @@ function createRoom(){
     </button>
 
    </div>
-
   `;
 
  }
 
-
  if(
-  !ws ||
-  ws.readyState !==
-   WebSocket.OPEN
+  !ws||
+  ws.readyState!==WebSocket.OPEN
  ){
 
-  connectRoom();
+  connectWebSocket();
 
-  setTimeout(
-   ()=>{
-    sendWS({
-     type:"room-create",
-     room:code
-    });
-   },
-   700
-  );
+  setTimeout(()=>{
+
+   sendWS({
+    type:"room-create",
+    room:code
+   });
+
+  },1000);
 
  }else{
 
@@ -4901,31 +4419,31 @@ function createRoom(){
 }
 
 
-function copyRoomCode(
- code
-){
+function copyRoomCode(code){
 
- navigator.clipboard
-  ?.writeText(code)
-  .then(
-   ()=>{
-    toast(
-     "Room Code copied ❤️"
-    );
-   }
-  )
-  .catch(
-   ()=>{
+ if(navigator.clipboard){
+
+  navigator.clipboard
+   .writeText(code)
+   .then(()=>{
+    toast("Room Code copied ❤️");
+   })
+   .catch(()=>{
     toast(code);
-   }
-  );
+   });
+
+ }else{
+
+  toast(code);
+
+ }
 
 }
 
 
 function joinRoom(){
 
- const code =
+ const code=
   document
    .getElementById(
     "roomCodeInput"
@@ -4934,39 +4452,31 @@ function joinRoom(){
    .trim()
    .toUpperCase();
 
-
  if(!code){
 
-  toast(
-   "Room Code দিন"
-  );
+  toast("Room Code দিন");
 
   return;
 
  }
 
-
- currentRoom =
-  code;
-
+ currentRoom=code;
 
  if(
-  !ws ||
-  ws.readyState !==
-   WebSocket.OPEN
+  !ws||
+  ws.readyState!==WebSocket.OPEN
  ){
 
-  connectRoom();
+  connectWebSocket();
 
-  setTimeout(
-   ()=>{
-    sendWS({
-     type:"room-join",
-     room:code
-    });
-   },
-   700
-  );
+  setTimeout(()=>{
+
+   sendWS({
+    type:"room-join",
+    room:code
+   });
+
+  },1000);
 
  }else{
 
@@ -4976,7 +4486,6 @@ function joinRoom(){
   });
 
  }
-
 
  toast(
   "Room-এ Join করার চেষ্টা চলছে..."
@@ -4991,20 +4500,17 @@ function joinRoom(){
 
 function loadTogetherDays(){
 
- const saved =
+ const saved=
   localStorage.getItem(
    "dujon_together_date"
   );
 
-
- const days =
+ const days=
   document.getElementById(
    "togetherDays"
   );
 
-
  if(!days)return;
-
 
  if(!saved){
 
@@ -5014,29 +4520,20 @@ function loadTogetherDays(){
 
  }
 
+ const start=new Date(saved);
 
- const start =
-  new Date(saved);
+ const now=new Date();
 
-
- const now =
-  new Date();
-
-
- const diff =
+ const diff=
   Math.max(
    0,
    Math.floor(
-    (
-     now-start
-    ) /
+    (now-start)/
     86400000
    )
   );
 
-
- days.textContent =
-  diff;
+ days.textContent=diff;
 
 }
 
@@ -5047,22 +4544,20 @@ function loadTogetherDays(){
 
 function loadOurStory(){
 
- const story =
+ const story=
   localStorage.getItem(
    "dujon_story"
   );
 
-
- const box =
+ const box=
   document.getElementById(
    "storyPreview"
   );
 
-
  if(box){
 
-  box.textContent =
-   story ||
+  box.textContent=
+   story||
    "এখনো কোনো গল্প লেখা হয়নি।";
 
  }
@@ -5076,22 +4571,20 @@ function loadOurStory(){
 
 function loadFavorite(){
 
- const favorite =
+ const favorite=
   localStorage.getItem(
    "dujon_favorite"
   );
 
-
- const box =
+ const box=
   document.getElementById(
    "favoriteText"
   );
 
-
  if(box){
 
-  box.textContent =
-   favorite ||
+  box.textContent=
+   favorite||
    "এখনো কিছু যোগ করা হয়নি।";
 
  }
@@ -5100,7 +4593,7 @@ function loadFavorite(){
 
 
 /* =========================================
-   NOTIFICATIONS
+   NOTIFICATION
 ========================================= */
 
 function showMessageNotification(
@@ -5108,35 +4601,26 @@ function showMessageNotification(
  title="💬 নতুন মেসেজ"
 ){
 
- const box =
+ const box=
   document.getElementById(
    "notification"
   );
 
-
  document.getElementById(
   "notificationTitle"
- ).textContent =
-  title;
-
+ ).textContent=title;
 
  document.getElementById(
   "notificationText"
- ).textContent =
-  text;
+ ).textContent=text;
 
-
- box.classList.add(
-  "show"
- );
-
+ box.classList.add("show");
 
  clearTimeout(
   showMessageNotification.timer
  );
 
-
- showMessageNotification.timer =
+ showMessageNotification.timer=
   setTimeout(
    hideNotification,
    3500
@@ -5145,9 +4629,7 @@ function showMessageNotification(
 }
 
 
-function showFriendRequestNotification(
- text
-){
+function showFriendRequestNotification(text){
 
  showMessageNotification(
   text,
@@ -5171,106 +4653,59 @@ function hideNotification(){
 
 
 /* =========================================
-   SECURITY / ESCAPE
+   ESCAPE
 ========================================= */
 
-function escapeHtml(
- value
-){
+function escapeHtml(value){
 
- return String(
-  value ?? ""
- )
- .replace(
-  /&/g,
-  "&amp;"
- )
- .replace(
-  /</g,
-  "&lt;"
- )
- .replace(
-  />/g,
-  "&gt;"
- )
- .replace(
-  /"/g,
-  "&quot;"
- )
- .replace(
-  /'/g,
-  "&#039;"
- );
+ return String(value??"")
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
 
 }
 
 
-function jsEscape(
- value
-){
+function jsEscape(value){
 
- return String(
-  value ?? ""
- )
- .replace(
-  /\\/g,
-  "\\\\"
- )
- .replace(
-  /'/g,
-  "\\'"
- )
- .replace(
-  /\r/g,
-  "\\r"
- )
- .replace(
-  /\n/g,
-  "\\n"
- );
+ return String(value??"")
+  .replace(/\\/g,"\\\\")
+  .replace(/'/g,"\\'")
+  .replace(/\r/g,"\\r")
+  .replace(/\n/g,"\\n");
 
 }
 
 
-function cssEscape(
- value
-){
+function cssEscape(value){
 
- if(
-  window.CSS &&
-  CSS.escape
- ){
-
-  return CSS.escape(
-   value
-  );
-
+ if(window.CSS&&CSS.escape){
+  return CSS.escape(value);
  }
 
- return String(
-  value
- )
- .replace(
-  /[^a-zA-Z0-9_-]/g,
-  "\\$&"
- );
+ return String(value)
+  .replace(
+   /[^a-zA-Z0-9_-]/g,
+   "\\$&"
+  );
 
 }
 
 
 /* =========================================
-   PAGE LOAD
+   START
 ========================================= */
 
 document.addEventListener(
  "DOMContentLoaded",
  ()=>{
 
-  const logged =
+  const logged=
    localStorage.getItem(
     "dujon_logged_in"
-   ) === "true";
-
+   )==="true";
 
   if(logged){
 
@@ -5284,17 +4719,13 @@ document.addEventListener(
 
    loadSocialData();
 
-   showPage(
-    "homePage"
-   );
+   showPage("homePage");
 
-   connectRoom();
+   connectWebSocket();
 
   }else{
 
-   showPage(
-    "loginPage"
-   );
+   showPage("loginPage");
 
   }
 
