@@ -657,8 +657,10 @@ const httpServer =
             user: {
               username:
                 user.username,
+
               name:
                 user.name || "",
+
               photo:
                 user.photo || ""
             }
@@ -901,7 +903,8 @@ const httpServer =
             sender.username
           );
 
-          saveDatabase();
+          const saved =
+            saveDatabase();
 
           console.log(
             "FRIEND REQUEST:",
@@ -915,6 +918,7 @@ const httpServer =
             200,
             {
               ok: true,
+              saved: saved,
               message:
                 "Friend request পাঠানো হয়েছে।"
             }
@@ -972,6 +976,10 @@ const httpServer =
             normalizeUsername(
               body.username
             );
+
+          /* ---------------------------------------------
+             FIND RECEIVER
+          --------------------------------------------- */
 
           const receiver =
             getUserByPhone(phone);
@@ -1050,9 +1058,49 @@ const httpServer =
                 )
             );
 
+          /*
+             যদি আগে থেকেই Friend থাকে,
+             তাহলে আবার Friend বানানোর দরকার নেই।
+          */
+
           if (
             requestIndex === -1
           ) {
+
+            const alreadyFriends =
+              receiver.friends.some(
+                item =>
+                  normalizeUsername(
+                    item
+                  ) ===
+                  normalizeUsername(
+                    requester.username
+                  )
+              );
+
+            if (alreadyFriends) {
+
+              sendJSON(
+                res,
+                200,
+                {
+                  ok: true,
+                  alreadyFriends: true,
+                  message:
+                    "আপনারা ইতিমধ্যে Friends।",
+                  user:
+                    publicUser(receiver),
+                  friend:
+                    publicUser(requester),
+                  friends:
+                    [...receiver.friends],
+                  requests:
+                    [...receiver.requests]
+                }
+              );
+
+              return;
+            }
 
             sendJSON(
               res,
@@ -1077,7 +1125,8 @@ const httpServer =
           );
 
           /* ---------------------------------------------
-             ADD FRIEND TO RECEIVER
+             ADD FRIEND
+             RECEIVER -> REQUESTER
           --------------------------------------------- */
 
           const receiverHasRequester =
@@ -1101,7 +1150,8 @@ const httpServer =
           }
 
           /* ---------------------------------------------
-             ADD FRIEND TO REQUESTER
+             ADD FRIEND
+             REQUESTER -> RECEIVER
           --------------------------------------------- */
 
           const requesterHasReceiver =
@@ -1124,24 +1174,103 @@ const httpServer =
             );
           }
 
-          saveDatabase();
+          /* ---------------------------------------------
+             REMOVE OPPOSITE REQUEST
+          --------------------------------------------- */
+
+          requester.requests =
+            requester.requests.filter(
+              item =>
+                normalizeUsername(
+                  item
+                ) !==
+                normalizeUsername(
+                  receiver.username
+                )
+            );
+
+          /* ---------------------------------------------
+             SAVE
+          --------------------------------------------- */
+
+          const saved =
+            saveDatabase();
+
+          if (!saved) {
+
+            sendJSON(
+              res,
+              500,
+              {
+                ok: false,
+                message:
+                  "Friend তৈরি হয়েছে কিন্তু Database save করা যায়নি।"
+              }
+            );
+
+            return;
+          }
+
+          /* ---------------------------------------------
+             LOG
+          --------------------------------------------- */
 
           console.log(
-            "FRIEND ACCEPTED:",
-            receiver.username,
-            "<->",
+            "================================="
+          );
+
+          console.log(
+            "FRIEND ACCEPTED"
+          );
+
+          console.log(
+            "Receiver:",
+            receiver.username
+          );
+
+          console.log(
+            "Requester:",
             requester.username
           );
+
+          console.log(
+            "Receiver Friends:",
+            receiver.friends
+          );
+
+          console.log(
+            "Requester Friends:",
+            requester.friends
+          );
+
+          console.log(
+            "================================="
+          );
+
+          /* ---------------------------------------------
+             RESPONSE
+          --------------------------------------------- */
 
           sendJSON(
             res,
             200,
             {
               ok: true,
+
               message:
                 "Friend হয়েছে ❤️",
+
               user:
-                publicUser(receiver)
+                publicUser(receiver),
+
+              friend:
+                publicUser(requester),
+
+              friends:
+                [...receiver.friends],
+
+              requests:
+                [...receiver.requests]
             }
           );
 
@@ -1231,13 +1360,15 @@ const httpServer =
                 requesterUsername
             );
 
-          saveDatabase();
+          const saved =
+            saveDatabase();
 
           sendJSON(
             res,
             200,
             {
               ok: true,
+              saved: saved,
               message:
                 "Friend request rejected।",
               user:
@@ -1298,6 +1429,7 @@ const httpServer =
       } catch {
 
         res.writeHead(400);
+
         res.end(
           "Bad Request"
         );
@@ -1313,6 +1445,7 @@ const httpServer =
       ) {
 
         res.writeHead(403);
+
         res.end(
           "Forbidden"
         );
