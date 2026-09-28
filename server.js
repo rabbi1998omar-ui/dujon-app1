@@ -1,14 +1,78 @@
+const http = require("http");
+const fs = require("fs");
+const path = require("path");
 const WebSocket = require("ws");
 
 const PORT = process.env.PORT || 8080;
 
-const server = new WebSocket.Server({
-  port: PORT
+/* =========================
+   HTTP SERVER
+========================= */
+
+const httpServer = http.createServer((req, res) => {
+
+  let filePath;
+
+  if (req.url === "/" || req.url === "/index.html") {
+    filePath = path.join(__dirname, "index.html");
+  } else {
+    filePath = path.join(__dirname, req.url.split("?")[0]);
+  }
+
+  /* Security: prevent ../ access */
+  if (!filePath.startsWith(__dirname)) {
+    res.writeHead(403);
+    res.end("Forbidden");
+    return;
+  }
+
+  fs.readFile(filePath, (error, data) => {
+
+    if (error) {
+      res.writeHead(404, {
+        "Content-Type": "text/plain; charset=utf-8"
+      });
+
+      res.end("Not Found");
+      return;
+    }
+
+    const ext = path.extname(filePath).toLowerCase();
+
+    const contentTypes = {
+      ".html": "text/html; charset=utf-8",
+      ".js": "application/javascript; charset=utf-8",
+      ".json": "application/json; charset=utf-8",
+      ".css": "text/css; charset=utf-8",
+      ".png": "image/png",
+      ".jpg": "image/jpeg",
+      ".jpeg": "image/jpeg",
+      ".webp": "image/webp",
+      ".svg": "image/svg+xml",
+      ".ico": "image/x-icon"
+    };
+
+    res.writeHead(200, {
+      "Content-Type":
+        contentTypes[ext] || "application/octet-stream"
+    });
+
+    res.end(data);
+  });
+});
+
+
+/* =========================
+   WEBSOCKET SERVER
+========================= */
+
+const wsServer = new WebSocket.Server({
+  server: httpServer
 });
 
 const rooms = new Map();
 
-console.log("Dujon server started on port " + PORT);
+console.log("Dujon server starting...");
 
 
 /* =========================
@@ -16,6 +80,7 @@ console.log("Dujon server started on port " + PORT);
 ========================= */
 
 function removeFromRoom(socket) {
+
   const room = socket.room;
 
   if (!room) return;
@@ -37,16 +102,26 @@ function removeFromRoom(socket) {
   );
 
   clients.forEach(client => {
+
     if (client.readyState === WebSocket.OPEN) {
+
       client.send(JSON.stringify({
         type: "peer-left"
       }));
+
     }
+
   });
 
   if (clients.size === 0) {
+
     rooms.delete(room);
-    console.log("Room deleted:", room);
+
+    console.log(
+      "Room deleted:",
+      room
+    );
+
   }
 
   socket.room = null;
@@ -58,28 +133,38 @@ function removeFromRoom(socket) {
 ========================= */
 
 function sendToOthers(room, sender, message) {
+
   const clients = rooms.get(room);
 
   if (!clients) return;
 
   clients.forEach(client => {
+
     if (
       client !== sender &&
       client.readyState === WebSocket.OPEN
     ) {
-      client.send(JSON.stringify(message));
+
+      client.send(
+        JSON.stringify(message)
+      );
+
     }
+
   });
+
 }
 
 
 /* =========================
-   CONNECTION
+   WEBSOCKET CONNECTION
 ========================= */
 
-server.on("connection", socket => {
+wsServer.on("connection", socket => {
 
-  console.log("New phone connected");
+  console.log(
+    "New phone connected"
+  );
 
   socket.room = null;
 
@@ -93,8 +178,17 @@ server.on("connection", socket => {
     let message;
 
     try {
-      message = JSON.parse(rawData.toString());
-    } catch {
+
+      message = JSON.parse(
+        rawData.toString()
+      );
+
+    } catch (error) {
+
+      console.log(
+        "Invalid JSON message"
+      );
+
       return;
     }
 
@@ -105,7 +199,10 @@ server.on("connection", socket => {
 
     if (message.type === "join") {
 
-      const room = String(message.room || "").trim();
+      const room = String(
+        message.room || ""
+      ).trim();
+
 
       if (!/^\d{6}$/.test(room)) {
 
@@ -119,7 +216,9 @@ server.on("connection", socket => {
 
 
       if (socket.room) {
+
         removeFromRoom(socket);
+
       }
 
 
@@ -130,7 +229,11 @@ server.on("connection", socket => {
 
         clients = new Set();
 
-        rooms.set(room, clients);
+        rooms.set(
+          room,
+          clients
+        );
+
       }
 
 
@@ -164,6 +267,8 @@ server.on("connection", socket => {
       }));
 
 
+      /* Tell the first phone that the second phone joined */
+
       clients.forEach(client => {
 
         if (
@@ -189,16 +294,25 @@ server.on("connection", socket => {
 
     const room = socket.room;
 
-    if (!room || !rooms.has(room)) {
+    if (
+      !room ||
+      !rooms.has(room)
+    ) {
+
       return;
+
     }
 
 
     /* =========================
-       NORMAL RELAY
+       RELAY
     ========================= */
 
-    sendToOthers(room, socket, message);
+    sendToOthers(
+      room,
+      socket,
+      message
+    );
 
 
     /* =========================
@@ -238,7 +352,9 @@ server.on("connection", socket => {
        COUPLE SPACE
     ========================= */
 
-    if (message.type === "couple-date") {
+    if (
+      message.type === "couple-date"
+    ) {
 
       console.log(
         "Couple date:",
@@ -249,7 +365,9 @@ server.on("connection", socket => {
     }
 
 
-    if (message.type === "our-story") {
+    if (
+      message.type === "our-story"
+    ) {
 
       console.log(
         "Our Story updated:",
@@ -259,7 +377,9 @@ server.on("connection", socket => {
     }
 
 
-    if (message.type === "memory") {
+    if (
+      message.type === "memory"
+    ) {
 
       console.log(
         "Memory added:",
@@ -269,7 +389,9 @@ server.on("connection", socket => {
     }
 
 
-    if (message.type === "favorite") {
+    if (
+      message.type === "favorite"
+    ) {
 
       console.log(
         "Favorite moment:",
@@ -287,7 +409,9 @@ server.on("connection", socket => {
 
   socket.on("close", () => {
 
-    console.log("Phone disconnected");
+    console.log(
+      "Phone disconnected"
+    );
 
     removeFromRoom(socket);
 
@@ -312,6 +436,24 @@ server.on("connection", socket => {
 });
 
 
-console.log(
-  "Server listening on port " + PORT
+/* =========================
+   START SERVER
+========================= */
+
+httpServer.listen(
+  PORT,
+  "0.0.0.0",
+  () => {
+
+    console.log(
+      "Dujon server started on port " +
+      PORT
+    );
+
+    console.log(
+      "Server listening on port " +
+      PORT
+    );
+
+  }
 );
