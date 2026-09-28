@@ -5,60 +5,113 @@ const WebSocket = require("ws");
 
 const PORT = process.env.PORT || 8080;
 
+const ROOT = __dirname;
+
+/* =========================
+   MIME TYPES
+========================= */
+
+const contentTypes = {
+  ".html": "text/html; charset=utf-8",
+  ".js": "application/javascript; charset=utf-8",
+  ".css": "text/css; charset=utf-8",
+  ".json": "application/json; charset=utf-8",
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".webp": "image/webp",
+  ".svg": "image/svg+xml",
+  ".ico": "image/x-icon",
+  ".txt": "text/plain; charset=utf-8"
+};
+
+
 /* =========================
    HTTP SERVER
 ========================= */
 
 const httpServer = http.createServer((req, res) => {
 
-  let filePath;
+  let requestPath = req.url.split("?")[0];
 
-  if (req.url === "/" || req.url === "/index.html") {
-    filePath = path.join(__dirname, "index.html");
-  } else {
-    filePath = path.join(__dirname, req.url.split("?")[0]);
+  if (requestPath === "/") {
+    requestPath = "/index.html";
   }
 
-  /* Security: prevent ../ access */
-  if (!filePath.startsWith(__dirname)) {
+  const filePath = path.join(
+    ROOT,
+    decodeURIComponent(requestPath)
+  );
+
+  /* Security check */
+  if (!filePath.startsWith(ROOT)) {
     res.writeHead(403);
     res.end("Forbidden");
     return;
   }
 
-  fs.readFile(filePath, (error, data) => {
+  fs.stat(filePath, (statError, stats) => {
 
-    if (error) {
+    if (statError || !stats.isFile()) {
+
+      /* Browser/API health check */
+      if (requestPath === "/health") {
+
+        res.writeHead(200, {
+          "Content-Type": "text/plain; charset=utf-8"
+        });
+
+        res.end("Dujon Server OK");
+        return;
+      }
+
       res.writeHead(404, {
-        "Content-Type": "text/plain; charset=utf-8"
+        "Content-Type": "text/html; charset=utf-8"
       });
 
-      res.end("Not Found");
+      res.end(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="UTF-8">
+          <title>Dujon</title>
+        </head>
+        <body>
+          <h1>Not Found</h1>
+          <p>Dujon server is running.</p>
+        </body>
+        </html>
+      `);
+
       return;
     }
 
-    const ext = path.extname(filePath).toLowerCase();
+    fs.readFile(filePath, (error, data) => {
 
-    const contentTypes = {
-      ".html": "text/html; charset=utf-8",
-      ".js": "application/javascript; charset=utf-8",
-      ".json": "application/json; charset=utf-8",
-      ".css": "text/css; charset=utf-8",
-      ".png": "image/png",
-      ".jpg": "image/jpeg",
-      ".jpeg": "image/jpeg",
-      ".webp": "image/webp",
-      ".svg": "image/svg+xml",
-      ".ico": "image/x-icon"
-    };
+      if (error) {
 
-    res.writeHead(200, {
-      "Content-Type":
-        contentTypes[ext] || "application/octet-stream"
+        res.writeHead(500, {
+          "Content-Type": "text/plain; charset=utf-8"
+        });
+
+        res.end("Server Error");
+        return;
+      }
+
+      const ext = path.extname(filePath).toLowerCase();
+
+      res.writeHead(200, {
+        "Content-Type":
+          contentTypes[ext] ||
+          "application/octet-stream"
+      });
+
+      res.end(data);
+
     });
 
-    res.end(data);
   });
+
 });
 
 
@@ -76,7 +129,7 @@ console.log("Dujon server starting...");
 
 
 /* =========================
-   ROOM CLEANUP
+   REMOVE FROM ROOM
 ========================= */
 
 function removeFromRoom(socket) {
@@ -129,7 +182,7 @@ function removeFromRoom(socket) {
 
 
 /* =========================
-   SEND TO OTHER PERSON
+   SEND TO OTHER PHONE
 ========================= */
 
 function sendToOthers(room, sender, message) {
@@ -162,16 +215,10 @@ function sendToOthers(room, sender, message) {
 
 wsServer.on("connection", socket => {
 
-  console.log(
-    "New phone connected"
-  );
+  console.log("New phone connected");
 
   socket.room = null;
 
-
-  /* =========================
-     MESSAGE
-  ========================= */
 
   socket.on("message", rawData => {
 
@@ -185,9 +232,7 @@ wsServer.on("connection", socket => {
 
     } catch (error) {
 
-      console.log(
-        "Invalid JSON message"
-      );
+      console.log("Invalid JSON message");
 
       return;
     }
@@ -216,9 +261,7 @@ wsServer.on("connection", socket => {
 
 
       if (socket.room) {
-
         removeFromRoom(socket);
-
       }
 
 
@@ -267,7 +310,7 @@ wsServer.on("connection", socket => {
       }));
 
 
-      /* Tell the first phone that the second phone joined */
+      /* দ্বিতীয় ফোন ঢুকলে প্রথম ফোনকে জানানো */
 
       clients.forEach(client => {
 
@@ -289,7 +332,7 @@ wsServer.on("connection", socket => {
 
 
     /* =========================
-       CHECK ROOM
+       ROOM CHECK
     ========================= */
 
     const room = socket.room;
@@ -300,12 +343,11 @@ wsServer.on("connection", socket => {
     ) {
 
       return;
-
     }
 
 
     /* =========================
-       RELAY
+       RELAY MESSAGE
     ========================= */
 
     sendToOthers(
@@ -316,7 +358,7 @@ wsServer.on("connection", socket => {
 
 
     /* =========================
-       CHAT LOG
+       LOGS
     ========================= */
 
     if (message.type === "chat") {
@@ -329,10 +371,6 @@ wsServer.on("connection", socket => {
 
     }
 
-
-    /* =========================
-       CALL LOG
-    ========================= */
 
     if (
       message.type === "video-call" ||
@@ -348,13 +386,7 @@ wsServer.on("connection", socket => {
     }
 
 
-    /* =========================
-       COUPLE SPACE
-    ========================= */
-
-    if (
-      message.type === "couple-date"
-    ) {
+    if (message.type === "couple-date") {
 
       console.log(
         "Couple date:",
@@ -365,9 +397,7 @@ wsServer.on("connection", socket => {
     }
 
 
-    if (
-      message.type === "our-story"
-    ) {
+    if (message.type === "our-story") {
 
       console.log(
         "Our Story updated:",
@@ -377,9 +407,7 @@ wsServer.on("connection", socket => {
     }
 
 
-    if (
-      message.type === "memory"
-    ) {
+    if (message.type === "memory") {
 
       console.log(
         "Memory added:",
@@ -389,9 +417,7 @@ wsServer.on("connection", socket => {
     }
 
 
-    if (
-      message.type === "favorite"
-    ) {
+    if (message.type === "favorite") {
 
       console.log(
         "Favorite moment:",
@@ -409,9 +435,7 @@ wsServer.on("connection", socket => {
 
   socket.on("close", () => {
 
-    console.log(
-      "Phone disconnected"
-    );
+    console.log("Phone disconnected");
 
     removeFromRoom(socket);
 
@@ -446,13 +470,11 @@ httpServer.listen(
   () => {
 
     console.log(
-      "Dujon server started on port " +
-      PORT
+      "Dujon server started on port " + PORT
     );
 
     console.log(
-      "Server listening on port " +
-      PORT
+      "Server listening on port " + PORT
     );
 
   }
