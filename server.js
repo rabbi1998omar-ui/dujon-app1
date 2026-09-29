@@ -20,7 +20,8 @@ if (fs.existsSync(DB_FILE)) {
     users = JSON.parse(
       fs.readFileSync(DB_FILE, "utf8")
     );
-  } catch {
+  } catch (error) {
+    console.log("Database load error:", error);
     users = {};
   }
 }
@@ -113,7 +114,7 @@ function body(req) {
                 : {}
             );
 
-          } catch {
+          } catch (error) {
 
             resolve({});
 
@@ -137,9 +138,7 @@ function body(req) {
    FIND USER BY USERNAME
 ========================================= */
 
-function findUserByUsername(
-  username
-) {
+function findUserByUsername(username) {
 
   if (!username) {
     return null;
@@ -158,8 +157,8 @@ function findUserByUsername(
           String(
             user.username || ""
           )
-            .toLowerCase() ===
-          wanted
+            .trim()
+            .toLowerCase() === wanted
       ) || null
   );
 
@@ -170,14 +169,10 @@ function findUserByUsername(
    FIND PHONE BY USERNAME
 ========================================= */
 
-function findUserPhoneByUsername(
-  username
-) {
+function findUserPhoneByUsername(username) {
 
   const user =
-    findUserByUsername(
-      username
-    );
+    findUserByUsername(username);
 
   return user?.phone || null;
 
@@ -221,10 +216,7 @@ function publicUser(user) {
    AUTHENTICATE
 ========================================= */
 
-function authenticate(
-  phone,
-  pin
-) {
+function authenticate(phone, pin) {
 
   const user =
     users[
@@ -514,7 +506,6 @@ const server =
 
       /* ================================
          PROFILE
-         /api/profile অপরিবর্তিত
       ================================= */
 
       if (
@@ -885,18 +876,37 @@ const server =
         }
 
 
-        normalizeUser(
-          sender
-        );
+        normalizeUser(sender);
+        normalizeUser(target);
 
-        normalizeUser(
-          target
-        );
 
+        const targetUsername =
+          String(
+            target.username || ""
+          )
+            .trim()
+            .toLowerCase();
+
+
+        const senderUsername =
+          String(
+            sender.username || ""
+          )
+            .trim()
+            .toLowerCase();
+
+
+        /* ================================
+           ALREADY FRIEND
+        ================================= */
 
         if (
-          sender.friends.includes(
-            target.username
+          sender.friends.some(
+            item =>
+              String(item || "")
+                .trim()
+                .toLowerCase() ===
+              targetUsername
           )
         ) {
 
@@ -913,9 +923,17 @@ const server =
         }
 
 
+        /* ================================
+           ALREADY REQUESTED
+        ================================= */
+
         if (
-          target.requests.includes(
-            sender.username
+          target.requests.some(
+            item =>
+              String(item || "")
+                .trim()
+                .toLowerCase() ===
+              senderUsername
           )
         ) {
 
@@ -947,9 +965,7 @@ const server =
               "friend-request",
 
             from:
-              publicUser(
-                sender
-              )
+              publicUser(sender)
           }
         );
 
@@ -981,6 +997,10 @@ const server =
           await body(req);
 
 
+        /* ================================
+           RECEIVER AUTHENTICATION
+        ================================= */
+
         const receiver =
           authenticate(
             data.phone,
@@ -1002,6 +1022,15 @@ const server =
 
         }
 
+
+        normalizeUser(
+          receiver
+        );
+
+
+        /* ================================
+           FIND REQUESTER
+        ================================= */
 
         const requester =
           findUserByUsername(
@@ -1025,23 +1054,46 @@ const server =
 
 
         normalizeUser(
-          receiver
-        );
-
-        normalizeUser(
           requester
         );
 
 
-        const index =
-          receiver.requests
-            .indexOf(
-              requester.username
-            );
+        /* ================================
+           NORMALIZE USERNAMES
+        ================================= */
+
+        const requesterUsername =
+          String(
+            requester.username || ""
+          )
+            .trim()
+            .toLowerCase();
+
+
+        const receiverUsername =
+          String(
+            receiver.username || ""
+          )
+            .trim()
+            .toLowerCase();
+
+
+        /* ================================
+           FIND REQUEST
+        ================================= */
+
+        const requestIndex =
+          receiver.requests.findIndex(
+            item =>
+              String(item || "")
+                .trim()
+                .toLowerCase() ===
+              requesterUsername
+          );
 
 
         if (
-          index === -1
+          requestIndex === -1
         ) {
 
           return json(
@@ -1057,54 +1109,106 @@ const server =
         }
 
 
-        receiver.requests
-          .splice(
-            index,
-            1
+        /* ================================
+           REMOVE REQUEST
+        ================================= */
+
+        receiver.requests.splice(
+          requestIndex,
+          1
+        );
+
+
+        /* ================================
+           ADD RECEIVER -> REQUESTER
+        ================================= */
+
+        if (
+          !receiver.friends.some(
+            item =>
+              String(item || "")
+                .trim()
+                .toLowerCase() ===
+              requesterUsername
+          )
+        ) {
+
+          receiver.friends.push(
+            requesterUsername
+          );
+
+        }
+
+
+        /* ================================
+           ADD REQUESTER -> RECEIVER
+        ================================= */
+
+        if (
+          !requester.friends.some(
+            item =>
+              String(item || "")
+                .trim()
+                .toLowerCase() ===
+              receiverUsername
+          )
+        ) {
+
+          requester.friends.push(
+            receiverUsername
+          );
+
+        }
+
+
+        /* ================================
+           REMOVE REVERSE REQUEST
+        ================================= */
+
+        requester.requests =
+          requester.requests.filter(
+            item =>
+              String(item || "")
+                .trim()
+                .toLowerCase() !==
+              receiverUsername
           );
 
 
-        if (
-          !receiver.friends
-            .includes(
-              requester.username
-            )
-        ) {
-
-          receiver.friends
-            .push(
-              requester.username
-            );
-
-        }
-
-
-        if (
-          !requester.friends
-            .includes(
-              receiver.username
-            )
-        ) {
-
-          requester.friends
-            .push(
-              receiver.username
-            );
-
-        }
-
-
-        requester.requests =
-          requester.requests
-            .filter(
-              item =>
-                item !==
-                receiver.username
-            );
-
+        /* ================================
+           SAVE DATABASE
+        ================================= */
 
         saveUsers();
 
+
+        /* ================================
+           SERVER LOG
+        ================================= */
+
+        console.log(
+          "FRIEND ACCEPTED:",
+          receiver.username,
+          "<->",
+          requester.username
+        );
+
+
+        console.log(
+          "Receiver friends:",
+          receiver.friends
+        );
+
+
+        console.log(
+          "Requester friends:",
+          requester.friends
+        );
+
+
+        /* ================================
+           REALTIME NOTIFICATION
+        ================================= */
 
         sendToUser(
           requester.phone,
@@ -1117,10 +1221,17 @@ const server =
 
             name:
               receiver.name ||
-              receiver.username
+              receiver.username,
+
+            friend:
+              publicUser(receiver)
           }
         );
 
+
+        /* ================================
+           RESPONSE
+        ================================= */
 
         return json(
           res,
@@ -1132,10 +1243,19 @@ const server =
             message:
               "Friend request accepted ❤️",
 
+            friend:
+              publicUser(requester),
+
             user: {
 
               username:
                 receiver.username,
+
+              name:
+                receiver.name,
+
+              photo:
+                receiver.photo,
 
               friends:
                 receiver.friends,
@@ -1206,13 +1326,22 @@ const server =
 
         if (requester) {
 
+          const requesterUsername =
+            String(
+              requester.username || ""
+            )
+              .trim()
+              .toLowerCase();
+
+
           receiver.requests =
-            receiver.requests
-              .filter(
-                item =>
-                  item !==
-                  requester.username
-              );
+            receiver.requests.filter(
+              item =>
+                String(item || "")
+                  .trim()
+                  .toLowerCase() !==
+                requesterUsername
+            );
 
         }
 
@@ -1261,11 +1390,6 @@ const server =
 
       } else {
 
-        /*
-         Query string বাদ দিয়ে
-         শুধু pathname ব্যবহার হচ্ছে।
-        */
-
         const cleanPath =
           pathname
             .replace(/^\/+/, "");
@@ -1287,10 +1411,9 @@ const server =
 
 
       if (
-        !normalizedPath
-          .startsWith(
-            __dirname
-          )
+        !normalizedPath.startsWith(
+          __dirname
+        )
       ) {
 
         res.writeHead(
@@ -1402,16 +1525,18 @@ const wss =
   });
 
 
-/*
-  phone -> WebSocket
-*/
+/* =========================================
+   ONLINE USERS
+========================================= */
+
 const onlineUsers =
   new Map();
 
 
-/*
-  roomCode -> Set<WebSocket>
-*/
+/* =========================================
+   ROOMS
+========================================= */
+
 const rooms =
   new Map();
 
@@ -1513,10 +1638,9 @@ function findTargetSocket(
       .toLowerCase();
 
 
-  /*
-    Username থাকলে
-    username → phone
-  */
+  /* ================================
+     USERNAME -> PHONE
+  ================================= */
 
   if (
     targetUsername
@@ -1538,10 +1662,9 @@ function findTargetSocket(
   }
 
 
-  /*
-    Call response-এর জন্য
-    saved peer
-  */
+  /* ================================
+     SAVED CALL PEER
+  ================================= */
 
   if (
     !targetPhone &&
@@ -1627,11 +1750,9 @@ function directRelay(
   }
 
 
-  /*
-    Offer পাঠানোর সময়
-    দুই socket-এর মধ্যে
-    call relationship save করি।
-  */
+  /* ================================
+     SAVE CALL RELATIONSHIP
+  ================================= */
 
   if (
     (
@@ -1660,9 +1781,9 @@ function directRelay(
   }
 
 
-  /*
-    Answer এও relationship নিশ্চিত করি
-  */
+  /* ================================
+     ANSWER
+  ================================= */
 
   if (
     (
@@ -1697,10 +1818,9 @@ function directRelay(
   }
 
 
-  /*
-    ICE candidate-এর জন্য
-    sender information
-  */
+  /* ================================
+     OUTGOING DATA
+  ================================= */
 
   const outgoing = {
 
@@ -1725,10 +1845,9 @@ function directRelay(
     );
 
 
-  /*
-    Reject / End হলে
-    call relationship clear
-  */
+  /* ================================
+     CLEAR CALL
+  ================================= */
 
   if (
     (
@@ -1767,7 +1886,7 @@ function directRelay(
 
 
 /* =========================================
-   ROOM
+   LEAVE ROOM
 ========================================= */
 
 function leaveRoom(ws) {
@@ -1823,6 +1942,10 @@ function leaveRoom(ws) {
 
 }
 
+
+/* =========================================
+   JOIN ROOM
+========================================= */
 
 function joinRoom(
   ws,
@@ -2026,11 +2149,9 @@ wss.on(
             );
 
 
-          /*
-            একই account অন্য device/socket
-            থেকে connected থাকলে পুরোনো socket
-            বন্ধ করা হবে।
-          */
+          /* ================================
+             OLD SOCKET CLOSE
+          ================================= */
 
           const oldSocket =
             onlineUsers.get(
@@ -2065,6 +2186,10 @@ wss.on(
           );
 
 
+          /* ================================
+             JOINED
+          ================================= */
+
           sendSocket(
             ws,
             {
@@ -2079,9 +2204,9 @@ wss.on(
           );
 
 
-          /*
-            নিজের profile
-          */
+          /* ================================
+             PROFILE
+          ================================= */
 
           sendSocket(
             ws,
@@ -2097,10 +2222,9 @@ wss.on(
           );
 
 
-          /*
-            অন্য online users-কে
-            presence জানানো
-          */
+          /* ================================
+             ONLINE PRESENCE
+          ================================= */
 
           for (
             const [
@@ -2114,10 +2238,7 @@ wss.on(
               isOpen(otherSocket)
             ) {
 
-              /*
-                অন্য user-কে
-                নতুন user online
-              */
+              /* অন্য user-কে */
 
               sendSocket(
                 otherSocket,
@@ -2139,10 +2260,7 @@ wss.on(
               );
 
 
-              /*
-                নতুন user-কে
-                অন্য user online
-              */
+              /* নতুন user-কে */
 
               sendSocket(
                 ws,
@@ -2404,12 +2522,6 @@ wss.on(
           "ice-candidate"
         ) {
 
-          /*
-            ICE-এর target:
-            toUsername থাকলে সেটা,
-            না থাকলে callPeerPhone
-          */
-
           directRelay(
             ws,
             {
@@ -2459,10 +2571,9 @@ wss.on(
       "close",
       () => {
 
-        /*
-          শুধু নিজের socket হলে
-          onlineUsers থেকে remove করি।
-        */
+        /* ================================
+           REMOVE ONLINE USER
+        ================================= */
 
         if (
           ws.phone &&
@@ -2478,14 +2589,18 @@ wss.on(
         }
 
 
+        /* ================================
+           LEAVE ROOM
+        ================================= */
+
         leaveRoom(
           ws
         );
 
 
-        /*
-          Offline presence
-        */
+        /* ================================
+           OFFLINE PRESENCE
+        ================================= */
 
         for (
           const [
@@ -2518,6 +2633,10 @@ wss.on(
       }
     );
 
+
+    /* ================================
+       SOCKET ERROR
+    ================================= */
 
     ws.on(
       "error",
